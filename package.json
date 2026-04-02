@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "vite",
     "build:lib": "tsc -b && vite build",
-    "build:app": "tsc -b && vite build",
+    "build:app": "tsc -b && VITE_BUILD_APP=true vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
