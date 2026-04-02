@@ -1,4 +1,5 @@
 {
+  "installCommand": "npm install",
   "buildCommand": "VITE_BUILD_APP=true npx vite build",
   "outputDirectory": "dist-app",
   "framework": null,
