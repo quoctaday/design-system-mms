@@ -1,0 +1,78 @@
+.badge-doc {
+  max-width: 800px;
+}
+
+.doc-header {
+  margin-bottom: 48px;
+}
+
+.doc-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.doc-description {
+  font-size: 18px;
+  color: var(--text-subtle);
+  line-height: 1.6;
+}
+
+.doc-section {
+  margin-bottom: 64px;
+}
+
+.doc-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-standard);
+}
+
+.doc-section p {
+  font-size: 14px;
+  color: var(--text-subtle);
+  margin-bottom: 24px;
+}
+
+.example-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  padding: 32px;
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-16);
+}
+
+.example-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-low);
+  padding: 24px;
+  border-radius: var(--radius-12);
+  box-shadow: var(--shadow-small);
+}
+
+.example-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 32px;
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-16);
+}
+
+code {
+  font-family: monospace;
+  font-size: 12px;
+  background-color: var(--gray-200);
+  padding: 2px 4px;
+  border-radius: 4px;
+}

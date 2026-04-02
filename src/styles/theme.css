@@ -1,0 +1,337 @@
+@import url('https://rsms.me/inter/inter.css');
+
+:root {
+  /* ═══════════════════════════════════════════
+     Figma Design System Tokens – MMS Platform
+     Source: 🛟 Design-System-MP (Figma)
+     ═══════════════════════════════════════════ */
+
+  /* ── Brand (switchable per brand) ─────── */
+  --brand-50: #e7f3ff;
+  --brand-100: #b6daff;
+  --brand-200: #92c8ff;
+  --brand-300: #60afff;
+  --brand-400: #41a0ff;
+  --brand-500: #1288ff;
+  --brand-600: #107ce8;
+  --brand-700: #0d61b5;
+  --brand-800: #0a4b8c;
+  --brand-alpha-16: rgba(18, 136, 255, 0.16);
+  --brand-alpha-10: rgba(18, 136, 255, 0.10);
+  --brand-alpha-4: rgba(18, 136, 255, 0.04);
+
+  /* ── Brand Contrast (WCAG AA ≥ 4.5:1) ── */
+  --brand-solid-bg: #0d61b5;        /* ≥4.5:1 with white text */
+  --brand-text-accessible: #0d61b5; /* ≥4.5:1 on white bg   */
+
+  /* ── Text ─────────────────────────────── */
+  --text-emphasis: var(--gray-12);
+  --text-subtle: var(--gray-11);
+  --text-muted: var(--gray-9);
+  --text-on-color: #ffffff;
+  --text-disabled: var(--gray-8);
+  --text-brand: var(--brand-11);
+  --text-success: var(--success-11);
+  --text-error: var(--error-11);
+
+  /* ── Icon ──────────────────────────────── */
+  --icon-emphasis: var(--gray-12);
+  --icon-subtle: var(--gray-11);
+  --icon-muted: var(--gray-9);
+  --icon-on-color: #ffffff;
+  --icon-brand: var(--brand-9);
+  --icon-success: var(--success-9);
+  --icon-error: var(--error-9);
+  --icon-disabled: var(--gray-7);
+
+  /* ── Surface / Background ─────────────── */
+  --bg-surface: var(--gray-1);
+  --bg-contrast: var(--gray-12);
+  --bg-app: var(--gray-2);
+  --bg-surface-subtle: var(--gray-2);
+  --bg-component: var(--gray-3);
+  --bg-component-hover: var(--gray-4);
+  --bg-component-active: var(--gray-5);
+  --bg-component-pressed: var(--gray-6);
+
+  /* ── Border / Stroke ──────────────────── */
+  --border-standard: var(--gray-6);
+  --border-low: var(--gray-4);
+  --border-brand: var(--brand-7);
+  --border-error: var(--error-7);
+  --stroke-standard: var(--gray-6);
+  --stroke-disabled: var(--gray-4);
+
+
+  /* ═══════════════════════════════════════════
+     Radix Color Scales – 12-step system
+     Steps 1-2: Backgrounds
+     Steps 3-5: Component backgrounds
+     Steps 6-8: Borders
+     Steps 9-10: Solid backgrounds
+     Steps 11-12: Text
+     ═══════════════════════════════════════════ */
+
+  /* ── Green (Success) ─ Radix Green ─────── */
+  --green-1: #fbfefc;
+  --green-2: #f4fbf6;
+  --green-3: #e6f6eb;
+  --green-4: #d6f1df;
+  --green-5: #c4e8d1;
+  --green-6: #adddc0;
+  --green-7: #8eceaa;
+  --green-8: #5bb98b;
+  --green-9: #30a46c;
+  --green-10: #2b9a66;
+  --green-11: #218358;
+  --green-12: #193b2d;
+
+  /* ── Red (Error) ─ Radix Red ───────────── */
+  --red-1: #fffcfc;
+  --red-2: #fff7f7;
+  --red-3: #feebec;
+  --red-4: #ffdbdc;
+  --red-5: #ffcdce;
+  --red-6: #fdbdbe;
+  --red-7: #f4a9aa;
+  --red-8: #eb8e90;
+  --red-9: #e5484d;
+  --red-10: #dc3e42;
+  --red-11: #ce2c31;
+  --red-12: #641723;
+
+  /* ── Amber (Warning) ─ Radix Amber ─────── */
+  --amber-1: #fefdfb;
+  --amber-2: #fefbe9;
+  --amber-3: #fff7c2;
+  --amber-4: #ffee9c;
+  --amber-5: #fbe577;
+  --amber-6: #f3d673;
+  --amber-7: #e9c162;
+  --amber-8: #e2a336;
+  --amber-9: #ffc53d;
+  --amber-10: #ffba18;
+  --amber-11: #ab6400;
+  --amber-12: #4f3422;
+
+  /* ── Orange ─ Radix Orange ─────────────── */
+  --orange-1: #fefcfb;
+  --orange-2: #fff7ed;
+  --orange-3: #ffefd6;
+  --orange-4: #ffdfb5;
+  --orange-5: #ffd19a;
+  --orange-6: #ffc182;
+  --orange-7: #f5ae73;
+  --orange-8: #ec9455;
+  --orange-9: #f76b15;
+  --orange-10: #ef5f00;
+  --orange-11: #cc4e00;
+  --orange-12: #582d1d;
+
+  /* ── Blue ─ Radix Blue ─────────────────── */
+  --blue-1: #fbfdff;
+  --blue-2: #f4faff;
+  --blue-3: #e6f4fe;
+  --blue-4: #d5efff;
+  --blue-5: #c2e5ff;
+  --blue-6: #acd8fc;
+  --blue-7: #8ec8f6;
+  --blue-8: #5eb1ef;
+  --blue-9: #0090ff;
+  --blue-10: #0588f0;
+  --blue-11: #0d74ce;
+  --blue-12: #113264;
+
+  /* ── Purple ─ Radix Purple ─────────────── */
+  --purple-1: #fefcfe;
+  --purple-2: #fbf7fe;
+  --purple-3: #f7edfe;
+  --purple-4: #f2e2fc;
+  --purple-5: #ead5f9;
+  --purple-6: #e0c4f4;
+  --purple-7: #d1afec;
+  --purple-8: #be93e4;
+  --purple-9: #8e4ec6;
+  --purple-10: #8347b9;
+  --purple-11: #8145b5;
+  --purple-12: #402060;
+
+  /* ── Sky ─ Radix Sky ───────────────────── */
+  --sky-1: #f9feff;
+  --sky-2: #f1fafd;
+  --sky-3: #e1f6fd;
+  --sky-4: #d1f0fa;
+  --sky-5: #bee7f5;
+  --sky-6: #a9daed;
+  --sky-7: #8dcae3;
+  --sky-8: #60b3d7;
+  --sky-9: #7ce2fe;
+  --sky-10: #74daf8;
+  --sky-11: #00749e;
+  --sky-12: #1d3e56;
+
+  /* ── Pink ─ Radix Pink ─────────────────── */
+  --pink-1: #fffcfe;
+  --pink-2: #fef7fb;
+  --pink-3: #fee9f5;
+  --pink-4: #fbdcef;
+  --pink-5: #f6cee7;
+  --pink-6: #efbfdd;
+  --pink-7: #e7acd0;
+  --pink-8: #dd93c2;
+  --pink-9: #d6409f;
+  --pink-10: #cf3897;
+  --pink-11: #c2298a;
+  --pink-12: #651249;
+
+  /* ── Teal ─ Radix Teal ─────────────────── */
+  --teal-1: #fafefd;
+  --teal-2: #f3fbf9;
+  --teal-3: #e0f8f3;
+  --teal-4: #ccf3ea;
+  --teal-5: #b8eae0;
+  --teal-6: #a1ded2;
+  --teal-7: #83cdc1;
+  --teal-8: #53b9ab;
+  --teal-9: #12a594;
+  --teal-10: #0d9b8a;
+  --teal-11: #008573;
+  --teal-12: #0d3d38;
+
+  /* ── Lime (Secondary) ─ Radix Lime ─────── */
+  --lime-1: #fcfdfa;
+  --lime-2: #f8faf3;
+  --lime-3: #eef6d6;
+  --lime-4: #e2f0bd;
+  --lime-5: #d3e7a6;
+  --lime-6: #c2da91;
+  --lime-7: #abc978;
+  --lime-8: #8db654;
+  --lime-9: #bdee63;
+  --lime-10: #b0e64c;
+  --lime-11: #5c7c2f;
+  --lime-12: #37401c;
+
+  /* ── Gray ─ Radix Gray ─────────────────── */
+  --gray-1: #ffffff;
+  --gray-2: #fcfcfc;
+  --gray-3: #f0f0f0;
+  --gray-4: #e8e8e8;
+  --gray-5: #e0e0e0;
+  --gray-6: #d9d9d9;
+  --gray-7: #cecece;
+  --gray-8: #bbbbbb;
+  --gray-9: #8d8d8d;
+  --gray-10: #838383;
+  --gray-11: #646464;
+  --gray-12: #202020;
+
+  /* ── Utility ───────────────────────────── */
+  --black: #000000;
+  --white: #ffffff;
+
+  /* ── Semantic Status Aliases ────────────── */
+  --success-1: var(--green-1);
+  --success-2: var(--green-2);
+  --success-3: var(--green-3);
+  --success-4: var(--green-4);
+  --success-5: var(--green-5);
+  --success-6: var(--green-6);
+  --success-7: var(--green-7);
+  --success-8: var(--green-8);
+  --success-9: var(--green-9);
+  --success-10: var(--green-10);
+  --success-11: var(--green-11);
+  --success-12: var(--green-12);
+
+  --error-1: var(--red-1);
+  --error-2: var(--red-2);
+  --error-3: var(--red-3);
+  --error-4: var(--red-4);
+  --error-5: var(--red-5);
+  --error-6: var(--red-6);
+  --error-7: var(--red-7);
+  --error-8: var(--red-8);
+  --error-9: var(--red-9);
+  --error-10: var(--red-10);
+  --error-11: var(--red-11);
+  --error-12: var(--red-12);
+
+  --warning-1: var(--amber-1);
+  --warning-2: var(--amber-2);
+  --warning-3: var(--amber-3);
+  --warning-4: var(--amber-4);
+  --warning-5: var(--amber-5);
+  --warning-6: var(--amber-6);
+  --warning-7: var(--amber-7);
+  --warning-8: var(--amber-8);
+  --warning-9: var(--amber-9);
+  --warning-10: var(--amber-10);
+  --warning-11: var(--amber-11);
+  --warning-12: var(--amber-12);
+
+  /* ── Spacing (from Figma) ─────────────── */
+  --spacing-0: 0px;
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-6: 6px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-80: 80px;
+
+  /* ── Radius (from Figma) ──────────────── */
+  --radius-0: 0px;
+  --radius-2: 2px;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-full: 999px;
+
+  /* ── Button ───────────────────────────── */
+  --button-size: 40px;
+  --button-font: 14px;
+  --compact-button-size: 24px;
+  --compact-button-icon-size: 20px;
+
+  /* ── Radix-consistent Layout Tokens ────── */
+  --bg-sidebar: var(--gray-2);
+  --bg-sidebar-hover: var(--gray-3);
+  --bg-sidebar-active: var(--white);
+
+  /* ── Typography ───────────────────────── */
+  --font-family: 'Inter Display', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* ── Shadows (from Figma) ─────────────── */
+  --shadow-xsmall: 0 1px 2px rgba(228, 229, 231, 0.24);
+  --shadow-small: 0 2px 4px rgba(27, 28, 29, 0.04);
+  --shadow-medium: 0 16px 32px -12px rgba(88, 92, 95, 0.1);
+  --shadow-large: 0 16px 40px -8px rgba(88, 92, 95, 0.16);
+  --shadow-2xlarge: 0 40px 96px -8px rgba(88, 92, 95, 0.2);
+  --shadow-dropdown:
+    0 0 0 1px rgba(0,0,0,0.04),
+    0 1px 1px rgba(0,0,0,0.08),
+    0 2px 5px rgba(0,0,0,0.08),
+    0 3px 10px rgba(0,0,0,0.08);
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--text-emphasis);
+  background-color: var(--bg-app);
+  margin: 0;
+  letter-spacing: -0.01em; /* Tighten Display font for optimal readability */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}

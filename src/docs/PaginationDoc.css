@@ -1,0 +1,74 @@
+.pagination-doc {
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.doc-section {
+  margin-bottom: 64px;
+}
+
+.doc-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-high);
+}
+
+.doc-section p {
+  color: var(--text-medium);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.example-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-low);
+  border-radius: var(--radius-4);
+}
+
+.page-indicator {
+  font-size: 14px;
+  color: var(--text-low);
+  font-weight: 500;
+}
+
+.example-flex {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.example-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.example-column h4 {
+  font-size: 14px;
+  color: var(--text-low);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table-footer-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-low);
+  border-radius: var(--radius-4);
+}
+
+.items-info {
+  font-size: 14px;
+  color: var(--text-medium);
+}

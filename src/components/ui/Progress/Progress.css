@@ -1,0 +1,33 @@
+.mms-progress-container {
+  width: 100%;
+}
+
+.mms-progress-track {
+  width: 100%;
+  background-color: var(--gray-3);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.mms-progress-track.size-sm { height: 4px; }
+.mms-progress-track.size-md { height: 8px; }
+.mms-progress-track.size-lg { height: 12px; }
+
+.mms-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease-out;
+}
+
+.variant-brand { background-color: var(--brand-9); }
+.variant-success { background-color: var(--success-9); }
+.variant-warning { background-color: var(--warning-9); }
+.variant-error { background-color: var(--error-9); }
+.variant-info { background-color: var(--blue-9); }
+
+.mms-progress-label {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 4px;
+}

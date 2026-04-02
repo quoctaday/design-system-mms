@@ -1,0 +1,172 @@
+/* src/components/ui/MetricCard/MetricCard.css */
+.mms-metric-card {
+  background-color: var(--white);
+  border: 1px solid var(--gray-4);
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: none !important;
+  border-radius: var(--radius-16) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sizing Variants */
+.mms-metric-card--sm { min-height: 120px; }
+.mms-metric-card--md { min-height: 160px; }
+.mms-metric-card--lg { min-height: 200px; }
+
+.mms-metric-card:hover {
+  border-color: var(--brand-400);
+  background-color: var(--gray-2);
+}
+
+.mms-metric-card-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Padding variants based on size */
+.mms-metric-card--sm .mms-metric-card-content { padding: 16px; }
+.mms-metric-card--md .mms-metric-card-content { padding: 24px; }
+.mms-metric-card--lg .mms-metric-card-content { padding: 32px; }
+
+.mms-metric-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mms-metric-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mms-metric-icon-box {
+  border-radius: var(--radius-12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  transition: transform 250ms ease;
+}
+
+/* Icon Box Sizing */
+.mms-metric-icon-box--sm { width: 32px; height: 32px; font-size: 16px; border-radius: var(--radius-8); }
+.mms-metric-icon-box--md { width: 44px; height: 44px; font-size: 20px; border-radius: var(--radius-12); }
+.mms-metric-icon-box--lg { width: 56px; height: 56px; font-size: 24px; border-radius: var(--radius-16); }
+
+.mms-metric-card:hover .mms-metric-icon-box {
+  transform: translateY(-2px);
+}
+
+/* Semantic design system tokens — Radix soft pattern (step 3 bg, step 11 text) */
+.mms-metric-icon-box--primary { color: var(--brand-700); background-color: var(--brand-50); border-color: var(--brand-100); }
+.mms-metric-icon-box--success { color: var(--success-11); background-color: var(--success-3); border-color: var(--success-5); }
+.mms-metric-icon-box--warning { color: var(--warning-11); background-color: var(--warning-3); border-color: var(--warning-5); }
+.mms-metric-icon-box--error   { color: var(--error-11);   background-color: var(--error-3);   border-color: var(--error-5);   }
+.mms-metric-icon-box--info    { color: var(--sky-11);     background-color: var(--sky-3);     border-color: var(--sky-5);     }
+
+.mms-metric-card-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* Size adjustments for label */
+.mms-metric-card--sm .mms-metric-card-label { font-size: 11px; }
+
+.mms-metric-card-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mms-metric-card-value-container {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mms-metric-card-value {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-emphasis);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Value sizing */
+.mms-metric-card--sm .mms-metric-card-value { font-size: 22px; }
+.mms-metric-card--lg .mms-metric-card-value { font-size: 36px; }
+
+.mms-metric-card-badge {
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  padding: 2px 8px !important;
+  border-radius: var(--radius-full) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Footer & Link Styles */
+.mms-metric-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--gray-3);
+  margin: 0 -24px -24px -24px;
+  padding: 16px 24px;
+  background-color: var(--gray-1);
+}
+
+.mms-metric-card--sm .mms-metric-card-footer { margin: 0 -16px -16px -16px; padding: 12px 16px; }
+.mms-metric-card--lg .mms-metric-card-footer { margin: 0 -32px -32px -32px; padding: 20px 32px; }
+
+.mms-metric-card-description {
+  font-size: 13px;
+  color: var(--text-subtle);
+  margin: 0;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.mms-metric-card-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--brand-600);
+  cursor: pointer;
+  transition: all 200ms ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: fit-content;
+  align-self: flex-end;
+}
+
+.mms-metric-card-link:hover {
+  color: var(--brand-700);
+  transform: translateX(4px);
+}
+
+.mms-metric-card-link svg {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .mms-metric-card-value {
+    font-size: 24px;
+  }
+}

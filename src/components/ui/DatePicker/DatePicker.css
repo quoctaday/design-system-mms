@@ -1,0 +1,186 @@
+.mms-datepicker-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.mms-datepicker-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  background-color: var(--bg-surface, #ffffff);
+  border: 1px solid var(--gray-6, #e6e8eb);
+  border-radius: var(--radius-8);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--gray-12);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.mms-datepicker-trigger:hover:not(:disabled) {
+  border-color: var(--gray-8);
+}
+
+.mms-datepicker-trigger:focus-visible,
+.mms-datepicker-trigger[data-state="open"] {
+  outline: none;
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 2px var(--brand-alpha-16);
+}
+
+.mms-datepicker-trigger-placeholder {
+  color: var(--gray-9);
+}
+
+.mms-datepicker-icon {
+  color: var(--gray-11);
+  font-size: 16px;
+}
+
+.mms-datepicker-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 280px;
+  background-color: var(--bg-surface, #ffffff);
+  border: 1px solid var(--gray-5);
+  border-radius: var(--radius-12);
+  box-shadow: var(--shadow-2xlarge), var(--shadow-dropdown);
+  padding: 16px;
+  z-index: 100;
+  animation: mms-datepicker-slide-down 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mms-datepicker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.mms-datepicker-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-12);
+}
+
+.mms-datepicker-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: var(--radius-8);
+  color: var(--gray-11);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mms-datepicker-nav-btn:hover {
+  background-color: var(--gray-3);
+  color: var(--gray-12);
+}
+
+.mms-datepicker-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px 0;
+}
+
+.mms-datepicker-weekday {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-10);
+  text-align: center;
+  padding: 4px 0;
+  margin-bottom: 4px;
+}
+
+.mms-datepicker-day-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.mms-datepicker-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-8);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-12);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mms-datepicker-day:hover:not(:disabled):not(.mms-datepicker-day-selected) {
+  background-color: var(--gray-3);
+}
+
+.mms-datepicker-day-selected {
+  background-color: var(--brand-500);
+  color: #fff;
+  font-weight: 600;
+}
+
+.mms-datepicker-day-today:not(.mms-datepicker-day-selected) {
+  color: var(--brand-600);
+  font-weight: 700;
+  background-color: var(--brand-alpha-10);
+}
+
+.mms-datepicker-day-empty {
+  visibility: hidden;
+}
+
+@keyframes mms-datepicker-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────── */
+/* Date Range Support Styles */
+/* ──────────────────────────────────────────────────────────── */
+
+.mms-datepicker-wrapper-start {
+  background: linear-gradient(90deg, transparent 50%, var(--brand-50) 50%);
+}
+
+.mms-datepicker-wrapper-end {
+  background: linear-gradient(90deg, var(--brand-50) 50%, transparent 50%);
+}
+
+.mms-datepicker-wrapper-start.mms-datepicker-wrapper-end {
+  background: transparent;
+}
+
+.mms-datepicker-wrapper-alone {
+  background: transparent !important;
+}
+
+.mms-datepicker-wrapper-in-range {
+  background-color: var(--brand-50);
+}
+
+.mms-datepicker-wrapper-in-range .mms-datepicker-day:hover:not(:disabled) {
+  background-color: var(--brand-100);
+}

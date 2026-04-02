@@ -1,0 +1,84 @@
+.mms-card {
+  --card-bg: var(--bg-surface, #ffffff);
+  --card-border: var(--border-low, #eef0f1);
+  --card-radius: var(--radius-12, 12px);
+  --card-shadow: none;
+  --card-padding: var(--spacing-16, 16px);
+  
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* Variants */
+.mms-card--glass {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.mms-card--bordered {
+  border: 1px solid var(--border-standard);
+  box-shadow: none;
+}
+
+/* Padding */
+.mms-card--padding-none .mms-card-body { padding: 0; }
+.mms-card--padding-sm .mms-card-body { padding: var(--spacing-8); }
+.mms-card--padding-md .mms-card-body { padding: var(--spacing-16); }
+.mms-card--padding-lg .mms-card-body { padding: var(--spacing-24); }
+
+/* Header */
+.mms-card-header {
+  padding: var(--spacing-16) var(--spacing-16) var(--spacing-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+}
+
+.mms-card-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.mms-card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-emphasis);
+  line-height: 1.4;
+}
+
+.mms-card-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-subtle);
+  line-height: 1.4;
+}
+
+/* Footer */
+.mms-card-footer {
+  padding: var(--spacing-8) var(--spacing-16) var(--spacing-16);
+  border-top: 1px solid var(--card-border);
+  margin-top: auto;
+}
+
+/* Hover effect for clickable cards (if parent adds cursor: pointer) */
+.mms-card:hover {
+  border-color: var(--brand-alpha-16);
+}
+
+.mms-card--glass:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.1);
+}

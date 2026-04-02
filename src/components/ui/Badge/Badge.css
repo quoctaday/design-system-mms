@@ -1,0 +1,127 @@
+.mms-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+  font-family: var(--font-family);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sizes */
+.mms-badge-size-1 {
+  font-size: 10px;
+  height: 18px;
+  padding: 0 6px;
+  gap: 4px;
+}
+
+.mms-badge-size-2 {
+  font-size: 11px;
+  height: 22px;
+  padding: 0 8px;
+  gap: 6px;
+}
+
+/* Radius */
+.mms-badge-radius-none { border-radius: 0; }
+.mms-badge-radius-small { border-radius: var(--radius-4); }
+.mms-badge-radius-medium { border-radius: var(--radius-8); }
+.mms-badge-radius-large { border-radius: var(--radius-12); }
+.mms-badge-radius-full { border-radius: var(--radius-full); }
+
+/* Status Color Sets (Mapped to Radix Steps) */
+
+/* Variant: Solid (Step 9 = Solid) */
+.mms-badge-variant-solid {
+  color: var(--text-on-color);
+}
+
+.mms-badge-color-brand.mms-badge-variant-solid { background-color: var(--brand-500); }
+.mms-badge-color-success.mms-badge-variant-solid { background-color: var(--success-9); }
+.mms-badge-color-error.mms-badge-variant-solid { background-color: var(--error-9); }
+.mms-badge-color-warning.mms-badge-variant-solid { background-color: var(--warning-9); color: var(--black); }
+.mms-badge-color-blue.mms-badge-variant-solid { background-color: var(--blue-9); }
+.mms-badge-color-purple.mms-badge-variant-solid { background-color: var(--purple-9); }
+.mms-badge-color-sky.mms-badge-variant-solid { background-color: var(--sky-9); color: var(--black); }
+.mms-badge-color-pink.mms-badge-variant-solid { background-color: var(--pink-9); }
+.mms-badge-color-teal.mms-badge-variant-solid { background-color: var(--teal-9); }
+.mms-badge-color-secondary.mms-badge-variant-solid { background-color: var(--lime-9); color: var(--black); }
+.mms-badge-color-orange.mms-badge-variant-solid { background-color: var(--orange-9); }
+.mms-badge-color-black.mms-badge-variant-solid { background-color: var(--black); }
+.mms-badge-color-gray.mms-badge-variant-solid { background-color: var(--gray-9); color: var(--text-on-color); }
+
+/* Variant: Soft (Step 3 = Subtle BG, Step 11 = Text) */
+.mms-badge-variant-soft {
+  border: 1px solid transparent;
+}
+
+.mms-badge-color-brand.mms-badge-variant-soft { background-color: var(--brand-50); color: var(--text-brand); }
+.mms-badge-color-success.mms-badge-variant-soft { background-color: var(--success-3); color: var(--text-success); }
+.mms-badge-color-error.mms-badge-variant-soft { background-color: var(--error-3); color: var(--text-error); }
+.mms-badge-color-warning.mms-badge-variant-soft { background-color: var(--warning-3); color: var(--warning-11); }
+.mms-badge-color-blue.mms-badge-variant-soft { background-color: var(--blue-3); color: var(--blue-11); }
+.mms-badge-color-purple.mms-badge-variant-soft { background-color: var(--purple-3); color: var(--purple-11); }
+.mms-badge-color-sky.mms-badge-variant-soft { background-color: var(--sky-3); color: var(--sky-11); }
+.mms-badge-color-pink.mms-badge-variant-soft { background-color: var(--pink-3); color: var(--pink-11); }
+.mms-badge-color-teal.mms-badge-variant-soft { background-color: var(--teal-3); color: var(--teal-11); }
+.mms-badge-color-secondary.mms-badge-variant-soft { background-color: var(--lime-3); color: var(--lime-11); }
+.mms-badge-color-orange.mms-badge-variant-soft { background-color: var(--orange-3); color: var(--orange-11); }
+.mms-badge-color-black.mms-badge-variant-soft { background-color: var(--gray-3); color: var(--black); }
+.mms-badge-color-gray.mms-badge-variant-soft { background-color: var(--gray-2); color: var(--gray-11); }
+
+/* Variant: Outline (Step 11 = Text/Border) */
+.mms-badge-variant-outline {
+  background-color: transparent;
+  border: 1px solid currentColor;
+}
+
+.mms-badge-color-brand.mms-badge-variant-outline { color: var(--text-brand); }
+.mms-badge-color-success.mms-badge-variant-outline { color: var(--text-success); }
+.mms-badge-color-error.mms-badge-variant-outline { color: var(--text-error); }
+.mms-badge-color-warning.mms-badge-variant-outline { color: var(--warning-11); }
+.mms-badge-color-blue.mms-badge-variant-outline { color: var(--blue-11); }
+.mms-badge-color-purple.mms-badge-variant-outline { color: var(--purple-11); }
+.mms-badge-color-sky.mms-badge-variant-outline { color: var(--sky-11); }
+.mms-badge-color-pink.mms-badge-variant-outline { color: var(--pink-11); }
+.mms-badge-color-teal.mms-badge-variant-outline { color: var(--teal-11); }
+.mms-badge-color-secondary.mms-badge-variant-outline { color: var(--lime-11); }
+.mms-badge-color-orange.mms-badge-variant-outline { color: var(--orange-11); }
+.mms-badge-color-black.mms-badge-variant-outline { color: var(--black); }
+.mms-badge-color-gray.mms-badge-variant-outline { color: var(--gray-11); border-color: var(--border-standard); }
+
+/* Variant: Surface (Step 2 = Low contrast bg, Step 6 = Subtle border, Step 11 = Text) */
+.mms-badge-variant-surface {
+  border: 1px solid transparent;
+}
+
+.mms-badge-color-brand.mms-badge-variant-surface { background-color: var(--brand-50); color: var(--text-brand); border-color: var(--brand-alpha-16); }
+.mms-badge-color-success.mms-badge-variant-surface { background-color: var(--success-2); color: var(--text-success); border-color: var(--success-6); }
+.mms-badge-color-error.mms-badge-variant-surface { background-color: var(--error-2); color: var(--text-error); border-color: var(--error-6); }
+.mms-badge-color-warning.mms-badge-variant-surface { background-color: var(--warning-2); color: var(--warning-11); border-color: var(--warning-6); }
+.mms-badge-color-blue.mms-badge-variant-surface { background-color: var(--blue-2); color: var(--blue-11); border-color: var(--blue-6); }
+.mms-badge-color-purple.mms-badge-variant-surface { background-color: var(--purple-2); color: var(--purple-11); border-color: var(--purple-6); }
+.mms-badge-color-sky.mms-badge-variant-surface { background-color: var(--sky-2); color: var(--sky-11); border-color: var(--sky-6); }
+.mms-badge-color-pink.mms-badge-variant-surface { background-color: var(--pink-2); color: var(--pink-11); border-color: var(--pink-6); }
+.mms-badge-color-teal.mms-badge-variant-surface { background-color: var(--teal-2); color: var(--teal-11); border-color: var(--teal-6); }
+.mms-badge-color-secondary.mms-badge-variant-surface { background-color: var(--lime-2); color: var(--lime-11); border-color: var(--lime-6); }
+.mms-badge-color-orange.mms-badge-variant-surface { background-color: var(--orange-2); color: var(--orange-11); border-color: var(--orange-6); }
+.mms-badge-color-black.mms-badge-variant-surface { background-color: var(--gray-2); color: var(--black); border-color: var(--border-standard); }
+.mms-badge-color-gray.mms-badge-variant-surface { background-color: var(--bg-pure); color: var(--gray-11); border-color: var(--border-standard); }
+
+/* Variant: Ghost (Transparent bg, Step 11 = Text) */
+.mms-badge-variant-ghost {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.mms-badge-color-brand.mms-badge-variant-ghost { color: var(--text-brand); }
+.mms-badge-color-success.mms-badge-variant-ghost { color: var(--text-success); }
+.mms-badge-color-error.mms-badge-variant-ghost { color: var(--text-error); }
+.mms-badge-color-warning.mms-badge-variant-ghost { color: var(--warning-11); }
+.mms-badge-color-gray.mms-badge-variant-ghost { color: var(--gray-11); }
+/* ... and others follow soft with borders */

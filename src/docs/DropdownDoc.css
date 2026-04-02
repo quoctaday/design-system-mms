@@ -1,0 +1,78 @@
+.dropdown-doc {
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.api-table-wrapper {
+  margin-top: 16px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.api-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+.api-table th {
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border-low);
+  color: var(--text-high);
+  font-weight: 600;
+}
+
+.api-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-low);
+  color: var(--text-medium);
+}
+
+.dropdown-item-danger {
+  color: var(--error-11) !important;
+}
+
+.dropdown-item-danger:hover {
+  background-color: var(--error-2) !important;
+  color: var(--error-11) !important;
+}
+
+.table-action-preview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--bg-component);
+  border-radius: var(--radius-4);
+  width: fit-content;
+}
+
+.action-trigger-circle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-low);
+  color: var(--icon-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-trigger-circle:hover {
+  background-color: var(--bg-component-hover);
+  color: var(--brand-9);
+  border-color: var(--brand-5);
+  box-shadow: var(--shadow-small);
+}
+
+.demo-list {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
