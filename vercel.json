@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm run build:app",
+  "buildCommand": "VITE_BUILD_APP=true npx vite build",
   "outputDirectory": "dist-app",
-  "framework": "vite",
+  "framework": null,
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
