@@ -1,7 +1,7 @@
 # Dashboard Page Overrides
 
 > **PROJECT:** MMS Design System
-> **Generated:** 2026-04-02 14:17:18
+> **Generated:** 2026-04-09 10:29:56
 > **Page Type:** Dashboard / Data View
 
 > ⚠️ **IMPORTANT:** Rules in this file **override** the Master file (`design-system/MASTER.md`).
@@ -13,12 +13,13 @@
 
 ### Layout Overrides
 
-- **Max Width:** 1200px (standard)
-- **Layout:** Full-width sections, centered content
+- **Max Width:** 1400px or full-width
+- **Grid:** 12-column grid for data flexibility
+- **Sections:** 1. Hero, 2. Product video/mockup (center), 3. Feature breakdown per section, 4. Comparison (optional), 5. CTA
 
 ### Spacing Overrides
 
-- No overrides — use Master spacing
+- **Content Density:** High — optimize for information display
 
 ### Typography Overrides
 
@@ -26,7 +27,7 @@
 
 ### Color Overrides
 
-- No overrides — use Master colors
+- **Strategy:** Video surround: Brand color overlay. Features: Icon color #0080FF. Text: Dark #222
 
 ### Component Overrides
 
@@ -42,4 +43,5 @@
 
 ## Recommendations
 
-- Effects: Number animations (count-up), trend direction indicators, percentage change animations, profit/loss color transitions
+- Effects: Hover tooltips, chart zoom on click, row highlighting on hover, smooth filter animations, data loading spinners
+- CTA Placement: Video center + CTA right/bottom

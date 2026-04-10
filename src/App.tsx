@@ -19,18 +19,27 @@ import ToastDoc from './docs/ToastDoc'
 import DashboardExample from './pages/DashboardExample/DashboardExample'
 import PieChartExample from './pages/PieChartExample/PieChartExample'
 import SegmentedControlExample from './pages/SegmentedControlExample/SegmentedControlExample'
-import WidgetExample from './pages/WidgetExample/WidgetExample'
+import MetricsCard from './pages/MetricsCard/MetricsCard'
+import BreadcrumbsDoc from './docs/BreadcrumbsDoc'
+import EmptyStateDoc from './docs/EmptyStateDoc'
+import ResultDoc from './docs/ResultDoc'
+import TimelineDoc from './docs/TimelineDoc'
+import TypographyDoc from './docs/TypographyDoc'
+import AuroraBackgroundDoc from './docs/AuroraBackgroundDoc'
+import OperationCenter from './pages/OperationCenter/OperationCenter'
 import Layout from './components/layout/Layout'
 import { BrandProvider } from './contexts/BrandContext'
+import { ThemeProvider } from './contexts/ThemeContext'
 import { ToastProvider, ToastContainer } from './components/ui/Toast'
 
 function App() {
   const [activePage, setActivePage] = useState('intro')
 
   return (
-    <BrandProvider>
-      <ToastProvider>
-        <Layout activePage={activePage} onPageChange={setActivePage}>
+    <ThemeProvider>
+      <BrandProvider>
+        <ToastProvider>
+          <Layout activePage={activePage} onPageChange={setActivePage}>
           {activePage === 'badge' && <BadgeDoc />}
           {activePage === 'tabs' && <TabsDoc />}
           {activePage === 'button' && <ButtonDoc />}
@@ -48,14 +57,22 @@ function App() {
           {activePage === 'colors' && <ColorsDoc />}
           {activePage === 'intro' && <IntroDoc />}
           {activePage === 'theme' && <ThemingDoc />}
-          {activePage === 'dashboard' && <DashboardExample />}
-          {activePage === 'pie-chart' && <PieChartExample />}
-          {activePage === 'segmented-control' && <SegmentedControlExample />}
-          {activePage === 'widget-library' && <WidgetExample />}
+          {activePage === 'breadcrumbs' && <BreadcrumbsDoc />}
+          {activePage === 'empty-state' && <EmptyStateDoc />}
+          {activePage === 'result' && <ResultDoc />}
+          {activePage === 'timeline' && <TimelineDoc />}
+          {activePage === 'typography' && <TypographyDoc />}
+          {activePage === 'aurora' && <AuroraBackgroundDoc />}
+          {activePage === 'dashboard' && <DashboardExample onPageChange={setActivePage} />}
+          {activePage === 'operation-center' && <OperationCenter onPageChange={setActivePage} />}
+          {activePage === 'pie-chart' && <PieChartExample onPageChange={setActivePage} />}
+          {activePage === 'segmented-control' && <SegmentedControlExample onPageChange={setActivePage} />}
+          {activePage === 'metrics-card' && <MetricsCard onPageChange={setActivePage} />}
         </Layout>
         <ToastContainer />
       </ToastProvider>
     </BrandProvider>
+  </ThemeProvider>
   )
 }
 

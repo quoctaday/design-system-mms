@@ -1,0 +1,35 @@
+{
+  "project_name": "MMS Design System",
+  "base_path": "design-system/mms-design-system",
+  "fonts": {
+    "heading": "Inter Display",
+    "body": "Inter",
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    }
+  },
+  "tokens": {
+    "color:primary": "var(--brand-9)",
+    "color:secondary": "var(--brand-10)",
+    "color:cta": "var(--brand-9)",
+    "color:background": "var(--surface-app)",
+    "color:surface": "var(--surface-panel)",
+    "color:text": "var(--content-strong)",
+    "color:text-muted": "var(--content-subtle)",
+    "color:border": "var(--border-accent)",
+    "radius:small": "var(--radius-small)",
+    "radius:medium": "var(--radius-medium)",
+    "radius:large": "var(--radius-large)",
+    "spacing:base": "var(--spacing-16)"
+  },
+  "constraints": {
+    "allow_shadows": false,
+    "require_shadow_approval": true,
+    "base_font_size": "14px",
+    "modern_minimal": true,
+    "typography_strict_inter": true
+  }
+}

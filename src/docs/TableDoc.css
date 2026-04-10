@@ -10,10 +10,10 @@
   flex-direction: column;
   gap: 0;
   border-radius: 0;
-  background-color: var(--bg-surface);
+  background-color: var(--surface-panel);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  border: 1px solid var(--border-low);
+  border: 1px solid var(--border-subtle);
 }
 
 .dashboard-actions {
@@ -21,8 +21,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  background-color: var(--bg-surface);
-  border-bottom: 1px solid var(--border-low);
+  background-color: var(--surface-panel);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .actions-left, .actions-right {
@@ -36,13 +36,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  background-color: var(--bg-surface);
-  border-top: 1px solid var(--border-low);
+  background-color: var(--surface-panel);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .footer-info {
   font-size: 14px;
-  color: var(--text-medium);
+  color: var(--content-subtle);
 }
 
 /* Specific Cell Styles */
@@ -58,14 +58,14 @@
 }
 
 .star-inactive {
-  color: var(--text-low);
+  color: var(--content-subtle);
   opacity: 0.3;
 }
 
 .header-info-icon {
   font-size: 14px;
   margin-left: 4px;
-  color: var(--text-low);
+  color: var(--content-subtle);
   vertical-align: middle;
 }
 
@@ -74,7 +74,7 @@
   padding: 24px;
   background-color: #1a1a1a;
   color: #fff;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-md);
   overflow-x: auto;
   font-size: 14px;
   line-height: 1.6;

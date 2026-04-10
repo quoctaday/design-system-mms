@@ -65,14 +65,14 @@ export const useToast = () => {
   const { toasts, addToast, updateToast, removeToast } = context;
 
   const toast = {
-    success: (title: string, description?: string, duration?: number) => 
-      addToast({ type: 'success', title, description, duration }),
-    error: (title: string, description?: string, duration?: number) => 
-      addToast({ type: 'error', title, description, duration }),
-    info: (title: string, description?: string, duration?: number) => 
-      addToast({ type: 'info', title, description, duration }),
-    warning: (title: string, description?: string, duration?: number) => 
-      addToast({ type: 'warning', title, description, duration }),
+    success: (title: string, description?: string, duration?: number, action?: { label: string; onClick: () => void }) => 
+      addToast({ type: 'success', title, description, duration, action }),
+    error: (title: string, description?: string, duration?: number, action?: { label: string; onClick: () => void }) => 
+      addToast({ type: 'error', title, description, duration, action }),
+    info: (title: string, description?: string, duration?: number, action?: { label: string; onClick: () => void }) => 
+      addToast({ type: 'info', title, description, duration, action }),
+    warning: (title: string, description?: string, duration?: number, action?: { label: string; onClick: () => void }) => 
+      addToast({ type: 'warning', title, description, duration, action }),
     loading: (title: string, description?: string) => 
       addToast({ type: 'loading', title, description, duration: 0 }),
     custom: (toast: Omit<Toast, 'id'>) => addToast(toast),

@@ -7,8 +7,8 @@
 ---
 
 **Project:** MMS Design System
-**Generated:** 2026-04-02 14:17:18
-**Category:** Fintech/Crypto
+**Generated:** 2026-04-09 10:29:56
+**Category:** Financial Dashboard
 
 ---
 
@@ -18,24 +18,23 @@
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#F59E0B` | `--color-primary` |
-| Secondary | `#FBBF24` | `--color-secondary` |
-| CTA/Accent | `#8B5CF6` | `--color-cta` |
-| Background | `#0F172A` | `--color-background` |
-| Text | `#F8FAFC` | `--color-text` |
+| Primary | `#1E40AF` | `var(--brand-9)` |
+| Secondary | `#3B82F6` | `var(--brand-10)` |
+| CTA/Accent | `#F59E0B` | `var(--brand-9)` |
+| Background | `#F8FAFC` | `var(--surface-app)` |
+| Text | `#1E3A8A` | `var(--content-strong)` |
 
-**Color Notes:** Gold trust + purple tech
+**Color Notes:** Blue data + amber highlights
 
 ### Typography
 
-- **Heading Font:** IBM Plex Sans
-- **Body Font:** IBM Plex Sans
-- **Mood:** financial, trustworthy, professional, corporate, banking, serious
-- **Google Fonts:** [IBM Plex Sans + IBM Plex Sans](https://fonts.google.com/share?selection.family=IBM+Plex+Sans:wght@300;400;500;600;700)
+- **Heading Font:** Inter Display
+- **Body Font:** Inter
+- **Mood:** dashboard, data, analytics, code, technical, precise
 
 **CSS Import:**
 ```css
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+/* Using local Inter Display and Inter */
 ```
 
 ### Spacing Variables
@@ -68,7 +67,7 @@
 ```css
 /* Primary Button */
 .btn-primary {
-  background: #8B5CF6;
+  background: #F59E0B;
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
@@ -85,8 +84,8 @@
 /* Secondary Button */
 .btn-secondary {
   background: transparent;
-  color: #F59E0B;
-  border: 2px solid #F59E0B;
+  color: #1E40AF;
+  border: 2px solid #1E40AF;
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -99,7 +98,7 @@
 
 ```css
 .card {
-  background: #0F172A;
+  background: #F8FAFC;
   border-radius: 12px;
   padding: 24px;
   box-shadow: var(--shadow-md);
@@ -125,9 +124,9 @@
 }
 
 .input:focus {
-  border-color: #F59E0B;
+  border-color: #1E40AF;
   outline: none;
-  box-shadow: 0 0 0 3px #F59E0B20;
+  box-shadow: 0 0 0 3px #1E40AF20;
 }
 ```
 
@@ -159,21 +158,23 @@
 
 **Best For:** Night-mode apps, coding platforms, entertainment, eye-strain prevention, OLED devices, low-light
 
-**Key Effects:** Minimal glow (text-shadow: 0 0 10px), dark-to-light transitions, low white emission, high readability, visible focus
+**Key Effects:** Minimal glow (text-shadow: 0 0 10px), dark-to-light transitions, low white emission, high readability, visible focus | ⚠️ ALERT: System-level shadows detected. USE ONLY IF NECESSARY and ask user before implementation.
 
 ### Page Pattern
 
-**Pattern Name:** Conversion-Optimized
+**Pattern Name:** Product Demo + Features
 
-- **CTA Placement:** Above fold
-- **Section Order:** Hero > Features > CTA
+- **Conversion Strategy:** Embedded product demo increases engagement. Use interactive mockup if possible. Auto-play video muted.
+- **CTA Placement:** Video center + CTA right/bottom
+- **Section Order:** 1. Hero, 2. Product video/mockup (center), 3. Feature breakdown per section, 4. Comparison (optional), 5. CTA
 
 ---
 
 ## Anti-Patterns (Do NOT Use)
 
-- ❌ Light backgrounds
-- ❌ No security indicators
+- ❌ Light mode default
+- ❌ Slow rendering
+- ❌ ❌ Shadows (Strict Flat-Premium Mode)
 
 ### Additional Forbidden Patterns
 

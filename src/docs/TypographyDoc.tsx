@@ -1,0 +1,133 @@
+import React from 'react';
+import { DocLayout } from '../components/docs/DocLayout';
+import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { CodePreview } from '../components/docs/CodePreview';
+import './TypographyDoc.css';
+
+const TypographyDoc: React.FC = () => {
+  const typeScale = [
+    { token: '--font-size-1', size: '11px', usage: 'Labels, micro-information' },
+    { token: '--font-size-2', size: '12px', usage: 'Captions, timestamps, metadata' },
+    { token: '--font-size-3', size: '14px', usage: 'Primary Body text, Standard UI labels' },
+    { token: '--font-size-4', size: '16px', usage: 'Small headers, Form labels' },
+    { token: '--font-size-5', size: '18px', usage: 'Section titles, UI Emphasis' },
+    { token: '--font-size-6', size: '20px', usage: 'Primary Module headers' },
+  ];
+
+  const weights = [
+    { weight: 400, label: 'Regular', usage: 'Primary reading surface' },
+    { weight: 500, label: 'Medium', usage: 'Secondary emphasis, meta' },
+    { weight: 600, label: 'Semibold', usage: 'Interaction points, card titles' },
+    { weight: 800, label: 'Black', usage: 'Display headings and key metrics' },
+  ];
+
+  const toc = [
+    { id: 'specimen', title: 'Specimen' },
+    { id: 'scale', title: 'Typography Scale' },
+    { id: 'weights', title: 'Font Weights' },
+    { id: 'numbers', title: 'Numerical Data' }
+  ];
+
+  return (
+    <DocLayout 
+      title="Institutional Typography" 
+      description="Engineered for high-frequency financial dashboards. Built on Swiss design principles and optimized for total operational clarity."
+      headerBackground={<AuroraBackground />}
+      toc={toc}
+    >
+      <section id="specimen" className="doc-section">
+        <h2 className="section-title">The Typeface Protocol</h2>
+        <div className="type-specimen-grid">
+          <div className="specimen-card">
+             <div className="specimen-title">Primary Display Face</div>
+             <div className="large-char" style={{ fontFamily: 'var(--font-display)' }}>Aa</div>
+             <div className="specimen-meta">
+               <span className="specimen-name">Inter Display</span>
+               <span className="specimen-desc">Tight tracking and increased x-height for high-impact directives.</span>
+             </div>
+          </div>
+          <div className="specimen-card">
+             <div className="specimen-title">Operational Body Face</div>
+             <div className="large-char" style={{ fontFamily: 'var(--font-body)', color: 'var(--content-subtle)' }}>Aa</div>
+             <div className="specimen-meta">
+               <span className="specimen-name">Inter</span>
+               <span className="specimen-desc">Maximum rhythmic legibility for high-density secondary data.</span>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="scale" className="doc-section">
+        <h2 className="section-title">The Modular Type Scale</h2>
+        <div className="premium-table-container">
+          <table className="premium-type-table">
+            <thead>
+              <tr>
+                <th>Protocol Token</th>
+                <th>Visual Preview</th>
+                <th>Standardized Usage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {typeScale.map(t => (
+                <tr key={t.token}>
+                  <td className="type-token-cell"><code>{t.token}</code></td>
+                  <td className="type-preview-cell" style={{ fontSize: t.size }}>MMS Global Intelligence</td>
+                  <td className="type-usage-cell">{t.usage}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="weights" className="doc-section">
+        <h2 className="section-title">Established Weights</h2>
+        <div className="weights-premium-flex">
+          {weights.map(w => (
+            <div key={w.weight} className="weight-item">
+              <div className="weight-info">
+                <span className="weight-label" style={{ fontWeight: w.weight }}>{w.label}</span>
+                <span className="weight-usage">{w.usage}</span>
+              </div>
+              <span className="weight-value">{w.weight}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="numbers" className="doc-section">
+        <h2 className="section-title">Numerical Data Integrity</h2>
+        <p>In financial environments, numerical precision is paramount. We strictly enforce <code>tabular-nums</code> for all currency, balance, and metric values to ensure absolute vertical alignment across complex data arrays.</p>
+        
+        <div className="tabular-nums-showcase">
+           <div className="comparison-grid">
+              <div className="comparison-item">
+                <h4>Proportional (Unauthorized)</h4>
+                <div className="num-sample">111,111.00</div>
+                <div className="num-sample">888,888.88</div>
+              </div>
+              <div className="comparison-item">
+                <h4>Tabular (Optimized)</h4>
+                <div className="num-sample tabular">111,111.00</div>
+                <div className="num-sample tabular">888,888.88</div>
+              </div>
+           </div>
+        </div>
+        
+        <div className="mt-8">
+          <CodePreview 
+            code={`.metric-data {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  font-feature-settings: "tnum" 1;
+}`}
+          />
+        </div>
+      </section>
+    </DocLayout>
+  );
+};
+
+export default TypographyDoc;
+

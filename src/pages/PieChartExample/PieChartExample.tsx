@@ -5,7 +5,11 @@ import PieChart from '../../components/ui/PieChart/PieChart';
 import { RiPieChartLine, RiDonutChartLine, RiInformationLine } from 'react-icons/ri';
 import './PieChartExample.css';
 
-const PieChartExample: React.FC = () => {
+interface PieChartExampleProps {
+  onPageChange: (page: string) => void;
+}
+
+const PieChartExample: React.FC<PieChartExampleProps> = ({ onPageChange }) => {
   // Sample Data: Transaction Channels
   const channelData = [
     { label: 'E-commerce', value: 12450, color: '#3B82F6' },

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Checkbox } from '../components/ui';
-import './CheckboxDoc.css';
+import { DocLayout } from '../components/docs/DocLayout';
+import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { CodePreview } from '../components/docs/CodePreview';
+import { PropsTable } from '../components/docs/PropsTable';
 
 const CheckboxDoc: React.FC = () => {
   const [checked1, setChecked1] = useState<boolean | 'indeterminate'>(true);
@@ -11,97 +14,118 @@ const CheckboxDoc: React.FC = () => {
     'brand', 'success', 'error', 'warning', 'gray'
   ];
 
-  return (
-    <div className="checkbox-doc">
-      <header className="doc-header">
-        <h1>Checkbox</h1>
-        <p className="doc-description">A control that allows the user to select one or more options from a set.</p>
-      </header>
+  const toc = [
+    { id: 'states', title: 'States' },
+    { id: 'sizes', title: 'Sizes' },
+    { id: 'colors', title: 'Colors' },
+    { id: 'radius', title: 'Radius' },
+    { id: 'api', title: 'API Reference' }
+  ];
 
-      <section className="doc-section">
+  const checkboxProps = [
+    { name: 'checked', type: "boolean | 'indeterminate'", default: 'false', description: 'Trạng thái chọn của checkbox.' },
+    { name: 'onCheckedChange', type: '(checked: boolean | "indeterminate") => void', description: 'Hàm gọi khi trạng thái thay đổi.' },
+    { name: 'label', type: 'string', description: 'Văn bản nhãn hiển thị bên cạnh.' },
+    { name: 'size', type: "'1' | '2'", default: "'1'", description: 'Kích thước của checkbox.' },
+    { name: 'color', type: 'ColorVariant', default: "'brand'", description: 'Màu sắc chủ đề.' },
+    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", description: 'Độ bo góc của checkbox.' },
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa tương tác.' },
+    { name: 'className', type: 'string', description: 'CSS class tùy chỉnh.' }
+  ];
+
+  return (
+    <DocLayout 
+      title="Checkbox" 
+      description="A control that allows the user to select one or more options from a set."
+      headerBackground={<AuroraBackground />}
+      toc={toc}
+    >
+      <section id="states" className="doc-section">
         <h2>States</h2>
         <p>Checkbox supports checked, unchecked, and indeterminate states.</p>
-        <div className="example-flex">
-          <div className="example-item">
+        <CodePreview
+          code={`<Checkbox checked={true} label="Checked" />
+<Checkbox checked={false} label="Unchecked" />
+<Checkbox checked="indeterminate" label="Indeterminate" />
+<Checkbox disabled label="Disabled" />`}
+        >
+          <div className="flex flex-wrap gap-6 items-center">
             <Checkbox 
               checked={checked1} 
               onCheckedChange={setChecked1} 
               label="Checked" 
             />
-          </div>
-          <div className="example-item">
             <Checkbox 
               checked={checked2} 
               onCheckedChange={setChecked2} 
               label="Unchecked" 
             />
-          </div>
-          <div className="example-item">
             <Checkbox 
               checked={indeterminate} 
               onCheckedChange={setIndeterminate} 
               label="Indeterminate" 
             />
-          </div>
-          <div className="example-item">
             <Checkbox checked disabled label="Disabled Checked" />
           </div>
-          <div className="example-item">
-            <Checkbox disabled label="Disabled Unchecked" />
-          </div>
-        </div>
+        </CodePreview>
       </section>
 
-      <section className="doc-section">
+      <section id="sizes" className="doc-section">
         <h2>Sizes</h2>
-        <p>Available in two sizes.</p>
-        <div className="example-flex" style={{ alignItems: 'center' }}>
-          <Checkbox size="1" label="Size 1 (16px)" checked />
-          <Checkbox size="2" label="Size 2 (20px)" checked />
-        </div>
+        <p>Available in two standard sizes.</p>
+        <CodePreview
+          code={`<Checkbox size="1" label="Size 1 (16px)" checked />
+<Checkbox size="2" label="Size 2 (20px)" checked />`}
+        >
+          <div className="flex gap-6 items-center">
+            <Checkbox size="1" label="Size 1 (16px)" checked />
+            <Checkbox size="2" label="Size 2 (20px)" checked />
+          </div>
+        </CodePreview>
       </section>
 
-      <section className="doc-section">
+      <section id="colors" className="doc-section">
         <h2>Colors</h2>
         <p>Use the <code>color</code> prop to change the checkbox color theme.</p>
-        <div className="example-flex">
-          {colors.map(color => (
-            <Checkbox key={color} color={color} checked label={color.charAt(0).toUpperCase() + color.slice(1)} />
-          ))}
-        </div>
+        <CodePreview
+          code={`<Checkbox color="success" checked label="Success" />
+<Checkbox color="error" checked label="Error" />`}
+        >
+          <div className="flex flex-wrap gap-6">
+            {colors.map(color => (
+              <Checkbox key={color} color={color} checked label={color.charAt(0).toUpperCase() + color.slice(1)} />
+            ))}
+          </div>
+        </CodePreview>
       </section>
 
-      <section className="doc-section">
-        <h2>Table Example</h2>
-        <p>Common usage in a table header to select all rows.</p>
-        <div className="table-preview">
-          <table className="doc-table">
-            <thead>
-              <tr>
-                <th style={{ width: 40 }}>
-                  <Checkbox checked="indeterminate" />
-                </th>
-                <th>Mã phiếu</th>
-                <th>Trạng thái</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><Checkbox checked /></td>
-                <td>NABSG/IN/00040</td>
-                <td>Đã hủy</td>
-              </tr>
-              <tr>
-                <td><Checkbox checked={false} /></td>
-                <td>NABSG/IN/00091</td>
-                <td>Nháp</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <section id="radius" className="doc-section">
+        <h2>Radius</h2>
+        <p>Control the rounding of the checkbox to match your UI protocol.</p>
+        <CodePreview
+          code={`<Checkbox radius="none" label="None" checked />
+<Checkbox radius="sm" label="Small" checked />
+<Checkbox radius="md" label="Medium" checked />
+<Checkbox radius="lg" label="Large" checked />
+<Checkbox radius="full" label="Full" checked />`}
+        >
+          <div className="flex flex-wrap gap-6">
+            <Checkbox radius="none" label="None" checked />
+            <Checkbox radius="sm" label="Small" checked />
+            <Checkbox radius="md" label="Medium" checked />
+            <Checkbox radius="lg" label="Large" checked />
+            <Checkbox radius="full" label="Full" checked />
+          </div>
+        </CodePreview>
       </section>
-    </div>
+
+      <section id="api" className="doc-section">
+        <h2>API Reference</h2>
+        <PropsTable props={checkboxProps} />
+      </section>
+    </DocLayout>
   );
 };
 
 export default CheckboxDoc;
+

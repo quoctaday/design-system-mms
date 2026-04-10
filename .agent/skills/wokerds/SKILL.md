@@ -1,8 +1,8 @@
 ---
-name: ui-ux-pro-max
-description: UI/UX design intelligence. 50 styles, 21 palettes, 50 font pairings, 20 charts, 9 stacks.
+name: wokerds
+description: MMS-Platform Design Intelligence Agency. Specialized in high-density operational UI, Inter Display typography, and Flat-Premium aesthetics.
 ---
-# ui-ux-pro-max
+# wokerds
 
 Comprehensive design guide for web and mobile applications. Contains 67 styles, 96 color palettes, 57 font pairings, 99 UX guidelines, and 25 chart types across 13 technology stacks. Searchable database with priority-based recommendations.
 
@@ -213,6 +213,25 @@ python3 skills/ui-ux-pro-max/scripts/search.py "fintech crypto" --design-system 
 4. **Always check UX** - Search "animation", "z-index", "accessibility" for common issues
 5. **Use stack flag** - Get implementation-specific best practices
 6. **Iterate** - If first search doesn't match, try different keywords
+7. **MMS Strict Mode** - This skill is now hardwired to the MMS Design System. It will automatically map creative ideas to project tokens.
+
+---
+
+## MMS Design System Protocol
+
+When working on this project, the internal logic of this skill is governed by `data/mms_mapping.json`.
+
+### Creative Constraints
+- **Typography:** Strictly use **Inter Display** (headings) and **Inter** (body). No external Google Fonts.
+- **Colors:** All colors must map to MMS Semantic Tokens (e.g., `var(--brand-9)`, `var(--surface-main)`).
+- **Shadows:** Strict Flat-Premium Mode. Shadows are flagged as anti-patterns unless explicitly approved by the user.
+- **Font Size:** Defaulting to **14px** for high-density data views.
+
+### Verification Workflow
+1. Generate design system using `--design-system`.
+2. Inspect the output for any `⚠️ ALERT` or `❌ Shadows` warnings.
+3. If shadows are suggested but necessary, ask the user: *"The system suggests a [Style] which typically uses shadows. Do you approve adding a specific shadow token for this use case?"*
+4. Run `node scripts/audit-tokens.mjs` after implementation to ensure compliance.
 
 ---
 

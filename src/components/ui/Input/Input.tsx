@@ -6,7 +6,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   variant?: 'surface' | 'classic' | 'soft';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'gray';
   size?: '1' | '2' | '3';
-  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
+  radius?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   leftSlot?: React.ReactNode;
   rightSlot?: React.ReactNode;
 }
@@ -16,7 +16,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   variant = 'surface',
   color = 'brand',
   size = '2',
-  radius = 'medium',
+  radius,
   leftSlot,
   rightSlot,
   disabled,
@@ -29,7 +29,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
         `mms-input-variant-${variant}`,
         `mms-input-color-${color}`,
         `mms-input-size-${size}`,
-        `mms-input-radius-${radius}`,
+        radius && `mms-input-radius-${radius}`,
         disabled && 'mms-input-disabled',
         className
       )}

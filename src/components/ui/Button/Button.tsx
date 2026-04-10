@@ -6,7 +6,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: 'solid' | 'soft' | 'outline' | 'ghost' | 'surface';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'orange' | 'blue' | 'purple' | 'sky' | 'pink' | 'teal' | 'secondary' | 'black' | 'gray';
   size?: '1' | '2' | '3' | '4';
-  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -17,7 +17,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'solid',
   color = 'brand',
   size = '2',
-  radius = 'medium',
+  radius,
   loading = false,
   leftIcon,
   rightIcon,
@@ -33,7 +33,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
         `mms-button-variant-${variant}`,
         `mms-button-color-${color}`,
         `mms-button-size-${size}`,
-        `mms-button-radius-${radius}`,
+        radius && `mms-button-radius-${radius}`,
         loading && 'mms-button-loading',
         className
       )}

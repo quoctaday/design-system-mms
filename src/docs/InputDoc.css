@@ -7,9 +7,9 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 24px;
   padding: 32px;
-  background-color: var(--bg-pure);
-  border: 1px solid var(--border-low);
-  border-radius: var(--radius-4);
+  background-color: var(--white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
 }
 
 .example-item {
@@ -18,19 +18,19 @@
   align-items: flex-start;
   gap: 16px;
   padding: 24px 16px;
-  background-color: var(--bg-surface);
-  border-radius: var(--radius-3);
+  background-color: var(--surface-panel);
+  border-radius: var(--radius-sm);
   box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-  border: 1px solid var(--border-low);
+  border: 1px solid var(--border-subtle);
 }
 
 .example-item code {
   font-family: 'SF Mono', 'Fira Code', monospace;
   font-size: 13px;
-  color: var(--text-brand);
+  color: var(--content-accent);
   background-color: var(--bg-component);
   padding: 4px 8px;
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-xs);
   align-self: center;
 }
 
@@ -39,9 +39,9 @@
   flex-direction: column;
   gap: 16px;
   padding: 32px;
-  background-color: var(--bg-pure);
-  border: 1px solid var(--border-low);
-  border-radius: var(--radius-4);
+  background-color: var(--white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
 }
 
 .input-row {

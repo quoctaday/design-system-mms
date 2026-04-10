@@ -1,0 +1,63 @@
+.props-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  margin-bottom: 32px;
+}
+
+.props-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.props-table th {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--content-subtle);
+  padding: 12px 16px;
+  background-color: var(--surface-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  letter-spacing: 0.05em;
+}
+
+.props-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 13px;
+  color: var(--content-strong);
+  vertical-align: top;
+}
+
+.props-table tr:last-child td {
+  border-bottom: none;
+}
+
+.props-table code {
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background-color: var(--brand-a3);
+  color: var(--content-accent);
+  font-weight: 500;
+}
+
+/* Specific styling for type columns to keep it clean */
+.prop-type code {
+  opacity: 0.85;
+}
+
+.prop-default code {
+  color: var(--content-subtle);
+}
+
+.prop-none {
+  color: var(--content-disabled);
+}
+
+.prop-desc {
+  color: var(--content-subtle);
+  line-height: 1.5;
+}

@@ -23,6 +23,7 @@ from core import search, DATA_DIR
 
 # ============ CONFIGURATION ============
 REASONING_FILE = "ui-reasoning.csv"
+MMS_MAPPING_FILE = "mms_mapping.json"
 
 SEARCH_CONFIG = {
     "product": {"max_results": 1},
@@ -39,6 +40,30 @@ class DesignSystemGenerator:
 
     def __init__(self):
         self.reasoning_data = self._load_reasoning()
+        self.mms_mapping = self._load_mms_mapping()
+
+    def _load_mms_mapping(self) -> dict:
+        """Load MMS Design System mapping from the unified intelligence folder."""
+        # 1. Try to find the project-level protocol first
+        # Climb up from .agent/skills/.../scripts/ to find design-system/
+        try:
+            current_dir = Path(__file__).resolve().parent
+            project_root = current_dir.parents[3] # Up 4 levels: scripts -> ui-ux-pro-max -> skills -> .agent -> root
+            protocol_path = project_root / "design-system" / "mms-design-system" / "00 - Intelligence" / "agent-protocol.json"
+            
+            if protocol_path.exists():
+                with open(protocol_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+        except Exception:
+            pass
+
+        # 2. Fallback to local mapping (for backward compatibility during migration)
+        filepath = DATA_DIR / MMS_MAPPING_FILE
+        if filepath.exists():
+            with open(filepath, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        
+        return {}
 
     def _load_reasoning(self) -> list:
         """Load reasoning rules from CSV."""
@@ -194,8 +219,9 @@ class DesignSystemGenerator:
         reasoning_effects = reasoning.get("key_effects", "")
         combined_effects = style_effects if style_effects else reasoning_effects
 
-        return {
-            "project_name": project_name or query.upper(),
+        # Step 6: Initial result
+        res = {
+            "project_name": project_name or self.mms_mapping.get("project_name", query.upper()),
             "category": category,
             "pattern": {
                 "name": best_landing.get("Pattern Name", reasoning.get("pattern", "Hero + Features + CTA")),
@@ -234,6 +260,44 @@ class DesignSystemGenerator:
             "decision_rules": reasoning.get("decision_rules", {}),
             "severity": reasoning.get("severity", "MEDIUM")
         }
+
+        # Step 7: Apply MMS Constraints
+        return self._apply_mms_constraints(res)
+
+    def _apply_mms_constraints(self, res: dict) -> dict:
+        """Apply MMS Design System constraints and token mapping."""
+        if not self.mms_mapping:
+            return res
+
+        tokens = self.mms_mapping.get("tokens", {})
+        fonts = self.mms_mapping.get("fonts", {})
+        constraints = self.mms_mapping.get("constraints", {})
+
+        # Map Colors to Tokens
+        res["colors"]["primary_token"] = tokens.get("color:primary", res["colors"]["primary"])
+        res["colors"]["secondary_token"] = tokens.get("color:secondary", res["colors"]["secondary"])
+        res["colors"]["cta_token"] = tokens.get("color:cta", res["colors"]["cta"])
+        res["colors"]["background_token"] = tokens.get("color:background", res["colors"]["background"])
+        res["colors"]["text_token"] = tokens.get("color:text", res["colors"]["text"])
+        res["colors"]["border_token"] = tokens.get("color:border", "var(--border-accent)")
+
+        # Force Typography
+        res["typography"]["heading"] = fonts.get("heading", "Inter Display")
+        res["typography"]["body"] = fonts.get("body", "Inter")
+        res["typography"]["google_fonts_url"] = ""  # Strictly use local Inter
+        res["typography"]["css_import"] = "/* Using local Inter Display and Inter */"
+
+        # Shadow Handling
+        if constraints.get("require_shadow_approval", True):
+            effects = res.get("key_effects", "").lower()
+            if "shadow" in effects or "depth" in effects:
+                res["key_effects"] = f"{res['key_effects']} | ⚠️ ALERT: System-level shadows detected. USE ONLY IF NECESSARY and ask user before implementation."
+            
+            # Remove shadows from pattern strategy if strict
+            if not constraints.get("allow_shadows", False):
+                res["anti_patterns"] = f"{res.get('anti_patterns', '')} + ❌ Shadows (Strict Flat-Premium Mode)"
+
+        return res
 
 
 # ============ OUTPUT FORMATTERS ============
@@ -306,11 +370,11 @@ def format_ascii_box(design_system: dict) -> str:
 
     # Colors section
     lines.append("|  COLORS:".ljust(BOX_WIDTH) + "|")
-    lines.append(f"|     Primary:    {colors.get('primary', '')}".ljust(BOX_WIDTH) + "|")
-    lines.append(f"|     Secondary:  {colors.get('secondary', '')}".ljust(BOX_WIDTH) + "|")
-    lines.append(f"|     CTA:        {colors.get('cta', '')}".ljust(BOX_WIDTH) + "|")
-    lines.append(f"|     Background: {colors.get('background', '')}".ljust(BOX_WIDTH) + "|")
-    lines.append(f"|     Text:       {colors.get('text', '')}".ljust(BOX_WIDTH) + "|")
+    lines.append(f"|     Primary:    {colors.get('primary_token', colors.get('primary', ''))}".ljust(BOX_WIDTH) + "|")
+    lines.append(f"|     Secondary:  {colors.get('secondary_token', colors.get('secondary', ''))}".ljust(BOX_WIDTH) + "|")
+    lines.append(f"|     CTA:        {colors.get('cta_token', colors.get('cta', ''))}".ljust(BOX_WIDTH) + "|")
+    lines.append(f"|     Background: {colors.get('background_token', colors.get('background', ''))}".ljust(BOX_WIDTH) + "|")
+    lines.append(f"|     Text:       {colors.get('text_token', colors.get('text', ''))}".ljust(BOX_WIDTH) + "|")
     if colors.get("notes"):
         for line in wrap_text(f"Notes: {colors.get('notes', '')}", "|     ", BOX_WIDTH):
             lines.append(line.ljust(BOX_WIDTH) + "|")
@@ -503,9 +567,8 @@ def persist_design_system(design_system: dict, page: str = None, output_dir: str
     """
     base_dir = Path(output_dir) if output_dir else Path.cwd()
     
-    # Use project name for project-specific folder
-    project_name = design_system.get("project_name", "default")
-    project_slug = project_name.lower().replace(' ', '-')
+    # Use mapping path if available
+    project_slug = design_system.get("project_name", "mms-design-system").lower().replace(' ', '-')
     
     design_system_dir = base_dir / "design-system" / project_slug
     pages_dir = design_system_dir / "pages"
@@ -578,11 +641,11 @@ def format_master_md(design_system: dict) -> str:
     lines.append("")
     lines.append("| Role | Hex | CSS Variable |")
     lines.append("|------|-----|--------------|")
-    lines.append(f"| Primary | `{colors.get('primary', '#2563EB')}` | `--color-primary` |")
-    lines.append(f"| Secondary | `{colors.get('secondary', '#3B82F6')}` | `--color-secondary` |")
-    lines.append(f"| CTA/Accent | `{colors.get('cta', '#F97316')}` | `--color-cta` |")
-    lines.append(f"| Background | `{colors.get('background', '#F8FAFC')}` | `--color-background` |")
-    lines.append(f"| Text | `{colors.get('text', '#1E293B')}` | `--color-text` |")
+    lines.append(f"| Primary | `{colors.get('primary', '#2563EB')}` | `{colors.get('primary_token', '--brand-9')}` |")
+    lines.append(f"| Secondary | `{colors.get('secondary', '#3B82F6')}` | `{colors.get('secondary_token', '--brand-10')}` |")
+    lines.append(f"| CTA/Accent | `{colors.get('cta', '#F97316')}` | `{colors.get('cta_token', '--brand-9')}` |")
+    lines.append(f"| Background | `{colors.get('background', '#F8FAFC')}` | `{colors.get('background_token', '--surface-main')}` |")
+    lines.append(f"| Text | `{colors.get('text', '#1E293B')}` | `{colors.get('text_token', '--content-strong')}` |")
     lines.append("")
     if colors.get("notes"):
         lines.append(f"**Color Notes:** {colors.get('notes', '')}")
@@ -1060,8 +1123,10 @@ if __name__ == "__main__":
     parser.add_argument("query", help="Search query (e.g., 'SaaS dashboard')")
     parser.add_argument("--project-name", "-p", type=str, default=None, help="Project name")
     parser.add_argument("--format", "-f", choices=["ascii", "markdown"], default="ascii", help="Output format")
+    parser.add_argument("--persist", action="store_true", help="Save design system to files")
+    parser.add_argument("--page", type=str, default=None, help="Page name for override file")
 
     args = parser.parse_args()
 
-    result = generate_design_system(args.query, args.project_name, args.format)
+    result = generate_design_system(args.query, args.project_name, args.format, args.persist, args.page)
     print(result)

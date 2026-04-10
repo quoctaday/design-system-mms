@@ -3,73 +3,78 @@
   list-style-type: none;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--spacing-4);
   user-select: none;
+  padding: 0;
+  margin: 0;
 }
 
 .pagination-item {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm); /* Slightly smaller for small square items */
   cursor: pointer;
   background: transparent;
-  border: none;
-  color: var(--text-medium);
-  font-family: inherit;
+  border: 0.5px solid transparent;
+  color: var(--content-subtle);
+  font-family: var(--font-family);
   font-weight: 500;
-  transition: all 0.1s ease-in-out;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
-  width: 32px;
-  height: 32px;
-  font-size: 14px;
+  width: var(--size-2);
+  height: var(--size-2);
+  font-size: var(--font-size-3);
 }
 
 .pagination-item:hover:not(.disabled):not(.active):not(.dots) {
-  background-color: var(--bg-component);
-  color: var(--text-high);
+  background-color: var(--surface-component);
+  border-color: var(--border-subtle);
+  color: var(--content-strong);
 }
 
 .pagination-item.active {
-  background-color: var(--color-9);
-  color: #fff;
+  background-color: var(--surface-accent-solid);
+  color: var(--content-on-solid);
   cursor: default;
 }
 
 .pagination-item.disabled {
   cursor: not-allowed;
-  opacity: 0.3;
+  color: var(--content-subtle);
+  opacity: 0.5;
 }
 
 .pagination-item.dots {
   cursor: default;
   background-color: transparent;
-  color: var(--text-low);
-  width: 24px;
+  color: var(--content-subtle);
+  width: var(--size-1);
 }
 
 .pagination-icon {
   font-size: 20px;
 }
 
-/* SIZES */
+/* SIZES mapping */
 .mms-pagination-size-1 .pagination-item {
-  width: 28px;
-  height: 28px;
-  font-size: 12px;
+  width: var(--size-1);
+  height: var(--size-1);
+  font-size: var(--font-size-2);
 }
 
 .mms-pagination-size-2 .pagination-item {
-  width: 34px;
-  height: 34px;
-  font-size: 14px;
+  width: var(--size-2);
+  height: var(--size-2);
+  font-size: var(--font-size-3);
 }
 
 /* COLORS ROUTING */
-.mms-pagination-color-brand {
-  --color-9: var(--brand-9);
+.mms-pagination-color-brand.active {
+  background-color: var(--surface-accent-solid);
 }
 
-.mms-pagination-color-gray {
-  --color-9: var(--gray-9);
+.mms-pagination-color-gray.active {
+  background-color: var(--content-strong);
+  color: var(--content-on-solid);
 }

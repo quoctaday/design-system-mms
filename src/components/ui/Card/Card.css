@@ -1,14 +1,16 @@
 .mms-card {
-  --card-bg: var(--bg-surface, #ffffff);
-  --card-border: var(--border-low, #eef0f1);
-  --card-radius: var(--radius-12, 12px);
+  /* Internal Tokens (Local Contract) */
+  --card-bg: var(--surface-panel);
+  --card-border: var(--border-subtle);
+  --card-radius: var(--radius-container);
   --card-shadow: none;
-  --card-padding: var(--spacing-16, 16px);
-  
+  --card-padding: var(--spacing-24);
+
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--card-radius);
   box-shadow: var(--card-shadow);
+  padding: var(--card-padding);
   display: flex;
   flex-direction: column;
   overflow: clip;
@@ -18,21 +20,19 @@
 
 /* Variants */
 .mms-card--glass {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: var(--surface-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  border: 1px solid var(--border-glass);
 }
 
 .mms-card--bordered {
-  border: 1px solid var(--border-standard);
+  border: 1px solid var(--border-default);
   box-shadow: none;
 }
 
-/* Padding */
-.mms-card--padding-none .mms-card-body { padding: 0; }
-.mms-card--padding-sm .mms-card-body { padding: var(--spacing-8); }
+/* Padding variants */
+.mms-card-body { padding: var(--spacing-8); }
 .mms-card--padding-md .mms-card-body { padding: var(--spacing-16); }
 .mms-card--padding-lg .mms-card-body { padding: var(--spacing-24); }
 
@@ -53,17 +53,15 @@
 
 .mms-card-title {
   margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-emphasis);
-  line-height: 1.4;
+  font-size: var(--font-size-4);
+  font-weight: 700;
+  color: var(--content-strong);
 }
 
-.mms-card-subtitle {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-subtle);
-  line-height: 1.4;
+.mms-card-description {
+  margin: var(--spacing-4) 0 0;
+  font-size: var(--font-size-2);
+  color: var(--content-subtle);
 }
 
 /* Footer */
@@ -73,12 +71,12 @@
   margin-top: auto;
 }
 
-/* Hover effect for clickable cards (if parent adds cursor: pointer) */
+/* Hover effect */
 .mms-card:hover {
-  border-color: var(--brand-alpha-16);
+  border-color: var(--border-default);
 }
 
 .mms-card--glass:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.1);
+  background-color: var(--surface-glass);
+  filter: brightness(1.1);
 }

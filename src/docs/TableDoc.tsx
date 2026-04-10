@@ -22,8 +22,10 @@ import {
   RiFileCopyLine,
   RiDeleteBinLine
 } from 'react-icons/ri';
-import './TableDoc.css';
-import './DropdownDoc.css'; // For common dropdown demo styles like .action-trigger-circle
+import { DocLayout } from '../components/docs/DocLayout';
+import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { CodePreview } from '../components/docs/CodePreview';
+import { PropsTable } from '../components/docs/PropsTable';
 
 const TableDoc: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +43,6 @@ const TableDoc: React.FC = () => {
     setSelectedItem(null);
   };
 
-  // Mock data representing the "PHIẾU NHẬP KHO" screen
   const inventoryData = [
     { id: 'NABSG/IN/00040', partner: 'NAB Sai Gon', date: '20/12/2023 15:43:08', source: 'PL00021', status: 'Canceled', starred: true },
     { id: 'NABSG/IN/00091', partner: 'NAB Sai Gon', date: '20/12/2023 15:43:08', source: 'PL00021', status: 'Draft', starred: false },
@@ -61,87 +62,99 @@ const TableDoc: React.FC = () => {
     }
   };
 
-  return (
-    <div className="table-doc">
-      <header className="doc-header">
-        <h1>Table</h1>
-        <p className="doc-description">A responsive data table for displaying large sets of structured information.</p>
-      </header>
+  const toc = [
+    { id: 'preview', title: 'Dashboard Preview' },
+    { id: 'usage', title: 'Usage' },
+    { id: 'api', title: 'API Reference' }
+  ];
 
-      <section className="doc-section">
+  const tableProps = [
+    { name: 'variant', type: "'surface' | 'ghost' | 'outline'", default: "'surface'", description: 'Biến thể hiển thị của bảng.' },
+    { name: 'striped', type: 'boolean', default: 'false', description: 'Kẻ sọc các dòng bảng.' },
+    { name: 'stickyHeader', type: 'boolean', default: 'false', description: 'Cố định tiêu đề bảng khi cuộn.' },
+    { name: 'className', type: 'string', description: 'CSS class tùy chỉnh.' }
+  ];
+
+  return (
+    <DocLayout 
+      title="Table" 
+      description="A responsive data table for displaying large sets of structured information."
+      headerBackground={<AuroraBackground />}
+      toc={toc}
+    >
+      <section id="preview" className="doc-section">
         <h2>Dashboard Preview: Phiếu Nhập Kho</h2>
-        <p>Recreating the "Inventory Receipt" screen using the MMS Table component system.</p>
+        <p>Recreating the Inventory Receipt screen using the MMS Table component system.</p>
         
-        <div className="dashboard-container">
-          {/* Dashboard Header/Actions */}
-          <div className="dashboard-actions">
-            <div className="actions-left">
+        <div className="mt-6 border border-subtle rounded-xl overflow-hidden bg-canvas">
+          <div className="p-4 border-b border-subtle bg-canvas flex flex-wrap gap-4 justify-between items-center">
+            <div className="flex gap-2">
               <Button variant="solid" color="brand" leftIcon={<RiAddLine />}>Tạo mới</Button>
-              <Button variant="soft" color="gray" leftIcon={<RiDownload2Line />}>Nhập từ Excel</Button>
+              <Button variant="soft" color="gray" leftIcon={<RiDownload2Line />}>Nhập Excel</Button>
             </div>
-            <div className="actions-right">
+            <div className="flex gap-2">
               <Input 
                 placeholder="Tìm kiếm mã phiếu..." 
                 leftSlot={<RiSearchLine />}
-                style={{ width: 280 }}
+                className="w-64"
               />
-              <Button variant="outline" color="gray" leftIcon={<RiFilter3Line />}>Bộ lọc</Button>
+              <Button variant="outline" color="gray" size="1">
+                <RiFilter3Line />
+              </Button>
             </div>
           </div>
 
-          {/* THE TABLE */}
           <Table.Root variant="ghost" striped>
             <Table.Header>
               <Table.Row>
-                <Table.ColumnHeaderCell style={{ width: 40 }}>
+                <Table.ColumnHeaderCell className="w-10">
                   <Checkbox checked="indeterminate" />
                 </Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell style={{ width: 40 }} />
+                <Table.ColumnHeaderCell className="w-10" />
                 <Table.ColumnHeaderCell>
-                  Mã phiếu 
+                  Mã phiếu
                   <Tooltip.Root side="top">
                     <Tooltip.Trigger>
-                      <RiInformationLine className="header-info-icon" />
+                      <RiInformationLine className="inline-block ml-1 text-muted cursor-help" />
                     </Tooltip.Trigger>
-                    <Tooltip.Content>Mã định danh duy nhất cho mỗi phiếu nhập kho.</Tooltip.Content>
+                    <Tooltip.Content>
+                      Mã định danh duy nhất cho mỗi phiếu.
+                    </Tooltip.Content>
                   </Tooltip.Root>
                 </Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Đối tác</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Ngày khởi tạo</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Tài liệu nguồn</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Trạng thái</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell style={{ width: 48 }}></Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell className="w-12 text-center" />
               </Table.Row>
             </Table.Header>
             <Table.Body>
               {inventoryData.map((item) => (
                 <Table.Row key={item.id}>
+                  <Table.Cell><Checkbox /></Table.Cell>
                   <Table.Cell>
-                    <Checkbox />
+                    <RiStarFill className={item.starred ? "text-warning" : "text-muted/40"} />
                   </Table.Cell>
-                  <Table.Cell>
-                    <RiStarFill className={item.starred ? "star-active" : "star-inactive"} />
-                  </Table.Cell>
-                  <Table.Cell className="cell-id">{item.id}</Table.Cell>
+                  <Table.Cell className="font-medium text-strong">{item.id}</Table.Cell>
                   <Table.Cell>{item.partner}</Table.Cell>
-                  <Table.Cell>{item.date}</Table.Cell>
+                  <Table.Cell className="text-secondary text-xs">{item.date}</Table.Cell>
                   <Table.Cell>{item.source}</Table.Cell>
                   <Table.Cell>{getStatusBadge(item.status)}</Table.Cell>
                   <Table.Cell>
                     <Dropdown.Root>
                       <Dropdown.Trigger>
-                        <div className="action-trigger-circle">
+                        <Button variant="ghost" size="1">
                           <RiMore2Fill />
-                        </div>
+                        </Button>
                       </Dropdown.Trigger>
                       <Dropdown.Content align="right">
                         <Dropdown.Item leftIcon={<RiEditLine />}>Chỉnh sửa</Dropdown.Item>
                         <Dropdown.Item leftIcon={<RiFileCopyLine />}>Sao chép</Dropdown.Item>
-                        <Dropdown.Item leftIcon={<RiDownload2Line />}>Tải xuống PDF</Dropdown.Item>
                         <Dropdown.Separator />
                         <Dropdown.Item 
                           leftIcon={<RiDeleteBinLine />} 
-                          className="dropdown-item-danger"
+                          className="text-error"
                           onClick={() => handleDeleteClick(item.id)}
                         >
                           Xóa phiếu
@@ -154,9 +167,8 @@ const TableDoc: React.FC = () => {
             </Table.Body>
           </Table.Root>
 
-          {/* Table Footer / Pagination */}
-          <div className="dashboard-footer">
-            <div className="footer-info">Hiển thị 1-6 của 90 kết quả</div>
+          <div className="p-4 border-t border-subtle flex justify-between items-center bg-muted/10">
+            <span className="text-xs text-subtle">Hiển thị 1-6 của 90 kết quả</span>
             <Pagination 
               currentPage={currentPage}
               totalCount={90}
@@ -166,15 +178,14 @@ const TableDoc: React.FC = () => {
           </div>
         </div>
 
-        {/* Global Confirmation Modal */}
         <Modal.Root open={deleteModalOpen} onOpenChange={setDeleteModalOpen}>
           <Modal.Portal>
             <Modal.Overlay />
             <Modal.Content style={{ maxWidth: '400px' }}>
               <Modal.Header>
-                <Modal.Title>Xác nhận xóa phiếu nhập kho?</Modal.Title>
+                <Modal.Title>Xác nhận xóa phiếu?</Modal.Title>
                 <Modal.Description>
-                  Phiếu <strong>{selectedItem}</strong> sẽ bị xóa vĩnh viễn. Hành động này không thể hoàn tác.
+                  Phiếu <strong>{selectedItem}</strong> sẽ bị xóa vĩnh viễn.
                 </Modal.Description>
               </Modal.Header>
               <Modal.Footer>
@@ -186,11 +197,11 @@ const TableDoc: React.FC = () => {
         </Modal.Root>
       </section>
 
-      <section className="doc-section">
-        <h2>Component API</h2>
+      <section id="usage" className="doc-section">
+        <h2>Usage</h2>
         <p>Using the composition pattern for maximum flexibility.</p>
-        <pre className="doc-code">
-{`<Table.Root variant="surface" stickyHeader>
+        <CodePreview
+          code={`<Table.Root variant="surface">
   <Table.Header>
     <Table.Row>
       <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
@@ -204,10 +215,36 @@ const TableDoc: React.FC = () => {
     </Table.Row>
   </Table.Body>
 </Table.Root>`}
-        </pre>
+        >
+          <Table.Root variant="surface">
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Role</Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>John Doe</Table.Cell>
+                <Table.Cell>Admin</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Jane Smith</Table.Cell>
+                <Table.Cell>Developer</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table.Root>
+        </CodePreview>
       </section>
-    </div>
+
+      <section id="api" className="doc-section">
+        <h2>API Reference</h2>
+        <PropsTable props={tableProps} />
+      </section>
+    </DocLayout>
   );
 };
 
 export default TableDoc;
+
+

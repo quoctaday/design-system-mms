@@ -1,3 +1,4 @@
+/* ── Root & List ── */
 .mms-tabs-root {
   display: flex;
   flex-direction: column;
@@ -6,44 +7,47 @@
 .mms-tabs-list {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: var(--spacing-4);
 }
 
+/* ── Trigger Base ── */
 .mms-tabs-trigger {
   all: unset;
   cursor: pointer;
   font-family: var(--font-family);
-  font-size: 14px;
+  font-size: var(--font-size-3);
   font-weight: 500;
-  color: var(--text-subtle);
-  transition: all 0.2s ease;
+  color: var(--content-subtle);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   user-select: none;
+  white-space: nowrap;
 }
 
-.mms-tabs-trigger:hover {
-  color: var(--text-emphasis);
+.mms-tabs-trigger:hover:not(:disabled) {
+  color: var(--content-strong);
 }
 
 .mms-tabs-trigger[data-state='active'] {
-  color: var(--text-brand);
+  color: var(--content-strong);
 }
 
 .mms-tabs-trigger:disabled {
   cursor: not-allowed;
+  color: var(--content-subtle);
   opacity: 0.5;
 }
 
-/* Variant: Line */
+/* ── Variant: Line ── */
 .mms-tabs-list[data-variant='line'] {
-  border-bottom: 1px solid var(--border-standard);
-  gap: 32px;
+  border-bottom: 1px solid var(--border-subtle);
+  gap: var(--spacing-32);
 }
 
 .mms-tabs-list[data-variant='line'] .mms-tabs-trigger {
-  padding: 12px 0;
+  padding: var(--spacing-12) 0;
   position: relative;
   margin-bottom: -1px;
 }
@@ -55,64 +59,72 @@
   left: 0;
   right: 0;
   height: 2px;
-  background-color: var(--text-brand);
+  background-color: var(--content-accent);
 }
 
-/* Variant: Border */
+.mms-tabs-list[data-variant='line'] .mms-tabs-trigger[data-state='active'] {
+  color: var(--content-accent);
+}
+
+/* ── Variant: Border ── */
 .mms-tabs-list[data-variant='border'] {
-  gap: 8px;
+  gap: var(--spacing-8);
 }
 
 .mms-tabs-list[data-variant='border'] .mms-tabs-trigger {
-  padding: 8px 16px;
-  border: 1px solid var(--border-standard);
-  border-radius: var(--radius-8);
+  padding: var(--spacing-8) var(--spacing-16);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
 }
 
 .mms-tabs-list[data-variant='border'] .mms-tabs-trigger[data-state='active'] {
-  background-color: var(--bg-sidebar);
-  border-color: var(--text-brand);
-  color: var(--text-brand);
+  background-color: var(--surface-component);
+  border-color: var(--border-default);
+  color: var(--content-accent);
 }
 
-/* Variant: Simple */
+/* ── Variant: Simple ── */
 .mms-tabs-list[data-variant='simple'] {
-  gap: 24px;
+  gap: var(--spacing-4);
 }
 
 .mms-tabs-list[data-variant='simple'] .mms-tabs-trigger {
-  padding: 8px 12px;
-  border-radius: var(--radius-8);
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-lg);
 }
 
 .mms-tabs-list[data-variant='simple'] .mms-tabs-trigger[data-state='active'] {
-  background-color: var(--bg-sidebar-hover);
-  color: var(--text-emphasis);
+  background-color: var(--surface-component);
+  color: var(--content-strong);
 }
 
-/* Variant: Toggle (Segmented) */
+/* ── Variant: Toggle (Segmented Control) ── */
 .mms-tabs-list[data-variant='toggle'] {
-  background-color: var(--bg-sidebar);
-  padding: 4px;
+  background-color: var(--surface-subtle);
+  padding: var(--spacing-4);
   border-radius: var(--radius-full);
   display: inline-flex;
+  gap: var(--spacing-4);
+  border: 1px solid var(--border-subtle);
 }
 
 .mms-tabs-list[data-variant='toggle'] .mms-tabs-trigger {
-  padding: 8px 24px;
+  padding: 0 var(--spacing-24);
+  height: var(--size-2);
   border-radius: var(--radius-full);
-  font-size: 13px;
+  font-size: var(--font-size-2);
+  min-width: 80px;
 }
 
 .mms-tabs-list[data-variant='toggle'] .mms-tabs-trigger[data-state='active'] {
-  background-color: var(--bg-app);
-  color: var(--text-emphasis);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: var(--surface-app);
+  color: var(--content-strong);
+  box-shadow: var(--shadow-small);
 }
 
-/* Content */
+/* ── Content ── */
 .mms-tabs-content {
-  padding-top: 24px;
+  padding-top: var(--spacing-24);
   outline: none;
 }
 

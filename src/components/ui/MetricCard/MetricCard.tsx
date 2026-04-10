@@ -1,79 +1,147 @@
 import React from 'react';
-import Card from '../Card/Card';
-import Badge from '../Badge/Badge';
-import { RiArrowRightSLine } from 'react-icons/ri';
+import { cn } from '../../../lib/utils';
+import { RiMore2Fill, RiArrowRightUpLine, RiArrowRightDownLine } from 'react-icons/ri';
 import './MetricCard.css';
 
 export interface MetricCardProps {
   label: string;
   value: string | number;
-  icon?: React.ReactNode;
   trend?: 'up' | 'down';
   change?: string;
   description?: string;
-  linkText?: string;
-  onLinkClick?: () => void;
-  color?: 'primary' | 'success' | 'warning' | 'error' | 'info';
+  comparisonText?: string;
+  icon?: React.ReactNode;
+  variant?: 'primary' | 'error' | 'success' | 'warning';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
+  chartData?: boolean; // If true, show the dotted wave chart
+  onMoreClick?: () => void;
+  linkText?: string;
+  design?: 'modern' | 'linear';
 }
 
 export const MetricCard: React.FC<MetricCardProps> = ({
   label,
   value,
-  icon,
   trend,
   change,
   description,
-  linkText,
-  onLinkClick,
-  color = 'primary',
+  comparisonText = "vs last month",
+  icon,
+  variant = 'primary',
   size = 'md',
-  className = '',
+  className,
+  chartData = true,
+  onMoreClick,
+  linkText,
+  design = 'modern'
 }) => {
-  return (
-    <Card className={`mms-metric-card mms-metric-card--${size} ${className}`} padding="none">
-      <div className="mms-metric-card-content">
-        <div className="mms-metric-card-header">
-          <div className="mms-metric-header-left">
-            {icon && (
-              <div className={`mms-metric-icon-box mms-metric-icon-box--${size} mms-metric-icon-box--${color}`}>
-                {icon}
+  const isLinear = design === 'linear';
+
+  const renderContent = () => (
+    <>
+      <div className="mms-metric-header">
+        <div className="mms-metric-header-left">
+          {icon && <div className={cn("mms-metric-icon", `mms-metric-icon--${variant}`)}>{icon}</div>}
+          <span className="mms-metric-label">{label}</span>
+        </div>
+      </div>
+
+      <div className="mms-metric-body">
+        <div className="mms-metric-data-row">
+          <div className="mms-metric-value-group">
+            <span className="mms-metric-value">{value}</span>
+            {(change || trend) && (
+              <div className={cn("mms-metric-trend", trend && `mms-metric-trend--${trend}`)}>
+                {trend === 'up' ? <RiArrowRightUpLine /> : <RiArrowRightDownLine />}
+                <span className="mms-trend-value">{change}</span>
+                <span className="mms-trend-text">{comparisonText}</span>
               </div>
             )}
-            <span className="mms-metric-card-label">{label}</span>
+            {description && <div className="mms-metric-description">{description}</div>}
           </div>
-        </div>
-        
-        <div className="mms-metric-card-main">
-          <div className="mms-metric-card-value-container">
-            <span className="mms-metric-card-value">{value}</span>
-            {change && (
-              <Badge 
-                color={trend === 'up' ? 'success' : 'error'} 
-                variant="soft" 
-                size="1"
-                className="mms-metric-card-badge"
-              >
-                {change}
-              </Badge>
-            )}
-          </div>
+          
+          {onMoreClick && (
+            <button className="mms-metric-more" onClick={onMoreClick}>
+              {linkText ? <span className="mms-metric-link-text">{linkText}</span> : <RiMore2Fill />}
+            </button>
+          )}
         </div>
 
-        {(description || linkText) && (
-          <div className="mms-metric-card-footer">
-            {description && (
-              <p className="mms-metric-card-description">{description}</p>
-            )}
-            {linkText && (
-              <button className="mms-metric-card-link" onClick={onLinkClick}>
-                {linkText} <RiArrowRightSLine />
-              </button>
-            )}
+        {chartData && (
+          <div className="mms-metric-chart-area">
+            <svg viewBox="0 0 100 20" preserveAspectRatio="none" className="mms-dotted-wave">
+              <path 
+                d="M0,15 C10,15 20,5 30,10 C40,15 50,2 60,8 C70,14 80,10 90,5 C100,0 110,10 120,10" 
+                fill="none" 
+                stroke="var(--indigo-8)" 
+                strokeWidth="1.2" 
+                strokeDasharray="1 3"
+                strokeLinecap="round"
+              />
+            </svg>
           </div>
         )}
       </div>
-    </Card>
+    </>
+  );
+
+  return (
+    <div 
+      className={cn(
+        isLinear ? "mms-metric-card-linear" : "mms-metric-card-modern",
+        !isLinear && `mms-metric-card-modern--${size}`,
+        `mms-metric-card-size--${size}`,
+        className
+      )}
+      onClick={onMoreClick}
+    >
+      {isLinear ? (
+        <>
+          <div className="mms-metric-pattern" />
+          <div className="mms-metric-header">
+            <div className="mms-metric-header-left">
+              {icon && <div className={cn("mms-metric-icon", `mms-metric-icon--${variant}`)}>{icon}</div>}
+              <span className="mms-metric-label">{label}</span>
+            </div>
+            {onMoreClick && (
+              <button className="mms-metric-more" onClick={(e) => { e.stopPropagation(); onMoreClick(); }}>
+                {linkText ? <span className="mms-metric-link-text">{linkText}</span> : <RiMore2Fill />}
+              </button>
+            )}
+          </div>
+          <div className="mms-metric-inner">
+            <div className="mms-metric-value-group">
+              <span className="mms-metric-value">{value}</span>
+              {(change || trend) && (
+                <div className={cn("mms-metric-trend", trend && `mms-metric-trend--${trend}`)}>
+                  {trend === 'up' ? <RiArrowRightUpLine /> : <RiArrowRightDownLine />}
+                  <span className="mms-trend-value">{change}</span>
+                  <span className="mms-trend-text">{comparisonText}</span>
+                </div>
+              )}
+              {description && <div className="mms-metric-description">{description}</div>}
+            </div>
+            
+            {chartData && (
+              <div className="mms-metric-chart-area">
+                <svg viewBox="0 0 100 20" preserveAspectRatio="none" className="mms-dotted-wave">
+                  <path 
+                    d="M0,15 C10,15 20,5 30,10 C40,15 50,2 60,8 C70,14 80,10 90,5 C100,0 110,10 120,10" 
+                    fill="none" 
+                    stroke="var(--indigo-8)" 
+                    strokeWidth="1.2" 
+                    strokeDasharray="1 3"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        renderContent()
+      )}
+    </div>
   );
 };

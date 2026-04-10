@@ -12,11 +12,11 @@
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: var(--text-high);
+  color: var(--content-strong);
 }
 
 .doc-section p {
-  color: var(--text-medium);
+  color: var(--content-subtle);
   margin-bottom: 32px;
   line-height: 1.6;
 }
@@ -27,14 +27,14 @@
   align-items: center;
   gap: 24px;
   padding: 40px;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-low);
-  border-radius: var(--radius-4);
+  background-color: var(--surface-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
 }
 
 .page-indicator {
   font-size: 14px;
-  color: var(--text-low);
+  color: var(--content-subtle);
   font-weight: 500;
 }
 
@@ -52,7 +52,7 @@
 
 .example-column h4 {
   font-size: 14px;
-  color: var(--text-low);
+  color: var(--content-subtle);
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -63,12 +63,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-low);
-  border-radius: var(--radius-4);
+  background-color: var(--surface-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
 }
 
 .items-info {
   font-size: 14px;
-  color: var(--text-medium);
+  color: var(--content-subtle);
 }

@@ -10,18 +10,20 @@
 }
 
 .mms-tooltip-content {
-  position: absolute;
-  z-index: 2000;
-  padding: 6px 10px;
-  background-color: var(--gray-12, #1a1a1a);
-  color: white;
-  border-radius: var(--radius-2, 4px);
-  font-size: 12px;
+  background-color: var(--surface-tooltip);
+  color: var(--content-on-solid);
+  padding: var(--spacing-6) var(--spacing-12);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--font-size-2);
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.4;
+  box-shadow: var(--shadow-medium);
+  border: 0.5px solid var(--white-a3);
   white-space: nowrap;
   pointer-events: none;
-  box-shadow: var(--shadow-small, 0 2px 4px rgba(0,0,0,0.1));
+  z-index: 1000;
+  position: absolute;
   animation-duration: 0.15s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
@@ -35,7 +37,7 @@
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: var(--gray-12, #1a1a1a);
+  background-color: var(--surface-tooltip);
   transform: rotate(45deg);
 }
 

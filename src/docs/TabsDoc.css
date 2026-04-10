@@ -4,9 +4,9 @@
 
 .example-container {
   padding: 32px;
-  background-color: var(--bg-surface-subtle);
+  background-color: var(--surface-subtle);
   border: 1px solid var(--border-standard);
-  border-radius: var(--radius-16);
+  border-radius: var(--radius-lg);
   margin-top: 16px;
 }
 

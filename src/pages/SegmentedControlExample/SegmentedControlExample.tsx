@@ -6,7 +6,11 @@ import {
   RiCalendarLine, 
 } from 'react-icons/ri';
 
-const SegmentedControlExample: React.FC = () => {
+interface SegmentedControlExampleProps {
+  onPageChange: (page: string) => void;
+}
+
+const SegmentedControlExample: React.FC<SegmentedControlExampleProps> = ({ onPageChange }) => {
   const [size, setSize] = useState('md');
   const [view, setView] = useState('list');
   const [period, setPeriod] = useState('monthly');
@@ -79,15 +83,15 @@ const SegmentedControlExample: React.FC = () => {
               <span className="demo-label">Size Variants</span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                  <span style={{ width: 60, fontSize: 12, color: 'var(--text-subtle)' }}>Small</span>
+                  <span style={{ width: 60, fontSize: 12, color: 'var(--content-subtle)' }}>Small</span>
                   <SegmentedControl options={sizeOptions} value={size} onChange={setSize} size="sm" />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                  <span style={{ width: 60, fontSize: 12, color: 'var(--text-subtle)' }}>Medium</span>
+                  <span style={{ width: 60, fontSize: 12, color: 'var(--content-subtle)' }}>Medium</span>
                   <SegmentedControl options={sizeOptions} value={size} onChange={setSize} size="md" />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                  <span style={{ width: 60, fontSize: 12, color: 'var(--text-subtle)' }}>Large</span>
+                  <span style={{ width: 60, fontSize: 12, color: 'var(--content-subtle)' }}>Large</span>
                   <SegmentedControl options={sizeOptions} value={size} onChange={setSize} size="lg" />
                 </div>
               </div>

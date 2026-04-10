@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, type ReactNode, useEffect } from 'react';
-import { generateRadixScale } from '../utils/colorUtils';
+import { generateRadixScale, generateDarkRadixScale, getAccessibleTextColor } from '../utils/colorUtils';
 import UnipayLogo from '../assets/Unipay.svg';
 import OCBLogo from '../assets/OCB.svg';
 import BVBLogo from '../assets/BVB.svg';
@@ -88,25 +88,56 @@ export const BrandProvider: React.FC<BrandProviderProps> = ({ children }) => {
   const activeBrand = BRANDS.find((b) => b.id === activeBrandId) || BRANDS[0];
 
   const applyBrandTokens = useCallback((brand: BrandConfig) => {
-    const root = document.documentElement;
-    const scale = generateRadixScale(brand.primaryColor, '--brand');
+    const lightScale = generateRadixScale(brand.primaryColor, '--brand');
+    const darkScale = generateDarkRadixScale(brand.primaryColor, '--brand');
+    
+    // Calculate accessible text colors based on the solid background (step 9)
+    const contrastColorLight = getAccessibleTextColor(lightScale['--brand-9']);
+    const contrastColorDark = getAccessibleTextColor(darkScale['--brand-9']);
 
-    // Apply entire 12-step scale + legacy aliases
-    for (const [key, value] of Object.entries(scale)) {
-      root.style.setProperty(key, value);
+    // Build the injected CSS for :root (light mode) and .dark (dark mode)
+    let cssString = `:root {\n`;
+    for (const [key, value] of Object.entries(lightScale)) {
+      cssString += `  ${key}: ${value};\n`;
     }
+    cssString += `  --brand-solid-bg: ${lightScale['--brand-9']};\n`;
+    cssString += `  --brand-contrast: ${contrastColorLight};\n`;
+    cssString += `  --text-on-color: ${contrastColorLight === '#ffffff' ? '#ffffff' : '#000000'};\n`;
+    cssString += `  --brand-text-accessible: ${lightScale['--brand-11']};\n`;
+    cssString += `  --border-brand: ${lightScale['--brand-7']};\n`;
+    cssString += `  --icon-brand: ${lightScale['--brand-9']};\n`;
+    cssString += `  --text-brand: ${lightScale['--brand-11']};\n`;
+    cssString += `  --component-button-fill: ${lightScale['--brand-9']};\n`;
+    cssString += `}\n\n`;
 
-    // Dynamic Semantic Aliases
-    const solidBg = scale['--brand-9'];
-    const accessibleText = scale['--brand-11'];
+    cssString += `.dark, [data-theme='dark'] {\n`;
+    for (const [key, value] of Object.entries(darkScale)) {
+      cssString += `  ${key}: ${value};\n`;
+    }
+    cssString += `  --brand-solid-bg: ${darkScale['--brand-9']};\n`;
+    cssString += `  --brand-contrast: ${contrastColorDark};\n`;
+    cssString += `  --text-on-color: ${contrastColorDark === '#ffffff' ? '#ffffff' : '#000000'};\n`;
+    cssString += `  --brand-text-accessible: ${darkScale['--brand-11']};\n`;
+    cssString += `  --border-brand: ${darkScale['--brand-7']};\n`;
+    cssString += `  --icon-brand: ${darkScale['--brand-9']};\n`;
+    cssString += `  --text-brand: ${darkScale['--brand-11']};\n`;
+    cssString += `  --component-button-fill: ${darkScale['--brand-9']};\n`;
+    cssString += `}\n`;
 
-    root.style.setProperty('--brand-solid-bg', solidBg);
-    root.style.setProperty('--text-on-color', '#ffffff'); 
-    root.style.setProperty('--brand-text-accessible', accessibleText);
-    root.style.setProperty('--border-brand', scale['--brand-7']);
-    root.style.setProperty('--icon-brand', scale['--brand-9']);
-    root.style.setProperty('--text-brand', accessibleText);
-    root.style.setProperty('--component-button-fill', solidBg);
+    // Find or create the dynamic style tag
+    const styleId = 'mms-dynamic-brand';
+    let styleTag = document.getElementById(styleId);
+    if (!styleTag) {
+      styleTag = document.createElement('style');
+      styleTag.id = styleId;
+      document.head.appendChild(styleTag);
+    }
+    styleTag.textContent = cssString;
+
+    // Clean up any lingering inline styles from previous implementation
+    const root = document.documentElement;
+    Object.keys(lightScale).forEach(key => root.style.removeProperty(key));
+    ['--brand-solid-bg', '--brand-contrast', '--text-on-color', '--brand-text-accessible', '--border-brand', '--icon-brand', '--text-brand', '--component-button-fill'].forEach(key => root.style.removeProperty(key));
   }, []);
 
   // Initialize on mount and when activeBrand changes

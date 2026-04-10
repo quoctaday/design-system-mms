@@ -1,0 +1,52 @@
+.mms-theme-toggle {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-8);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  color: var(--content-subtle);
+}
+
+.mms-theme-toggle:hover {
+  background-color: var(--surface-hover);
+  color: var(--content-strong);
+}
+
+.mms-theme-toggle .toggle-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mms-theme-toggle .toggle-icon {
+  font-size: 18px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mms-theme-toggle:active .toggle-icon {
+  transform: scale(0.9);
+}
+
+.mms-theme-toggle .toggle-label {
+  font-size: var(--font-size-3);
+  font-weight: 500;
+  user-select: none;
+}
+
+/* Specific animations for moon/sun */
+.mms-theme-toggle .toggle-icon.moon {
+  color: var(--content-subtle);
+}
+
+.mms-theme-toggle .toggle-icon.sun {
+  color: var(--amber-9);
+}
+
+/* Dark mode specific hover adjustment */
+.dark .mms-theme-toggle:hover {
+  background-color: var(--surface-panel);
+  color: #ffffff;
+}

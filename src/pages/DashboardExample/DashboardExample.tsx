@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   RiSearchLine, 
   RiNotification3Line, 
-  RiCalendarLine, 
   RiArrowUpSLine, 
   RiArrowDownSLine,
   RiDashboardLine,
@@ -28,32 +27,71 @@ import {
   Progress,
   PieChart,
   SegmentedControl,
-  MetricCard
+  MetricCard,
+  Breadcrumbs,
+  EmptyState,
+  DatePicker,
+  ThemeToggle,
+  Sidebar,
+  type DateRange
 } from '../../components/ui';
 import './DashboardExample.css';
 
-// Using the generated banner asset
-import promoBanner from '/Users/buiquoc/.gemini/antigravity/brain/211d71fb-07d4-404d-846f-b52030890f10/unipay_dashboard_banner_1775113791721.png';
+// Use a relative path from src/assets
+import promoBanner from '../../assets/hero.png';
 
-const DashboardExample: React.FC = () => {
+interface DashboardExampleProps {
+  onPageChange: (page: string) => void;
+}
+
+const DashboardExample: React.FC<DashboardExampleProps> = ({ onPageChange }) => {
   const [activeNav, setActiveNav] = useState('overview');
   const [cardStatsView, setCardStatsView] = useState<'revenue' | 'volume'>('revenue');
   const [fraudView, setFraudView] = useState('fraud');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [dateRange, setDateRange] = useState<DateRange>({
+    start: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    end: new Date()
+  });
+
+  // Real-time data states
+  const [dynamicLatencies, setDynamicLatencies] = useState<string[]>(['12ms', '45ms', '128ms', 'Timeout']);
+  const [dynamicSLAs, setDynamicSLAs] = useState<number[]>([15, 24, 12]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      // Simulate API latency changes
+      setDynamicLatencies(prev => prev.map(l => {
+        if (l === 'Timeout') return Math.random() > 0.8 ? '450ms' : 'Timeout';
+        const val = parseInt(l);
+        const change = Math.floor(Math.random() * 10) - 5;
+        return `${Math.max(5, val + change)}ms`;
+      }));
+
+      // Simulate SLA fluctuations
+      setDynamicSLAs(prev => prev.map(s => {
+        const change = Math.floor(Math.random() * 3) - 1;
+        return Math.min(100, Math.max(0, s + change));
+      }));
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const cardRevenueData = [
-    { label: 'VISA', value: 15.2, color: '#1A1A1A' },
-    { label: 'NAPAS', value: 9.0, color: '#3B82F6' },
-    { label: 'MASTERCARD', value: 8.0, color: '#6366F1' },
-    { label: 'JCB', value: 7.0, color: '#F59E0B' },
-    { label: 'China Union Bank', value: 6.0, color: '#CACFE0' },
+    { label: 'VISA', value: 15.2, color: 'var(--brand-9)' },
+    { label: 'NAPAS', value: 9.0, color: 'var(--blue-9)' },
+    { label: 'MASTERCARD', value: 8.0, color: 'var(--success-9)' },
+    { label: 'JCB', value: 7.0, color: 'var(--warning-9)' },
+    { label: 'China Union Bank', value: 6.0, color: 'var(--gray-9)' },
   ];
 
   const cardVolumeData = [
-    { label: 'VISA', value: 12450, color: '#1A1A1A' },
-    { label: 'NAPAS', value: 18900, color: '#3B82F6' },
-    { label: 'MASTERCARD', value: 7600, color: '#6366F1' },
-    { label: 'JCB', value: 4200, color: '#F59E0B' },
-    { label: 'China Union Bank', value: 2100, color: '#CACFE0' },
+    { label: 'VISA', value: 12450, color: 'var(--brand-9)' },
+    { label: 'NAPAS', value: 18900, color: 'var(--blue-9)' },
+    { label: 'MASTERCARD', value: 7600, color: 'var(--success-9)' },
+    { label: 'JCB', value: 4200, color: 'var(--warning-9)' },
+    { label: 'China Union Bank', value: 2100, color: 'var(--gray-9)' },
   ];
 
   const activeChartData = cardStatsView === 'revenue' ? cardRevenueData : cardVolumeData;
@@ -73,6 +111,11 @@ const DashboardExample: React.FC = () => {
     { id: '5', time: 'Hôm nay', account: 'KFC VIỆT NAM', region: 'TP. Hồ Chí Minh', status: 'MỚI', statusType: 'success' },
   ];
 
+  const filteredProfiles = profiles.filter(p => 
+    p.account.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    p.region.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const fraudAlerts = [
     { id: 'TXN: #OP8842', title: 'Giao dịch QR vượt ngưỡng...', amount: '12.000.000 VND', merchant: 'Landmark 81', time: '5m ago' },
     { id: 'TXN: #OP8912', title: 'Giao dịch quá lớn', amount: '42.500.000 VND', merchant: 'KFC Lê Văn Lương', time: '12m ago' },
@@ -86,23 +129,39 @@ const DashboardExample: React.FC = () => {
   ];
 
   const apiStatus = [
-    { name: 'Core Banking GW', latency: '12ms', status: 'online' },
-    { name: 'NAPAS Switching', latency: '45ms', status: 'online' },
-    { name: 'Visa/Master Host', latency: '128ms', status: 'online' },
-    { name: 'QR Merchant Notify', latency: 'Timeout', status: 'offline' },
+    { name: 'Core Banking GW', latency: dynamicLatencies[0], status: 'online' },
+    { name: 'NAPAS Switching', latency: dynamicLatencies[1], status: 'online' },
+    { name: 'Visa/Master Host', latency: dynamicLatencies[2], status: 'online' },
+    { name: 'QR Merchant Notify', latency: dynamicLatencies[3], status: dynamicLatencies[3] === 'Timeout' ? 'offline' : 'online' },
   ];
 
   return (
     <div className="mms-dashboard">
-      <aside className="dashboard-sidebar">
-        <div className="sidebar-logo">
-          <div className="logo-box">U</div>
-          <span className="logo-text">unipay</span>
-        </div>
-        
-        <nav className="sidebar-nav">
+      <Sidebar 
+        onLogoClick={() => onPageChange('intro')}
+        footer={
+          <div className="user-profile">
+            <div className="user-avatar">JW</div>
+            <div className="user-info">
+              <span className="user-name">John Woker</span>
+              <span className="user-role">HO Management</span>
+            </div>
+            <RiArrowUpSLine style={{ marginLeft: 'auto', opacity: 0.5 }} />
+          </div>
+        }
+      >
+        <div className="sidebar-nav">
+          <div className={cn("nav-item", activeNav === 'overview' && "active")} onClick={() => setActiveNav('overview')}>
+            <RiDashboardLine /> <span>Dashboard</span>
+          </div>
+          <div className="nav-item" onClick={() => onPageChange('operation-center')}>
+            <RiFlashlightLine /> <span>Operation Center</span>
+          </div>
+          <div className="nav-item" onClick={() => onPageChange('pie-chart')}>
+            <RiExchangeLine /> <span>Analysis Stats</span>
+          </div>
+          <div className="nav-divider" />
           {[
-            { id: 'overview', label: 'Tổng quan', icon: <RiDashboardLine /> },
             { id: 'transactions', label: 'Quản lý giao dịch', icon: <RiExchangeLine />, hasSub: true },
             { id: 'sales', label: 'Quản lý bán hàng', icon: <RiShoppingBag3Line />, hasSub: true },
             { id: 'customers', label: 'Quản lý khách hàng', icon: <RiUser3Line />, hasSub: true },
@@ -126,21 +185,10 @@ const DashboardExample: React.FC = () => {
           <div className="nav-item">
             <RiSettings4Line /> Cài đặt hệ thống
           </div>
-        </nav>
-
-        <div className="sidebar-footer">
-          <div className="user-profile">
-            <div className="user-avatar">JW</div>
-            <div className="user-info">
-              <span className="user-name">John Woker</span>
-              <span className="user-role">HO Management</span>
-            </div>
-            <RiArrowUpSLine style={{ marginLeft: 'auto', opacity: 0.5 }} />
-          </div>
         </div>
-      </aside>
+      </Sidebar>
 
-      <main className="dashboard-main">
+      <main className="dashboard-main animate-fade-in-up">
         {/* Banner */}
         <div className="dashboard-promo-banner">
           <img src={promoBanner} alt="Marketing Banner" />
@@ -150,7 +198,12 @@ const DashboardExample: React.FC = () => {
         <header className="dashboard-header">
           <div className="search-bar">
             <RiSearchLine />
-            <input type="text" placeholder="Tìm kiếm nhanh..." />
+            <input 
+              type="text" 
+              placeholder="Tìm kiếm hồ sơ, chi nhánh..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
           <div className="header-right">
             <Dropdown>
@@ -161,13 +214,16 @@ const DashboardExample: React.FC = () => {
                 </div>
               </Dropdown.Trigger>
               <Dropdown.Content width={300}>
-                <div style={{ padding: 12, borderBottom: '1px solid #f1f1f1' }}>
+                <div style={{ padding: 12, borderBottom: '1px solid var(--border-subtle)' }}>
                   <h4 style={{ margin: 0, fontSize: 14 }}>Thông báo mới nhất</h4>
                 </div>
                 <Dropdown.Item>Chargeback vượt ngưỡng tại chi nhánh HCM</Dropdown.Item>
                 <Dropdown.Item>Báo cáo ngày 02/04 đã sẵn sàng</Dropdown.Item>
               </Dropdown.Content>
             </Dropdown>
+            
+            <ThemeToggle className="header-icon-btn" />
+
             <div className="header-icon-btn">
               <RiSettings4Line />
             </div>
@@ -178,29 +234,27 @@ const DashboardExample: React.FC = () => {
         <div className="content-header">
           <div>
             <h1 className="content-title">TỔNG QUAN HỆ THỐNG</h1>
-            <div className="content-breadcrumbs">
-              <span>MMS</span>
-              <div className="dot" />
-              <span>Dashboard</span>
-              <div className="dot" />
-              <span className="active">Overview</span>
-              <div style={{ marginLeft: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontSize: 12 }}>Thứ Sáu, 27/03/2026</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <Breadcrumbs 
+                items={[
+                  { id: 'mms', label: 'MMS' },
+                  { id: 'dashboard', label: 'Dashboard' },
+                  { id: 'overview', label: 'Overview', active: true }
+                ]} 
+              />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 12, color: 'var(--gray-11)' }}>Thứ Sáu, 27/03/2026</span>
                 <Badge variant="soft" color="success" size="1">Trực tuyến</Badge>
               </div>
             </div>
           </div>
           <div className="content-actions">
-            <Dropdown>
-              <Dropdown.Trigger>
-                <Button variant="outline" leftIcon={<RiCalendarLine />} rightIcon={<RiArrowDownSLine />}>7 ngày qua</Button>
-              </Dropdown.Trigger>
-              <Dropdown.Content>
-                <Dropdown.Item>Hôm nay</Dropdown.Item>
-                <Dropdown.Item>7 ngày qua</Dropdown.Item>
-                <Dropdown.Item>30 ngày qua</Dropdown.Item>
-              </Dropdown.Content>
-            </Dropdown>
+            <DatePicker 
+              mode="range" 
+              rangeValue={dateRange} 
+              onRangeChange={setDateRange}
+              placeholder="Chọn khoảng thời gian"
+            />
             <Button variant="outline" leftIcon={<RiFileTextLine />}>Xuất báo cáo</Button>
           </div>
         </div>
@@ -229,10 +283,10 @@ const DashboardExample: React.FC = () => {
               icon={stat.icon}
               trend={stat.trend as 'up' | 'down'}
               change={stat.change}
-              color={i === 3 ? 'error' : 'primary'}
+              variant={i === 3 ? 'error' : 'primary'}
               description={stat.description}
               linkText={stat.linkText}
-              onLinkClick={() => console.log('Navigate to detail')}
+              onMoreClick={() => console.log('Navigate to detail')}
             />
           ))}
         </div>
@@ -257,26 +311,38 @@ const DashboardExample: React.FC = () => {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {profiles.map((p) => (
-                    <Table.Row key={p.id}>
-                      <Table.Cell>{p.time}</Table.Cell>
-                      <Table.Cell><b>{p.account}</b></Table.Cell>
-                      <Table.Cell><Badge variant="surface" color="gray" size="1" radius="small">{p.region}</Badge></Table.Cell>
-                      <Table.Cell>
-                        <Badge 
-                          variant="surface" 
-                          color={p.statusType as any}
-                          size="1"
-                          radius="full"
-                        >
-                          {p.status}
-                        </Badge>
-                      </Table.Cell>
-                      <Table.Cell>
-                        <Button variant="ghost" size="1" color="brand">Xem chi tiết</Button>
+                  {filteredProfiles.length > 0 ? (
+                    filteredProfiles.map((p) => (
+                      <Table.Row key={p.id}>
+                        <Table.Cell>{p.time}</Table.Cell>
+                        <Table.Cell><b>{p.account}</b></Table.Cell>
+                        <Table.Cell><Badge variant="surface" color="gray" size="1" radius="small">{p.region}</Badge></Table.Cell>
+                        <Table.Cell>
+                          <Badge 
+                            variant="surface" 
+                            color={p.statusType as any}
+                            size="1"
+                            radius="full"
+                          >
+                            {p.status}
+                          </Badge>
+                        </Table.Cell>
+                        <Table.Cell>
+                          <Button variant="ghost" size="1" color="brand">Xem chi tiết</Button>
+                        </Table.Cell>
+                      </Table.Row>
+                    ))
+                  ) : (
+                    <Table.Row>
+                      <Table.Cell colSpan={5}>
+                        <EmptyState 
+                          icon={<RiSearchLine style={{ fontSize: 32, opacity: 0.5 }} />}
+                          title="Không tìm thấy hồ sơ"
+                          description={`Không có kết quả nào khớp với "${searchTerm}"`}
+                        />
                       </Table.Cell>
                     </Table.Row>
-                  ))}
+                  )}
                 </Table.Body>
               </Table>
             </Card>
@@ -320,11 +386,11 @@ const DashboardExample: React.FC = () => {
                 <div className="dashboard-chart-wrapper">
                   <PieChart 
                     data={cardStatsView === 'revenue' ? [
-                      { label: 'QR Thanh toán', value: 11200, color: 'var(--brand-500)' },
-                      { label: 'Thẻ vật lý', value: 4000, color: 'var(--brand-200)' }
+                      { label: 'QR Thanh toán', value: 11200, color: 'var(--brand-9)' },
+                      { label: 'Thẻ vật lý', value: 4000, color: 'var(--brand-7)' }
                     ] : [
-                      { label: 'QR Thanh toán', value: 8900, color: 'var(--brand-500)' },
-                      { label: 'Thẻ vật lý', value: 6300, color: 'var(--brand-200)' }
+                      { label: 'QR Thanh toán', value: 8900, color: 'var(--brand-9)' },
+                      { label: 'Thẻ vật lý', value: 6300, color: 'var(--brand-7)' }
                     ]}
                     donut
                     size={280}
@@ -371,9 +437,11 @@ const DashboardExample: React.FC = () => {
                 </div>
               )}
               {fraudView === 'settle' && (
-                <div style={{ padding: '24px 0', textAlign: 'center', color: 'var(--gray-11)', fontSize: 13 }}>
-                  Không có cảnh báo đối soát mới
-                </div>
+                <EmptyState 
+                  icon={<RiSearchLine style={{ fontSize: 32, opacity: 0.5 }} />}
+                  title="Không có dữ liệu"
+                  description="Hiện tại không có cảnh báo đối soát mới nào cần xử lý."
+                />
               )}
             </Card>
 
@@ -385,9 +453,9 @@ const DashboardExample: React.FC = () => {
                       <span style={{ fontSize: 14, fontWeight: 600 }}>{sla.name}</span>
                       <Button variant="outline" size="1" color="brand" leftIcon={<RiNotification3Line />}>Nhắc nhở</Button>
                     </div>
-                    <Progress value={sla.pending} max={100} variant={sla.variant} size="sm" />
+                    <Progress value={dynamicSLAs[i]} max={100} variant={sla.variant} size="sm" />
                     <span style={{ fontSize: 12, color: 'var(--gray-11)' }}>
-                      <b>{sla.pending}%</b> hồ sơ đang chờ xử lý
+                      <b>{dynamicSLAs[i]}%</b> hồ sơ đang chờ xử lý
                     </span>
                   </div>
                 ))}

@@ -1,10 +1,11 @@
 .mms-segmented-control {
   display: inline-flex;
-  background-color: var(--gray-3);
-  padding: 3px;
+  background-color: var(--surface-subtle);
+  padding: var(--spacing-4);
   border-radius: var(--radius-full);
-  gap: 2px;
-  border: 1px solid var(--border-low);
+  gap: var(--spacing-4);
+  border: none;
+  box-sizing: border-box;
 }
 
 .mms-segmented-control.full-width {
@@ -13,51 +14,54 @@
 }
 
 .mms-segmented-item {
-  all: unset;
-  cursor: pointer;
-  padding: 7px 16px;
-  border-radius: var(--radius-full);
-  font-family: var(--font-family);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-subtle);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  user-select: none;
-  text-align: center;
   flex: 1;
-  position: relative;
-  z-index: 1;
+  padding: 0 var(--spacing-16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family);
+  font-weight: 500;
+  color: var(--content-subtle);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  outline: none;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  white-space: nowrap;
 }
 
+/* ─────────────────────────────────────────────────────────
+ * SIZES mapping (Radix Legibility Standard)
+ * ───────────────────────────────────────────────────────── */
+
+.mms-segmented-size-1, .mms-segmented-control.size-sm { height: var(--size-1); }
+.mms-segmented-size-2, .mms-segmented-control.size-md { height: var(--size-2); }
+.mms-segmented-size-3, .mms-segmented-control.size-lg { height: var(--size-3); }
+.mms-segmented-size-4 { height: var(--size-4); }
+
+.mms-segmented-size-1 .mms-segmented-item, .mms-segmented-control.size-sm .mms-segmented-item { font-size: var(--font-size-2); }
+.mms-segmented-size-2 .mms-segmented-item, .mms-segmented-control.size-md .mms-segmented-item { font-size: var(--font-size-3); }
+.mms-segmented-size-3 .mms-segmented-item, .mms-segmented-control.size-lg .mms-segmented-item { font-size: var(--font-size-4); }
+.mms-segmented-size-4 .mms-segmented-item { font-size: var(--font-size-5); }
+
+/* ─────────────────────────────────────────────────────────
+ * STATES
+ * ───────────────────────────────────────────────────────── */
+
 .mms-segmented-item:hover:not(:disabled):not(.active) {
-  color: var(--text-emphasis);
-  background-color: var(--gray-4);
+  color: var(--content-strong);
+  background-color: var(--surface-hover);
 }
 
 .mms-segmented-item.active {
-  background-color: var(--bg-pure, #ffffff);
-  color: var(--brand-solid, #0d61b5);
-  box-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.04);
+  background-color: var(--surface-panel);
+  color: var(--content-strong);
+  box-shadow: var(--shadow-small);
 }
 
 .mms-segmented-item:disabled {
   cursor: not-allowed;
   opacity: 0.35;
-}
-
-/* Sizes */
-.mms-segmented-control.size-sm {
-  padding: 2px;
-}
-
-.mms-segmented-control.size-sm .mms-segmented-item {
-  padding: 3px 10px;
-  font-size: 11px;
-}
-
-.mms-segmented-control.size-lg .mms-segmented-item {
-  padding: 10px 24px;
-  font-size: 14px;
 }

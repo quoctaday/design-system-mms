@@ -1,10 +1,10 @@
 .mms-toast-container {
   position: fixed;
-  top: 32px;
-  right: 32px;
+  top: var(--spacing-32);
+  right: var(--spacing-32);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-12);
   z-index: 9999;
   pointer-events: none;
 }
@@ -15,15 +15,16 @@
   align-items: flex-start;
   min-width: 320px;
   max-width: 420px;
-  background-color: #ffffff;
-  padding: 14px 18px;
-  border-radius: var(--radius-12, 12px);
-  box-shadow: var(--shadow-2xlarge), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  background-color: var(--surface-panel);
+  padding: var(--spacing-16);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-large);
+  border: 0.5px solid var(--border-subtle);
   animation: mms-toast-slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  transition: all 200ms ease;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px) saturate(180%);
 }
 
 @keyframes mms-toast-slide-in {
@@ -40,82 +41,58 @@
 .toast-status-icon {
   font-size: 20px;
   margin-top: 2px;
-  margin-right: 12px;
+  margin-right: var(--spacing-12);
   flex-shrink: 0;
 }
 
 .toast-content {
   flex: 1;
-  padding-right: 24px;
+  padding-right: var(--spacing-40);
 }
 
 .toast-title {
   margin: 0;
-  font-family: var(--font-display, "Inter Display", sans-serif);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: var(--font-size-3);
   font-weight: 600;
-  color: var(--gray-12);
+  color: var(--content-strong);
   letter-spacing: -0.01em;
+  line-height: 1.4;
 }
 
 .toast-description {
-  margin: 4px 0 0;
-  font-size: 13px;
+  margin: var(--spacing-4) 0 0;
+  font-size: var(--font-size-2);
   line-height: 1.5;
-  color: var(--gray-11);
+  color: var(--content-subtle);
 }
 
 .toast-action-btn {
-  margin-top: 8px;
-  background: transparent;
-  color: var(--brand-9);
-  border: none;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: fit-content;
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
+  margin-top: var(--spacing-8);
 }
 
 .toast-action-btn:hover {
-  color: var(--brand-10);
   text-decoration: underline;
-  transform: none;
-  box-shadow: none;
-}
-
-.toast-action-btn:active {
-  color: var(--brand-11);
 }
 
 .toast-close-btn {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  background: transparent;
-  border: none;
-  color: var(--gray-9);
-  padding: 4px;
-  cursor: pointer;
-  border-radius: var(--radius-6, 6px);
-  display: flex;
-  transition: all 0.2s ease;
+  top: var(--spacing-12);
+  right: var(--spacing-12);
+  padding: 0 !important;
+  width: 28px !important;
+  min-width: 28px !important;
 }
 
-.toast-close-btn:hover {
-  background-color: var(--gray-3);
-  color: var(--gray-12);
+.toast-close-btn svg {
+  font-size: 16px;
 }
 
 /* ── Variants ────────────────────────── */
 
 /* Success */
 .mms-toast-success .toast-status-icon {
-  color: #10b981; /* Emerald-500 */
+  color: var(--success-9);
 }
 .mms-toast-success::before {
   content: "";
@@ -124,12 +101,12 @@
   left: 0;
   bottom: 0;
   width: 4px;
-  background-color: #10b981;
+  background-color: var(--success-9);
 }
 
 /* Error */
 .mms-toast-error .toast-status-icon {
-  color: #ef4444; /* Red-500 */
+  color: var(--error-9);
 }
 .mms-toast-error::before {
   content: "";
@@ -138,12 +115,12 @@
   left: 0;
   bottom: 0;
   width: 4px;
-  background-color: #ef4444;
+  background-color: var(--error-9);
 }
 
 /* Warning */
 .mms-toast-warning .toast-status-icon {
-  color: #f59e0b; /* Amber-500 */
+  color: var(--warning-9);
 }
 .mms-toast-warning::before {
   content: "";
@@ -152,12 +129,12 @@
   left: 0;
   bottom: 0;
   width: 4px;
-  background-color: #f59e0b;
+  background-color: var(--warning-9);
 }
 
 /* Info */
 .mms-toast-info .toast-status-icon {
-  color: #3b82f6; /* Blue-500 */
+  color: var(--surface-accent-solid);
 }
 .mms-toast-info::before {
   content: "";
@@ -166,12 +143,12 @@
   left: 0;
   bottom: 0;
   width: 4px;
-  background-color: #3b82f6;
+  background-color: var(--surface-accent-solid);
 }
 
 /* Loading */
 .mms-toast-loading .toast-status-icon {
-  color: var(--gray-9);
+  color: var(--content-subtle);
 }
 .mms-toast-loading::before {
   content: "";
@@ -180,7 +157,7 @@
   left: 0;
   bottom: 0;
   width: 4px;
-  background-color: var(--gray-7);
+  background-color: var(--border-default);
 }
 
 .toast-spin {

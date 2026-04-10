@@ -2,77 +2,96 @@
 
 :root {
   /* ═══════════════════════════════════════════
-     Figma Design System Tokens – MMS Platform
-     Source: 🛟 Design-System-MP (Figma)
+     WOKER DESIGN SYSTEM – MMS Platform
+     Canonical Radix-Based Architecture (v3.0)
      ═══════════════════════════════════════════ */
 
-  /* ── Brand (switchable per brand) ─────── */
-  --brand-50: #e7f3ff;
-  --brand-100: #b6daff;
-  --brand-200: #92c8ff;
-  --brand-300: #60afff;
-  --brand-400: #41a0ff;
-  --brand-500: #1288ff;
-  --brand-600: #107ce8;
-  --brand-700: #0d61b5;
-  --brand-800: #0a4b8c;
-  --brand-alpha-16: rgba(18, 136, 255, 0.16);
-  --brand-alpha-10: rgba(18, 136, 255, 0.10);
-  --brand-alpha-4: rgba(18, 136, 255, 0.04);
+  /* ── 1. Foundational Scales (Light Mode) ── */
 
-  /* ── Brand Contrast (WCAG AA ≥ 4.5:1) ── */
-  --brand-solid-bg: #0d61b5;        /* ≥4.5:1 with white text */
-  --brand-text-accessible: #0d61b5; /* ≥4.5:1 on white bg   */
+  /* Gray */
+  --gray-1: #fcfcfc;
+  --gray-2: #f9f9f9;
+  --gray-3: #f0f0f0;
+  --gray-4: #e8e8e8;
+  --gray-5: #e0e0e0;
+  --gray-6: #d9d9d9;
+  --gray-7: #cecece;
+  --gray-8: #bbbbbb;
+  --gray-9: #8d8d8d;
+  --gray-10: #838383;
+  --gray-11: #646464;
+  --gray-12: #202020;
 
-  /* ── Text ─────────────────────────────── */
-  --text-emphasis: var(--gray-12);
-  --text-subtle: var(--gray-11);
-  --text-muted: var(--gray-9);
-  --text-on-color: #ffffff;
-  --text-disabled: var(--gray-8);
-  --text-brand: var(--brand-11);
-  --text-success: var(--success-11);
-  --text-error: var(--error-11);
+  /* Transparent Scales (Alpha) */
+  --black-a1: rgba(0, 0, 0, 0.012);
+  --black-a2: rgba(0, 0, 0, 0.027);
+  --black-a3: rgba(0, 0, 0, 0.047);
+  --black-a4: rgba(0, 0, 0, 0.071);
+  --black-a5: rgba(0, 0, 0, 0.090);
+  --black-a6: rgba(0, 0, 0, 0.114);
+  --black-a7: rgba(0, 0, 0, 0.141);
+  --black-a8: rgba(0, 0, 0, 0.220);
+  --black-a9: rgba(0, 0, 0, 0.439);
+  --black-a10: rgba(0, 0, 0, 0.478);
+  --black-a11: rgba(0, 0, 0, 0.565);
+  --black-a12: rgba(0, 0, 0, 0.910);
 
-  /* ── Icon ──────────────────────────────── */
-  --icon-emphasis: var(--gray-12);
-  --icon-subtle: var(--gray-11);
-  --icon-muted: var(--gray-9);
-  --icon-on-color: #ffffff;
-  --icon-brand: var(--brand-9);
-  --icon-success: var(--success-9);
-  --icon-error: var(--error-9);
-  --icon-disabled: var(--gray-7);
+  --white-a1: rgba(255, 255, 255, 0.012);
+  --white-a2: rgba(255, 255, 255, 0.027);
+  --white-a3: rgba(255, 255, 255, 0.047);
+  --white-a4: rgba(255, 255, 255, 0.071);
+  --white-a5: rgba(255, 255, 255, 0.090);
+  --white-a6: rgba(255, 255, 255, 0.114);
+  --white-a7: rgba(255, 255, 255, 0.141);
+  --white-a8: rgba(255, 255, 255, 0.220);
+  --white-a9: rgba(255, 255, 255, 0.439);
+  --white-a10: rgba(255, 255, 255, 0.478);
+  --white-a11: rgba(255, 255, 255, 0.565);
+  --white-a12: rgba(255, 255, 255, 0.910);
 
-  /* ── Surface / Background ─────────────── */
-  --bg-surface: var(--gray-1);
-  --bg-contrast: var(--gray-12);
-  --bg-app: var(--gray-2);
-  --bg-surface-subtle: var(--gray-2);
-  --bg-component: var(--gray-3);
-  --bg-component-hover: var(--gray-4);
-  --bg-component-active: var(--gray-5);
-  --bg-component-pressed: var(--gray-6);
+  /* Blue Scale */
+  --blue-1: #fbfdff;
+  --blue-2: #f4faff;
+  --blue-3: #e6f4fe;
+  --blue-4: #d5eaff;
+  --blue-5: #c2dcff;
+  --blue-6: #aacbef;
+  --blue-7: #8bb4d9;
+  --blue-8: #5da0d6;
+  --blue-9: #0090ff;
+  --blue-10: #0588f0;
+  --blue-11: #0d74ce;
+  --blue-12: #113264;
 
-  /* ── Border / Stroke ──────────────────── */
-  --border-standard: var(--gray-6);
-  --border-low: var(--gray-4);
-  --border-brand: var(--brand-7);
-  --border-error: var(--error-7);
-  --stroke-standard: var(--gray-6);
-  --stroke-disabled: var(--gray-4);
+  /* Blue Transparent Scale (Primitive) */
+  --blue-a1: rgba(0, 144, 255, 0.012);
+  --blue-a2: rgba(0, 144, 255, 0.027);
+  --blue-a3: rgba(0, 144, 255, 0.047);
+  --blue-a4: rgba(0, 144, 255, 0.071);
+  --blue-a5: rgba(0, 144, 255, 0.090);
+  --blue-a6: rgba(0, 144, 255, 0.114);
+  --blue-a7: rgba(0, 144, 255, 0.141);
+  --blue-a8: rgba(0, 144, 255, 0.220);
+  --blue-a9: rgba(0, 144, 255, 0.439);
+  --blue-a10: rgba(0, 144, 255, 0.478);
+  --blue-a11: rgba(0, 144, 255, 0.565);
+  --blue-a12: rgba(0, 144, 255, 0.910);
 
+  /* Green Transparent Scale (Primitive) */
+  --green-a1: rgba(48, 164, 108, 0.012);
+  --green-a2: rgba(48, 164, 108, 0.027);
+  --green-a3: rgba(48, 164, 108, 0.047);
+  --green-a4: rgba(48, 164, 108, 0.071);
+  --green-a5: rgba(48, 164, 108, 0.090);
+  --green-a6: rgba(48, 164, 108, 0.114);
+  --green-a7: rgba(48, 164, 108, 0.141);
+  --green-a8: rgba(48, 164, 108, 0.220);
+  --green-a9: rgba(48, 164, 108, 0.439);
+  --green-a10: rgba(48, 164, 108, 0.478);
+  --green-a11: rgba(48, 164, 108, 0.565);
+  --green-a12: rgba(48, 164, 108, 0.910);
 
-  /* ═══════════════════════════════════════════
-     Radix Color Scales – 12-step system
-     Steps 1-2: Backgrounds
-     Steps 3-5: Component backgrounds
-     Steps 6-8: Borders
-     Steps 9-10: Solid backgrounds
-     Steps 11-12: Text
-     ═══════════════════════════════════════════ */
-
-  /* ── Green (Success) ─ Radix Green ─────── */
+  /* Green Scale */
   --green-1: #fbfefc;
   --green-2: #f4fbf6;
   --green-3: #e6f6eb;
@@ -86,7 +105,21 @@
   --green-11: #218358;
   --green-12: #193b2d;
 
-  /* ── Red (Error) ─ Radix Red ───────────── */
+  /* Red Transparent Scale (Primitive) */
+  --red-a1: rgba(229, 72, 77, 0.012);
+  --red-a2: rgba(229, 72, 77, 0.027);
+  --red-a3: rgba(229, 72, 77, 0.047);
+  --red-a4: rgba(229, 72, 77, 0.071);
+  --red-a5: rgba(229, 72, 77, 0.090);
+  --red-a6: rgba(229, 72, 77, 0.114);
+  --red-a7: rgba(229, 72, 77, 0.141);
+  --red-a8: rgba(229, 72, 77, 0.220);
+  --red-a9: rgba(229, 72, 77, 0.439);
+  --red-a10: rgba(229, 72, 77, 0.478);
+  --red-a11: rgba(229, 72, 77, 0.565);
+  --red-a12: rgba(229, 72, 77, 0.910);
+
+  /* Red Scale */
   --red-1: #fffcfc;
   --red-2: #fff7f7;
   --red-3: #feebec;
@@ -100,7 +133,21 @@
   --red-11: #ce2c31;
   --red-12: #641723;
 
-  /* ── Amber (Warning) ─ Radix Amber ─────── */
+  /* Amber Transparent Scale (Primitive) */
+  --amber-a1: rgba(255, 197, 61, 0.012);
+  --amber-a2: rgba(255, 197, 61, 0.027);
+  --amber-a3: rgba(255, 197, 61, 0.047);
+  --amber-a4: rgba(255, 197, 61, 0.071);
+  --amber-a5: rgba(255, 197, 61, 0.090);
+  --amber-a6: rgba(255, 197, 61, 0.114);
+  --amber-a7: rgba(255, 197, 61, 0.141);
+  --amber-a8: rgba(255, 197, 61, 0.220);
+  --amber-a9: rgba(255, 197, 61, 0.439);
+  --amber-a10: rgba(255, 197, 61, 0.478);
+  --amber-a11: rgba(255, 197, 61, 0.565);
+  --amber-a12: rgba(255, 197, 61, 0.910);
+
+  /* Amber Scale */
   --amber-1: #fefdfb;
   --amber-2: #fefbe9;
   --amber-3: #fff7c2;
@@ -114,49 +161,7 @@
   --amber-11: #ab6400;
   --amber-12: #4f3422;
 
-  /* ── Orange ─ Radix Orange ─────────────── */
-  --orange-1: #fefcfb;
-  --orange-2: #fff7ed;
-  --orange-3: #ffefd6;
-  --orange-4: #ffdfb5;
-  --orange-5: #ffd19a;
-  --orange-6: #ffc182;
-  --orange-7: #f5ae73;
-  --orange-8: #ec9455;
-  --orange-9: #f76b15;
-  --orange-10: #ef5f00;
-  --orange-11: #cc4e00;
-  --orange-12: #582d1d;
-
-  /* ── Blue ─ Radix Blue ─────────────────── */
-  --blue-1: #fbfdff;
-  --blue-2: #f4faff;
-  --blue-3: #e6f4fe;
-  --blue-4: #d5efff;
-  --blue-5: #c2e5ff;
-  --blue-6: #acd8fc;
-  --blue-7: #8ec8f6;
-  --blue-8: #5eb1ef;
-  --blue-9: #0090ff;
-  --blue-10: #0588f0;
-  --blue-11: #0d74ce;
-  --blue-12: #113264;
-
-  /* ── Purple ─ Radix Purple ─────────────── */
-  --purple-1: #fefcfe;
-  --purple-2: #fbf7fe;
-  --purple-3: #f7edfe;
-  --purple-4: #f2e2fc;
-  --purple-5: #ead5f9;
-  --purple-6: #e0c4f4;
-  --purple-7: #d1afec;
-  --purple-8: #be93e4;
-  --purple-9: #8e4ec6;
-  --purple-10: #8347b9;
-  --purple-11: #8145b5;
-  --purple-12: #402060;
-
-  /* ── Sky ─ Radix Sky ───────────────────── */
+  /* Sky Scale */
   --sky-1: #f9feff;
   --sky-2: #f1fafd;
   --sky-3: #e1f6fd;
@@ -170,67 +175,191 @@
   --sky-11: #00749e;
   --sky-12: #1d3e56;
 
-  /* ── Pink ─ Radix Pink ─────────────────── */
-  --pink-1: #fffcfe;
+  /* Sky Transparent Scale */
+  --sky-a1: rgba(124, 226, 254, 0.012);
+  --sky-a2: rgba(124, 226, 254, 0.027);
+  --sky-a3: rgba(124, 226, 254, 0.047);
+  --sky-a4: rgba(124, 226, 254, 0.071);
+  --sky-a5: rgba(124, 226, 254, 0.090);
+  --sky-a6: rgba(124, 226, 254, 0.114);
+  --sky-a7: rgba(124, 226, 254, 0.141);
+  --sky-a8: rgba(124, 226, 254, 0.220);
+  --sky-a9: rgba(124, 226, 254, 0.439);
+  --sky-a10: rgba(124, 226, 254, 0.478);
+  --sky-a11: rgba(124, 226, 254, 0.565);
+  --sky-a12: rgba(124, 226, 254, 0.910);
+
+  /* Orange Scale */
+  --orange-1: #fefcfb;
+  --orange-2: #fff7ed;
+  --orange-3: #ffedd5;
+  --orange-4: #fed7aa;
+  --orange-5: #fdba74;
+  --orange-6: #f29d49;
+  --orange-7: #e8812a;
+  --orange-8: #db6913;
+  --orange-9: #f76808;
+  --orange-10: #ed5f00;
+  --orange-11: #bd4e00;
+  --orange-12: #451e11;
+
+  /* Orange Transparent Scale */
+  --orange-a1: rgba(247, 104, 8, 0.012);
+  --orange-a2: rgba(247, 104, 8, 0.027);
+  --orange-a3: rgba(247, 104, 8, 0.047);
+  --orange-a4: rgba(247, 104, 8, 0.071);
+  --orange-a5: rgba(247, 104, 8, 0.090);
+  --orange-a6: rgba(247, 104, 8, 0.114);
+  --orange-a7: rgba(247, 104, 8, 0.141);
+  --orange-a8: rgba(247, 104, 8, 0.220);
+  --orange-a9: rgba(247, 104, 8, 0.439);
+  --orange-a10: rgba(247, 104, 8, 0.478);
+  --orange-a11: rgba(247, 104, 8, 0.565);
+  --orange-a12: rgba(247, 104, 8, 0.910);
+
+  /* Pink Scale */
+  --pink-1: #fffcfd;
   --pink-2: #fef7fb;
-  --pink-3: #fee9f5;
-  --pink-4: #fbdcef;
-  --pink-5: #f6cee7;
-  --pink-6: #efbfdd;
-  --pink-7: #e7acd0;
-  --pink-8: #dd93c2;
+  --pink-3: #feeef8;
+  --pink-4: #fce1f2;
+  --pink-5: #f9cde9;
+  --pink-6: #f4b4dd;
+  --pink-7: #eb94cc;
+  --pink-8: #df73b4;
   --pink-9: #d6409f;
-  --pink-10: #cf3897;
-  --pink-11: #c2298a;
-  --pink-12: #651249;
+  --pink-10: #ce2c91;
+  --pink-11: #bc1a7c;
+  --pink-12: #3f142c;
 
-  /* ── Teal ─ Radix Teal ─────────────────── */
-  --teal-1: #fafefd;
-  --teal-2: #f3fbf9;
-  --teal-3: #e0f8f3;
-  --teal-4: #ccf3ea;
-  --teal-5: #b8eae0;
-  --teal-6: #a1ded2;
-  --teal-7: #83cdc1;
-  --teal-8: #53b9ab;
+  /* Pink Transparent Scale */
+  --pink-a1: rgba(214, 64, 159, 0.012);
+  --pink-a2: rgba(214, 64, 159, 0.027);
+  --pink-a3: rgba(214, 64, 159, 0.047);
+  --pink-a4: rgba(214, 64, 159, 0.071);
+  --pink-a5: rgba(214, 64, 159, 0.090);
+  --pink-a6: rgba(214, 64, 159, 0.114);
+  --pink-a7: rgba(214, 64, 159, 0.141);
+  --pink-a8: rgba(214, 64, 159, 0.220);
+  --pink-a9: rgba(214, 64, 159, 0.439);
+  --pink-a10: rgba(214, 64, 159, 0.478);
+  --pink-a11: rgba(214, 64, 159, 0.565);
+  --pink-a12: rgba(214, 64, 159, 0.910);
+
+  /* Teal Scale */
+  --teal-1: #fbfeff;
+  --teal-2: #f2fcfd;
+  --teal-3: #e4f9fa;
+  --teal-4: #d2f4f5;
+  --teal-5: #baecee;
+  --teal-6: #9ae2e5;
+  --teal-7: #6ed0d4;
+  --teal-8: #00b2b8;
   --teal-9: #12a594;
-  --teal-10: #0d9b8a;
-  --teal-11: #008573;
-  --teal-12: #0d3d38;
+  --teal-10: #0e9888;
+  --teal-11: #067a6f;
+  --teal-12: #0a2d2a;
 
-  /* ── Lime (Secondary) ─ Radix Lime ─────── */
-  --lime-1: #fcfdfa;
+  /* Teal Transparent Scale */
+  --teal-a1: rgba(18, 165, 148, 0.012);
+  --teal-a2: rgba(18, 165, 148, 0.027);
+  --teal-a3: rgba(18, 165, 148, 0.047);
+  --teal-a4: rgba(18, 165, 148, 0.071);
+  --teal-a5: rgba(18, 165, 148, 0.090);
+  --teal-a6: rgba(18, 165, 148, 0.114);
+  --teal-a7: rgba(18, 165, 148, 0.141);
+  --teal-a8: rgba(18, 165, 148, 0.220);
+  --teal-a9: rgba(18, 165, 148, 0.439);
+  --teal-a10: rgba(18, 165, 148, 0.478);
+  --teal-a11: rgba(18, 165, 148, 0.565);
+  --teal-a12: rgba(18, 165, 148, 0.910);
+
+  /* Purple Scale */
+  --purple-1: #fdfcfe;
+  --purple-2: #fbfaff;
+  --purple-3: #f5f2ff;
+  --purple-4: #ede9fe;
+  --purple-5: #e4defc;
+  --purple-6: #d7cefa;
+  --purple-7: #c3b5f5;
+  --purple-8: #a78df2;
+  --purple-9: #8b5cf6;
+  --purple-10: #7c4dff;
+  --purple-11: #6d28d9;
+  --purple-12: #2e1065;
+
+  /* Purple Transparent Scale */
+  --purple-a1: rgba(139, 92, 246, 0.012);
+  --purple-a2: rgba(139, 92, 246, 0.027);
+  --purple-a3: rgba(139, 92, 246, 0.047);
+  --purple-a4: rgba(139, 92, 246, 0.071);
+  --purple-a5: rgba(139, 92, 246, 0.090);
+  --purple-a6: rgba(139, 92, 246, 0.114);
+  --purple-a7: rgba(139, 92, 246, 0.141);
+  --purple-a8: rgba(139, 92, 246, 0.220);
+  --purple-a9: rgba(139, 92, 246, 0.439);
+  --purple-a10: rgba(139, 92, 246, 0.478);
+  --purple-a11: rgba(139, 92, 246, 0.565);
+  --purple-a12: rgba(139, 92, 246, 0.910);
+
+  /* Lime Scale */
+  --lime-1: #fdfefb;
   --lime-2: #f8faf3;
-  --lime-3: #eef6d6;
-  --lime-4: #e2f0bd;
-  --lime-5: #d3e7a6;
-  --lime-6: #c2da91;
-  --lime-7: #abc978;
-  --lime-8: #8db654;
-  --lime-9: #bdee63;
-  --lime-10: #b0e64c;
-  --lime-11: #5c7c2f;
-  --lime-12: #37401c;
+  --lime-3: #eef3d3;
+  --lime-4: #e2ebae;
+  --lime-5: #d3e18a;
+  --lime-6: #c3d56d;
+  --lime-7: #b1c64d;
+  --lime-8: #99af31;
+  --lime-9: #bbe062;
+  --lime-10: #accc53;
+  --lime-11: #5b7110;
+  --lime-12: #283110;
 
-  /* ── Gray ─ Radix Gray ─────────────────── */
-  --gray-1: #ffffff;
-  --gray-2: #fcfcfc;
-  --gray-3: #f0f0f0;
-  --gray-4: #e8e8e8;
-  --gray-5: #e0e0e0;
-  --gray-6: #d9d9d9;
-  --gray-7: #cecece;
-  --gray-8: #bbbbbb;
-  --gray-9: #8d8d8d;
-  --gray-10: #838383;
-  --gray-11: #646464;
-  --gray-12: #202020;
+  /* Lime Transparent Scale */
+  --lime-a1: rgba(187, 224, 98, 0.012);
+  --lime-a2: rgba(187, 224, 98, 0.027);
+  --lime-a3: rgba(187, 224, 98, 0.047);
+  --lime-a4: rgba(187, 224, 98, 0.071);
+  --lime-a5: rgba(187, 224, 98, 0.090);
+  --lime-a6: rgba(187, 224, 98, 0.114);
+  --lime-a7: rgba(187, 224, 98, 0.141);
+  --lime-a8: rgba(187, 224, 98, 0.220);
+  --lime-a9: rgba(187, 224, 98, 0.439);
+  --lime-a10: rgba(187, 224, 98, 0.478);
+  --lime-a11: rgba(187, 224, 98, 0.565);
+  --lime-a12: rgba(187, 224, 98, 0.910);
 
-  /* ── Utility ───────────────────────────── */
-  --black: #000000;
-  --white: #ffffff;
+  /* ── 2. Identity & Status Mapping ── */
 
-  /* ── Semantic Status Aliases ────────────── */
+  /* Primary Brand */
+  --brand-1: var(--blue-1);
+  --brand-2: var(--blue-2);
+  --brand-3: var(--blue-3);
+  --brand-4: var(--blue-4);
+  --brand-5: var(--blue-5);
+  --brand-6: var(--blue-6);
+  --brand-7: var(--blue-7);
+  --brand-8: var(--blue-8);
+  --brand-9: var(--blue-9);
+  --brand-10: var(--blue-10);
+  --brand-11: var(--blue-11);
+  --brand-12: var(--blue-12);
+
+  /* Brand Alphas (Alias -> Primitive) */
+  --brand-a1: var(--blue-a1);
+  --brand-a2: var(--blue-a2);
+  --brand-a3: var(--blue-a3);
+  --brand-a4: var(--blue-a4);
+  --brand-a5: var(--blue-a5);
+  --brand-a6: var(--blue-a6);
+  --brand-a7: var(--blue-a7);
+  --brand-a8: var(--blue-a8);
+  --brand-a9: var(--blue-a9);
+  --brand-a10: var(--blue-a10);
+  --brand-a11: var(--blue-a11);
+  --brand-a12: var(--blue-a12);
+
+  /* Semantic Feedback Scales (Expanded for Component Logic) */
   --success-1: var(--green-1);
   --success-2: var(--green-2);
   --success-3: var(--green-3);
@@ -270,68 +399,359 @@
   --warning-11: var(--amber-11);
   --warning-12: var(--amber-12);
 
-  /* ── Spacing (from Figma) ─────────────── */
+  /* ── 3. Semantic Role Overrides v3.0 (Surface, Content, Border) ── */
+
+  /* Surface (Backgrounds) */
+  --surface-app: var(--gray-1);
+  --surface-panel: var(--white);
+  --surface-subtle: var(--gray-2);
+  --surface-component: var(--gray-3);
+  --surface-hover: var(--gray-4);
+  --surface-active: var(--gray-5);
+  --surface-solid: var(--brand-9);
+
+  --surface-accent-subtle: var(--brand-2);
+  --surface-accent-component: var(--brand-3);
+  --surface-accent-hover: var(--brand-4);
+  --surface-accent-solid: var(--brand-9);
+
+  --surface-overlay: var(--black-a8);
+  --surface-tooltip: var(--black-a9);
+  --surface-glass: var(--white-a11);
+  --surface-skeleton: var(--black-a4);
+  
+  --surface-danger-subtle: var(--red-3);
+  --surface-danger-solid: var(--red-9);
+  --surface-success-subtle: var(--green-3);
+  --surface-success-solid: var(--green-9);
+  --surface-warning-subtle: var(--amber-3);
+  --surface-warning-solid: var(--amber-9);
+
+  /* Content (Text/Icons) */
+  --content-strong: var(--gray-12);
+  --content-subtle: var(--gray-11);
+  --content-placeholder: var(--gray-9);
+  --content-accent: var(--brand-11);
+  --content-on-solid: var(--white);
+  --content-danger: var(--red-11);
+  --content-success: var(--green-11);
+  --content-warning: var(--amber-11);
+  
+  /* Border (Dividers) */
+  --border-subtle: var(--gray-6);
+  --border-default: var(--gray-7);
+  --border-strong: var(--gray-8);
+  --border-divider: var(--black-a6);
+  --border-accent: var(--brand-7);
+  --border-accent-strong: var(--brand-8);
+  --border-danger: var(--red-7);
+  --border-success: var(--green-7);
+  --border-warning: var(--amber-7);
+  --border-glass: var(--white-a4);
+
+  /* Semantic Alphas (Context-Aware) */
+  --alpha-subtle: var(--black-a2);
+  --alpha-component: var(--black-a3);
+  --alpha-focus: var(--black-a4);
+  --alpha-hover: var(--black-a5);
+
+  /* ── 4. Standard Design Tokens ── */
+
+  /* Global Foundations */
+  --white: #ffffff;
+  --black: #000000;
+  --sidebar-width: 260px;
+
+  /* Interface Size Standards (Heights) */
+  --size-1: 32px;
+  --size-2: 40px;
+  --size-3: 48px;
+  --size-4: 56px;
+
+  /* Typography */
+  --font-display: 'Inter Display', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-family: var(--font-body);
+
+  --font-size-1: 11px;
+  --font-size-2: 12px;
+  --font-size-3: 14px;
+  --font-size-4: 16px; 
+  --font-size-5: 18px;
+  --font-size-6: 20px;
+
+  /* Letter Spacing (Tracking) */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.01em;
+  --tracking-wider: 0.02em;
+  --tracking-widest: 0.05em;
+  
+  --tracking-default: var(--tracking-wide);
+  --tracking-display: var(--tracking-wider);
+
+  /* Spacing */
   --spacing-0: 0px;
   --spacing-2: 2px;
   --spacing-4: 4px;
-  --spacing-6: 6px;
   --spacing-8: 8px;
   --spacing-12: 12px;
   --spacing-16: 16px;
   --spacing-20: 20px;
   --spacing-24: 24px;
   --spacing-32: 32px;
-  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
   --spacing-80: 80px;
 
-  /* ── Radius (from Figma) ──────────────── */
-  --radius-0: 0px;
-  --radius-2: 2px;
-  --radius-4: 4px;
-  --radius-6: 6px;
-  --radius-8: 8px;
-  --radius-12: 12px;
-  --radius-16: 16px;
-  --radius-20: 20px;
+  /* Radius (Atomic) */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-full: 999px;
 
-  /* ── Button ───────────────────────────── */
-  --button-size: 40px;
-  --button-font: 14px;
-  --compact-button-size: 24px;
-  --compact-button-icon-size: 20px;
+  /* Container Logic */
+  --radius-default: var(--radius-lg);
+  --radius-container: min(var(--radius-default), 24px);
 
-  /* ── Radix-consistent Layout Tokens ────── */
-  --bg-sidebar: var(--gray-2);
-  --bg-sidebar-hover: var(--gray-3);
-  --bg-sidebar-active: var(--white);
+  /* Shadows */
+  --shadow-xsmall: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.04);
+  --shadow-large: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
 
-  /* ── Typography ───────────────────────── */
-  --font-family: 'Inter Display', 'Inter', system-ui, -apple-system, sans-serif;
+/* ═══════════════════════════════════════════
+   Dark Theme (OLED / Midnight)
+   ═══════════════════════════════════════════ */
 
-  /* ── Shadows (from Figma) ─────────────── */
-  --shadow-xsmall: 0 1px 2px rgba(228, 229, 231, 0.24);
-  --shadow-small: 0 2px 4px rgba(27, 28, 29, 0.04);
-  --shadow-medium: 0 16px 32px -12px rgba(88, 92, 95, 0.1);
-  --shadow-large: 0 16px 40px -8px rgba(88, 92, 95, 0.16);
-  --shadow-2xlarge: 0 40px 96px -8px rgba(88, 92, 95, 0.2);
-  --shadow-dropdown:
-    0 0 0 1px rgba(0,0,0,0.04),
-    0 1px 1px rgba(0,0,0,0.08),
-    0 2px 5px rgba(0,0,0,0.08),
-    0 3px 10px rgba(0,0,0,0.08);
+.dark,
+[data-theme='dark'] {
+  /* Foundational Scales (Dark) */
+  --gray-1: #111111;
+  --gray-2: #191919;
+  --gray-3: #222222;
+  --gray-4: #2a2a2a;
+  --gray-5: #313131;
+  --gray-6: #3a3a3a;
+  --gray-7: #484848;
+  --gray-8: #606060;
+  --gray-9: #6e6e6e;
+  --gray-10: #7b7b7b;
+  --gray-11: #b4b4b4;
+  --gray-12: #eeeeee;
+
+  --blue-1: #0f1720;
+  --blue-2: #121b2b;
+  --blue-3: #1a2744;
+  --blue-4: #1d2e5d;
+  --blue-5: #233e8d;
+  --blue-6: #2b56b9;
+  --blue-7: #3b74e6;
+  --blue-8: #5289f7;
+  --blue-9: #0090ff;
+  --blue-10: #0588f0;
+  --blue-11: #70b8ff;
+  --blue-12: #c2e0ff;
+
+  --green-1: #0e1511;
+  --green-2: #101d16;
+  --green-3: #132d21;
+  --green-4: #153c29;
+  --green-5: #184f34;
+  --green-6: #1d724a;
+  --green-7: #26965f;
+  --green-8: #2cb874;
+  --green-9: #30a46c;
+  --green-10: #33b074;
+  --green-11: #3dd68c;
+  --green-12: #b1f1cb;
+
+  --red-1: #191111;
+  --red-2: #201314;
+  --red-3: #3b1219;
+  --red-4: #54101c;
+  --red-5: #72111d;
+  --red-6: #96111d;
+  --red-7: #c3131b;
+  --red-8: #ec181b;
+  --red-9: #e5484d;
+  --red-10: #f2555a;
+  --red-11: #ff6369;
+  --red-12: #ffdee0;
+
+  --amber-1: #16120c;
+  --amber-2: #1c150d;
+  --amber-3: #2c1d0c;
+  --amber-4: #432908;
+  --amber-5: #5e3b07;
+  --amber-6: #7d5109;
+  --amber-7: #a16c11;
+  --amber-8: #cd931b;
+  --amber-9: #ffc53d;
+  --amber-10: #ffba18;
+  --amber-11: #ffca16;
+  --amber-12: #ffe7b3;
+
+  --sky-1: #0d1720;
+  --sky-2: #111d2b;
+  --sky-3: #162c44;
+  --sky-4: #173b5f;
+  --sky-5: #1a518d;
+  --sky-6: #1e71b9;
+  --sky-7: #2695e6;
+  --sky-8: #2cb7f7;
+  --sky-9: #7ce2fe;
+  --sky-10: #74daf8;
+  --sky-11: #b6ecff;
+  --sky-12: #e1f6fd;
+
+  --orange-1: #17110e;
+  --orange-2: #1e1410;
+  --orange-3: #361b12;
+  --orange-4: #512413;
+  --orange-5: #703314;
+  --orange-6: #964716;
+  --orange-7: #c3621b;
+  --orange-8: #ec821b;
+  --orange-9: #f76808;
+  --orange-10: #ff8011;
+  --orange-11: #ffb382;
+  --orange-12: #ffe0cc;
+
+  --pink-1: #191115;
+  --pink-2: #1e1319;
+  --pink-3: #3a122e;
+  --pink-4: #521142;
+  --pink-5: #71115b;
+  --pink-6: #9a137a;
+  --pink-7: #c9239d;
+  --pink-8: #f140bd;
+  --pink-9: #d6409f;
+  --pink-10: #e053ac;
+  --pink-11: #ff7ebe;
+  --pink-12: #ffdef0;
+
+  --teal-1: #0c1514;
+  --teal-2: #0e1e1d;
+  --teal-3: #12302e;
+  --teal-4: #143f3c;
+  --teal-5: #185451;
+  --teal-6: #1d7874;
+  --teal-7: #26a19c;
+  --teal-8: #2cc6bf;
+  --teal-9: #12a594;
+  --teal-10: #14b5a2;
+  --teal-11: #4de1d1;
+  --teal-12: #b4f1ec;
+
+  --purple-1: #14111d;
+  --purple-2: #19142b;
+  --purple-3: #281d43;
+  --purple-4: #39245f;
+  --purple-5: #4e328c;
+  --purple-6: #6645b9;
+  --purple-7: #855fe6;
+  --purple-8: #a27ff7;
+  --purple-9: #8b5cf6;
+  --purple-10: #9a72ff;
+  --purple-11: #c4b5fd;
+  --purple-12: #eedeec;
+
+  --lime-1: #11140e;
+  --lime-2: #141c10;
+  --lime-3: #1c2b14;
+  --lime-4: #243c16;
+  --lime-5: #32501a;
+  --lime-6: #45701f;
+  --lime-7: #5f9726;
+  --lime-8: #7fbd2c;
+  --lime-9: #bbe062;
+  --lime-10: #cdf074;
+  --lime-11: #e1f3ac;
+  --lime-12: #f2fadc;
+
+  /* Semantic Roles (Dark) */
+  --surface-app: var(--gray-1);
+  --surface-panel: var(--gray-2);
+  --surface-subtle: var(--gray-2);
+  --surface-component: var(--gray-3);
+  --surface-hover: var(--gray-4);
+  --surface-active: var(--gray-5);
+  --surface-solid: var(--brand-9);
+
+  --surface-accent-component: var(--brand-3);
+  --surface-accent-hover: var(--brand-4);
+  --surface-accent-solid: var(--brand-9);
+  --surface-accent-subtle: var(--brand-2);
+
+  --surface-danger-subtle: var(--red-3);
+  --surface-danger-solid: var(--red-9);
+  --surface-success-subtle: var(--green-3);
+  --surface-success-solid: var(--green-9);
+  --surface-warning-subtle: var(--amber-3);
+  --surface-warning-solid: var(--amber-9);
+  --surface-skeleton: var(--white-a3);
+
+  --surface-overlay: rgba(0, 0, 0, 0.7);
+  --surface-tooltip: var(--gray-3);
+  --surface-glass: var(--black-a11);
+  --border-glass: var(--black-a4);
+
+  --content-strong: var(--gray-12);
+  --content-subtle: var(--gray-11);
+  --content-placeholder: var(--gray-9);
+  --content-accent: var(--brand-11);
+  --content-on-solid: #ffffff;
+  --content-danger: var(--red-11);
+  --content-success: var(--green-11);
+  --content-warning: var(--amber-11);
+
+  --border-subtle: var(--gray-6);
+  --border-default: var(--gray-7);
+  --border-strong: var(--gray-8);
+  --border-divider: rgba(255, 255, 255, 0.08);
+  --border-accent: var(--brand-7);
+  --border-accent-strong: var(--brand-8);
+  --border-danger: var(--red-7);
+  --border-success: var(--green-7);
+  --border-warning: var(--amber-7);
+
+  /* Semantic Alphas (Context-Aware Dark) */
+  --alpha-subtle: var(--white-a2);
+  --alpha-component: var(--white-a3);
+  --alpha-focus: var(--white-a4);
+  --alpha-hover: var(--white-a5);
+
+  --shadow-xsmall: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-large: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 body {
   font-family: var(--font-family);
-  color: var(--text-emphasis);
-  background-color: var(--bg-app);
+  color: var(--content-strong);
+  background-color: var(--surface-app);
+  letter-spacing: var(--tracking-default);
   margin: 0;
-  letter-spacing: -0.01em; /* Tighten Display font for optimal readability */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 * {
   box-sizing: border-box;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
 }

@@ -3,8 +3,9 @@
   display: inline-flex;
   align-items: center;
   box-sizing: border-box;
-  font-family: inherit;
-  transition: box-shadow 0.15s ease-in-out, border-color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+  font-family: var(--font-family);
+  border-radius: var(--radius-default);
+  transition: all 200ms ease;
   position: relative;
   width: 100%;
 }
@@ -14,7 +15,7 @@
   background-color: transparent;
   border: none;
   box-sizing: border-box;
-  color: var(--text-emphasis);
+  color: var(--content-strong);
   font-family: inherit;
   font-size: inherit;
   outline: none;
@@ -25,22 +26,23 @@
 }
 
 .mms-input-control::placeholder {
-  color: var(--text-muted);
-  opacity: 1; /* Firefox */
+  color: var(--content-subtle);
+  opacity: 1;
 }
 
 .mms-input-slot {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--icon-subtle);
+  color: var(--content-subtle);
   flex-shrink: 0;
 }
 
 /* Disabled */
 .mms-input-disabled {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.5;
+  background-color: var(--surface-subtle);
 }
 
 .mms-input-disabled .mms-input-control {
@@ -48,90 +50,54 @@
 }
 
 /* ─────────────────────────────────────────────────────────
- * SIZES
+ * SIZES (Aligned with Button)
  * ───────────────────────────────────────────────────────── */
 
-.mms-input-size-1 {
-  height: 24px;
-  font-size: 12px;
-  padding: 0 8px;
-  gap: 6px;
-}
-
-.mms-input-size-2 {
-  height: 32px;
-  font-size: 14px;
-  padding: 0 12px;
-  gap: 8px;
-}
-
-.mms-input-size-3 {
-  height: 40px;
-  font-size: 16px;
-  padding: 0 16px;
-  gap: 12px;
-}
+.mms-input-size-1 { height: var(--size-1); font-size: var(--font-size-2); padding: 0 var(--spacing-12); gap: var(--spacing-8); }
+.mms-input-size-2 { height: var(--size-2); font-size: var(--font-size-3); padding: 0 var(--spacing-16); gap: var(--spacing-12); }
+.mms-input-size-3 { height: var(--size-3); font-size: var(--font-size-4); padding: 0 var(--spacing-24); gap: var(--spacing-16); }
+.mms-input-size-4 { height: var(--size-4); font-size: var(--font-size-5); padding: 0 var(--spacing-32); gap: var(--spacing-24); }
 
 /* ─────────────────────────────────────────────────────────
- * RADII
- * ───────────────────────────────────────────────────────── */
-
-.mms-input-radius-none {
-  border-radius: 0;
-}
-.mms-input-radius-small {
-  border-radius: var(--radius-6);
-}
-.mms-input-radius-medium {
-  border-radius: var(--radius-8);
-}
-.mms-input-radius-large {
-  border-radius: var(--radius-12);
-}
-.mms-input-radius-full {
-  border-radius: var(--radius-full);
-}
-
-/* ─────────────────────────────────────────────────────────
- * VARIANTS & COLORS
- * We dynamically map properties based on color variant for focus rings
+ * VARIANTS
  * ───────────────────────────────────────────────────────── */
 
 /* 1. SURFACE (Default) */
 .mms-input-variant-surface {
-  background-color: var(--bg-surface);
-  box-shadow: inset 0 0 0 1px var(--border-low);
+  background-color: var(--surface-panel);
+  box-shadow: inset 0 0 0 1px var(--border-subtle);
 }
 .mms-input-variant-surface:hover:not(.mms-input-disabled) {
-  box-shadow: inset 0 0 0 1px var(--color-7);
+  box-shadow: inset 0 0 0 1px var(--color-border);
 }
 .mms-input-variant-surface:focus-within:not(.mms-input-disabled) {
-  box-shadow: inset 0 0 0 1px var(--color-8), 0 0 0 1px var(--color-8);
+  background-color: var(--surface-panel);
+  box-shadow: inset 0 0 0 1px var(--brand-9), 0 0 0 3px var(--brand-a3);
 }
 
 /* 2. CLASSIC */
 .mms-input-variant-classic {
-  background-color: var(--bg-pure);
-  box-shadow: inset 0 0 0 1px var(--border-standard), 0 1px 2px rgba(0, 0, 0, 0.04);
+  background-color: var(--surface-panel);
+  box-shadow: inset 0 0 0 1px var(--border-default);
 }
 .mms-input-variant-classic:hover:not(.mms-input-disabled) {
-  box-shadow: inset 0 0 0 1px var(--color-7), 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 0 0 1px var(--color-border);
 }
 .mms-input-variant-classic:focus-within:not(.mms-input-disabled) {
-  box-shadow: inset 0 0 0 1px var(--color-8), 0 0 0 1px var(--color-8);
+  box-shadow: inset 0 0 0 1px var(--brand-9), 0 0 0 3px var(--brand-a3);
 }
 
 /* 3. SOFT */
 .mms-input-variant-soft {
-  background-color: var(--bg-component);
+  background-color: var(--surface-panel);
   box-shadow: none;
 }
 .mms-input-variant-soft:hover:not(.mms-input-disabled) {
-  background-color: var(--bg-component-hover);
+  background-color: var(--surface-panel);
 }
 .mms-input-variant-soft:focus-within:not(.mms-input-disabled) {
-  background-color: var(--bg-surface);
-  box-shadow: inset 0 0 0 1px var(--color-8), 0 0 0 1px var(--color-8);
+  background-color: var(--surface-panel);
+  box-shadow: inset 0 0 0 1px var(--brand-9), 0 0 0 3px var(--brand-a3);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -139,11 +105,53 @@
  * ───────────────────────────────────────────────────────── */
 
 .mms-input-color-brand {
-  --color-7: var(--brand-7);
-  --color-8: var(--brand-8);
+  --color-solid: var(--surface-accent-solid);
+  --color-border: var(--border-accent);
+  --color-alpha: var(--brand-a3);
 }
 
-.mms-input-color-success { --color-7: var(--success-7); --color-8: var(--success-8); }
-.mms-input-color-error { --color-7: var(--error-7); --color-8: var(--error-8); }
-.mms-input-color-warning { --color-7: var(--warning-7); --color-8: var(--warning-8); }
-.mms-input-color-gray { --color-7: var(--gray-7); --color-8: var(--gray-8); }
+.mms-input-color-success {
+  --color-solid: var(--surface-success-solid);
+  --color-border: var(--border-success);
+  --color-alpha: var(--green-a3);
+}
+
+.mms-input-color-error {
+  --color-solid: var(--surface-danger-solid);
+  --color-border: var(--border-danger);
+  --color-alpha: var(--red-a3);
+}
+
+.mms-input-color-warning {
+  --color-solid: var(--surface-warning-solid);
+  --color-border: var(--border-warning);
+  --color-alpha: var(--amber-a4);
+}
+
+.mms-input-color-gray {
+  --color-solid: var(--content-strong);
+  --color-border: var(--border-default);
+  --color-alpha: var(--alpha-focus);
+}
+
+/* Accents */
+.mms-input-color-blue {
+  --color-solid: var(--blue-9);
+  --color-border: var(--blue-7);
+  --color-alpha: var(--blue-a3);
+}
+
+.mms-input-color-orange {
+  --color-solid: var(--orange-9);
+  --color-border: var(--orange-7);
+  --color-alpha: var(--orange-a3);
+}
+
+/* Radius */
+.mms-input-radius-none { border-radius: 0; }
+.mms-input-radius-xs { border-radius: var(--radius-xs); }
+.mms-input-radius-sm { border-radius: var(--radius-sm); }
+.mms-input-radius-md { border-radius: var(--radius-md); }
+.mms-input-radius-lg { border-radius: var(--radius-lg); }
+.mms-input-radius-xl { border-radius: var(--radius-xl); }
+.mms-input-radius-full { border-radius: var(--radius-full); }

@@ -4,6 +4,8 @@
   gap: 32px;
   max-width: 1200px;
   margin: 0 auto;
+  min-height: 100vh;
+  padding: 40px;
 }
 
 .pie-chart-example-page .page-header {
@@ -11,19 +13,20 @@
   justify-content: space-between;
   align-items: flex-start;
   padding-bottom: 24px;
-  border-bottom: 1px solid var(--border-low, #e2e8f0);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .pie-chart-example-page .header-content h1 {
   font-size: 30px;
   font-weight: 800;
   margin: 0 0 8px 0;
-  color: var(--text-emphasis, #0f172a);
+  color: var(--content-strong);
+  letter-spacing: -0.02em;
 }
 
 .pie-chart-example-page .header-content p {
   font-size: 16px;
-  color: var(--text-subtle, #64748b);
+  color: var(--content-subtle);
   margin: 0;
 }
 
@@ -52,13 +55,15 @@
 /* Documentation Styles */
 .docs-card {
   padding: 32px;
+  background-color: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
 }
 
 .docs-card h3 {
   font-size: 20px;
   font-weight: 700;
   margin: 0 0 24px 0;
-  color: var(--text-emphasis);
+  color: var(--content-strong);
 }
 
 .guidelines-grid {
@@ -81,21 +86,22 @@
   align-items: center;
   justify-content: center;
   font-size: 24px;
+  background-color: var(--surface-hover);
 }
 
-.brand { background-color: var(--brand-alpha-10, #eff6ff); color: var(--brand-700, #1d4ed8); }
-.green { background-color: var(--success-2, #f0fdf4); color: var(--success-11, #166534); }
+.brand { color: var(--content-accent); }
+.green { color: var(--content-success); }
 
 .guideline h4 {
   font-size: 16px;
   font-weight: 700;
   margin: 0;
-  color: var(--text-emphasis);
+  color: var(--content-strong);
 }
 
 .guideline p {
   font-size: 14px;
   line-height: 1.6;
-  color: var(--text-subtle);
+  color: var(--content-subtle);
   margin: 0;
 }

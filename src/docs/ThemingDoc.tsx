@@ -1,74 +1,124 @@
 import React from 'react';
+import { DocLayout } from '../components/docs/DocLayout';
+import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { RiListCheck2, RiRulerLine, RiPaintBrushFill, RiFocus3Line } from 'react-icons/ri';
 import './ThemingDoc.css';
 
 const ThemingDoc: React.FC = () => {
+  const toc = [
+    { id: 'architecture', title: 'Architecture' },
+    { id: 'logic', title: 'Scaling Logic' },
+    { id: 'tokens', title: 'Core Variables' }
+  ];
+
   return (
-    <div className="theming-doc">
-      <header className="doc-header">
-        <h1>Theming</h1>
-        <p className="doc-description">Learn how MMS Design System uses a powerful token-based architecture to support multiple brand identities.</p>
-      </header>
-
-      <section className="doc-section">
-        <h2>Architecture Overview</h2>
+    <DocLayout 
+      title="Theming Architecture" 
+      description="A mission-critical token engine designed for deep multi-brand governance without architectural entropy."
+      headerBackground={<AuroraBackground />}
+      toc={toc}
+    >
+      <section id="architecture" className="doc-section">
+        <h2 className="section-title">Recursive Token Architecture</h2>
         <p>
-          Our theming engine is built on a 3-layer architecture inspired by the industry standard for scalable design systems:
+          MMS employs a **triple-layer token sandwich** to decouple brand identity from engineering logic. This ensures that a global rebrand for a specific entity like <em>Unipay</em> or <em>OCB</em> remains an immutable data change rather than a code-intensive refactor.
         </p>
         
-        <div className="theming-layers">
-          <div className="layer-item">
-            <div className="layer-badge foundation">1. Foundation</div>
-            <p>Raw color scales (Radix 1-12) like Blue, Green, Gray. These don't change between brands.</p>
+        <div className="theming-stack">
+          <div className="stack-item foundation">
+            <div className="stack-level">01</div>
+            <div className="stack-content">
+              <h3>Primitive Foundation</h3>
+              <p>The "Hard" layer. Literal values like <code>Blue-9</code> or <code>12px</code>. These are global constants that do not change between brands.</p>
+            </div>
           </div>
-          <div className="layer-item">
-            <div className="layer-badge aliases">2. Brand Aliases</div>
-            <p>Mapped tokens like <code>--brand-9</code> which point to a foundation color (e.g., Blue-9 for Unipay, Green-9 for OCB).</p>
+
+          <div className="stack-item accent">
+            <div className="stack-level">02</div>
+            <div className="stack-content">
+              <h3>Identity Bridge (Aliases)</h3>
+              <p>The "Variable" layer. Maps broad identifiers like <code>--brand-primary</code> to primitives based on the active brand logic.</p>
+            </div>
           </div>
-          <div className="layer-item">
-            <div className="layer-badge semantic">3. Semantic Tokens</div>
-            <p>Role-based tokens like <code>--bg-component</code> or <code>--text-brand</code>. These are what you use in code.</p>
+
+          <div className="stack-item semantic">
+            <div className="stack-level">03</div>
+            <div className="stack-content">
+              <h3>Semantic Roles (v3.0)</h3>
+              <p>The "Consumable" layer. High-integrity roles like <code>--surface-panel</code>, <code>--content-strong</code>, and <code>--border-default</code>. This layer translates the 1-12 luminance scale into predictable UI behaviors.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="doc-section">
-        <h2>Multi-brand Implementation</h2>
+      <section id="logic" className="doc-section">
+        <h2 className="section-title">Luminance-Locked Scale</h2>
         <p>
-          The <code>BrandProvider</code> dynamically generates a 12-step Radix scale based on a brand's primary hex color. This ensures that even with a single hex input, we get a full palette of compatible shades for borders, hover states, and text.
+          We utilize a predictable 12-step scale for all color families. By locking luminance to specific steps (e.g., Step 9 is always the high-contrast interaction point), we guarantee that UI accessibility remains constant even as the brand hue shifts.
         </p>
         
-        <div className="brand-logic-card">
-          <h3>How it works</h3>
-          <ul>
-            <li><strong>Step 1-2:</strong> Subtle backgrounds</li>
-            <li><strong>Step 3-5:</strong> Interactive component states</li>
-            <li><strong>Step 6-8:</strong> Borders and separators</li>
-            <li><strong>Step 9:</strong> Solid backgrounds (Main Brand Color)</li>
-            <li><strong>Step 11-12:</strong> High-contrast text</li>
-          </ul>
+        <div className="logic-grid">
+          <div className="logic-card">
+            <RiFocus3Line className="logic-icon" />
+            <div className="logic-content">
+              <h4>System Weighting</h4>
+              <ul className="logic-list">
+                <li><strong>Step 1-2</strong>: Atmosphere & App backgrounds</li>
+                <li><strong>Step 3-5</strong>: Interactive states & component fills</li>
+                <li><strong>Step 9</strong>: Primary high-impact Call to Action</li>
+                <li><strong>Step 11-12</strong>: High-readability typography</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="logic-example-box">
+             <div className="code-header">Governance Implementation</div>
+             <pre className="code-snippet">
+{`.action-surface {
+  background: var(--brand-9);
+  color: var(--content-on-solid);
+  border-radius: var(--radius-default);
+  transition: all 200ms var(--ease-out);
+}`}
+             </pre>
+          </div>
         </div>
       </section>
 
-      <section className="doc-section">
-        <h2>Responsive Variables</h2>
-        <p>We use standard spacing and radius tokens to ensure consistency across all components.</p>
-        <div className="token-grid">
-          <div className="token-item">
-            <span className="token-name">--radius-medium</span>
-            <span className="token-value">4px</span>
+      <section id="tokens" className="doc-section">
+        <h2 className="section-title">Unified Constants</h2>
+        <div className="token-premium-grid">
+          <div className="token-premium-card">
+            <RiRulerLine className="token-card-icon" />
+            <div className="token-card-body">
+              <span className="token-card-label">Radius Geometry</span>
+              <span className="token-card-value">--radius-lg (16px)</span>
+              <p>Derived from our "Flat-Premium" core logic to emphasize clean, professional structural containment.</p>
+            </div>
           </div>
-          <div className="token-item">
-            <span className="token-name">--spacing-16</span>
-            <span className="token-value">16px</span>
+
+          <div className="token-premium-card">
+            <RiListCheck2 className="token-card-icon" />
+            <div className="token-card-body">
+              <span className="token-card-label">Modular Spacing</span>
+              <span className="token-card-value">--spacing-16 (1rem)</span>
+              <p>Our 4px base modular unit ensures perfect vertical rhythm in high-density operational views.</p>
+            </div>
           </div>
-          <div className="token-item">
-            <span className="token-name">--font-family</span>
-            <span className="token-value">'Inter', sans-serif</span>
+
+          <div className="token-premium-card">
+            <RiPaintBrushFill className="token-card-icon" />
+            <div className="token-card-body">
+              <span className="token-card-label">Institutional Typography</span>
+              <span className="token-card-value">Inter Display</span>
+              <p>Optimized for rapid recognition in high-frequency dashboards across the MMS portfolio.</p>
+            </div>
           </div>
         </div>
       </section>
-    </div>
+    </DocLayout>
   );
 };
 
 export default ThemingDoc;
+

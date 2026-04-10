@@ -2,95 +2,143 @@ import React, { useState } from 'react';
 import { 
   RadioGroup, 
   Select, 
-  Badge
+  Badge 
 } from '../components/ui';
+import { DocLayout } from '../components/docs/DocLayout';
+import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { CodePreview } from '../components/docs/CodePreview';
+import { PropsTable } from '../components/docs/PropsTable';
 
 const FormsDoc: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState('pro');
   const [selectedRole, setSelectedRole] = useState('editor');
 
+  const toc = [
+    { id: 'radio', title: 'RadioGroup' },
+    { id: 'select', title: 'Select' },
+    { id: 'api', title: 'API Reference' }
+  ];
+
+  const radioProps = [
+    { name: 'value', type: 'string', description: 'Giá trị đang được chọn.' },
+    { name: 'onValueChange', type: '(value: string) => void', description: 'Callback khi thay đổi giá trị.' },
+    { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'vertical'", description: 'Hướng hiển thị của các item.' },
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa toàn bộ group.' }
+  ];
+
+  const selectProps = [
+    { name: 'value', type: 'string', description: 'Giá trị đang được chọn.' },
+    { name: 'onValueChange', type: '(value: string) => void', description: 'Callback khi thay đổi giá trị.' },
+    { name: 'placeholder', type: 'string', description: 'Text hiển thị khi chưa có giá trị.' },
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa select.' }
+  ];
+
   return (
-    <div className="doc-container">
-      <header className="doc-header">
-        <h1>Advanced Form Components</h1>
-        <p>Bộ sưu tập các thành phần biểu mẫu nâng cao với tính tương tác cao và khả năng tùy biến tốt.</p>
-      </header>
-
-
-      {/* RadioGroup Section */}
-      <section className="doc-section">
+    <DocLayout 
+      title="Advanced Form Components" 
+      description="Collection of complex form controls powered by Radix UI primitives for high density interfaces."
+      headerBackground={<AuroraBackground />}
+      toc={toc}
+    >
+      <section id="radio" className="doc-section">
         <h2>RadioGroup</h2>
-        <p>Cho phép người dùng chọn một giá trị duy nhất từ bộ tùy chọn.</p>
-        <div className="demo-box" style={{ gap: '32px' }}>
-          <div>
-            <h3 style={{ fontSize: '14px', marginBottom: '16px' }}>Chọn gói dịch vụ (Vertical)</h3>
-            <RadioGroup value={selectedPlan} onValueChange={setSelectedPlan}>
-              <RadioGroup.Item value="basic">
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span>Gói cơ bản</span>
-                  <span style={{ fontSize: '12px', color: 'var(--gray-11)' }}>Miễn phí cho cá nhân</span>
-                </div>
-              </RadioGroup.Item>
-              <RadioGroup.Item value="pro">
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <span>Gói chuyên nghiệp</span>
-                  <Badge color="brand" variant="soft" size="1">Popular</Badge>
-                </div>
-              </RadioGroup.Item>
-              <RadioGroup.Item value="enterprise" disabled>Gói doanh nghiệp (Coming soon)</RadioGroup.Item>
-            </RadioGroup>
-          </div>
+        <p>A set of checkable buttons—known as radio buttons—where no more than one button can be checked at a time.</p>
+        <CodePreview
+          code={`<RadioGroup value={plan} onValueChange={setPlan}>
+  <RadioGroup.Item value="basic">Basic Plan</RadioGroup.Item>
+  <RadioGroup.Item value="pro">Pro Plan</RadioGroup.Item>
+</RadioGroup>`}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 py-2">
+            <div>
+              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Vertical Selection</h3>
+              <RadioGroup value={selectedPlan} onValueChange={setSelectedPlan}>
+                <RadioGroup.Item value="basic">
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">Gói cơ bản</span>
+                    <span className="text-xs text-secondary">Miễn phí cho cá nhân</span>
+                  </div>
+                </RadioGroup.Item>
+                <RadioGroup.Item value="pro">
+                  <div className="flex gap-2 items-center">
+                    <span className="text-sm font-medium">Gói chuyên nghiệp</span>
+                    <Badge color="brand" variant="soft" size="1">Popular</Badge>
+                  </div>
+                </RadioGroup.Item>
+                <RadioGroup.Item value="enterprise" disabled>Gói doanh nghiệp (Soon)</RadioGroup.Item>
+              </RadioGroup>
+            </div>
 
-          <div style={{ borderLeft: '1px solid var(--gray-6)', paddingLeft: '32px' }}>
-            <h3 style={{ fontSize: '14px', marginBottom: '16px' }}>Lựa chọn nhanh (Horizontal)</h3>
-            <RadioGroup orientation="horizontal" defaultValue="1">
-              <RadioGroup.Item value="1">Lựa chọn 1</RadioGroup.Item>
-              <RadioGroup.Item value="2">Lựa chọn 2</RadioGroup.Item>
-              <RadioGroup.Item value="3">Lựa chọn 3</RadioGroup.Item>
-            </RadioGroup>
+            <div className="md:border-l border-subtle md:pl-12">
+              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Horizontal Layout</h3>
+              <RadioGroup orientation="horizontal" defaultValue="1">
+                <RadioGroup.Item value="1">Option 1</RadioGroup.Item>
+                <RadioGroup.Item value="2">Option 2</RadioGroup.Item>
+                <RadioGroup.Item value="3">Option 3</RadioGroup.Item>
+              </RadioGroup>
+            </div>
           </div>
-        </div>
+        </CodePreview>
       </section>
 
-      {/* Select Section */}
-      <section className="doc-section">
+      <section id="select" className="doc-section">
         <h2>Select</h2>
-        <p>Bộ chọn giá trị thu gọn, tối ưu không gian hơn RadioGroup.</p>
-        <div className="demo-box" style={{ gap: '24px' }}>
-          <div style={{ width: '240px' }}>
-            <h3 style={{ fontSize: '14px', marginBottom: '12px' }}>Vai trò người dùng</h3>
-            <Select value={selectedRole} onValueChange={setSelectedRole}>
-              <Select.Trigger placeholder="Chọn vai trò...">
-                {selectedRole === 'admin' && 'Administrator'}
-                {selectedRole === 'editor' && 'Editor'}
-                {selectedRole === 'viewer' && 'Viewer'}
-              </Select.Trigger>
-              <Select.Portal>
-                <Select.Content>
-                  <Select.Label>Quyền hạn</Select.Label>
-                  <Select.Item value="admin">Administrator</Select.Item>
-                  <Select.Item value="editor">Editor</Select.Item>
-                  <Select.Separator />
-                  <Select.Label>Chỉ xem</Select.Label>
-                  <Select.Item value="viewer">Viewer</Select.Item>
-                  <Select.Item value="guest" disabled>Guest Account</Select.Item>
-                </Select.Content>
-              </Select.Portal>
-            </Select>
-          </div>
+        <p>Displays a list of options for the user to pick from—triggered by a button.</p>
+        <CodePreview
+          code={`<Select value={role} onValueChange={setRole}>
+  <Select.Trigger placeholder="Select role..." />
+  <Select.Portal>
+    <Select.Content>
+      <Select.Item value="admin">Admin</Select.Item>
+    </Select.Content>
+  </Select.Portal>
+</Select>`}
+        >
+          <div className="flex flex-wrap gap-8 py-2">
+            <div className="w-60">
+              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-3">User Options</h3>
+              <Select value={selectedRole} onValueChange={setSelectedRole}>
+                <Select.Trigger placeholder="Chọn vai trò...">
+                  {selectedRole === 'admin' && 'Administrator'}
+                  {selectedRole === 'editor' && 'Editor'}
+                  {selectedRole === 'viewer' && 'Viewer'}
+                </Select.Trigger>
+                <Select.Portal>
+                  <Select.Content>
+                    <Select.Label>Quyền hạn</Select.Label>
+                    <Select.Item value="admin">Administrator</Select.Item>
+                    <Select.Item value="editor">Editor</Select.Item>
+                    <Select.Separator />
+                    <Select.Label>Chỉ xem</Select.Label>
+                    <Select.Item value="viewer">Viewer</Select.Item>
+                    <Select.Item value="guest" disabled>Guest Account</Select.Item>
+                  </Select.Content>
+                </Select.Portal>
+              </Select>
+            </div>
 
-          <div style={{ width: '240px' }}>
-            <h3 style={{ fontSize: '14px', marginBottom: '12px' }}>Disabled Select</h3>
-            <Select disabled>
-              <Select.Trigger placeholder="Không thể chọn..." />
-            </Select>
+            <div className="w-60">
+              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-3">Disabled State</h3>
+              <Select disabled>
+                <Select.Trigger placeholder="Không thể chọn..." />
+              </Select>
+            </div>
           </div>
-        </div>
+        </CodePreview>
       </section>
 
-      {/* API Tables could be added here similar to other docs */}
-    </div>
+      <section id="api" className="doc-section">
+        <h2>API Reference</h2>
+        <h3 className="text-sm font-bold text-strong mb-4">RadioGroup Props</h3>
+        <PropsTable props={radioProps} />
+        <div className="mt-8">
+          <h3 className="text-sm font-bold text-strong mb-4">Select Props</h3>
+          <PropsTable props={selectProps} />
+        </div>
+      </section>
+    </DocLayout>
   );
 };
 
 export default FormsDoc;
+

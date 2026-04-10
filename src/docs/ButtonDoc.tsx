@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import Button from '../components/ui/Button/Button';
+import { DocLayout } from '../components/docs/DocLayout';
+import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { CodePreview } from '../components/docs/CodePreview';
+import { PropsTable } from '../components/docs/PropsTable';
 import { Tabs } from '../components/ui/Tabs/Tabs';
 import { 
   RiAddLine, 
   RiArrowRightLine, 
   RiDownloadLine, 
-  RiSearchLine,
   RiSendPlaneLine,
-  RiUserLine
 } from 'react-icons/ri';
-import './ButtonDoc.css';
 
 const ButtonDoc: React.FC = () => {
   const [activeColorVariant, setActiveColorVariant] = useState<'solid' | 'soft' | 'outline' | 'ghost' | 'surface'>('solid');
@@ -18,72 +19,63 @@ const ButtonDoc: React.FC = () => {
     'brand', 'success', 'error', 'warning', 'orange', 'blue', 'purple', 'sky', 'pink', 'teal', 'secondary', 'gray'
   ];
 
+  const toc = [
+    { id: 'variants', title: 'Variants' },
+    { id: 'colors', title: 'Colors' },
+    { id: 'sizes', title: 'Sizes' },
+    { id: 'icons', title: 'Icons' },
+    { id: 'radius', title: 'Radius' },
+    { id: 'states', title: 'States' },
+    { id: 'api', title: 'API Reference' }
+  ];
+
+  const buttonProps = [
+    { name: 'children', type: 'ReactNode', required: true, description: 'Nội dung hiển thị bên trong nút.' },
+    { name: 'variant', type: "'solid' | 'soft' | 'outline' | 'ghost' | 'surface'", default: "'solid'", description: 'Phong cách hiển thị của nút.' },
+    { name: 'color', type: 'ColorVariant', default: "'brand'", description: 'Màu sắc chủ đề của nút.' },
+    { name: 'size', type: "'1' | '2' | '3' | '4'", default: "'2'", description: 'Kích thước của nút.' },
+    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", description: 'Độ bo góc của nút.' },
+    { name: 'leftIcon', type: 'ReactNode', description: 'Icon hiển thị bên trái văn bản.' },
+    { name: 'rightIcon', type: 'ReactNode', description: 'Icon hiển thị bên phải văn bản.' },
+    { name: 'loading', type: 'boolean', default: 'false', description: 'Trạng thái đang tải.' },
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'Trạng thái vô hiệu hóa.' },
+    { name: 'className', type: 'string', description: 'CSS class tùy chỉnh.' }
+  ];
+
   return (
-    <div className="button-doc">
-      <header className="doc-header">
-        <h1>Button</h1>
-        <p className="doc-description">An interactive element used to trigger actions.</p>
-      </header>
-      
-      <section className="doc-section">
-        <h2>Icons</h2>
-        <p>Buttons can contain icons to provide extra visual context. Use <code>leftIcon</code> or <code>rightIcon</code> props.</p>
-        <div className="example-flex">
-          <Button variant="solid" color="brand" leftIcon={<RiAddLine />}>
-            New Project
-          </Button>
-          <Button variant="outline" color="brand" rightIcon={<RiArrowRightLine />}>
-            Next Step
-          </Button>
-          <Button variant="soft" color="brand" leftIcon={<RiDownloadLine />}>
-            Download
-          </Button>
-          <Button variant="surface" leftIcon={<RiSearchLine />}>
-            Search
-          </Button>
-          <Button variant="solid" color="success" rightIcon={<RiSendPlaneLine />}>
-            Send
-          </Button>
-          <Button variant="ghost" color="gray" leftIcon={<RiUserLine />}>
-            Profile
-          </Button>
-        </div>
-      </section>
-      
-      <section className="doc-section">
+    <DocLayout 
+      title="Button" 
+      description="An interactive element used to trigger actions."
+      headerBackground={<AuroraBackground />}
+      toc={toc}
+    >
+      <section id="variants" className="doc-section">
         <h2>Variants</h2>
         <p>Buttons are available in five visual variants.</p>
-        <div className="example-grid">
-          <div className="example-item">
+        <CodePreview
+          code={`<Button variant="solid" color="brand">Solid</Button>
+<Button variant="soft" color="brand">Soft</Button>
+<Button variant="outline" color="brand">Outline</Button>
+<Button variant="ghost" color="brand">Ghost</Button>
+<Button variant="surface" color="brand">Surface</Button>`}
+        >
+          <div className="flex flex-wrap gap-4">
             <Button variant="solid" color="brand">Solid</Button>
-            <code>variant="solid"</code>
-          </div>
-          <div className="example-item">
             <Button variant="soft" color="brand">Soft</Button>
-            <code>variant="soft"</code>
-          </div>
-          <div className="example-item">
             <Button variant="outline" color="brand">Outline</Button>
-            <code>variant="outline"</code>
-          </div>
-          <div className="example-item">
             <Button variant="ghost" color="brand">Ghost</Button>
-            <code>variant="ghost"</code>
-          </div>
-          <div className="example-item">
             <Button variant="surface" color="brand">Surface</Button>
-            <code>variant="surface"</code>
           </div>
-        </div>
+        </CodePreview>
       </section>
 
-      <section className="doc-section">
+      <section id="colors" className="doc-section">
         <h2>Colors</h2>
-        <p>Use the <code>color</code> prop to assign different semantic meanings to buttons.</p>
+        <p>Combine variants with different semantic colors.</p>
         
         <Tabs 
           value={activeColorVariant}
-          onValueChange={(value) => setActiveColorVariant(value as any)}
+          onValueChange={(value) => setActiveColorVariant(value as 'solid' | 'soft' | 'outline' | 'ghost' | 'surface')}
         >
           <Tabs.List>
             <Tabs.Trigger value="solid">Solid</Tabs.Trigger>
@@ -94,7 +86,7 @@ const ButtonDoc: React.FC = () => {
           </Tabs.List>
         </Tabs>
 
-        <div className="example-flex" style={{ marginTop: '24px' }}>
+        <div className="flex flex-wrap gap-4 mt-6">
           {colors.map((color) => (
             <Button key={color} color={color} variant={activeColorVariant}>
               {color.charAt(0).toUpperCase() + color.slice(1)}
@@ -103,40 +95,83 @@ const ButtonDoc: React.FC = () => {
         </div>
       </section>
 
-      <section className="doc-section">
+      <section id="sizes" className="doc-section">
         <h2>Sizes</h2>
-        <p>Available in four sizes.</p>
-        <div className="example-flex" style={{ alignItems: 'center' }}>
-          <Button size="1" variant="solid" color="brand">Size 1</Button>
-          <Button size="2" variant="solid" color="brand">Size 2</Button>
-          <Button size="3" variant="solid" color="brand">Size 3</Button>
-          <Button size="4" variant="solid" color="brand">Size 4</Button>
-        </div>
+        <p>Buttons support four standard sizes.</p>
+        <CodePreview
+          code={`<Button size="1">Size 1</Button>
+<Button size="2">Size 2</Button>
+<Button size="3">Size 3</Button>
+<Button size="4">Size 4</Button>`}
+        >
+          <div className="flex gap-4 items-center">
+            <Button size="1">Size 1</Button>
+            <Button size="2">Size 2</Button>
+            <Button size="3">Size 3</Button>
+            <Button size="4">Size 4</Button>
+          </div>
+        </CodePreview>
       </section>
 
-      <section className="doc-section">
+      <section id="icons" className="doc-section">
+        <h2>Icons</h2>
+        <p>Buttons can contain icons to provide extra visual context.</p>
+        <CodePreview
+          code={`<Button leftIcon={<RiAddLine />}>New Project</Button>
+<Button rightIcon={<RiArrowRightLine />}>Next Step</Button>
+<Button color="success" rightIcon={<RiSendPlaneLine />}>Send</Button>
+<Button variant="outline" leftIcon={<RiDownloadLine />}>Download</Button>`}
+        >
+          <div className="flex flex-wrap gap-4">
+            <Button leftIcon={<RiAddLine />}>New Project</Button>
+            <Button rightIcon={<RiArrowRightLine />}>Next Step</Button>
+            <Button color="success" rightIcon={<RiSendPlaneLine />}>Send</Button>
+            <Button variant="outline" leftIcon={<RiDownloadLine />}>Download</Button>
+          </div>
+        </CodePreview>
+      </section>
+
+      <section id="radius" className="doc-section">
         <h2>Radius</h2>
         <p>Control the roundedness of the button corners.</p>
-        <div className="example-flex">
-          <Button radius="none" variant="solid" color="brand">None</Button>
-          <Button radius="small" variant="solid" color="brand">Small</Button>
-          <Button radius="medium" variant="solid" color="brand">Medium</Button>
-          <Button radius="large" variant="solid" color="brand">Large</Button>
-          <Button radius="full" variant="solid" color="brand">Full (Pill)</Button>
-        </div>
+        <CodePreview
+          code={`<Button radius="none">None</Button>
+<Button radius="sm">Small</Button>
+<Button radius="md">Medium</Button>
+<Button radius="lg">Large</Button>
+<Button radius="full">Full</Button>`}
+        >
+          <div className="flex flex-wrap gap-2">
+            <Button radius="none">None</Button>
+            <Button radius="sm">Small</Button>
+            <Button radius="md">Medium</Button>
+            <Button radius="lg">Large</Button>
+            <Button radius="full">Full</Button>
+          </div>
+        </CodePreview>
       </section>
 
-      <section className="doc-section">
+      <section id="states" className="doc-section">
         <h2>States</h2>
         <p>Buttons support disabled and loading states natively.</p>
-        <div className="example-flex">
-          <Button variant="solid" color="brand">Default</Button>
-          <Button variant="solid" color="brand" disabled>Disabled</Button>
-          <Button variant="solid" color="brand" loading>Loading</Button>
-          <Button variant="outline" color="brand" loading>Syncing</Button>
-        </div>
+        <CodePreview
+          code={`<Button disabled>Disabled</Button>
+<Button loading>Loading</Button>
+<Button variant="outline" color="brand" loading>Syncing</Button>`}
+        >
+          <div className="flex flex-wrap gap-4">
+            <Button disabled>Disabled</Button>
+            <Button loading>Loading</Button>
+            <Button variant="outline" color="brand" loading>Syncing</Button>
+          </div>
+        </CodePreview>
       </section>
-    </div>
+
+      <section id="api" className="doc-section">
+        <h2>API Reference</h2>
+        <PropsTable props={buttonProps} />
+      </section>
+    </DocLayout>
   );
 };
 

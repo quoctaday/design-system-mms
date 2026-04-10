@@ -1,0 +1,80 @@
+.aurora-container {
+  --aurora: repeating-linear-gradient(100deg, var(--blue-500) 10%, var(--indigo-300) 15%, var(--blue-300) 20%, var(--violet-200) 25%, var(--blue-400) 30%);
+  --dark-gradient: repeating-linear-gradient(100deg, var(--black) 0%, var(--black) 7%, transparent 10%, transparent 12%, var(--black) 16%);
+  --white-gradient: repeating-linear-gradient(100deg, var(--white) 0%, var(--white) 7%, transparent 10%, transparent 12%, var(--white) 16%);
+  
+  --blue-300: #93c5fd;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --indigo-300: #a5b4fc;
+  --violet-200: #ddd6fe;
+  --black: #000;
+  --white: #fff;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  transition: background-color 0.5s ease;
+  background-color: var(--gray-1);
+  color: var(--content-strong);
+  overflow: hidden;
+}
+
+.aurora-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.aurora-effect {
+  pointer-events: none;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  opacity: 0.5;
+  filter: blur(10px) invert(1);
+  will-change: transform;
+  background-image: var(--white-gradient), var(--aurora);
+  background-size: 300%, 200%;
+  background-position: 50% 50%, 50% 50%;
+}
+
+.dark .aurora-effect {
+  background-image: var(--dark-gradient), var(--aurora);
+  filter: blur(10px) invert(0);
+}
+
+.aurora-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--white-gradient), var(--aurora);
+  background-size: 200%, 100%;
+  background-attachment: fixed;
+  mix-blend-mode: difference;
+  animation: aurora 60s linear infinite;
+}
+
+.dark .aurora-effect::after {
+  background-image: var(--dark-gradient), var(--aurora);
+}
+
+.aurora-effect.radial-mask {
+  mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+}
+
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
+}

@@ -1,172 +1,245 @@
 /* src/components/ui/MetricCard/MetricCard.css */
-.mms-metric-card {
-  background-color: var(--white);
-  border: 1px solid var(--gray-4);
-  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: none !important;
-  border-radius: var(--radius-16) !important;
-  position: relative;
-  overflow: hidden;
-}
 
-/* Sizing Variants */
-.mms-metric-card--sm { min-height: 120px; }
-.mms-metric-card--md { min-height: 160px; }
-.mms-metric-card--lg { min-height: 200px; }
-
-.mms-metric-card:hover {
-  border-color: var(--brand-400);
-  background-color: var(--gray-2);
-}
-
-.mms-metric-card-content {
-  height: 100%;
+.mms-metric-card-modern {
+  background-color: var(--surface-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-container);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
-/* Padding variants based on size */
-.mms-metric-card--sm .mms-metric-card-content { padding: 16px; }
-.mms-metric-card--md .mms-metric-card-content { padding: 24px; }
-.mms-metric-card--lg .mms-metric-card-content { padding: 32px; }
+.mms-metric-card-modern:hover {
+  border-color: var(--border-default);
+  background-color: var(--surface-subtle);
+}
 
-.mms-metric-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.mms-metric-header {
+  padding: var(--spacing-16);
+  border-bottom: 1px solid var(--border-divider);
 }
 
 .mms-metric-header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--spacing-12);
 }
 
-.mms-metric-icon-box {
-  border-radius: var(--radius-12);
+.mms-metric-icon {
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid transparent;
-  transition: transform 250ms ease;
+  border-radius: var(--radius-xs);
+  background-color: var(--surface-subtle);
+  color: var(--content-accent);
+  font-size: 16px;
+  flex-shrink: 0;
 }
 
-/* Icon Box Sizing */
-.mms-metric-icon-box--sm { width: 32px; height: 32px; font-size: 16px; border-radius: var(--radius-8); }
-.mms-metric-icon-box--md { width: 44px; height: 44px; font-size: 20px; border-radius: var(--radius-12); }
-.mms-metric-icon-box--lg { width: 56px; height: 56px; font-size: 24px; border-radius: var(--radius-16); }
+.mms-metric-icon--primary { background-color: var(--brand-3); color: var(--brand-9); }
+.mms-metric-icon--error { background-color: var(--red-3); color: var(--red-9); }
+.mms-metric-icon--success { background-color: var(--green-3); color: var(--green-9); }
+.mms-metric-icon--warning { background-color: var(--amber-3); color: var(--amber-9); }
 
-.mms-metric-card:hover .mms-metric-icon-box {
-  transform: translateY(-2px);
-}
-
-/* Semantic design system tokens — Radix soft pattern (step 3 bg, step 11 text) */
-.mms-metric-icon-box--primary { color: var(--brand-700); background-color: var(--brand-50); border-color: var(--brand-100); }
-.mms-metric-icon-box--success { color: var(--success-11); background-color: var(--success-3); border-color: var(--success-5); }
-.mms-metric-icon-box--warning { color: var(--warning-11); background-color: var(--warning-3); border-color: var(--warning-5); }
-.mms-metric-icon-box--error   { color: var(--error-11);   background-color: var(--error-3);   border-color: var(--error-5);   }
-.mms-metric-icon-box--info    { color: var(--sky-11);     background-color: var(--sky-3);     border-color: var(--sky-5);     }
-
-.mms-metric-card-label {
-  font-size: 12px;
+.mms-metric-label {
+  font-size: var(--font-size-2);
   font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  color: var(--content-subtle);
+  letter-spacing: 0.01em;
   white-space: nowrap;
 }
 
-/* Size adjustments for label */
-.mms-metric-card--sm .mms-metric-card-label { font-size: 11px; }
-
-.mms-metric-card-main {
+.mms-metric-body {
+  padding: var(--spacing-16);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-8);
+  position: relative;
 }
 
-.mms-metric-card-value-container {
+.mms-metric-data-row {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.mms-metric-card-value {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--text-emphasis);
-  line-height: 1.2;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Value sizing */
-.mms-metric-card--sm .mms-metric-card-value { font-size: 22px; }
-.mms-metric-card--lg .mms-metric-card-value { font-size: 36px; }
-
-.mms-metric-card-badge {
-  font-weight: 700 !important;
-  font-size: 12px !important;
-  padding: 2px 8px !important;
-  border-radius: var(--radius-full) !important;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Footer & Link Styles */
-.mms-metric-card-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  border-top: 1px solid var(--gray-3);
-  margin: 0 -24px -24px -24px;
-  padding: 16px 24px;
-  background-color: var(--gray-1);
-}
-
-.mms-metric-card--sm .mms-metric-card-footer { margin: 0 -16px -16px -16px; padding: 12px 16px; }
-.mms-metric-card--lg .mms-metric-card-footer { margin: 0 -32px -32px -32px; padding: 20px 32px; }
-
-.mms-metric-card-description {
-  font-size: 13px;
-  color: var(--text-subtle);
-  margin: 0;
-  font-weight: 500;
-  opacity: 0.8;
-}
-
-.mms-metric-card-link {
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-end;
-  gap: 4px;
+}
+
+.mms-metric-value-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+}
+
+.mms-metric-value {
+  font-family: var(--font-display);
+  font-size: var(--font-size-6);
+  font-weight: 700;
+  color: var(--content-strong);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.mms-metric-description {
+  font-size: var(--font-size-2);
+  color: var(--content-subtle);
+  margin-top: var(--spacing-4);
+  line-height: 1.4;
+}
+
+.mms-metric-more {
   background: none;
   border: none;
-  padding: 0;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--brand-600);
+  padding: var(--spacing-4) var(--spacing-8);
+  color: var(--brand-9);
   cursor: pointer;
-  transition: all 200ms ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  width: fit-content;
-  align-self: flex-end;
+  font-size: var(--font-size-2);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  transition: all 0.2s;
 }
 
-.mms-metric-card-link:hover {
-  color: var(--brand-700);
-  transform: translateX(4px);
+.mms-metric-link-text {
+  text-decoration: none;
 }
 
-.mms-metric-card-link svg {
-  font-size: 14px;
+.mms-metric-more:hover {
+  background-color: var(--surface-subtle);
+  color: var(--content-strong);
 }
 
-@media (max-width: 768px) {
-  .mms-metric-card-value {
-    font-size: 24px;
-  }
+.mms-metric-trend {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  font-size: var(--font-size-3);
+  font-weight: 700;
+  color: var(--content-subtle);
 }
+
+.mms-metric-trend--up {
+  color: var(--green-9);
+}
+
+.mms-metric-trend--down {
+  color: var(--red-9);
+}
+
+.mms-trend-value {
+  margin-right: var(--spacing-4);
+}
+
+.mms-trend-text {
+  font-weight: 500;
+  color: var(--content-subtle);
+  font-size: var(--font-size-2);
+}
+
+/* Chart Area */
+.mms-metric-chart-area {
+  margin-top: var(--spacing-4);
+  height: 24px;
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  margin-bottom: -16px;
+  opacity: 0.4;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.mms-dotted-wave {
+  width: 100%;
+  height: 100%;
+}
+
+/* Linear Aesthetic Style */
+.mms-metric-card-linear {
+  background-color: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mms-metric-card-linear:hover {
+  border-color: var(--border-default);
+  background-color: var(--gray-3);
+}
+
+.mms-metric-inner {
+  background-color: var(--surface-panel);
+  border-radius: calc(var(--radius-xl) - 12px);
+  border: 1px solid var(--border-subtle);
+  padding: var(--spacing-16);
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  z-index: 1;
+}
+
+.mms-metric-card-linear .mms-metric-header {
+  padding: 0;
+  border-bottom: none;
+  margin-bottom: var(--spacing-8);
+}
+
+.mms-metric-card-linear .mms-metric-body {
+  padding: 0;
+  gap: var(--spacing-4);
+}
+
+.mms-metric-card-linear .mms-metric-value {
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+
+.mms-metric-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  background-image: radial-gradient(var(--content-strong) 1px, transparent 0);
+  background-size: 12px 12px;
+  background-position: -6px -6px;
+  pointer-events: none;
+}
+
+.mms-metric-card-linear .mms-metric-chart-area {
+  margin-top: var(--spacing-12);
+  width: 100%;
+  margin-left: 0;
+  margin-bottom: 0;
+  opacity: 0.3;
+}
+
+/* Base Size Utilities for both styles */
+.mms-metric-card-size--sm .mms-metric-value { font-size: var(--font-size-4); }
+.mms-metric-card-size--lg .mms-metric-value { font-size: 42px; }
+
+.mms-metric-card-linear.mms-metric-card-size--sm { padding: 8px; }
+.mms-metric-card-linear.mms-metric-card-size--sm .mms-metric-inner { 
+  padding: var(--spacing-12);
+  border-radius: calc(var(--radius-xl) - 8px);
+}
+
+/* Sizing Variants */
+.mms-metric-card-modern--sm .mms-metric-header { padding: var(--spacing-8) var(--spacing-12); }
+.mms-metric-card-modern--sm .mms-metric-body { padding: var(--spacing-12); }
+.mms-metric-card-modern--sm .mms-metric-value { font-size: 24px; }
+.mms-metric-card-modern--sm .mms-trend-text { display: none; }
+
+.mms-metric-card-modern--lg .mms-metric-header { padding: var(--spacing-16) var(--spacing-28); }
+.mms-metric-card-modern--lg .mms-metric-body { padding: var(--spacing-28); }
+.mms-metric-card-modern--lg .mms-metric-value { font-size: 42px; }

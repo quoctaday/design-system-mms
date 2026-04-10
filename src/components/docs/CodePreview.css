@@ -1,0 +1,126 @@
+.code-preview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 64px;
+}
+
+/* Preview Card */
+.code-preview-live {
+  border: 0.5px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  background-color: var(--surface-panel);
+  min-height: 240px; /* Tăng chiều cao tối thiểu */
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-info {
+  padding: var(--spacing-20) var(--spacing-24) 0;
+}
+
+.preview-title {
+  margin: 0;
+  font-size: var(--font-size-4);
+  font-weight: 600;
+  color: var(--content-strong);
+}
+
+.preview-description {
+  margin: var(--spacing-4) 0 0;
+  font-size: var(--font-size-3);
+  color: var(--content-subtle);
+  line-height: 1.5;
+}
+
+.preview-canvas {
+  padding: var(--spacing-32) var(--spacing-24);
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background-image: 
+    radial-gradient(var(--border-subtle) 1px, transparent 1px);
+  background-size: 24px 24px;
+  gap: 32px; /* Tăng gap từ 16px lên 32px */
+  flex-wrap: wrap;
+}
+
+/* Source Card Wrapper - Light grey background containing header and white code card */
+.code-preview-source {
+  background-color: var(--surface-subtle);
+  border-radius: var(--radius-xl);
+  border: 0.5px solid var(--border-subtle);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px 12px 12px;
+}
+
+.code-path {
+  color: var(--content-subtle);
+  font-size: 12px;
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.code-preview-source .code-block {
+  margin: 0;
+  padding: 24px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+  font-family: var(--font-family-mono);
+  background-color: var(--surface-panel) !important;
+  border-radius: calc(var(--radius-xl) - 8px) !important;
+  border: 0.5px solid var(--border-subtle);
+}
+
+.code-line {
+  display: table-row;
+}
+
+.line-number {
+  display: table-cell;
+  text-align: right;
+  padding-right: 24px;
+  padding-left: 16px;
+  user-select: none;
+  opacity: 0.25;
+  font-size: 12px;
+  color: var(--content-subtle);
+  min-width: 50px;
+}
+
+.line-content {
+  display: table-cell;
+}
+
+/* Copy button refinement */
+.copy-btn {
+  background: transparent;
+  border: none;
+  color: var(--content-subtle);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: var(--black-a4);
+  color: var(--content-strong);
+}
+
+.text-success {
+  color: var(--success-9);
+}

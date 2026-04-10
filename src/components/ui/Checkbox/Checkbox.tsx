@@ -9,6 +9,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   label?: string;
   size?: '1' | '2';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'gray';
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
@@ -18,6 +19,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
   label,
   size = '2',
   color = 'brand',
+  radius,
   disabled,
   ...props
 }, ref) => {
@@ -61,6 +63,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
         <div 
           className={cn(
             'mms-checkbox-indicator',
+            radius && `mms-checkbox-radius-${radius}`,
             (isChecked || isIndeterminate) && 'mms-checkbox-indicator-checked'
           )}
         >

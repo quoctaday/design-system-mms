@@ -8,6 +8,7 @@ import {
   RiLoader4Line
 } from 'react-icons/ri';
 import { type Toast, useToast } from '../../../contexts/ToastContext';
+import Button from '../Button/Button';
 import './Toast.css';
 
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -28,7 +29,10 @@ const ToastItem: React.FC<{ toast: Toast }> = ({ toast }) => {
         <h4 className="toast-title">{toast.title}</h4>
         {toast.description && <p className="toast-description">{toast.description}</p>}
         {toast.action && (
-          <button 
+          <Button 
+            variant="ghost"
+            color="brand"
+            size="1"
             className="toast-action-btn"
             onClick={(e) => {
               e.stopPropagation();
@@ -37,16 +41,19 @@ const ToastItem: React.FC<{ toast: Toast }> = ({ toast }) => {
             }}
           >
             {toast.action.label}
-          </button>
+          </Button>
         )}
       </div>
-      <button 
+      <Button 
+        variant="ghost" 
+        color="gray"
+        size="1"
         className="toast-close-btn" 
         onClick={() => removeToast(toast.id)}
         aria-label="Close"
       >
         <RiCloseLine />
-      </button>
+      </Button>
     </div>
   );
 };

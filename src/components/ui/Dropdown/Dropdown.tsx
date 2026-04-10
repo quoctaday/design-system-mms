@@ -116,6 +116,7 @@ export interface DropdownItemProps extends React.HTMLAttributes<HTMLDivElement> 
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   disabled?: boolean;
+  variant?: 'default' | 'danger';
 }
 
 const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(({ 
@@ -123,6 +124,7 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(({
   leftIcon, 
   rightIcon, 
   disabled,
+  variant = 'default',
   className,
   onClick,
   ...props 
@@ -140,6 +142,7 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(({
       ref={ref}
       className={cn(
         'mms-dropdown-item',
+        variant === 'danger' && 'mms-dropdown-item-danger',
         disabled && 'mms-dropdown-item-disabled',
         className
       )}
