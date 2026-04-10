@@ -7,11 +7,13 @@ Defines the corner rounding for UI elements.
 
 | Token | Value | Semantic Usage |
 |-------|-------|----------------|
-| `--radius-none` | `0px` | Sharp corners |
-| `--radius-small` | `4px` | Small buttons, tags |
-| `--radius-medium` | `16px` | Standard buttons, inputs |
-| `--radius-large` | `20px` | Cards, modals, sections |
-| `--radius-full` | `999px` | Fully rounded (Pills/Circles) |
+| `--radius-none` | `0px` | Linear sharp corners |
+| `--radius-xs` | `4px` | Tiny elements (tags, badges) |
+| `--radius-sm` | `8px` | Classic small components (checkbox, small buttons) |
+| `--radius-md` | `12px` | Standard interface (inputs, regular buttons) |
+| `--radius-lg` | `16px` | Floating cards, primary containers |
+| `--radius-xl` | `20px` | Large modals, layouts |
+| `--radius-full` | `999px` | Fully rounded (Pills/Circles/Icons) |
 
 ## 🏔 Shadow Depths
 Elevation steps for surface separation.

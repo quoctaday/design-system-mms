@@ -1,20 +1,30 @@
 # Badge
 
-The Woker Design System Badge is used for categorizing and indicating status.
+Used for categorizing content and indicating status.
 
-## 📏 Density
-Badges are kept compact to avoid overshadowing primary content.
+## 📏 Sizing
+Badges are kept compact to maintain high data density.
 
-| Token | Height | Usage |
+| Prop | Height | Usage |
 | :--- | :--- | :--- |
-| `--size-1` | `20px` | Super-compact (Micro) |
-| `--size-2` | `24px` | Standard (Default) |
-| `--size-3` | `28px` | Emphasized |
+| `size="1"` | `20px` | Super-compact (Micro-tags) |
+| `size="2"` | `24px` | Standard (Default) |
+
+## ⤗ Radius (Modernized)
+Standardized rounding options to match the global UI protocol.
+
+| Prop | Value | Note |
+| :--- | :--- | :--- |
+| `radius="none"` | `0px` | Square corners |
+| `radius="sm"` | `8px` | Classic rounded (legacy "small") |
+| `radius="md"` | `12px` | Standard rounded (legacy "medium") |
+| `radius="lg"` | `16px` | Premium rounded (legacy "large") |
+| `radius="full"` | `999px` | Pill shape (Most common for badges) |
 
 ## 🎨 Token Specs
-- **Typography:** `var(--font-size-1)` (11px)
-- **Radius:** `var(--radius-full)` (Pills) or `var(--radius-small)` (Tags)
-- **Status Colors:** derives from `var(--surface-danger-2)` etc.
+- **Typography:** `var(--font-size-2)` (12px) - Standardized for readability.
+- **Variants:** Solid, Soft, Surface, Outline, Ghost.
+- **Letter Spacing:** `0.05em` (Tighter uppercase tracking).
 
 ---
 [[00 - Introduction|Back to Introduction]]

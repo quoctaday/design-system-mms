@@ -1,22 +1,32 @@
 # Input
 
-The primary data entry component for the Woker Design System.
+The primary data entry component for the MMS Platform.
 
 ## 📏 Sizing
-Inputs follow the same density tokens as buttons for perfect horizontal alignment.
+Inputs follow the same density tokens as buttons for consistent horizontal alignment.
 
 | Size | Height | Usage |
 | :--- | :--- | :--- |
-| `1` | `28px` | Filters, Table cells |
-| `2` | `34px` | Standard forms (Default) |
-| `3` | `42px` | Search bars, Modal forms |
-| `4` | `50px` | Hero inputs |
+| `1` | `32px` | Filters, Table cells |
+| `2` | `40px` | Standard forms (Default) |
+| `3` | `48px` | Search bars, Modal forms |
+
+## ⤗ Radius (Modernized)
+Standardized rounding options to match the global UI protocol.
+
+| Prop | Value | Note |
+| :--- | :--- | :--- |
+| `radius="none"` | `0px` | Square corners |
+| `radius="sm"` | `8px` | Classic rounded (legacy "small") |
+| `radius="md"` | `12px` | Standard rounded (legacy "medium") |
+| `radius="lg"` | `16px` | Premium rounded (legacy "large") |
+| `radius="full"` | `999px` | Pill shape |
 
 ## 🎨 Token Specs
-- **Background:** `var(--surface-component)` (Standard) or `var(--surface-panel)` (Classic variant; explicitly never hardcoded white to ensure dark mode stability).
+- **Backgrounds:** `var(--surface-component)` (Surface), `var(--surface-panel)` (Classic), or `var(--surface-subtle)` (Soft).
 - **Border:** `var(--border-default)`
-- **Focus:** `var(--border-strong)` with subtle glow.
-- **Typography:** `var(--font-size-2)` or `3` depending on density.
+- **Focus:** `var(--border-accent)` with 2px consistent ring.
+- **Typography:** `var(--font-size-3)` (14px) for optimized readability.
 
 ---
 [[00 - Introduction|Back to Introduction]]

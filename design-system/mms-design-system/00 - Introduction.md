@@ -19,6 +19,9 @@ Reusable UI elements built from foundational tokens.
 - [[02 - Components/Button|Button]]
 - [[02 - Components/Input|Input]]
 - [[02 - Components/Badge|Badge]]
+- [[02 - Components/Checkbox|Checkbox]]
+- [[02 - Components/Switch|Switch]]
+- [[02 - Components/Timeline|Timeline]]
 
 ### [[03 - Guidelines/Introduction|03 - Guidelines]]
 Rules of engagement and best practices.
@@ -29,6 +32,7 @@ Rules of engagement and best practices.
 ### [[04 - Layouts/Introduction|04 - Layouts]]
 Standards for page structure and documentation pages.
 - [[04 - Layouts/Layout Contract|Layout Contract (Gap-based Spacing)]]
+- [[04 - Layouts/Documentation Layout|Documentation Layout (Premium Modern)]]
 
 ---
 **Project Status:** v3.0 (Canonical Radix-Base)
