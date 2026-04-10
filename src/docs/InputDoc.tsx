@@ -29,7 +29,7 @@ const InputDoc: React.FC = () => {
     { name: 'variant', type: "'surface' | 'classic' | 'soft'", default: "'surface'", description: 'Phong cách hiển thị.' },
     { name: 'color', type: 'ColorVariant', default: "'brand'", description: 'Màu sắc vòng tiêu điểm (focus ring).' },
     { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước.' },
-    { name: 'radius', type: "'none' | 'small' | 'medium' | 'large' | 'full'", description: 'Độ bo góc.' },
+    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", description: 'Độ bo góc.' },
     { name: 'leftSlot', type: 'ReactNode', description: 'Nội dung hiển thị bên trái.' },
     { name: 'rightSlot', type: 'ReactNode', description: 'Nội dung hiển thị bên phải.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa tương tác.' },
@@ -111,7 +111,9 @@ const InputDoc: React.FC = () => {
         <p>Control the roundedness of the input corners.</p>
         <CodePreview
           code={`<Input radius="none" placeholder="None" />
-<Input radius="small" placeholder="Small" />
+<Input radius="sm" placeholder="Small" />
+<Input radius="md" placeholder="Medium" />
+<Input radius="lg" placeholder="Large" />
 <Input radius="full" placeholder="Full" />`}
         >
           <div className="flex flex-col gap-4 max-w-sm">
