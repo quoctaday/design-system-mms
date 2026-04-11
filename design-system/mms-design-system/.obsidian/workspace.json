@@ -11,14 +11,10 @@
             "id": "2c7a2df361900882",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "04 - Layouts/Documentation Layout.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Documentation Layout"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Xem biểu đồ"
             }
           }
         ]
@@ -185,14 +181,21 @@
   },
   "active": "2c7a2df361900882",
   "lastOpenFiles": [
+    "00 - Standards/PremiumBlock.md",
+    "00 - Standards",
+    "02 - Components/Modal.md",
+    "00 - Intelligence/agent-instructions.md",
+    "02 - Components/Select.md",
+    "02 - Components/Dropdown.md",
+    "02 - Components/Tabs.md",
     "MASTER.md",
+    "03 - Guidelines/Design Agency CLI.md",
+    "00 - Introduction.md",
     "04 - Layouts/Documentation Layout.md",
     "02 - Components/Checkbox.md",
     "02 - Components/Badge.md",
     "02 - Components/MultiSelect.md",
     "pages/dashboard.md",
-    "00 - Intelligence/agent-instructions.md",
-    "00 - Introduction.md",
     "02 - Components/Pagination.md",
     "02 - Components/Switch.md",
     "02 - Components/RadioGroup.md",
@@ -200,7 +203,6 @@
     "02 - Components/DatePicker.md",
     "01 - Foundations/Colors.md",
     "pages",
-    "03 - Guidelines/Design Agency CLI.md",
     "00 - Intelligence/agent-protocol.json",
     "00 - Intelligence",
     "01 - Foundations/Radius & Elevation.md",
@@ -208,9 +210,6 @@
     "01 - Foundations/Metrics.md",
     "02 - Components/Button.md",
     "01 - Foundations/Widgets.md",
-    "03 - Guidelines/Workflow.md",
-    "03 - Guidelines/Introduction.md",
-    "01 - Foundations/Sizing.md",
-    "03 - Guidelines/Anti-Patterns.md"
+    "03 - Guidelines/Workflow.md"
   ]
 }

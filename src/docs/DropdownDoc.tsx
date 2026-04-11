@@ -18,12 +18,14 @@ const DropdownDoc: React.FC = () => {
   const toc = [
     { id: 'basic', title: 'Basic Usage' },
     { id: 'icons', title: 'With Icons' },
+    { id: 'sizes', title: 'Sizes & Radius' },
     { id: 'api', title: 'API Reference' }
   ];
 
   const dropdownProps = [
     { name: 'align', type: "'left' | 'right'", default: "'right'", description: 'Căn lề của menu so với trigger.' },
     { name: 'width', type: 'number | string', default: '180', description: 'Chiều rộng tùy chỉnh của menu.' },
+    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", default: "'md'", description: 'Độ bo góc của menu.' },
     { name: 'sideOffset', type: 'number', default: '4', description: 'Khoảng cách từ trigger.' },
     { name: 'className', type: 'string', description: 'CSS class tùy chỉnh cho nôi dung menu.' }
   ];
@@ -31,6 +33,7 @@ const DropdownDoc: React.FC = () => {
   const itemProps = [
     { name: 'leftIcon', type: 'ReactNode', description: 'Icon hiển thị bên trái.' },
     { name: 'rightIcon', type: 'ReactNode', description: 'Icon hiển thị bên phải.' },
+    { name: 'size', type: "'1' | '2'", default: "'2'", description: 'Kích thước của mục menu.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa mục.' },
     { name: 'className', type: 'string', description: 'CSS class tùy chỉnh cho mục.' }
   ];
@@ -105,6 +108,48 @@ const DropdownDoc: React.FC = () => {
                 >
                   Delete Account
                 </Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown.Root>
+          </div>
+        </CodePreview>
+      </section>
+
+      <section id="sizes" className="doc-section">
+        <h2>Sizes & Radius</h2>
+        <p>Control the visual scale and corner rounding of dropdown content and items.</p>
+        <CodePreview
+          code={`<Dropdown.Root>
+  <Dropdown.Trigger>
+    <Button size="1">Small Menu</Button>
+  </Dropdown.Trigger>
+  <Dropdown.Content radius="sm" width={200}>
+    <Dropdown.Item size="1">Small Item 1</Dropdown.Item>
+    <Dropdown.Item size="1">Small Item 2</Dropdown.Item>
+  </Dropdown.Content>
+</Dropdown.Root>`}
+        >
+          <div className="flex flex-wrap gap-8 justify-center p-8">
+            <Dropdown.Root>
+              <Dropdown.Trigger>
+                <Button size="1" variant="outline">Small + SM Radius</Button>
+              </Dropdown.Trigger>
+              <Dropdown.Content radius="sm" align="left" width={180}>
+                <Dropdown.Item size="1">Small Item 1</Dropdown.Item>
+                <Dropdown.Item size="1">Small Item 2</Dropdown.Item>
+                <Dropdown.Separator />
+                <Dropdown.Item size="1">Small Item 3</Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown.Root>
+
+            <Dropdown.Root>
+              <Dropdown.Trigger>
+                <Button variant="outline">Medium + LG Radius</Button>
+              </Dropdown.Trigger>
+              <Dropdown.Content radius="lg" align="left" width={180}>
+                <Dropdown.Item size="2">Medium Item 1</Dropdown.Item>
+                <Dropdown.Item size="2">Medium Item 2</Dropdown.Item>
+                <Dropdown.Separator />
+                <Dropdown.Item size="2">Medium Item 3</Dropdown.Item>
               </Dropdown.Content>
             </Dropdown.Root>
           </div>

@@ -10,6 +10,13 @@
   gap: var(--spacing-4);
 }
 
+/* List Radius */
+.mms-tabs-list-radius-none { border-radius: var(--radius-none); }
+.mms-tabs-list-radius-sm   { border-radius: var(--radius-sm); }
+.mms-tabs-list-radius-md   { border-radius: var(--radius-md); }
+.mms-tabs-list-radius-lg   { border-radius: var(--radius-lg); }
+.mms-tabs-list-radius-full { border-radius: var(--radius-full); }
+
 /* ── Trigger Base ── */
 .mms-tabs-trigger {
   all: unset;
@@ -25,6 +32,17 @@
   user-select: none;
   white-space: nowrap;
 }
+
+/* Trigger Sizes */
+.mms-tabs-trigger-size-1 { height: 32px; font-size: var(--font-size-2); padding: 0 var(--spacing-12); }
+.mms-tabs-trigger-size-2 { height: 40px; font-size: var(--font-size-3); padding: 0 var(--spacing-16); }
+
+/* Trigger Radius */
+.mms-tabs-trigger-radius-none { border-radius: var(--radius-none); }
+.mms-tabs-trigger-radius-sm   { border-radius: var(--radius-sm); }
+.mms-tabs-trigger-radius-md   { border-radius: var(--radius-md); }
+.mms-tabs-trigger-radius-lg   { border-radius: var(--radius-lg); }
+.mms-tabs-trigger-radius-full { border-radius: var(--radius-full); }
 
 .mms-tabs-trigger:hover:not(:disabled) {
   color: var(--content-strong);
@@ -72,9 +90,7 @@
 }
 
 .mms-tabs-list[data-variant='border'] .mms-tabs-trigger {
-  padding: var(--spacing-8) var(--spacing-16);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
 }
 
 .mms-tabs-list[data-variant='border'] .mms-tabs-trigger[data-state='active'] {
@@ -88,11 +104,7 @@
   gap: var(--spacing-4);
 }
 
-.mms-tabs-list[data-variant='simple'] .mms-tabs-trigger {
-  padding: var(--spacing-8) var(--spacing-12);
-  border-radius: var(--radius-lg);
-}
-
+/* Simple active state */
 .mms-tabs-list[data-variant='simple'] .mms-tabs-trigger[data-state='active'] {
   background-color: var(--surface-component);
   color: var(--content-strong);
@@ -102,17 +114,12 @@
 .mms-tabs-list[data-variant='toggle'] {
   background-color: var(--surface-subtle);
   padding: var(--spacing-4);
-  border-radius: var(--radius-full);
   display: inline-flex;
   gap: var(--spacing-4);
   border: 1px solid var(--border-subtle);
 }
 
 .mms-tabs-list[data-variant='toggle'] .mms-tabs-trigger {
-  padding: 0 var(--spacing-24);
-  height: var(--size-2);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-2);
   min-width: 80px;
 }
 

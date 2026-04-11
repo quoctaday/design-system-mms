@@ -5,8 +5,8 @@ A toggle component used for rapidly switching between two exclusive states.
 ## 📏 Sizing
 | Prop | Track Height | Usage |
 | :--- | :--- | :--- |
-| `size="small"` | `16px` | Compact settings, inline toggles |
-| `size="medium"` | `24px` | Standard preference panels (Default) |
+| `size="1"` | `18px` | Compact settings, inline toggles |
+| `size="2"` | `24px` | Standard preference panels (Default) |
 
 ## 🎨 Token Specs
 - **Track (Off):** `var(--gray-3)` (Light) / `var(--gray-3)` (Dark)

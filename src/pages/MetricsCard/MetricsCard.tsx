@@ -69,48 +69,44 @@ const MetricsCard: React.FC<MetricsCardProps> = ({ onPageChange }) => {
       {/* SECTION 1: VISUAL SHOWCASE */}
       <section className="example-section">
         <div className="section-header-row">
-          <h2 className="section-title">Linear Design Aesthetic</h2>
+          <h2 className="section-title">WOKER Premium Aesthetic</h2>
           <span className="section-tag">Retina Ready</span>
         </div>
         <div className="widget-grid-4">
           <MetricCard 
-            design="linear"
+            design="premium"
             label="Tổng doanh thu" 
             value="24.8B" 
             trend="up" 
             change="5.2%" 
             comparisonText="vs last month"
-            chartData={true}
             onMoreClick={() => {}}
           />
           <MetricCard 
-            design="linear"
+            design="premium"
             label="Lợi nhuận MDR" 
             value="1.2B" 
             trend="up" 
             change="2.1%" 
             comparisonText="vs last month"
-            chartData={true}
             onMoreClick={() => {}}
           />
           <MetricCard 
-            design="linear"
+            design="premium"
             label="Tổng khách hàng" 
             value="12.4k" 
             trend="up" 
             change="4.2%" 
             comparisonText="vs yesterday"
-            chartData={true}
             onMoreClick={() => {}}
           />
           <MetricCard 
-            design="linear"
+            design="premium"
             label="Tỷ lệ chênh lệch" 
             value="1.2%" 
             trend="down" 
             change="0.5%" 
             comparisonText="vs last week"
-            chartData={true}
             onMoreClick={() => {}}
           />
         </div>

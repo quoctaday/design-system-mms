@@ -26,6 +26,8 @@ import ResultDoc from './docs/ResultDoc'
 import TimelineDoc from './docs/TimelineDoc'
 import TypographyDoc from './docs/TypographyDoc'
 import AuroraBackgroundDoc from './docs/AuroraBackgroundDoc'
+import SelectDoc from './docs/SelectDoc'
+import PremiumAestheticDoc from './docs/PremiumAestheticDoc'
 import OperationCenter from './pages/OperationCenter/OperationCenter'
 import Layout from './components/layout/Layout'
 import { BrandProvider } from './contexts/BrandContext'
@@ -63,6 +65,8 @@ function App() {
           {activePage === 'timeline' && <TimelineDoc />}
           {activePage === 'typography' && <TypographyDoc />}
           {activePage === 'aurora' && <AuroraBackgroundDoc />}
+          {activePage === 'select' && <SelectDoc />}
+          {activePage === 'premium-aesthetic' && <PremiumAestheticDoc />}
           {activePage === 'dashboard' && <DashboardExample onPageChange={setActivePage} />}
           {activePage === 'operation-center' && <OperationCenter onPageChange={setActivePage} />}
           {activePage === 'pie-chart' && <PieChartExample onPageChange={setActivePage} />}

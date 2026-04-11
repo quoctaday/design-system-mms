@@ -11,6 +11,7 @@ const TabsDoc: React.FC = () => {
     { id: 'border', title: 'Border Variant' },
     { id: 'simple', title: 'Simple Variant' },
     { id: 'toggle', title: 'Toggle Variant' },
+    { id: 'sizes', title: 'Sizes & Radius' },
     { id: 'api', title: 'API Reference' }
   ];
 
@@ -19,6 +20,8 @@ const TabsDoc: React.FC = () => {
     { name: 'value', type: 'string', description: 'Giá trị tab hiện tại (controlled mode).' },
     { name: 'onValueChange', type: '(value: string) => void', description: 'Callback khi chuyển đổi tab.' },
     { name: 'variant', type: "'line' | 'border' | 'simple' | 'toggle'", default: "'line'", description: 'Kiểu hiển thị của các tab.' },
+    { name: 'size', type: "'1' | '2'", default: "'2'", description: 'Kích thước của các tab.' },
+    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", default: "'md'", description: 'Độ bo góc của các tab (áp dụng cho variant list/trigger).' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Hướng hiển thị của tabs.' }
   ];
 
@@ -138,6 +141,42 @@ const TabsDoc: React.FC = () => {
                 <Tabs.Content value="monthly">Viewing data for the current month.</Tabs.Content>
               </div>
             </Tabs>
+          </div>
+        </CodePreview>
+      </section>
+
+      <section id="sizes" className="doc-section">
+        <h2>Sizes & Radius</h2>
+        <p>Control the visual scale and corner rounding of tab elements.</p>
+        <CodePreview
+          code={`<Tabs size="1" radius="sm" variant="toggle" defaultValue="1">
+  <Tabs.List>
+    <Tabs.Trigger value="1">Option 1</Tabs.Trigger>
+    <Tabs.Trigger value="2">Option 2</Tabs.Trigger>
+  </Tabs.List>
+</Tabs>`}
+        >
+          <div className="flex flex-col gap-8 py-4">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 1 + SM Radius (Toggle)</span>
+              <Tabs size="1" radius="sm" variant="toggle" defaultValue="a">
+                <Tabs.List>
+                  <Tabs.Trigger value="a">Weekly</Tabs.Trigger>
+                  <Tabs.Trigger value="b">Monthly</Tabs.Trigger>
+                </Tabs.List>
+              </Tabs>
+            </div>
+            
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 2 + LG Radius (Border)</span>
+              <Tabs size="2" radius="lg" variant="border" defaultValue="1">
+                <Tabs.List>
+                  <Tabs.Trigger value="1">Active</Tabs.Trigger>
+                  <Tabs.Trigger value="2">Completed</Tabs.Trigger>
+                  <Tabs.Trigger value="3">Archived</Tabs.Trigger>
+                </Tabs.List>
+              </Tabs>
+            </div>
           </div>
         </CodePreview>
       </section>

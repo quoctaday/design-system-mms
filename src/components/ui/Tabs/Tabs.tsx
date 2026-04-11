@@ -8,6 +8,8 @@ interface TabsContextProps {
   activeTab: string;
   setActiveTab: (value: string) => void;
   variant: TabsVariant;
+  size: '1' | '2';
+  radius: 'none' | 'sm' | 'md' | 'lg' | 'full';
 }
 
 const TabsContext = createContext<TabsContextProps | undefined>(undefined);
@@ -24,6 +26,8 @@ export interface TabsRootProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
   defaultValue?: string;
   variant?: TabsVariant;
+  size?: '1' | '2';
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
   onValueChange?: (value: string) => void;
   children: ReactNode;
 }
@@ -32,6 +36,8 @@ const TabsRoot = ({
   value,
   defaultValue, 
   variant = 'line', 
+  size = '2',
+  radius = 'md',
   onValueChange, 
   className, 
   children, 
@@ -54,7 +60,7 @@ const TabsRoot = ({
   }, [value]);
 
   return (
-    <TabsContext.Provider value={{ activeTab, setActiveTab, variant }}>
+    <TabsContext.Provider value={{ activeTab, setActiveTab, variant, size, radius }}>
       <div className={cn('mms-tabs-root', className)} {...props}>
         {children}
       </div>
@@ -67,10 +73,15 @@ export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TabsList = ({ className, children, ...props }: TabsListProps) => {
-  const { variant } = useTabs();
+  const { variant, size, radius } = useTabs();
   return (
     <div 
-      className={cn('mms-tabs-list', className)} 
+      className={cn(
+        'mms-tabs-list', 
+        `mms-tabs-list-size-${size}`,
+        `mms-tabs-list-radius-${radius}`,
+        className
+      )} 
       data-variant={variant}
       {...props}
     >
@@ -85,13 +96,18 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
 }
 
 const TabsTrigger = ({ value, className, children, ...props }: TabsTriggerProps) => {
-  const { activeTab, setActiveTab } = useTabs();
+  const { activeTab, setActiveTab, size, radius } = useTabs();
   const isActive = activeTab === value;
 
   return (
     <button
       type="button"
-      className={cn('mms-tabs-trigger', className)}
+      className={cn(
+        'mms-tabs-trigger',
+        `mms-tabs-trigger-size-${size}`,
+        `mms-tabs-trigger-radius-${radius}`,
+        className
+      )}
       data-state={isActive ? 'active' : 'inactive'}
       onClick={() => setActiveTab(value)}
       {...props}

@@ -1,245 +1,199 @@
-/* src/components/ui/MetricCard/MetricCard.css */
-
-.mms-metric-card-modern {
-  background-color: var(--surface-panel);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-container);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+/* Metric Card - Base Styles */
+.mms-metric-card-modern,
+.mms-metric-card-linear {
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
 
-.mms-metric-card-modern:hover {
-  border-color: var(--border-default);
+/* Metric Card - Premium Aesthetic (V2.1) - THE NEW STANDARD */
+.mms-metric-card--premium {
   background-color: var(--surface-subtle);
-}
-
-.mms-metric-header {
-  padding: var(--spacing-16);
-  border-bottom: 1px solid var(--border-divider);
-}
-
-.mms-metric-header-left {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-12);
-}
-
-.mms-metric-icon {
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-xs);
-  background-color: var(--surface-subtle);
-  color: var(--content-accent);
-  font-size: 16px;
-  flex-shrink: 0;
-}
-
-.mms-metric-icon--primary { background-color: var(--brand-3); color: var(--brand-9); }
-.mms-metric-icon--error { background-color: var(--red-3); color: var(--red-9); }
-.mms-metric-icon--success { background-color: var(--green-3); color: var(--green-9); }
-.mms-metric-icon--warning { background-color: var(--amber-3); color: var(--amber-9); }
-
-.mms-metric-label {
-  font-size: var(--font-size-2);
-  font-weight: 600;
-  color: var(--content-subtle);
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-
-.mms-metric-body {
-  padding: var(--spacing-16);
+  border-radius: 12px;
+  /* Fixed 12px for compact look */
+  border: 0.5px solid var(--border-subtle);
+  padding: 4px;
+  /* Compact padding */
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
+  gap: 0px;
+  /* Gap removed as requested */
+  transition: all 150ms ease;
+  cursor: pointer;
   position: relative;
+  overflow: hidden;
 }
 
-.mms-metric-data-row {
+.mms-metric-card--premium.is-flush {
+  padding: 0;
+}
+
+.mms-metric-card--premium.is-flush .mms-metric-inner {
+  border-radius: 12px;
+  /* Inner radius = Outer radius when padding is 0 */
+}
+
+.mms-metric-card--premium:hover {
+  border-color: var(--brand-9);
+  background-color: var(--black-a1);
+}
+
+.mms-metric-card--premium .mms-metric-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 8px 12px; /* Standard: slightly smaller to feel balanced with 4px outer padding */
 }
 
-.mms-metric-value-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-4);
+.mms-metric-card--premium.is-flush .mms-metric-header {
+  padding: 12px; /* Flush: Match exactly with inner 12px padding */
 }
 
-.mms-metric-value {
-  font-family: var(--font-display);
-  font-size: var(--font-size-6);
-  font-weight: 700;
-  color: var(--content-strong);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-.mms-metric-description {
-  font-size: var(--font-size-2);
+.mms-metric-card--premium .mms-metric-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--content-subtle);
-  margin-top: var(--spacing-4);
-  line-height: 1.4;
+  font-weight: 600;
+  opacity: 1;
 }
 
-.mms-metric-more {
-  background: none;
-  border: none;
-  padding: var(--spacing-4) var(--spacing-8);
-  color: var(--brand-9);
-  cursor: pointer;
-  font-size: var(--font-size-2);
-  font-weight: 600;
+.mms-metric-card--premium .mms-metric-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mms-metric-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-xs);
-  transition: all 0.2s;
+  width: 12px; /* Matched with text size */
+  height: 12px;
+  font-size: 12px;
 }
 
-.mms-metric-link-text {
-  text-decoration: none;
+.mms-metric-icon--primary {
+  color: var(--brand-9);
 }
 
-.mms-metric-more:hover {
-  background-color: var(--surface-subtle);
+.mms-metric-icon--success {
+  color: var(--success-9);
+}
+
+.mms-metric-icon--error {
+  color: var(--error-9);
+}
+
+.mms-metric-icon--warning {
+  color: var(--warning-9);
+}
+
+.mms-metric-card--premium .mms-metric-inner {
+  background-color: var(--surface-panel);
+  border-radius: 8px;
+  /* Nesting Rule: 12px (outer) - 4px (padding) = 8px */
+  border: 0.5px solid var(--border-subtle);
+  padding: 12px;
+  /* Synced with user screenshot: reduced for compactness */
+  box-shadow: var(--shadow-xsmall);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.mms-metric-card--premium .mms-metric-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--content-strong);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.mms-metric-card--premium .mms-metric-trend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.mms-metric-card--premium .mms-metric-trend--up {
+  color: var(--success-9);
+}
+
+.mms-metric-card--premium .mms-metric-trend--down {
+  color: var(--error-9);
+}
+
+.mms-metric-card--premium .mms-trend-text {
+  color: var(--content-subtle);
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+.mms-metric-card--premium .mms-metric-more {
+  color: var(--content-subtle);
+  opacity: 0.5;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+/* Legacy Styles - Modern */
+.mms-metric-card-modern {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.mms-metric-card-modern:hover {
+  border-color: var(--brand-9);
+  box-shadow: var(--shadow-md);
+}
+
+/* Legacy Styles - Linear (Old Version) */
+.mms-metric-card-linear {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mms-metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.mms-metric-label {
+  font-size: var(--font-size-sm);
+  color: var(--content-subtle);
+  font-weight: 500;
+}
+
+.mms-metric-value {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
   color: var(--content-strong);
 }
 
 .mms-metric-trend {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4);
-  font-size: var(--font-size-3);
-  font-weight: 700;
-  color: var(--content-subtle);
+  gap: 4px;
+  font-size: var(--font-size-sm);
+  margin-top: 8px;
 }
-
-.mms-metric-trend--up {
-  color: var(--green-9);
-}
-
-.mms-metric-trend--down {
-  color: var(--red-9);
-}
-
-.mms-trend-value {
-  margin-right: var(--spacing-4);
-}
-
-.mms-trend-text {
-  font-weight: 500;
-  color: var(--content-subtle);
-  font-size: var(--font-size-2);
-}
-
-/* Chart Area */
-.mms-metric-chart-area {
-  margin-top: var(--spacing-4);
-  height: 24px;
-  width: calc(100% + 32px);
-  margin-left: -16px;
-  margin-bottom: -16px;
-  opacity: 0.4;
-  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-}
-
-.mms-dotted-wave {
-  width: 100%;
-  height: 100%;
-}
-
-/* Linear Aesthetic Style */
-.mms-metric-card-linear {
-  background-color: var(--surface-subtle);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xl);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  padding: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.mms-metric-card-linear:hover {
-  border-color: var(--border-default);
-  background-color: var(--gray-3);
-}
-
-.mms-metric-inner {
-  background-color: var(--surface-panel);
-  border-radius: calc(var(--radius-xl) - 12px);
-  border: 1px solid var(--border-subtle);
-  padding: var(--spacing-16);
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  z-index: 1;
-}
-
-.mms-metric-card-linear .mms-metric-header {
-  padding: 0;
-  border-bottom: none;
-  margin-bottom: var(--spacing-8);
-}
-
-.mms-metric-card-linear .mms-metric-body {
-  padding: 0;
-  gap: var(--spacing-4);
-}
-
-.mms-metric-card-linear .mms-metric-value {
-  font-size: 28px;
-  letter-spacing: -0.03em;
-}
-
-.mms-metric-pattern {
-  position: absolute;
-  inset: 0;
-  opacity: 0.15;
-  background-image: radial-gradient(var(--content-strong) 1px, transparent 0);
-  background-size: 12px 12px;
-  background-position: -6px -6px;
-  pointer-events: none;
-}
-
-.mms-metric-card-linear .mms-metric-chart-area {
-  margin-top: var(--spacing-12);
-  width: 100%;
-  margin-left: 0;
-  margin-bottom: 0;
-  opacity: 0.3;
-}
-
-/* Base Size Utilities for both styles */
-.mms-metric-card-size--sm .mms-metric-value { font-size: var(--font-size-4); }
-.mms-metric-card-size--lg .mms-metric-value { font-size: 42px; }
-
-.mms-metric-card-linear.mms-metric-card-size--sm { padding: 8px; }
-.mms-metric-card-linear.mms-metric-card-size--sm .mms-metric-inner { 
-  padding: var(--spacing-12);
-  border-radius: calc(var(--radius-xl) - 8px);
-}
-
-/* Sizing Variants */
-.mms-metric-card-modern--sm .mms-metric-header { padding: var(--spacing-8) var(--spacing-12); }
-.mms-metric-card-modern--sm .mms-metric-body { padding: var(--spacing-12); }
-.mms-metric-card-modern--sm .mms-metric-value { font-size: 24px; }
-.mms-metric-card-modern--sm .mms-trend-text { display: none; }
-
-.mms-metric-card-modern--lg .mms-metric-header { padding: var(--spacing-16) var(--spacing-28); }
-.mms-metric-card-modern--lg .mms-metric-body { padding: var(--spacing-28); }
-.mms-metric-card-modern--lg .mms-metric-value { font-size: 42px; }

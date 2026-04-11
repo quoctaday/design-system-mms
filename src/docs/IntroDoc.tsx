@@ -3,6 +3,7 @@ import { DocLayout } from '../components/docs/DocLayout';
 import { CodePreview } from '../components/docs/CodePreview';
 import { RiPaletteLine, RiLayout4Line, RiShieldFlashLine, RiTerminalBoxLine } from 'react-icons/ri';
 import { AuroraBackground } from '../components/ui';
+import { TerminalSnippet } from '../components/docs/TerminalSnippet';
 import './IntroDoc.css';
 
 const IntroDoc: React.FC = () => {
@@ -10,6 +11,7 @@ const IntroDoc: React.FC = () => {
     { id: 'overview', title: 'What is it?' },
     { id: 'pillars', title: 'Design Pillars' },
     { id: 'icons', title: 'Icon Library' },
+    { id: 'installation', title: 'Installation' },
     { id: 'quickstart', title: 'Quick Start' }
   ];
 
@@ -80,6 +82,12 @@ const IntroDoc: React.FC = () => {
 <Button leftIcon={<RiAddLine />}>New Project</Button>
 <Input leftSlot={<RiSearchLine />} />`}
         />
+      </section>
+
+      <section id="installation" className="doc-section">
+        <h2 className="section-title">Installation</h2>
+        <p>Integrate the platform core into your local development environment via your preferred package manager:</p>
+        <TerminalSnippet package="@radix-ui/react-slot" />
       </section>
 
       <section id="quickstart" className="doc-section">

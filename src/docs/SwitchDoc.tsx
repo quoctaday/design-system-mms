@@ -19,7 +19,7 @@ const SwitchDoc: React.FC = () => {
 
   const switchProps = [
     { name: 'label', type: 'string', description: 'Nhãn hiển thị bên cạnh switch.' },
-    { name: 'size', type: "'small' | 'medium'", default: "'medium'", description: 'Kích thước của switch.' },
+    { name: 'size', type: "'1' | '2'", default: "'2'", description: 'Kích thước của switch (1: compact, 2: standard).' },
     { name: 'checked', type: 'boolean', description: 'Trạng thái bật/tắt (controlled).' },
     { name: 'onChange', type: '(e: React.ChangeEvent<HTMLInputElement>) => void', description: 'Callback khi thay đổi trạng thái.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa switch.' }
@@ -54,19 +54,19 @@ const SwitchDoc: React.FC = () => {
 
       <section id="sizes" className="doc-section">
         <h2>Sizes</h2>
-        <p>Two sizes for different UI contexts: <code>medium</code> (default) and <code>small</code>.</p>
+        <p>Two sizes for different UI contexts: <code>2</code> (default) and <code>1</code> (compact).</p>
         <CodePreview
-          code={`<Switch label="Default size" defaultChecked />
-<Switch size="small" label="Compact size" defaultChecked />`}
+          code={`<Switch label="Default (Size 2)" defaultChecked />
+<Switch size="1" label="Compact (Size 1)" defaultChecked />`}
         >
           <div className="flex items-center gap-12 py-2">
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Medium</span>
+              <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Size 2</span>
               <Switch label="Notifications" defaultChecked />
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Small</span>
-              <Switch size="small" label="Compact mode" defaultChecked />
+              <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Size 1</span>
+              <Switch size="1" label="Compact mode" defaultChecked />
             </div>
           </div>
         </CodePreview>

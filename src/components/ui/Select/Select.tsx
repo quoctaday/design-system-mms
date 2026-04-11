@@ -18,6 +18,8 @@ interface SelectContextValue {
   setOpen: (open: boolean) => void;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
   disabled?: boolean;
+  size: '1' | '2' | '3';
+  radius: 'none' | 'sm' | 'md' | 'lg' | 'full';
 }
 
 const SelectContext = createContext<SelectContextValue | undefined>(undefined);
@@ -39,6 +41,8 @@ export interface SelectProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   disabled?: boolean;
+  size?: '1' | '2' | '3';
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
 }
 
 const SelectRoot: React.FC<SelectProps> = ({ 
@@ -48,7 +52,9 @@ const SelectRoot: React.FC<SelectProps> = ({
   onValueChange,
   open: controlledOpen,
   onOpenChange,
-  disabled
+  disabled,
+  size = '2',
+  radius = 'md'
 }) => {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
@@ -74,7 +80,7 @@ const SelectRoot: React.FC<SelectProps> = ({
   }, [controlledOpen, onOpenChange]);
 
   return (
-    <SelectContext.Provider value={{ value, onValueChange: handleValueChange, open, setOpen, triggerRef, disabled }}>
+    <SelectContext.Provider value={{ value, onValueChange: handleValueChange, open, setOpen, triggerRef, disabled, size, radius }}>
       {children}
     </SelectContext.Provider>
   );
@@ -96,7 +102,7 @@ export const SelectTrigger: React.FC<SelectTriggerProps> = ({
   style,
   disabled: propDisabled
 }) => {
-  const { open, setOpen, value, triggerRef, disabled: contextDisabled } = useSelect();
+  const { open, setOpen, value, triggerRef, disabled: contextDisabled, size, radius } = useSelect();
   const disabled = propDisabled || contextDisabled;
 
   return (
@@ -105,6 +111,8 @@ export const SelectTrigger: React.FC<SelectTriggerProps> = ({
       type="button"
       className={cn(
         'mms-select-trigger',
+        `mms-select-trigger-size-${size}`,
+        `mms-select-trigger-radius-${radius}`,
         open && 'mms-select-trigger-open',
         disabled && 'mms-select-trigger-disabled',
         className
@@ -140,14 +148,17 @@ export interface SelectContentProps {
   children: React.ReactNode;
   className?: string;
   align?: 'left' | 'right';
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
 }
 
 export const SelectContent: React.FC<SelectContentProps> = ({ 
   children, 
   className,
-  align = 'left'
+  align = 'left',
+  radius: propRadius
 }) => {
-  const { open, setOpen, triggerRef } = useSelect();
+  const { open, setOpen, triggerRef, radius: contextRadius } = useSelect();
+  const radius = propRadius || contextRadius;
   const contentRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
@@ -175,7 +186,11 @@ export const SelectContent: React.FC<SelectContentProps> = ({
   return (
     <div 
       ref={contentRef}
-      className={cn('mms-select-content', className)}
+      className={cn(
+        'mms-select-content', 
+        `mms-select-radius-${radius}`,
+        className
+      )}
       style={{
         position: 'absolute',
         top: position.top,
@@ -205,13 +220,14 @@ export const SelectItem: React.FC<SelectItemProps> = ({
   className,
   disabled 
 }) => {
-  const { value, onValueChange } = useSelect();
+  const { value, onValueChange, size } = useSelect();
   const isSelected = value === itemValue;
 
   return (
     <div
       className={cn(
         'mms-select-item',
+        `mms-select-item-size-${size}`,
         isSelected && 'mms-select-item-selected',
         disabled && 'mms-select-item-disabled',
         className

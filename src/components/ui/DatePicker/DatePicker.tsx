@@ -16,6 +16,8 @@ export interface DatePickerProps {
   placeholder?: string;
   className?: string;
   disabled?: boolean;
+  size?: '1' | '2' | '3';
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
 }
 
 const MONTH_NAMES = [
@@ -49,6 +51,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   placeholder = 'Select date',
   className = '',
   disabled = false,
+  size = '2',
+  radius = 'md',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   
@@ -237,7 +241,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     <div className={`mms-datepicker-container ${className}`} ref={containerRef}>
       <button
         type="button"
-        className="mms-datepicker-trigger"
+        className={`mms-datepicker-trigger mms-datepicker-size-${size} mms-datepicker-radius-${radius}`}
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
         data-state={isOpen ? 'open' : 'closed'}

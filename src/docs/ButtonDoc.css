@@ -2,6 +2,20 @@
   animation: fade-in 0.3s ease-out;
 }
 
+/* Redesigned Showcase Container */
+.doc-section .bg-muted\/10 {
+  background-color: var(--black-a2);
+  transition: background-color 0.3s ease;
+}
+
+[data-theme='dark'] .doc-section .bg-muted\/10 {
+  background-color: var(--white-a2);
+}
+
+.doc-section .text-muted {
+  color: var(--content-subtle);
+}
+
 .example-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -24,10 +38,10 @@
 }
 
 .example-item code {
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-family-mono);
   font-size: 13px;
   color: var(--content-accent);
-  background-color: var(--bg-component);
+  background-color: var(--surface-accent-subtle);
   padding: 4px 8px;
   border-radius: var(--radius-xs);
 }
@@ -42,3 +56,4 @@
   border-radius: var(--radius-lg);
   align-items: flex-start;
 }
+

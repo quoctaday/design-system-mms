@@ -18,6 +18,7 @@ const ModalDoc: React.FC = () => {
     { id: 'basic', title: 'Basic Usage' },
     { id: 'confirm', title: 'Confirmation' },
     { id: 'form', title: 'With Form' },
+    { id: 'radius', title: 'Corner Radius' },
     { id: 'api', title: 'API Reference' }
   ];
 
@@ -25,7 +26,8 @@ const ModalDoc: React.FC = () => {
     { name: 'open', type: 'boolean', description: 'Trạng thái đóng/mở (controlled).' },
     { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Callback khi trạng thái thay đổi.' },
     { name: 'defaultOpen', type: 'boolean', default: 'false', description: 'Trạng thái mặc định khi khởi tạo.' },
-    { name: 'children', type: 'ReactNode', description: 'Nội dung bên trong Modal.' }
+    { name: 'children', type: 'ReactNode', description: 'Nội dung bên trong Modal.' },
+    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'", description: 'Độ bo góc của modal content.' }
   ];
 
   return (
@@ -179,6 +181,53 @@ const ModalDoc: React.FC = () => {
                     </Modal.Close>
                     <Button color="brand">Lưu thông tin</Button>
                   </Modal.Footer>
+                </Modal.Content>
+              </Modal.Portal>
+            </Modal.Root>
+          </div>
+        </CodePreview>
+      </section>
+
+      <section id="radius" className="doc-section">
+        <h2>Corner Radius</h2>
+        <p>Customizing the modal's border radius to match specific design requirements.</p>
+        <CodePreview
+          code={`<Modal.Content radius="sm">...</Modal.Content>
+<Modal.Content radius="xl">...</Modal.Content>
+<Modal.Content radius="none">...</Modal.Content>`}
+        >
+          <div className="flex flex-wrap gap-4 justify-center p-8">
+            <Modal.Root>
+              <Modal.Trigger>
+                <Button variant="outline">Small Radius</Button>
+              </Modal.Trigger>
+              <Modal.Portal>
+                <Modal.Overlay />
+                <Modal.Content radius="sm">
+                  <Modal.Header>
+                    <Modal.Title>Small Radius Modal</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <p className="text-sm">This modal uses the <code>sm</code> radius token.</p>
+                  </Modal.Body>
+                </Modal.Content>
+              </Modal.Portal>
+            </Modal.Root>
+
+            <Modal.Root>
+              <Modal.Trigger>
+                <Button variant="outline">Extra Large Radius</Button>
+              </Modal.Trigger>
+              <Modal.Portal>
+                <Modal.Overlay />
+                <Modal.Content radius="xl">
+                  <Modal.Close />
+                  <Modal.Header>
+                    <Modal.Title>XL Radius Modal</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <p className="text-sm">This modal uses the <code>xl</code> (default) radius token.</p>
+                  </Modal.Body>
                 </Modal.Content>
               </Modal.Portal>
             </Modal.Root>

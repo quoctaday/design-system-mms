@@ -1,18 +1,21 @@
 # DatePicker
 
-The standard date selection component for the MMS Design System, supporting single date, ranges, and presets.
+Thành phần cho phép người dùng chọn một ngày cụ thể hoặc khoảng ngày thông qua giao diện lịch overlay.
 
-## 📏 Architecture
-The DatePicker consists of:
-- **Trigger:** Uses standard input tokens for seamless form integration.
-- **Popover:** Uses `var(--surface-panel)` for elevation.
-- **Calendar Grid:** Maps strictly to semantic text scaling.
+## Props
 
-## 🎨 Token Specs
-- **Popover Background:** `var(--surface-panel)`
-- **Selected Day Background:** Solid Brand color variant.
-- **Selected Day Text:** `var(--content-on-solid)` (Ensures perfect WCAG contrast regardless of the underlying theme; strictly prohibits hardcoded `#fff`).
-- **Outside Month Text:** `var(--content-subtle)` / `var(--content-placeholder)`
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `value` | `Date \| null` | `null` | Ngày được chọn hiện tại. |
+| `onChange` | `(date: Date \| null) => void` | - | Callback khi thay đổi ngày. |
+| `mode` | `'single' \| 'range'` | `'single'` | Chế độ chọn ngày đơn hoặc khoảng ngày. |
+| `size` | `'1' \| '2' \| '3'` | `'2'` | Kích thước của date picker (1: 32px, 2: 40px, 3: 48px). |
+| `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'` | `'md'` | Độ bo góc của date picker. |
+| `placeholder` | `string` | `'Select date'` | Văn bản hiển thị khi chưa chọn ngày. |
+| `disabled` | `boolean` | `false` | Vô hiệu hóa tương tác. |
 
----
-[[00 - Introduction|Back to Introduction]]
+## Thiết kế
+
+- **Trigger**: Sử dụng kiểu dáng giống như Input field.
+- **Overlay**: Calendar hiển thị phía dưới hoặc phía trên trigger tùy theo không gian khả dụng.
+- **Tokens**: Luôn sử dụng hệ thống token chuẩn (`size-1`, `size-2`, `size-3`) để đảm bảo tính nhất quán với Form Inputs.

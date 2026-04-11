@@ -82,12 +82,14 @@ const DropdownTrigger: React.FC<DropdownTriggerProps> = ({ children }) => {
 export interface DropdownContentProps extends React.HTMLAttributes<HTMLDivElement> {
   align?: 'left' | 'right';
   width?: number | string;
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
 }
 
 const DropdownContent = forwardRef<HTMLDivElement, DropdownContentProps>(({ 
   children, 
   align = 'right', 
   width = 180, 
+  radius = 'md',
   className,
   ...props 
 }, ref) => {
@@ -101,6 +103,7 @@ const DropdownContent = forwardRef<HTMLDivElement, DropdownContentProps>(({
       className={cn(
         'mms-dropdown-content',
         `mms-dropdown-align-${align}`,
+        `mms-dropdown-radius-${radius}`,
         className
       )}
       style={{ width }}
@@ -117,6 +120,7 @@ export interface DropdownItemProps extends React.HTMLAttributes<HTMLDivElement> 
   rightIcon?: React.ReactNode;
   disabled?: boolean;
   variant?: 'default' | 'danger';
+  size?: '1' | '2';
 }
 
 const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(({ 
@@ -125,6 +129,7 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(({
   rightIcon, 
   disabled,
   variant = 'default',
+  size = '2',
   className,
   onClick,
   ...props 
@@ -142,6 +147,7 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(({
       ref={ref}
       className={cn(
         'mms-dropdown-item',
+        `mms-dropdown-size-${size}`,
         variant === 'danger' && 'mms-dropdown-item-danger',
         disabled && 'mms-dropdown-item-disabled',
         className

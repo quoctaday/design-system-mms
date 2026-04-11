@@ -100,9 +100,15 @@ export interface ModalContentProps {
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
-export const ModalContent: React.FC<ModalContentProps> = ({ children, className, style }) => {
+export const ModalContent: React.FC<ModalContentProps> = ({ 
+  children, 
+  className, 
+  style,
+  radius = 'lg'
+}) => {
   const { setOpen } = useModal();
 
   useEffect(() => {
@@ -116,7 +122,11 @@ export const ModalContent: React.FC<ModalContentProps> = ({ children, className,
   return (
     <div className="mms-modal-container">
       <div 
-        className={cn('mms-modal-content', className)} 
+        className={cn(
+          'mms-modal-content', 
+          `mms-modal-radius-${radius}`,
+          className
+        )} 
         style={style}
         onClick={(e) => e.stopPropagation()}
       >

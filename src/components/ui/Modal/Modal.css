@@ -24,7 +24,6 @@
   width: 100%;
   max-width: 500px;
   max-height: 90vh;
-  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-medium);
   border: 1px solid var(--border-subtle);
   position: relative;
@@ -34,6 +33,14 @@
   pointer-events: auto;
   animation: mms-modal-enter 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Modal Radius */
+.mms-modal-radius-none { border-radius: var(--radius-none); }
+.mms-modal-radius-sm   { border-radius: var(--radius-sm); }
+.mms-modal-radius-md   { border-radius: var(--radius-md); }
+.mms-modal-radius-lg   { border-radius: var(--radius-lg); }
+.mms-modal-radius-xl   { border-radius: var(--radius-xl); }
+.mms-modal-radius-full { border-radius: var(--radius-full); }
 
 .mms-modal-header {
   padding: var(--spacing-32) var(--spacing-32) var(--spacing-24);

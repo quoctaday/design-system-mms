@@ -14,6 +14,7 @@ const DatePickerDoc: React.FC = () => {
     { id: 'basic', title: 'Basic Usage' },
     { id: 'prefilled', title: 'Pre-filled & Disabled' },
     { id: 'range', title: 'Date Range Picker' },
+    { id: 'sizes', title: 'Sizes & Radius' },
     { id: 'api', title: 'API Reference' }
   ];
 
@@ -24,7 +25,9 @@ const DatePickerDoc: React.FC = () => {
     { name: 'rangeValue', type: '{ start: Date | null, end: Date | null }', description: 'Khoảng ngày được chọn (cho mode range).' },
     { name: 'onRangeChange', type: '(range: { start: Date | null, end: Date | null }) => void', description: 'Callback khi thay đổi khoảng ngày.' },
     { name: 'placeholder', type: 'string', default: "'Select date'", description: 'Text hiển thị khi chưa chọn ngày.' },
-    { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa component.' }
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa component.' },
+    { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước của date picker.' },
+    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", default: "'md'", description: 'Độ bo góc của date picker.' }
   ];
 
   return (
@@ -123,6 +126,31 @@ const DatePickerDoc: React.FC = () => {
         </CodePreview>
       </section>
 
+      <section id="sizes" className="doc-section">
+        <h2>Sizes & Radius</h2>
+        <p>Standardizing the DatePicker trigger to match input field aesthetics.</p>
+        <CodePreview
+          code={`<DatePicker size="1" radius="sm" />
+<DatePicker size="2" radius="md" />
+<DatePicker size="3" radius="lg" />`}
+        >
+          <div className="flex flex-col gap-6 max-w-[320px] py-2">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 1 (Small) + SM Radius</span>
+              <DatePicker size="1" radius="sm" placeholder="Small date picker" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 2 (Medium) + MD Radius</span>
+              <DatePicker size="2" radius="md" placeholder="Medium date picker" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 3 (Large) + LG Radius</span>
+              <DatePicker size="3" radius="lg" placeholder="Large date picker" />
+            </div>
+          </div>
+        </CodePreview>
+      </section>
+
       <section id="api" className="doc-section">
         <h2>API Reference</h2>
         <PropsTable props={datePickerProps} />
@@ -132,4 +160,3 @@ const DatePickerDoc: React.FC = () => {
 };
 
 export default DatePickerDoc;
-

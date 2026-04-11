@@ -26,6 +26,7 @@ const NAVIGATION_DATA: NavGroup[] = [
       { id: 'theme', label: 'Theming' },
       { id: 'colors', label: 'Colors' },
       { id: 'typography', label: 'Typography' },
+      { id: 'premium-aesthetic', label: 'Visual Aesthetic' },
     ],
   },
   {

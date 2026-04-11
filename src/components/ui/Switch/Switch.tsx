@@ -4,11 +4,11 @@ import './Switch.css';
 
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
-  size?: 'small' | 'medium';
+  size?: '1' | '2';
 }
 
 export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
-  ({ className, label, size = 'medium', disabled, checked, defaultChecked, onChange, ...props }, ref) => {
+  ({ className, label, size = '2', disabled, checked, defaultChecked, onChange, ...props }, ref) => {
     const id = useId();
     const switchId = props.id || id;
 
