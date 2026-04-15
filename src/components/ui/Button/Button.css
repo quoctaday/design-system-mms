@@ -2,18 +2,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-12);
+  gap: var(--space-3);
   font-family: var(--font-family);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   text-align: center;
   white-space: nowrap;
   user-select: none;
-  border: 1px solid transparent;
-  border-radius: var(--radius-default);
-  outline: none;
-  cursor: pointer;
-  transition: all 200ms ease;
+  border: var(--stroke-width-1) solid transparent;
+  --btn-radius: max(var(--radius-full), var(--radius-4));
+  border-radius: var(--btn-radius);
   position: relative;
+  cursor: pointer;
 }
 
 .mms-button:disabled {
@@ -37,10 +36,26 @@
  * SIZES (Broadened Spacing)
  * ───────────────────────────────────────────────────────── */
 
-.mms-button-size-1 { height: var(--size-1); padding: 0 var(--spacing-12); font-size: var(--font-size-2); }
-.mms-button-size-2 { height: var(--size-2); padding: 0 var(--spacing-16); font-size: var(--font-size-3); }
-.mms-button-size-3 { height: var(--size-3); padding: 0 var(--spacing-32); font-size: var(--font-size-3); }
-.mms-button-size-4 { height: var(--size-4); padding: 0 var(--spacing-40); font-size: var(--font-size-4); }
+.mms-button-size-1 { 
+  height: var(--size-2); 
+  padding: 0 var(--space-3); 
+  font-size: var(--font-size-1); 
+}
+.mms-button-size-2 { 
+  height: var(--size-3); 
+  padding: 0 var(--space-4); 
+  font-size: var(--font-size-2); 
+}
+.mms-button-size-3 { 
+  height: var(--size-4); 
+  padding: 0 var(--space-6); 
+  font-size: var(--font-size-2); 
+}
+.mms-button-size-4 { 
+  height: var(--size-5); 
+  padding: 0 var(--space-7); 
+  font-size: var(--font-size-3); 
+}
 
 /* ─────────────────────────────────────────────────────────
  * VARIANTS
@@ -58,7 +73,7 @@
 }
 .mms-button-variant-solid:active:not(:disabled) {
   filter: brightness(0.95);
-  transform: translateY(0.5px);
+  transform: translateY(calc(var(--stroke-width-1) * 1));
 }
 
 /* 2. SOFT */
@@ -88,12 +103,13 @@
 }
 .mms-button-variant-ghost:hover:not(:disabled) {
   background-color: var(--color-subtle);
+  border-radius: var(--radius-1);
 }
 
 /* 5. SURFACE */
 .mms-button-variant-surface {
   background-color: var(--color-subtle);
-  border: 1px solid var(--color-border);
+  border: var(--stroke-width-1) solid var(--color-border);
   color: var(--color-text);
   box-shadow: none;
 }
@@ -123,47 +139,47 @@
   --color-border: var(--border-default);
   --color-border-hover: var(--border-strong);
   --color-text: var(--content-subtle);
-  --text-on-solid: white;
+  --text-on-solid: var(--white);
 }
 
 .mms-button-color-success {
   --color-subtle: var(--surface-success-subtle);
-  --color-subtle-hover: var(--green-4); /* Hover logic can stay refined with primitives or role-based */
+  --color-subtle-hover: var(--surface-success-hover);
   --color-solid: var(--surface-success-solid);
   --color-border: var(--border-success);
-  --color-border-hover: var(--green-8);
+  --color-border-hover: var(--border-success-strong);
   --color-text: var(--content-success);
   --text-on-solid: var(--white);
 }
 
 .mms-button-color-error {
   --color-subtle: var(--surface-danger-subtle);
-  --color-subtle-hover: var(--red-4);
+  --color-subtle-hover: var(--surface-danger-hover);
   --color-solid: var(--surface-danger-solid);
   --color-border: var(--border-danger);
-  --color-border-hover: var(--red-8);
+  --color-border-hover: var(--border-danger-strong);
   --color-text: var(--content-danger);
   --text-on-solid: var(--white);
 }
 
 .mms-button-color-warning {
   --color-subtle: var(--surface-warning-subtle);
-  --color-subtle-hover: var(--amber-4);
+  --color-subtle-hover: var(--surface-warning-hover);
   --color-solid: var(--surface-warning-solid);
   --color-border: var(--border-warning);
-  --color-border-hover: var(--amber-8);
+  --color-border-hover: var(--border-warning-strong);
   --color-text: var(--content-warning);
   --text-on-solid: var(--content-strong);
 }
 
-/* Accents */
-.mms-button-color-orange { --color-subtle: var(--orange-3); --color-subtle-hover: var(--orange-4); --color-solid: var(--orange-9); --color-border: var(--orange-7); --color-border-hover: var(--orange-8); --color-text: var(--orange-11); --text-on-solid: var(--white); }
-.mms-button-color-blue { --color-subtle: var(--blue-3); --color-subtle-hover: var(--blue-4); --color-solid: var(--blue-9); --color-border: var(--blue-7); --color-border-hover: var(--blue-8); --color-text: var(--blue-11); --text-on-solid: var(--white); }
-.mms-button-color-purple { --color-subtle: var(--purple-3); --color-subtle-hover: var(--purple-4); --color-solid: var(--purple-9); --color-border: var(--purple-7); --color-border-hover: var(--purple-8); --color-text: var(--purple-11); --text-on-solid: var(--white); }
-.mms-button-color-sky { --color-subtle: var(--sky-3); --color-subtle-hover: var(--sky-4); --color-solid: var(--sky-9); --color-border: var(--sky-7); --color-border-hover: var(--sky-8); --color-text: var(--sky-11); --text-on-solid: var(--white); }
-.mms-button-color-pink { --color-subtle: var(--pink-3); --color-subtle-hover: var(--pink-4); --color-solid: var(--pink-9); --color-border: var(--pink-7); --color-border-hover: var(--pink-8); --color-text: var(--pink-11); --text-on-solid: var(--white); }
-.mms-button-color-teal { --color-subtle: var(--teal-3); --color-subtle-hover: var(--teal-4); --color-solid: var(--teal-9); --color-border: var(--teal-7); --color-border-hover: var(--teal-8); --color-text: var(--teal-11); --text-on-solid: var(--white); }
-.mms-button-color-lime { --color-subtle: var(--lime-3); --color-subtle-hover: var(--lime-4); --color-solid: var(--lime-9); --color-border: var(--lime-7); --color-border-hover: var(--lime-8); --color-text: var(--lime-11); --text-on-solid: var(--white); }
+/* Accents (Semantic Mapping) */
+.mms-button-color-orange { --color-subtle: var(--accent-orange-subtle); --color-subtle-hover: var(--accent-orange-subtle-hover); --color-solid: var(--accent-orange-solid); --color-border: var(--accent-orange-border); --color-border-hover: var(--accent-orange-border-hover); --color-text: var(--accent-orange-text); --text-on-solid: var(--white); }
+.mms-button-color-blue   { --color-subtle: var(--accent-blue-subtle); --color-subtle-hover: var(--accent-blue-subtle-hover); --color-solid: var(--accent-blue-solid); --color-border: var(--accent-blue-border); --color-border-hover: var(--accent-blue-border-hover); --color-text: var(--accent-blue-text); --text-on-solid: var(--white); }
+.mms-button-color-purple { --color-subtle: var(--accent-purple-subtle); --color-subtle-hover: var(--accent-purple-subtle-hover); --color-solid: var(--accent-purple-solid); --color-border: var(--accent-purple-border); --color-border-hover: var(--accent-purple-border-hover); --color-text: var(--accent-purple-text); --text-on-solid: var(--white); }
+.mms-button-color-sky    { --color-subtle: var(--accent-sky-subtle); --color-subtle-hover: var(--accent-sky-subtle-hover); --color-solid: var(--accent-sky-solid); --color-border: var(--accent-sky-border); --color-border-hover: var(--accent-sky-border-hover); --color-text: var(--accent-sky-text); --text-on-solid: var(--white); }
+.mms-button-color-pink   { --color-subtle: var(--accent-pink-subtle); --color-subtle-hover: var(--accent-pink-subtle-hover); --color-solid: var(--accent-pink-solid); --color-border: var(--accent-pink-border); --color-border-hover: var(--accent-pink-border-hover); --color-text: var(--accent-pink-text); --text-on-solid: var(--white); }
+.mms-button-color-teal   { --color-subtle: var(--accent-teal-subtle); --color-subtle-hover: var(--accent-teal-subtle-hover); --color-solid: var(--accent-teal-solid); --color-border: var(--accent-teal-border); --color-border-hover: var(--accent-teal-border-hover); --color-text: var(--accent-teal-text); --text-on-solid: var(--white); }
+.mms-button-color-lime   { --color-subtle: var(--accent-lime-subtle); --color-subtle-hover: var(--accent-lime-subtle-hover); --color-solid: var(--accent-lime-solid); --color-border: var(--accent-lime-border); --color-border-hover: var(--accent-lime-border-hover); --color-text: var(--accent-lime-text); --text-on-solid: var(--white); }
 
 .mms-button-color-secondary {
   --color-subtle: var(--gray-3);
@@ -183,10 +199,11 @@
   --text-on-solid: var(--white);
 }
 
-/* Radius overrides */
-.mms-button-radius-none { border-radius: 0; }
-.mms-button-radius-sm { border-radius: var(--radius-sm); }
-.mms-button-radius-md { border-radius: var(--radius-md); }
-.mms-button-radius-lg { border-radius: var(--radius-lg); }
-.mms-button-radius-full { border-radius: 9999px; }
+/* Radius standards (Radix-like Numerical Scale) */
+.mms-button-radius-none { --btn-radius: var(--radius-none); }
+.mms-button-radius-1    { --btn-radius: max(var(--radius-full), var(--radius-1)); }
+.mms-button-radius-2    { --btn-radius: max(var(--radius-full), var(--radius-2)); }
+.mms-button-radius-3    { --btn-radius: max(var(--radius-full), var(--radius-3)); }
+.mms-button-radius-4    { --btn-radius: max(var(--radius-full), var(--radius-4)); }
+.mms-button-radius-full { --btn-radius: var(--radius-full); }
 

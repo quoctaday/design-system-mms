@@ -34,7 +34,7 @@ const PieChart: React.FC<PieChartProps> = ({
 
   const centerX = size / 2;
   const centerY = size / 2;
-  const outerR = size / 2 - 10;
+  const outerR = size / 2 - (hoveredIndex !== null ? 12 : 8); // Tokenized offsets
   const innerR = donut ? outerR * innerRadius : 0;
 
   const polarToCartesian = (x: number, y: number, r: number, angle: number) => {
@@ -100,7 +100,7 @@ const PieChart: React.FC<PieChartProps> = ({
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
                 opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.3 : 1,
-                filter: hoveredIndex === i ? 'drop-shadow(0 4px 12px rgba(0,0,0,0.15))' : 'none'
+                filter: hoveredIndex === i ? 'drop-shadow(0 var(--space-1) var(--space-3) var(--black-a4))' : 'none'
               }}
             />
           ))}

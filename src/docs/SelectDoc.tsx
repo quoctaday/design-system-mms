@@ -21,7 +21,7 @@ const SelectDoc: React.FC = () => {
     { name: 'placeholder', type: 'string', default: "'Select...'", description: 'Text hiển thị khi chưa có giá trị.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa toàn bộ select.' },
     { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước của trigger và items.' },
-    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", default: "'md'", description: 'Độ bo góc của trigger và menu content.' }
+    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", default: "'md'", description: 'Độ bo góc của trigger và menu content.' }
   ];
 
   const options = [
@@ -86,14 +86,14 @@ const SelectDoc: React.FC = () => {
         <h2>Sizes & Radius</h2>
         <p>Standardizing the Select trigger and menu content to match the design system tokens.</p>
         <CodePreview
-          code={`<Select size="1" radius="sm">...</Select>
-<Select size="2" radius="md">...</Select>
-<Select size="3" radius="lg">...</Select>`}
+          code={`<Select size="1" radius="2">...</Select>
+<Select size="2" radius="4">...</Select>
+<Select size="3" radius="5">...</Select>`}
         >
           <div className="flex flex-col gap-6 max-w-[320px] py-2">
             <div className="flex flex-col gap-2">
               <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 1 + SM Radius</span>
-              <Select size="1" radius="sm" defaultValue="apple">
+              <Select size="1" radius="2" defaultValue="apple">
                 <Select.Trigger />
                 <Select.Portal>
                   <Select.Content>
@@ -107,7 +107,7 @@ const SelectDoc: React.FC = () => {
             
             <div className="flex flex-col gap-2">
               <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 2 + MD Radius</span>
-              <Select size="2" radius="md">
+              <Select size="2" radius="4">
                 <Select.Trigger placeholder="Pick a fruit" />
                 <Select.Portal>
                   <Select.Content>
@@ -121,7 +121,7 @@ const SelectDoc: React.FC = () => {
 
             <div className="flex flex-col gap-2">
               <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 3 + LG Radius</span>
-              <Select size="3" radius="lg">
+              <Select size="3" radius="5">
                 <Select.Trigger placeholder="Large Select" />
                 <Select.Portal>
                   <Select.Content>

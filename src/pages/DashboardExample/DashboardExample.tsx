@@ -23,7 +23,8 @@ import {
   Badge, 
   Card, 
   Table, 
-  Dropdown,
+  DropdownMenu,
+  TextField,
   Progress,
   PieChart,
   SegmentedControl,
@@ -197,30 +198,37 @@ const DashboardExample: React.FC<DashboardExampleProps> = ({ onPageChange }) => 
         {/* Top Header */}
         <header className="dashboard-header">
           <div className="search-bar">
-            <RiSearchLine />
-            <input 
-              type="text" 
-              placeholder="Tìm kiếm hồ sơ, chi nhánh..." 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <TextField.Root variant="surface" size="2" radius="full" style={{ width: '100%', background: 'transparent', border: 'none' }}>
+              <TextField.Slot side="left">
+                <RiSearchLine />
+              </TextField.Slot>
+              <TextField.Input 
+                placeholder="Tìm kiếm hồ sơ, chi nhánh..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </TextField.Root>
           </div>
           <div className="header-right">
-            <Dropdown>
-              <Dropdown.Trigger>
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger>
                 <div className="header-icon-btn">
                   <RiNotification3Line />
                   <div className="notif-dot" />
                 </div>
-              </Dropdown.Trigger>
-              <Dropdown.Content width={300}>
-                <div style={{ padding: 12, borderBottom: '1px solid var(--border-subtle)' }}>
-                  <h4 style={{ margin: 0, fontSize: 14 }}>Thông báo mới nhất</h4>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content width={300}>
+                <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--border-subtle)' }}>
+                  <h4 style={{ margin: 0, fontSize: 13, color: 'var(--content-subtle)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Thông báo mới nhất
+                  </h4>
                 </div>
-                <Dropdown.Item>Chargeback vượt ngưỡng tại chi nhánh HCM</Dropdown.Item>
-                <Dropdown.Item>Báo cáo ngày 02/04 đã sẵn sàng</Dropdown.Item>
-              </Dropdown.Content>
-            </Dropdown>
+                <DropdownMenu.Item>Chargeback vượt ngưỡng tại chi nhánh HCM</DropdownMenu.Item>
+                <DropdownMenu.Item>Báo cáo ngày 02/04 đã sẵn sàng</DropdownMenu.Item>
+                <DropdownMenu.Separator />
+                <DropdownMenu.Item>Xem tất cả thông báo</DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
             
             <ThemeToggle className="header-icon-btn" />
 

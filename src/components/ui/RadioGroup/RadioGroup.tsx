@@ -1,11 +1,19 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import './RadioGroup.css';
+
+type RadioGroupSize = '1' | '2' | '3';
+type RadioGroupVariant = 'classic' | 'surface' | 'soft';
+type RadioColor = 'brand' | 'gray' | 'success' | 'warning' | 'error';
 
 interface RadioGroupContextValue {
   value?: string;
   onValueChange?: (value: string) => void;
   name?: string;
+  size: RadioGroupSize;
+  variant: RadioGroupVariant;
+  color: RadioColor;
+  disabled?: boolean;
 }
 
 const RadioGroupContext = createContext<RadioGroupContextValue | undefined>(undefined);
@@ -18,27 +26,37 @@ const useRadioGroup = () => {
   return context;
 };
 
-// Root
-export interface RadioGroupProps {
-  children: React.ReactNode;
+/* ─────────────────────────────────────────────────────────
+ * 1. RadioGroup.Root
+ * ───────────────────────────────────────────────────────── */
+
+export interface RadioGroupRootProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
-  className?: string;
   name?: string;
   orientation?: 'horizontal' | 'vertical';
+  size?: RadioGroupSize;
+  variant?: RadioGroupVariant;
+  color?: RadioColor;
+  disabled?: boolean;
 }
 
-const RadioGroupRoot: React.FC<RadioGroupProps> = ({ 
+const RadioGroupRoot = React.forwardRef<HTMLDivElement, RadioGroupRootProps>(({ 
   children, 
   value: controlledValue, 
   defaultValue, 
   onValueChange, 
   className,
   name,
-  orientation = 'vertical'
-}) => {
-  const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
+  orientation = 'vertical',
+  size = '2',
+  variant = 'classic',
+  color = 'brand',
+  disabled,
+  ...props
+}, ref) => {
+  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
   const value = controlledValue !== undefined ? controlledValue : uncontrolledValue;
 
   const handleValueChange = (newValue: string) => {
@@ -49,49 +67,62 @@ const RadioGroupRoot: React.FC<RadioGroupProps> = ({
   };
 
   return (
-    <RadioGroupContext.Provider value={{ value, onValueChange: handleValueChange, name }}>
+    <RadioGroupContext.Provider value={{ value, onValueChange: handleValueChange, name, size, variant, color, disabled }}>
       <div 
+        ref={ref}
         className={cn(
           'mms-radio-group-root',
           `mms-radio-group-orientation-${orientation}`,
           className
         )}
         role="radiogroup"
+        {...props}
       >
         {children}
       </div>
     </RadioGroupContext.Provider>
   );
-};
+});
 
-// Item
-export interface RadioGroupItemProps {
+RadioGroupRoot.displayName = 'RadioGroup.Root';
+
+/* ─────────────────────────────────────────────────────────
+ * 2. RadioGroup.Item
+ * ───────────────────────────────────────────────────────── */
+
+export interface RadioGroupItemProps extends Omit<React.HTMLAttributes<HTMLLabelElement>, 'children'> {
   value: string;
   children?: React.ReactNode;
-  className?: string;
   disabled?: boolean;
-  id?: string;
 }
 
-export const RadioGroupItem: React.FC<RadioGroupItemProps> = ({ 
+const RadioGroupItem = React.forwardRef<HTMLLabelElement, RadioGroupItemProps>(({ 
   value: itemValue, 
   children, 
   className, 
-  disabled,
-  id 
-}) => {
-  const { value, onValueChange, name } = useRadioGroup();
+  disabled: itemDisabled,
+  id,
+  ...props
+}, ref) => {
+  const { value, onValueChange, name, size, variant, color, disabled: groupDisabled } = useRadioGroup();
   const isChecked = value === itemValue;
+  const disabled = itemDisabled || groupDisabled;
   const inputId = id || `radio-${itemValue}`;
 
   return (
     <label 
+      ref={ref}
       className={cn(
         'mms-radio-group-item',
+        `mms-radio-group-item-size-${size}`,
+        `mms-radio-group-item-variant-${variant}`,
+        `mms-radio-group-item-color-${color}`,
+        isChecked && 'mms-radio-group-item-checked',
         disabled && 'mms-radio-group-item-disabled',
         className
       )}
       htmlFor={inputId}
+      {...props}
     >
       <div className="mms-radio-item-container">
         <input
@@ -110,11 +141,17 @@ export const RadioGroupItem: React.FC<RadioGroupItemProps> = ({
       {children && <span className="mms-radio-item-label">{children}</span>}
     </label>
   );
-};
+});
 
-export const RadioGroup = Object.assign(RadioGroupRoot, {
+RadioGroupItem.displayName = 'RadioGroup.Item';
+
+/* ─────────────────────────────────────────────────────────
+ * Export Object
+ * ───────────────────────────────────────────────────────── */
+
+export const RadioGroup = {
   Root: RadioGroupRoot,
   Item: RadioGroupItem,
-});
+};
 
 export default RadioGroup;

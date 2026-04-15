@@ -1,49 +1,167 @@
-.mms-radio-root {
+/* ─────────────────────────────────────────────────────────
+ * 1. Root & Base Layout
+ * ───────────────────────────────────────────────────────── */
+
+.mms-radio-group-root {
   display: flex;
+  gap: var(--space-3);
+}
+
+.mms-radio-group-orientation-vertical {
   flex-direction: column;
-  gap: var(--spacing-12);
+}
+
+.mms-radio-group-orientation-horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 2. Radio Item
+ * ───────────────────────────────────────────────────────── */
+
+.mms-radio-group-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: all 200ms ease;
+  padding: var(--space-1) 0;
 }
 
 .mms-radio-item-container {
   display: flex;
   align-items: center;
-  gap: var(--spacing-12);
-  cursor: pointer;
+  justify-content: center;
+  position: relative;
 }
 
-.mms-radio-item {
-  width: var(--spacing-16);
-  height: var(--spacing-16);
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-subtle);
-  background-color: var(--surface-panel);
+.mms-radio-item-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mms-radio-item-circle {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.mms-radio-item:hover:not(.checked) {
-  border-color: var(--border-strong);
-}
-
-.mms-radio-item.checked {
-  background-color: var(--surface-accent-solid);
-  border-color: var(--surface-accent-solid);
-}
-
-.mms-radio-indicator {
-  width: 6px;
-  height: 6px;
-  background-color: var(--content-on-solid);
   border-radius: var(--radius-full);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  position: relative;
 }
 
-.mms-radio-label {
-  font-family: var(--font-family);
-  font-size: var(--font-size-3);
-  color: var(--content-strong);
-  cursor: pointer;
-  user-select: none;
+/* ─────────────────────────────────────────────────────────
+ * 3. Sizes
+ * ───────────────────────────────────────────────────────── */
+
+.mms-radio-group-item-size-1 { --radio-size: var(--size-2); --dot-size: calc(var(--space-1) + calc(var(--space-1) / 2)); font-size: var(--font-size-2); } /* 16px */
+.mms-radio-group-item-size-2 { --radio-size: var(--size-3); --dot-size: var(--space-2); font-size: var(--font-size-3); } /* 20px */
+.mms-radio-group-item-size-3 { --radio-size: var(--size-4); --dot-size: calc(var(--space-2) + calc(var(--space-1) / 2)); font-size: var(--font-size-4); } /* 24px */
+
+.mms-radio-item-circle {
+  width: var(--radio-size);
+  height: var(--radio-size);
 }
+
+/* ─────────────────────────────────────────────────────────
+ * 4. Variants
+ * ───────────────────────────────────────────────────────── */
+
+/* Variant: Classic (Default) */
+.mms-radio-group-item-variant-classic .mms-radio-item-circle {
+  background-color: var(--surface-panel);
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-default);
+}
+
+.mms-radio-group-item-variant-classic:hover:not(.mms-radio-group-item-disabled) .mms-radio-item-circle {
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-strong);
+}
+
+.mms-radio-group-item-variant-classic.mms-radio-group-item-checked .mms-radio-item-circle {
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--brand-9);
+  background-color: var(--brand-9);
+}
+
+/* Variant: Surface */
+.mms-radio-group-item-variant-surface .mms-radio-item-circle {
+  background-color: var(--surface-subtle);
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-subtle);
+}
+
+.mms-radio-group-item-variant-surface:hover:not(.mms-radio-group-item-disabled) .mms-radio-item-circle {
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-default);
+}
+
+.mms-radio-group-item-variant-surface.mms-radio-group-item-checked .mms-radio-item-circle {
+  background-color: var(--brand-9);
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--brand-10);
+}
+
+/* Variant: Soft */
+.mms-radio-group-item-variant-soft .mms-radio-item-circle {
+  background-color: var(--surface-subtle);
+}
+
+.mms-radio-group-item-variant-soft:hover:not(.mms-radio-group-item-disabled) .mms-radio-item-circle {
+  background-color: var(--surface-component);
+}
+
+.mms-radio-group-item-variant-soft.mms-radio-group-item-checked .mms-radio-item-circle {
+  background-color: var(--brand-a3);
+}
+
+.mms-radio-group-item-variant-soft.mms-radio-group-item-checked .mms-radio-item-indicator {
+  background-color: var(--brand-9);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 5. Indicator (Dot)
+ * ───────────────────────────────────────────────────────── */
+
+.mms-radio-item-indicator {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: var(--radius-full);
+  background-color: var(--white);
+  transform: scale(0);
+  transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mms-radio-group-item-checked .mms-radio-item-indicator {
+  transform: scale(1);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 6. Interaction & Focus
+ * ───────────────────────────────────────────────────────── */
+
+/* Focus Halo */
+.mms-radio-group-item:focus-within .mms-radio-item-circle {
+  box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--brand-a3), inset 0 0 0 var(--stroke-width-1) var(--brand-9);
+}
+
+/* Label Styling */
+.mms-radio-item-label {
+  color: var(--content-strong);
+  font-weight: var(--font-weight-medium);
+  transition: color 200ms ease;
+}
+
+.mms-radio-group-item-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.mms-radio-group-item-disabled .mms-radio-item-label {
+  color: var(--content-subtle);
+}
+
+/* Semantic Focus Colors (Dynamic) */
+.mms-radio-group-item-color-success:focus-within .mms-radio-item-circle { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--green-a3), inset 0 0 0 var(--stroke-width-1) var(--green-9); }
+.mms-radio-group-item-color-warning:focus-within .mms-radio-item-circle { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--amber-a3), inset 0 0 0 var(--stroke-width-1) var(--amber-9); }
+.mms-radio-group-item-color-error:focus-within   .mms-radio-item-circle { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--red-a3), inset 0 0 0 var(--stroke-width-1) var(--red-9); }

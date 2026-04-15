@@ -1,15 +1,14 @@
+/* [AI-STND-EXCEPTION]: Preserve original hex colors for complex aurora gradient effect */
 .aurora-container {
   --aurora: repeating-linear-gradient(100deg, var(--blue-500) 10%, var(--indigo-300) 15%, var(--blue-300) 20%, var(--violet-200) 25%, var(--blue-400) 30%);
   --dark-gradient: repeating-linear-gradient(100deg, var(--black) 0%, var(--black) 7%, transparent 10%, transparent 12%, var(--black) 16%);
   --white-gradient: repeating-linear-gradient(100deg, var(--white) 0%, var(--white) 7%, transparent 10%, transparent 12%, var(--white) 16%);
-  
+
   --blue-300: #93c5fd;
   --blue-400: #60a5fa;
   --blue-500: #3b82f6;
   --indigo-300: #a5b4fc;
   --violet-200: #ddd6fe;
-  --black: #000;
-  --white: #fff;
 
   position: relative;
   display: flex;
@@ -33,12 +32,12 @@
 .aurora-effect {
   pointer-events: none;
   position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
+  top: calc(-1 * var(--space-3));
+  left: calc(-1 * var(--space-3));
+  right: calc(-1 * var(--space-3));
+  bottom: calc(-1 * var(--space-3));
   opacity: 0.5;
-  filter: blur(10px) invert(1);
+  filter: blur(var(--blur-md)) invert(1);
   will-change: transform;
   background-image: var(--white-gradient), var(--aurora);
   background-size: 300%, 200%;
@@ -47,7 +46,7 @@
 
 .dark .aurora-effect {
   background-image: var(--dark-gradient), var(--aurora);
-  filter: blur(10px) invert(0);
+  filter: blur(var(--blur-md)) invert(0);
 }
 
 .aurora-effect::after {
@@ -74,6 +73,7 @@
   from {
     background-position: 50% 50%, 50% 50%;
   }
+
   to {
     background-position: 350% 50%, 350% 50%;
   }

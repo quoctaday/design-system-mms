@@ -9,16 +9,16 @@ import ThemingDoc from './docs/ThemingDoc'
 import CheckboxDoc from './docs/CheckboxDoc'
 import PaginationDoc from './docs/PaginationDoc'
 import TableDoc from './docs/TableDoc'
-import DropdownDoc from './docs/DropdownDoc'
+import DropdownMenuDoc from './docs/DropdownMenuDoc'
 import TooltipDoc from './docs/TooltipDoc'
-import ModalDoc from './docs/ModalDoc'
+import DialogDoc from './docs/DialogDoc'
 import FormsDoc from './docs/FormsDoc'
 import SwitchDoc from './docs/SwitchDoc'
 import DatePickerDoc from './docs/DatePickerDoc'
 import ToastDoc from './docs/ToastDoc'
 import DashboardExample from './pages/DashboardExample/DashboardExample'
 import PieChartExample from './pages/PieChartExample/PieChartExample'
-import SegmentedControlExample from './pages/SegmentedControlExample/SegmentedControlExample'
+import SegmentedControlDoc from './docs/SegmentedControlDoc'
 import MetricsCard from './pages/MetricsCard/MetricsCard'
 import BreadcrumbsDoc from './docs/BreadcrumbsDoc'
 import EmptyStateDoc from './docs/EmptyStateDoc'
@@ -27,8 +27,10 @@ import TimelineDoc from './docs/TimelineDoc'
 import TypographyDoc from './docs/TypographyDoc'
 import AuroraBackgroundDoc from './docs/AuroraBackgroundDoc'
 import SelectDoc from './docs/SelectDoc'
+import MultiSelectDoc from './docs/MultiSelectDoc'
 import PremiumAestheticDoc from './docs/PremiumAestheticDoc'
 import OperationCenter from './pages/OperationCenter/OperationCenter'
+import SliderDoc from './docs/SliderDoc'
 import Layout from './components/layout/Layout'
 import { BrandProvider } from './contexts/BrandContext'
 import { ThemeProvider } from './contexts/ThemeContext'
@@ -49,9 +51,9 @@ function App() {
           {activePage === 'checkbox' && <CheckboxDoc />}
           {activePage === 'pagination' && <PaginationDoc />}
           {activePage === 'table' && <TableDoc />}
-          {activePage === 'dropdown' && <DropdownDoc />}
+          {activePage === 'dropdown' && <DropdownMenuDoc />}
           {activePage === 'tooltip' && <TooltipDoc />}
-          {activePage === 'modal' && <ModalDoc />}
+          {activePage === 'modal' && <DialogDoc />}
           {activePage === 'forms' && <FormsDoc />}
           {activePage === 'switch' && <SwitchDoc />}
           {activePage === 'datepicker' && <DatePickerDoc />}
@@ -66,11 +68,13 @@ function App() {
           {activePage === 'typography' && <TypographyDoc />}
           {activePage === 'aurora' && <AuroraBackgroundDoc />}
           {activePage === 'select' && <SelectDoc />}
+          {activePage === 'multiselect' && <MultiSelectDoc />}
           {activePage === 'premium-aesthetic' && <PremiumAestheticDoc />}
+          {activePage === 'slider' && <SliderDoc />}
           {activePage === 'dashboard' && <DashboardExample onPageChange={setActivePage} />}
           {activePage === 'operation-center' && <OperationCenter onPageChange={setActivePage} />}
           {activePage === 'pie-chart' && <PieChartExample onPageChange={setActivePage} />}
-          {activePage === 'segmented-control' && <SegmentedControlExample onPageChange={setActivePage} />}
+          {activePage === 'segmented-control' && <SegmentedControlDoc />}
           {activePage === 'metrics-card' && <MetricsCard onPageChange={setActivePage} />}
         </Layout>
         <ToastContainer />

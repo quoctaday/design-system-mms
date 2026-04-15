@@ -18,7 +18,7 @@
 
 .specs-toggle-btn {
   pointer-events: auto;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-3);
   gap: 8px;
 }
 
@@ -38,7 +38,7 @@
   flex-direction: column;
   gap: 16px;
   transition: all 150ms ease;
-  box-shadow: var(--shadow-xsmall); /* Standard system shadow */
+  box-shadow: var(--shadow-1); /* Standard system shadow */
 }
 
 .pillar-card:hover {

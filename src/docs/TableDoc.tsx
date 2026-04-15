@@ -6,9 +6,9 @@ import {
   Pagination, 
   Input, 
   Button,
-  Dropdown,
+  DropdownMenu,
   Tooltip,
-  Modal
+  Dialog
 } from '../components/ui';
 import { 
   RiSearchLine, 
@@ -29,17 +29,17 @@ import { PropsTable } from '../components/docs/PropsTable';
 
 const TableDoc: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   const handleDeleteClick = (id: string) => {
     setSelectedItem(id);
-    setDeleteModalOpen(true);
+    setDeleteDialogOpen(true);
   };
 
   const confirmDelete = () => {
     alert(`Đã xóa phiếu: ${selectedItem}`);
-    setDeleteModalOpen(false);
+    setDeleteDialogOpen(false);
     setSelectedItem(null);
   };
 
@@ -72,21 +72,21 @@ const TableDoc: React.FC = () => {
     { name: 'variant', type: "'surface' | 'ghost' | 'outline'", default: "'surface'", description: 'Biến thể hiển thị của bảng.' },
     { name: 'striped', type: 'boolean', default: 'false', description: 'Kẻ sọc các dòng bảng.' },
     { name: 'stickyHeader', type: 'boolean', default: 'false', description: 'Cố định tiêu đề bảng khi cuộn.' },
-    { name: 'className', type: 'string', description: 'CSS class tùy chỉnh.' }
+    { name: 'radius', type: 'RadiusScale', default: "'none'", description: 'Độ bo góc của bảng.' }
   ];
 
   return (
     <DocLayout 
       title="Table" 
-      description="A responsive data table for displaying large sets of structured information."
+      description="A high-performance data table optimized for density and readability with Flat-Premium aesthetics."
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
       <section id="preview" className="doc-section">
         <h2>Dashboard Preview: Phiếu Nhập Kho</h2>
-        <p>Recreating the Inventory Receipt screen using the MMS Table component system.</p>
+        <p>A realistic inventory dashboard using specialized Table components and numeric sizing.</p>
         
-        <div className="mt-6 border border-subtle rounded-xl overflow-hidden bg-canvas">
+        <div className="mt-6 border border-subtle rounded-xl overflow-hidden bg-canvas shadow-1">
           <div className="p-4 border-b border-subtle bg-canvas flex flex-wrap gap-4 justify-between items-center">
             <div className="flex gap-2">
               <Button variant="solid" color="brand" leftIcon={<RiAddLine />}>Tạo mới</Button>
@@ -94,9 +94,10 @@ const TableDoc: React.FC = () => {
             </div>
             <div className="flex gap-2">
               <Input 
-                placeholder="Tìm kiếm mã phiếu..." 
+                placeholder="Tìm mã phiếu..." 
                 leftSlot={<RiSearchLine />}
                 className="w-64"
+                variant="surface"
               />
               <Button variant="outline" color="gray" size="1">
                 <RiFilter3Line />
@@ -104,7 +105,7 @@ const TableDoc: React.FC = () => {
             </div>
           </div>
 
-          <Table.Root variant="ghost" striped>
+          <Table.Root variant="ghost" striped size="2">
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeaderCell className="w-10">
@@ -118,13 +119,13 @@ const TableDoc: React.FC = () => {
                       <RiInformationLine className="inline-block ml-1 text-muted cursor-help" />
                     </Tooltip.Trigger>
                     <Tooltip.Content>
-                      Mã định danh duy nhất cho mỗi phiếu.
+                      Unique identifier for each record.
                     </Tooltip.Content>
                   </Tooltip.Root>
                 </Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Đối tác</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Ngày khởi tạo</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Tài liệu nguồn</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Ngày tạo</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Nguồn</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Trạng thái</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell className="w-12 text-center" />
               </Table.Row>
@@ -142,33 +143,36 @@ const TableDoc: React.FC = () => {
                   <Table.Cell>{item.source}</Table.Cell>
                   <Table.Cell>{getStatusBadge(item.status)}</Table.Cell>
                   <Table.Cell>
-                    <Dropdown.Root>
-                      <Dropdown.Trigger>
+                    <DropdownMenu.Root>
+                      <DropdownMenu.Trigger>
                         <Button variant="ghost" size="1">
                           <RiMore2Fill />
                         </Button>
-                      </Dropdown.Trigger>
-                      <Dropdown.Content align="right">
-                        <Dropdown.Item leftIcon={<RiEditLine />}>Chỉnh sửa</Dropdown.Item>
-                        <Dropdown.Item leftIcon={<RiFileCopyLine />}>Sao chép</Dropdown.Item>
-                        <Dropdown.Separator />
-                        <Dropdown.Item 
-                          leftIcon={<RiDeleteBinLine />} 
-                          className="text-error"
+                      </DropdownMenu.Trigger>
+                      <DropdownMenu.Content align="end" width={180}>
+                        <DropdownMenu.Item>
+                          <RiEditLine className="mr-2" /> Chỉnh sửa
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item>
+                          <RiFileCopyLine className="mr-2" /> Sao chép
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Separator />
+                        <DropdownMenu.Item 
+                          variant="danger"
                           onClick={() => handleDeleteClick(item.id)}
                         >
-                          Xóa phiếu
-                        </Dropdown.Item>
-                      </Dropdown.Content>
-                    </Dropdown.Root>
+                          <RiDeleteBinLine className="mr-2" /> Xóa phiếu
+                        </DropdownMenu.Item>
+                      </DropdownMenu.Content>
+                    </DropdownMenu.Root>
                   </Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
           </Table.Root>
 
-          <div className="p-4 border-t border-subtle flex justify-between items-center bg-muted/10">
-            <span className="text-xs text-subtle">Hiển thị 1-6 của 90 kết quả</span>
+          <div className="p-4 border-t border-subtle flex justify-between items-center bg-muted/5">
+            <span className="text-xs text-subtle font-medium">Hiển thị 1-6 của 90 kết quả</span>
             <Pagination 
               currentPage={currentPage}
               totalCount={90}
@@ -178,30 +182,32 @@ const TableDoc: React.FC = () => {
           </div>
         </div>
 
-        <Modal.Root open={deleteModalOpen} onOpenChange={setDeleteModalOpen}>
-          <Modal.Portal>
-            <Modal.Overlay />
-            <Modal.Content style={{ maxWidth: '400px' }}>
-              <Modal.Header>
-                <Modal.Title>Xác nhận xóa phiếu?</Modal.Title>
-                <Modal.Description>
-                  Phiếu <strong>{selectedItem}</strong> sẽ bị xóa vĩnh viễn.
-                </Modal.Description>
-              </Modal.Header>
-              <Modal.Footer>
-                <Button variant="ghost" onClick={() => setDeleteModalOpen(false)}>Hủy</Button>
-                <Button color="error" onClick={confirmDelete}>Xác nhận xóa</Button>
-              </Modal.Footer>
-            </Modal.Content>
-          </Modal.Portal>
-        </Modal.Root>
+        <Dialog.Root open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <Dialog.Portal>
+            <Dialog.Overlay />
+            <Dialog.Content size="1">
+              <Dialog.Header>
+                <Dialog.Title>Xác nhận xóa phiếu?</Dialog.Title>
+                <Dialog.Description>
+                  Phiếu <strong>{selectedItem}</strong> sẽ bị xóa vĩnh viễn. Hành động này không thể hoàn tác.
+                </Dialog.Description>
+              </Dialog.Header>
+              <Dialog.Footer>
+                <Dialog.Close>
+                  <Button variant="surface">Hủy</Button>
+                </Dialog.Close>
+                <Button color="error" variant="classic" onClick={confirmDelete}>Xác nhận xóa</Button>
+              </Dialog.Footer>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
       </section>
 
       <section id="usage" className="doc-section">
         <h2>Usage</h2>
-        <p>Using the composition pattern for maximum flexibility.</p>
+        <p>Structured composition based on Radix UI's Table primitive.</p>
         <CodePreview
-          code={`<Table.Root variant="surface">
+          code={`<Table.Root variant="surface" size="2">
   <Table.Header>
     <Table.Row>
       <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
@@ -246,5 +252,3 @@ const TableDoc: React.FC = () => {
 };
 
 export default TableDoc;
-
-

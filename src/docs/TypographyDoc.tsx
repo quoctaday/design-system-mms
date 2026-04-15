@@ -6,19 +6,23 @@ import './TypographyDoc.css';
 
 const TypographyDoc: React.FC = () => {
   const typeScale = [
-    { token: '--font-size-1', size: '11px', usage: 'Labels, micro-information' },
-    { token: '--font-size-2', size: '12px', usage: 'Captions, timestamps, metadata' },
-    { token: '--font-size-3', size: '14px', usage: 'Primary Body text, Standard UI labels' },
-    { token: '--font-size-4', size: '16px', usage: 'Small headers, Form labels' },
-    { token: '--font-size-5', size: '18px', usage: 'Section titles, UI Emphasis' },
-    { token: '--font-size-6', size: '20px', usage: 'Primary Module headers' },
+    { token: '--font-size-1', size: '12px', usage: 'Labels, micro-information' },
+    { token: '--font-size-2', size: '14px', usage: 'Primary Body text, Standard UI labels' },
+    { token: '--font-size-3', size: '16px', usage: 'Small headers, Form labels' },
+    { token: '--font-size-4', size: '18px', usage: 'Section titles, UI Emphasis' },
+    { token: '--font-size-5', size: '20px', usage: 'Primary Module headers' },
+    { token: '--font-size-6', size: '24px', usage: 'Page headers, Large titles' },
+    { token: '--font-size-7', size: '28px', usage: 'Display 1, Hero sections' },
+    { token: '--font-size-8', size: '32px', usage: 'Display 2, Impact metrics' },
+    { token: '--font-size-9', size: '36px', usage: 'Display 3, Large impact areas' },
   ];
 
   const weights = [
+    { weight: 300, label: 'Light', usage: 'Refined display text' },
     { weight: 400, label: 'Regular', usage: 'Primary reading surface' },
     { weight: 500, label: 'Medium', usage: 'Secondary emphasis, meta' },
     { weight: 600, label: 'Semibold', usage: 'Interaction points, card titles' },
-    { weight: 800, label: 'Black', usage: 'Display headings and key metrics' },
+    { weight: 700, label: 'Bold', usage: 'Display headings and key metrics' },
   ];
 
   const toc = [

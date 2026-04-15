@@ -29,7 +29,7 @@ const IntroDoc: React.FC = () => {
             MMS is not merely a library—it is a <strong>governance infrastructure</strong>. It provides the shared visual and behavioral protocols necessary to unify the experience across our diverse financial portfolio, including Unipay, OCB, BVB, MPay, and Appotapay.
           </p>
           <p>
-            Built atop <strong>Radix UI</strong> primitives, the system enforces a strict "Flat-Premium" aesthetic via the **v3.0 Canonical Architecture**. This standardizes all visual logic into a predictable 1-12 luminance scale across all brand portfolios.
+            Built atop <strong>Radix UI</strong> primitives, the system enforces a strict "Flat-Premium" aesthetic via the **v4.0 (Radix-Aligned) Architecture**. This standardizes all visual logic into a predictable 1-12 luminance scale and a geometric (1-9) spacing scale.
           </p>
         </div>
       </section>

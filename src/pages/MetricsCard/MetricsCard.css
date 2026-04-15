@@ -1,11 +1,11 @@
 /* src/pages/MetricsCard/MetricsCard.css */
 .metrics-card-page {
-  padding: var(--spacing-24);
+  padding: var(--space-5);
   max-width: 1440px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-32);
+  gap: var(--space-6);
   min-height: 100vh;
   background-color: var(--surface-app);
 }
@@ -15,13 +15,13 @@
   justify-content: space-between;
   align-items: flex-end;
   border-bottom: 1px solid var(--border-subtle);
-  padding-bottom: var(--spacing-32);
+  padding-bottom: var(--space-6);
 }
 
 .page-title {
   font-size: 36px;
   font-weight: 800;
-  margin-bottom: var(--spacing-8);
+  margin-bottom: var(--space-2);
   letter-spacing: -0.03em;
   color: var(--content-strong);
 }
@@ -37,8 +37,8 @@
 .header-breadcrumbs {
   display: flex;
   align-items: center;
-  gap: var(--spacing-8);
-  margin-bottom: var(--spacing-16);
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
   font-size: 13px;
 }
 
@@ -68,23 +68,23 @@
 .specs-section {
   background-color: var(--surface-panel);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-container);
-  padding: var(--spacing-24);
+  border-radius: var(--radius-5);
+  padding: var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-16);
+  gap: var(--space-4);
 }
 
 .specs-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--spacing-16);
+  gap: var(--space-4);
 }
 
 .spec-card {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
+  gap: var(--space-2);
 }
 
 .spec-card h4 {
@@ -114,7 +114,7 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-12);
+  gap: var(--space-3);
 }
 
 .search-bar {
@@ -124,7 +124,7 @@
   padding: 10px 16px;
   background-color: var(--surface-panel);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-default);
+  border-radius: var(--radius-4);
   width: 280px;
   transition: all 0.2s;
 }
@@ -145,7 +145,7 @@
   justify-content: center;
   background-color: var(--surface-panel);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-default);
+  border-radius: var(--radius-4);
   cursor: pointer;
   color: var(--content-subtle);
   transition: all 0.2s;
@@ -159,13 +159,13 @@
 .example-section {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-24);
+  gap: var(--space-5);
 }
 
 .section-header-row {
   display: flex;
   align-items: center;
-  gap: var(--spacing-12);
+  gap: var(--space-3);
 }
 
 .section-icon {
@@ -202,18 +202,18 @@
 .widget-grid-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--spacing-24);
+  gap: var(--space-5);
 }
 
 .widget-grid-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-24);
+  gap: var(--space-5);
 }
 
 .widget-row-split {
   display: flex;
-  gap: var(--spacing-48);
+  gap: var(--space-8);
 }
 
 .flex-1 {
@@ -229,19 +229,19 @@
 .doc-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-32);
+  gap: var(--space-6);
 }
 
 .sizing-stack {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-24);
+  gap: var(--space-5);
 }
 
 .sizing-item {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
+  gap: var(--space-2);
 }
 
 .sizing-label {
@@ -255,14 +255,14 @@
 .color-matrix {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--spacing-16);
+  gap: var(--space-4);
 }
 
 .code-block-mock {
   background-color: var(--content-strong);
   color: #fff;
-  padding: var(--spacing-32);
-  border-radius: var(--radius-container);
+  padding: var(--space-6);
+  border-radius: var(--radius-5);
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 14px;
   line-height: 1.6;
@@ -283,7 +283,7 @@
   .widget-row-split, .doc-grid-2 {
     flex-direction: column;
     grid-template-columns: 1fr;
-    gap: var(--spacing-48);
+    gap: var(--space-8);
   }
   .specs-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -295,12 +295,12 @@
     grid-template-columns: 1fr;
   }
   .metrics-card-page {
-    padding: var(--spacing-24);
+    padding: var(--space-5);
   }
   .page-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-24);
+    gap: var(--space-5);
   }
   .specs-grid {
     grid-template-columns: 1fr;

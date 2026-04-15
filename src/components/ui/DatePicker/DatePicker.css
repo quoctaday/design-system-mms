@@ -9,9 +9,9 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 var(--spacing-12);
+  padding: 0 var(--space-3);
   background-color: var(--surface-panel);
-  border: 1px solid var(--border-default);
+  border: var(--stroke-width-1) solid var(--border-default);
   font-family: inherit;
   font-size: var(--font-size-3);
   color: var(--content-strong);
@@ -20,16 +20,16 @@
   text-align: left;
 }
 
-/* Sizes */
-.mms-datepicker-size-1 { height: 32px; font-size: var(--font-size-2); }
-.mms-datepicker-size-2 { height: 40px; font-size: var(--font-size-3); }
-.mms-datepicker-size-3 { height: 48px; font-size: var(--font-size-3); }
+/* Sizes - Scale Shift */
+.mms-datepicker-size-1 { height: var(--size-2); font-size: var(--font-size-2); }
+.mms-datepicker-size-2 { height: var(--size-3); font-size: var(--font-size-3); }
+.mms-datepicker-size-3 { height: var(--size-4); font-size: var(--font-size-3); }
 
 /* Radius */
 .mms-datepicker-radius-none { border-radius: var(--radius-none); }
-.mms-datepicker-radius-sm   { border-radius: var(--radius-sm); }
-.mms-datepicker-radius-md   { border-radius: var(--radius-md); }
-.mms-datepicker-radius-lg   { border-radius: var(--radius-lg); }
+.mms-datepicker-radius-1   { border-radius: var(--radius-1); }
+.mms-datepicker-radius-2   { border-radius: var(--radius-2); }
+.mms-datepicker-radius-3   { border-radius: var(--radius-3); }
 .mms-datepicker-radius-full { border-radius: var(--radius-full); }
 
 .mms-datepicker-trigger:hover:not(:disabled) {
@@ -39,31 +39,30 @@
 
 .mms-datepicker-trigger:focus-visible,
 .mms-datepicker-trigger[data-state="open"] {
-  outline: none;
+  outline: var(--outline-width) solid var(--brand-a3);
+  outline-offset: var(--outline-offset, 0);
   border-color: var(--brand-9);
-  box-shadow: 0 0 0 2px var(--brand-a3);
 }
 
 .mms-datepicker-trigger-placeholder {
   color: var(--content-subtle);
-  /* Step 11 */
 }
 
 .mms-datepicker-icon {
   color: var(--content-subtle);
-  font-size: 16px;
+  font-size: var(--font-size-3);
 }
 
 .mms-datepicker-popover {
   position: absolute;
-  top: calc(100% + var(--spacing-8));
+  top: calc(100% + var(--space-2));
   left: 0;
-  width: 280px;
+  width: var(--size-11);
   background-color: var(--surface-panel);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-medium);
-  padding: var(--spacing-16);
+  border: var(--stroke-width-1) solid var(--border-subtle);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-3);
+  padding: var(--space-4);
   z-index: 100;
   animation: mms-datepicker-slide-down 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -72,12 +71,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacing-16);
+  margin-bottom: var(--space-4);
 }
 
 .mms-datepicker-title {
   font-size: var(--font-size-3);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--content-strong);
 }
 
@@ -85,11 +84,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid transparent;
+  width: var(--size-1);
+  height: var(--size-1);
+  border: var(--stroke-width-1) solid transparent;
   background: transparent;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-3);
   color: var(--content-subtle);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -103,17 +102,16 @@
 .mms-datepicker-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px 0;
+  gap: calc(var(--space-1) / 2) 0;
 }
 
 .mms-datepicker-weekday {
   font-size: var(--font-size-2);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--content-subtle);
-  /* Step 11 */
   text-align: center;
-  padding: var(--spacing-4) 0;
-  margin-bottom: var(--spacing-4);
+  padding: var(--space-1) 0;
+  margin-bottom: var(--space-1);
 }
 
 .mms-datepicker-day-wrapper {
@@ -127,16 +125,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-lg);
+  width: var(--size-2);
+  height: var(--size-2);
+  border-radius: var(--radius-3);
   font-size: var(--font-size-3);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--content-strong);
   background: transparent;
-  border: 1px solid transparent;
+  border: var(--stroke-width-1) solid transparent;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mms-datepicker-day:hover:not(:disabled):not(.mms-datepicker-day-selected) {
@@ -146,12 +144,12 @@
 .mms-datepicker-day-selected {
   background-color: var(--surface-accent-solid);
   color: var(--content-on-solid);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .mms-datepicker-day-today:not(.mms-datepicker-day-selected) {
   color: var(--content-accent);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   background-color: var(--surface-accent-component);
 }
 
@@ -162,7 +160,7 @@
 @keyframes mms-datepicker-slide-down {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.98);
+    transform: translateY(calc(-1 * var(--space-2))) scale(0.98);
   }
 
   to {

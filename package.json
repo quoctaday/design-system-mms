@@ -18,7 +18,10 @@
     "build:lib": "tsc -b && vite build",
     "build:app": "VITE_BUILD_APP=true vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "audit": "node scripts/mms-audit-pixel.mjs",
+    "preview": "vite preview",
+    "guard": "node scripts/mms-guard.mjs",
+    "guard:fix": "node scripts/mms-guard.mjs --fix"
   },
   "dependencies": {
     "@radix-ui/colors": "^3.0.0",

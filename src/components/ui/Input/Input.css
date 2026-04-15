@@ -1,16 +1,21 @@
-/* Input Base Styles */
-.mms-input-wrapper {
+/* TextField System (Radix-Aligned) */
+
+.mms-textfield-root {
   display: inline-flex;
   align-items: center;
   box-sizing: border-box;
   font-family: var(--font-family);
-  border-radius: var(--radius-default);
-  transition: all 200ms ease;
+  --input-radius: max(var(--radius-full), var(--radius-4));
+  border-radius: var(--input-radius);
+  border: var(--stroke-width-1) solid transparent;
   position: relative;
   width: 100%;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden; /* Ensure focus ring/background doesn't bleed */
 }
 
-.mms-input-control {
+/* Base Input Primitive */
+.mms-textfield-input {
   appearance: none;
   background-color: transparent;
   border: none;
@@ -23,135 +28,158 @@
   height: 100%;
   padding: 0;
   margin: 0;
+  flex: 1;
 }
 
-.mms-input-control::placeholder {
-  color: var(--content-subtle);
+.mms-textfield-input::placeholder {
+  color: var(--content-placeholder);
   opacity: 1;
 }
 
-.mms-input-slot {
+/* Flexible Slots */
+.mms-textfield-slot {
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--content-subtle);
   flex-shrink: 0;
+  pointer-events: none; /* Allow events to pass to input if needed, though usually slots are non-interactive icons */
 }
 
-/* Disabled */
-.mms-input-disabled {
+.mms-textfield-slot:has(button),
+.mms-textfield-slot:has(a) {
+  pointer-events: auto;
+}
+
+/* Disabled State */
+.mms-textfield-root.mms-textfield-disabled {
   cursor: not-allowed;
   opacity: 0.5;
-  background-color: var(--surface-subtle);
+  background-color: var(--surface-subtle) !important;
 }
 
-.mms-input-disabled .mms-input-control {
+.mms-textfield-disabled .mms-textfield-input {
   cursor: not-allowed;
 }
 
 /* ─────────────────────────────────────────────────────────
- * SIZES (Aligned with Button)
+ * SIZES
  * ───────────────────────────────────────────────────────── */
 
-.mms-input-size-1 { height: var(--size-1); font-size: var(--font-size-2); padding: 0 var(--spacing-12); gap: var(--spacing-8); }
-.mms-input-size-2 { height: var(--size-2); font-size: var(--font-size-3); padding: 0 var(--spacing-16); gap: var(--spacing-12); }
-.mms-input-size-3 { height: var(--size-3); font-size: var(--font-size-4); padding: 0 var(--spacing-24); gap: var(--spacing-16); }
-.mms-input-size-4 { height: var(--size-4); font-size: var(--font-size-5); padding: 0 var(--spacing-32); gap: var(--spacing-24); }
+.mms-textfield-size-1 { 
+  height: var(--size-2); /* 32px */
+  font-size: var(--font-size-1); 
+  padding: 0 var(--space-2); 
+  gap: var(--space-1); 
+}
+.mms-textfield-size-2 { 
+  height: var(--size-3); /* 40px */
+  font-size: var(--font-size-2); 
+  padding: 0 var(--space-3); 
+  gap: var(--space-2); 
+}
+.mms-textfield-size-3 { 
+  height: var(--size-4); /* 48px */
+  font-size: var(--font-size-3); 
+  padding: 0 var(--space-4); 
+  gap: var(--space-3); 
+}
+.mms-textfield-size-4 { 
+  height: var(--size-5); /* 56px */
+  font-size: var(--font-size-4); 
+  padding: 0 var(--space-4); 
+  gap: var(--space-4); 
+}
 
 /* ─────────────────────────────────────────────────────────
  * VARIANTS
  * ───────────────────────────────────────────────────────── */
 
-/* 1. SURFACE (Default) */
-.mms-input-variant-surface {
+/* 1. CLASSIC (Tradition Bordered) */
+.mms-textfield-variant-classic {
   background-color: var(--surface-panel);
-  box-shadow: inset 0 0 0 1px var(--border-subtle);
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-default);
 }
-.mms-input-variant-surface:hover:not(.mms-input-disabled) {
-  box-shadow: inset 0 0 0 1px var(--color-border);
-}
-.mms-input-variant-surface:focus-within:not(.mms-input-disabled) {
-  background-color: var(--surface-panel);
-  box-shadow: inset 0 0 0 1px var(--brand-9), 0 0 0 3px var(--brand-a3);
+.mms-textfield-variant-classic:hover:not(.mms-textfield-disabled):not(.mms-textfield-focused) {
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-strong);
 }
 
-/* 2. CLASSIC */
-.mms-input-variant-classic {
-  background-color: var(--surface-panel);
-  box-shadow: inset 0 0 0 1px var(--border-default);
+/* 2. SURFACE (Soft BG + Subtle Border) - DEFAULT */
+.mms-textfield-variant-surface {
+  background-color: var(--surface-subtle);
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-subtle);
 }
-.mms-input-variant-classic:hover:not(.mms-input-disabled) {
-  box-shadow: inset 0 0 0 1px var(--color-border);
-}
-.mms-input-variant-classic:focus-within:not(.mms-input-disabled) {
-  box-shadow: inset 0 0 0 1px var(--brand-9), 0 0 0 3px var(--brand-a3);
+.mms-textfield-variant-surface:hover:not(.mms-textfield-disabled):not(.mms-textfield-focused) {
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-default);
 }
 
-/* 3. SOFT */
-.mms-input-variant-soft {
-  background-color: var(--surface-panel);
-  box-shadow: none;
+/* 3. SOFT (Background Only) */
+.mms-textfield-variant-soft {
+  background-color: var(--surface-subtle);
 }
-.mms-input-variant-soft:hover:not(.mms-input-disabled) {
-  background-color: var(--surface-panel);
-}
-.mms-input-variant-soft:focus-within:not(.mms-input-disabled) {
-  background-color: var(--surface-panel);
-  box-shadow: inset 0 0 0 1px var(--brand-9), 0 0 0 3px var(--brand-a3);
+.mms-textfield-variant-soft:hover:not(.mms-textfield-disabled):not(.mms-textfield-focused) {
+  background-color: var(--surface-component);
 }
 
 /* ─────────────────────────────────────────────────────────
- * COLOR ROUTING
+ * FOCUS STATES (Standardized MMS Halo)
  * ───────────────────────────────────────────────────────── */
 
-.mms-input-color-brand {
-  --color-solid: var(--surface-accent-solid);
-  --color-border: var(--border-accent);
-  --color-alpha: var(--brand-a3);
+.mms-textfield-focused:not(.mms-textfield-disabled) {
+  outline: none;
+  background-color: var(--surface-panel);
+  z-index: 2; /* Bring to front for halo clipping */
+  box-shadow: 
+    0 0 0 calc(var(--space-1) / 2) var(--surface-panel), /* Inner spacer */
+    0 0 0 var(--space-1) var(--brand-a3),     /* Outer halo */
+    0 0 0 1px var(--brand-9);      /* Precise ring */
 }
 
-.mms-input-color-success {
-  --color-solid: var(--surface-success-solid);
-  --color-border: var(--border-success);
-  --color-alpha: var(--green-a3);
+/* Variant Specific Focus Adjustments */
+.mms-textfield-variant-soft.mms-textfield-focused {
+  background-color: var(--surface-panel);
+  box-shadow: 
+    0 0 0 calc(var(--space-1) / 2) var(--surface-panel),
+    0 0 0 var(--space-1) var(--brand-a3),
+    0 0 0 var(--stroke-width-1) var(--brand-9);
 }
 
-.mms-input-color-error {
-  --color-solid: var(--surface-danger-solid);
-  --color-border: var(--border-danger);
-  --color-alpha: var(--red-a3);
+/* Semantic Focus Colors */
+.mms-textfield-color-gray.mms-textfield-focused    { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--gray-a4), 0 0 0 var(--stroke-width-1) var(--gray-9); }
+.mms-textfield-color-success.mms-textfield-focused { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--green-a3), 0 0 0 var(--stroke-width-1) var(--green-9); }
+.mms-textfield-color-warning.mms-textfield-focused { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--amber-a3), 0 0 0 var(--stroke-width-1) var(--amber-9); }
+.mms-textfield-color-error.mms-textfield-focused   { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--red-a3), 0 0 0 var(--stroke-width-1) var(--red-9); }
+
+/* ─────────────────────────────────────────────────────────
+ * TEXTAREA OVERRIDES
+ * ───────────────────────────────────────────────────────── */
+
+.mms-textarea-root {
+  height: auto;
+  align-items: flex-start;
+  padding: var(--space-2) var(--space-3);
 }
 
-.mms-input-color-warning {
-  --color-solid: var(--surface-warning-solid);
-  --color-border: var(--border-warning);
-  --color-alpha: var(--amber-a4);
+.mms-textarea-input {
+  min-height: var(--size-7);
+  resize: vertical;
+  line-height: var(--line-height-2);
+  padding: 0; /* Reset for root handling */
 }
 
-.mms-input-color-gray {
-  --color-solid: var(--content-strong);
-  --color-border: var(--border-default);
-  --color-alpha: var(--alpha-focus);
-}
+/* Adjust size-based padding for textareas */
+.mms-textfield-size-1.mms-textarea-root { padding: var(--space-1) var(--space-2); }
+.mms-textfield-size-3.mms-textarea-root { padding: var(--space-3) var(--space-4); }
+.mms-textfield-size-4.mms-textarea-root { padding: var(--space-4) var(--space-4); }
 
-/* Accents */
-.mms-input-color-blue {
-  --color-solid: var(--blue-9);
-  --color-border: var(--blue-7);
-  --color-alpha: var(--blue-a3);
-}
-
-.mms-input-color-orange {
-  --color-solid: var(--orange-9);
-  --color-border: var(--orange-7);
-  --color-alpha: var(--orange-a3);
-}
-
-/* Radius */
-.mms-input-radius-none { border-radius: 0; }
-.mms-input-radius-xs { border-radius: var(--radius-xs); }
-.mms-input-radius-sm { border-radius: var(--radius-sm); }
-.mms-input-radius-md { border-radius: var(--radius-md); }
-.mms-input-radius-lg { border-radius: var(--radius-lg); }
-.mms-input-radius-xl { border-radius: var(--radius-xl); }
-.mms-input-radius-full { border-radius: var(--radius-full); }
+/* ─────────────────────────────────────────────────────────
+ * RADIUS SYSTEM
+ * ───────────────────────────────────────────────────────── */
+.mms-textfield-radius-none { --input-radius: var(--radius-none); }
+.mms-textfield-radius-1    { --input-radius: var(--radius-1); }
+.mms-textfield-radius-2    { --input-radius: var(--radius-2); }
+.mms-textfield-radius-3    { --input-radius: var(--radius-3); }
+.mms-textfield-radius-4    { --input-radius: var(--radius-4); }
+.mms-textfield-radius-5    { --input-radius: var(--radius-5); }
+.mms-textfield-radius-6    { --input-radius: var(--radius-6); }
+.mms-textfield-radius-full { --input-radius: var(--radius-full); }

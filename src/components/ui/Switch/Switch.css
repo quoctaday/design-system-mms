@@ -1,7 +1,7 @@
 .mms-switch-wrapper {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-12);
+  gap: var(--space-3);
   cursor: pointer;
   user-select: none;
   transition: opacity 200ms ease;
@@ -29,10 +29,17 @@
 .mms-switch-track {
   display: block;
   background-color: var(--surface-sunken);
-  border: 0.5px solid var(--border-subtle);
+  border: var(--stroke-width-1) solid var(--border-subtle);
   border-radius: var(--radius-full);
   position: relative;
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mms-switch-input:focus-visible + .mms-switch-track {
+  box-shadow: 
+    0 0 0 calc(var(--space-1) / 2) var(--surface-panel),
+    0 0 0 var(--space-1) var(--brand-a3),
+    0 0 0 var(--stroke-width-1) var(--brand-9);
 }
 
 .mms-switch-thumb {
@@ -40,10 +47,10 @@
   background-color: var(--white);
   border-radius: var(--radius-full);
   transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-1);
   position: absolute;
   top: 50%;
-  left: 3px;
+  left: var(--space-1);
   transform: translateY(-50%);
   will-change: transform;
 }
@@ -54,40 +61,40 @@
   border-color: transparent;
 }
 
-/* Size 2 (Default - formerly medium) */
+/* Size 2 (Default) */
 .mms-switch-size-2 .mms-switch-track {
-  width: 44px;
-  height: 24px;
+  width: var(--size-3); /* 40px */
+  height: var(--size-2); /* 32px */
 }
 
 .mms-switch-size-2 .mms-switch-thumb {
-  width: 18px;
-  height: 18px;
+  width: var(--space-4);
+  height: var(--space-4);
 }
 
 .mms-switch-input:checked + .mms-switch-track .mms-switch-thumb {
-  transform: translate(20px, -50%);
+  transform: translate(calc(var(--size-3) - var(--space-4) - var(--space-2)), -50%);
 }
 
-/* Size 1 (formerly small) */
+/* Size 1 (Small) */
 .mms-switch-size-1 .mms-switch-track {
-  width: 32px;
-  height: 18px;
+  width: var(--size-2); /* 32px */
+  height: var(--size-1); /* 24px - NEW baseline */
 }
 
 .mms-switch-size-1 .mms-switch-thumb {
-  width: 12px;
-  height: 12px;
+  width: var(--space-3);
+  height: var(--space-3);
 }
 
 .mms-switch-input:checked + .mms-switch-track .mms-switch-thumb {
-  transform: translate(14px, -50%);
+  transform: translate(calc(var(--size-2) - var(--space-3) - var(--space-2)), -50%);
 }
 
 .mms-switch-label {
   font-family: var(--font-body);
-  font-size: var(--font-size-3);
-  font-weight: 500;
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-medium);
   color: var(--content-strong);
 }
 

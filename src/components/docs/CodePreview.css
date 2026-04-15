@@ -1,22 +1,23 @@
 .code-preview-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 64px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-9);
 }
 
 /* Preview Card */
 .code-preview-live {
-  border: 0.5px solid var(--border-subtle);
-  border-radius: var(--radius-xl);
+  border: var(--stroke-width-1) solid var(--border-subtle);
+  border-radius: var(--radius-5);
   background-color: var(--surface-panel);
-  min-height: 240px; /* Tăng chiều cao tối thiểu */
+  min-height: 240px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .preview-info {
-  padding: var(--spacing-20) var(--spacing-24) 0;
+  padding: var(--space-4) var(--space-5) 0;
 }
 
 .preview-title {
@@ -27,59 +28,60 @@
 }
 
 .preview-description {
-  margin: var(--spacing-4) 0 0;
+  margin: var(--space-1) 0 0;
   font-size: var(--font-size-3);
   color: var(--content-subtle);
   line-height: 1.5;
 }
 
 .preview-canvas {
-  padding: var(--spacing-32) var(--spacing-24);
+  padding: var(--space-6) var(--space-5);
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-image: 
+  background-image:
     radial-gradient(var(--border-subtle) 1px, transparent 1px);
-  background-size: 24px 24px;
-  gap: 32px; /* Tăng gap từ 16px lên 32px */
+  background-size: var(--space-5) var(--space-5);
+  gap: var(--space-6);
   flex-wrap: wrap;
 }
 
 /* Source Card Wrapper - Light grey background containing header and white code card */
 .code-preview-source {
   background-color: var(--surface-subtle);
-  border-radius: var(--radius-xl);
-  border: 0.5px solid var(--border-subtle);
-  padding: 8px;
+  border-radius: var(--radius-5);
+  border: var(--stroke-width-1) solid var(--border-subtle);
+  padding: var(--space-2);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .code-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px 12px 12px;
+  padding: var(--space-2) var(--space-3) var(--space-3) var(--space-3);
 }
 
 .code-path {
   color: var(--content-subtle);
-  font-size: 12px;
+  font-size: var(--font-size-2);
   font-family: var(--font-body);
   font-weight: 400;
 }
 
 .code-preview-source .code-block {
   margin: 0;
-  padding: 24px 0;
-  font-size: 13px;
+  padding: var(--space-5) 0;
+  font-size: var(--font-size-2);
   line-height: 1.6;
   overflow-x: auto;
   font-family: var(--font-family-mono);
   background-color: var(--surface-panel) !important;
-  border-radius: calc(var(--radius-xl) - 8px) !important;
-  border: 0.5px solid var(--border-subtle);
+  border-radius: var(--radius-2) !important;
+  border: var(--stroke-width-1) solid var(--border-subtle);
 }
 
 .code-line {
@@ -89,11 +91,11 @@
 .line-number {
   display: table-cell;
   text-align: right;
-  padding-right: 24px;
-  padding-left: 16px;
+  padding-right: var(--space-5);
+  padding-left: var(--space-4);
   user-select: none;
   opacity: 0.25;
-  font-size: 12px;
+  font-size: var(--font-size-1);
   color: var(--content-subtle);
   min-width: 50px;
 }
@@ -108,8 +110,8 @@
   border: none;
   color: var(--content-subtle);
   cursor: pointer;
-  padding: 4px;
-  border-radius: 6px;
+  padding: var(--space-1);
+  border-radius: var(--radius-2);
   display: flex;
   align-items: center;
   justify-content: center;

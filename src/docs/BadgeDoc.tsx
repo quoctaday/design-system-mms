@@ -26,7 +26,7 @@ const BadgeDoc: React.FC = () => {
     { name: 'variant', type: "'solid' | 'soft' | 'outline' | 'surface' | 'ghost'", default: "'soft'", description: 'Phong cách hiển thị của badge.' },
     { name: 'color', type: 'ColorVariant', default: "'gray'", description: 'Màu sắc chủ đề của badge.' },
     { name: 'size', type: "'1' | '2'", default: "'1'", description: 'Kích thước của badge.' },
-    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", description: 'Độ bo góc của badge.' },
+    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", description: 'Độ bo góc của badge.' },
     { name: 'className', type: 'string', description: 'CSS class tùy chỉnh cho badge.' }
   ];
 
@@ -99,16 +99,16 @@ const BadgeDoc: React.FC = () => {
         <p>Control the roundedness of the badge.</p>
         <CodePreview
           code={`<Badge radius="none" variant="surface" color="brand">None</Badge>
-<Badge radius="sm" variant="surface" color="brand">Small</Badge>
-<Badge radius="md" variant="surface" color="brand">Medium</Badge>
-<Badge radius="lg" variant="surface" color="brand">Large</Badge>
+<Badge radius="2" variant="surface" color="brand">Small</Badge>
+<Badge radius="4" variant="surface" color="brand">Medium</Badge>
+<Badge radius="5" variant="surface" color="brand">Large</Badge>
 <Badge radius="full" variant="surface" color="brand">Full</Badge>`}
         >
           <div className="flex gap-2">
             <Badge radius="none" variant="surface" color="brand">None</Badge>
-            <Badge radius="sm" variant="surface" color="brand">Small</Badge>
-            <Badge radius="md" variant="surface" color="brand">Medium</Badge>
-            <Badge radius="lg" variant="surface" color="brand">Large</Badge>
+            <Badge radius="2" variant="surface" color="brand">Small</Badge>
+            <Badge radius="4" variant="surface" color="brand">Medium</Badge>
+            <Badge radius="5" variant="surface" color="brand">Large</Badge>
             <Badge radius="full" variant="surface" color="brand">Full</Badge>
           </div>
         </CodePreview>

@@ -1,20 +1,30 @@
-# Widgets & Functional Components
+# Widgets & Functional Blocks
 
-This chapter covers more complex functional UI elements like Timelines and Platform Navigation.
+Widgets are high-density, functional containers that encapsulate data, state, and logic. They are the building blocks of the MMS Dashboard ecosystem.
 
-## 🕒 Timeline & History
-Used for activity feeds and audit trail logs.
+## 🏗️ Structural Strategy
+Widgets must follow the **12-4-8 Nesting Rule** defined in [[01 - Foundations/Radius & Elevation|Radius & Elevation]].
+- **Container**: `var(--surface-panel)` or `var(--surface-subtle)`.
+- **Border**: `1px solid var(--border-subtle)`.
+- **Shadow**: None (Flat-Premium Standard).
 
-- **Connectors:** `var(--border-default)` (S7).
-- **Indicators:** Semantic status colors (Success-9, Error-9, Warning-b).
-- **Typography:** `--font-size-3` (14px) for titles, `--font-size-2` (12px) for timestamps/metadata.
+## 🧩 Primary Widgets
 
-## 🔄 Platform Navigation (BrandSwitcher)
-Used for high-level ecosystem navigation at the bottom of sidebars.
+### 📊 Metric & Data Widgets
+Used for KPIs, real-time monitors, and financial summaries.
+- [[02 - Components/MetricCard|MetricCard]]: Single-value focus with trend indicators.
+- [[02 - Components/PieChart|PieChart]]: Proportional data visualization.
+- [[02 - Components/Progress|Progress]]: Goal tracking and loading states.
 
-- **Background:** `var(--surface-subtle)` (S2).
-- **Item Border:** `1px solid var(--border-default)`.
-- **Hover:** Background shifts to `var(--surface-hover)` (S4).
+### 🍱 Content Containers
+Used for grouping related information and actions.
+- [[02 - Components/Card|Card]]: Generic high-level container.
+- [[02 - Components/Table|Table]]: Dense data enumeration.
+
+### 🕒 Operational & Ecosystem Widgets
+- [[02 - Components/Timeline|Timeline]]: Activity feeds and audit trails.
+- [[02 - Components/BrandSwitcher|BrandSwitcher]]: High-level ecosystem navigation.
+- [[02 - Components/Sidebar|Sidebar]]: Global navigation framework.
 
 ---
 [[00 - Introduction|Back to Introduction]]

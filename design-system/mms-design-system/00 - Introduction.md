@@ -1,40 +1,36 @@
-# Woker Design System (MMS)
+# 🌌 MMS Design System
 
-Welcome to the **Woker Design System (Woker DS)**. This documentation is organized into logical chapters to help you build consistent, high-quality fintech interfaces.
+Welcome to the **MMS Platform** design intelligence hub. This system is engineered for high-density operational workflows, prioritizing speed, clarity, and a "Flat-Premium" aesthetic for the modern financial landscape.
 
-## 🗺 Documentation Map
+## 💎 The Design Manifesto
 
-### [[01 - Foundations/Introduction|01 - Foundations]]
-The building blocks of our visual language.
-- [[01 - Foundations/Colors|Colors & Transparency]]
-- [[01 - Foundations/Typography|Typography & Scales]]
-- [[01 - Foundations/Spacing & Grid|Spacing & 12-Column Grid]]
-- [[01 - Foundations/Radius & Elevation|Radius & Shadows]]
-- [[01 - Foundations/Sizing|Component Sizing (Size 1-4)]]
-- [[01 - Foundations/Metrics|Metrics & Charts]]
-- [[01 - Foundations/Widgets|Widgets & Timelines]]
+Our design philosophy is built on three unshakeable pillars:
 
-### [[02 - Components/Introduction|02 - Components]]
-Reusable UI elements built from foundational tokens.
-- [[02 - Components/Button|Button]]
-- [[02 - Components/Input|Input]]
-- [[02 - Components/Badge|Badge]]
-- [[02 - Components/Checkbox|Checkbox]]
-- [[02 - Components/Switch|Switch]]
-- [[02 - Components/Timeline|Timeline]]
+### 1. Flat-Premium Aesthetic
+We believe that true depth comes from hierarchy, not shadows. By leveraging **Zero-Shadow** surfaces and hairline borders, we create a crisp, professional interface that reduces cognitive noise.
 
-### [[03 - Guidelines/Introduction|03 - Guidelines]]
-Rules of engagement and best practices.
-- [[03 - Guidelines/Workflow|Systemic-First Workflow]]
-- [[03 - Guidelines/Checklist|Pre-Delivery Checklist]]
-- [[03 - Guidelines/Anti-Patterns|Anti-Patterns (Don't Do This)]]
+### 2. High-Density Operations
+Every pixel counts. We've optimized our typography and spacing for complex dashboards, ensuring that large-scale data remains readable and actionable without overwhelming the user.
 
-### [[04 - Layouts/Introduction|04 - Layouts]]
-Standards for page structure and documentation pages.
-- [[04 - Layouts/Layout Contract|Layout Contract (Gap-based Spacing)]]
-- [[04 - Layouts/Documentation Layout|Documentation Layout (Premium Modern)]]
+### 3. The 12-4-8 Nesting Rule
+Mathematical harmony is enforced at the atomic level. Our nesting rules (12px outer, 4px padding, 8px inner) ensure that every component feels perfectly balanced within its container.
 
 ---
-**Project Status:** v3.0 (Canonical Radix-Base)
-**Category:** Fintech / Crypto
-**Generated:** 2026-04-08
+
+## 🚦 Getting Started
+
+To explore the component library, tokens, and technical implementation guides, please enter the **Master Hub**.
+
+>>> **[[MASTER|🚀 ENTER THE MASTER HUB]]** <<<
+
+---
+
+### 🛡️ System Protocols
+- **[[01 - Foundations/Introduction|🏛️ Foundations]]:** Colors, Typography, Spacing.
+- **[[02 - Components/Introduction|🧱 Components]]:** The Atomic Library.
+- **[[03 - Guidelines/Introduction|📏 Guidelines]]:** How we work and build.
+- **[[04 - Layouts/Introduction|🏗️ Layouts]]:** Structural Standards.
+
+---
+*Project Status: v4.0 (Strict Radix 1-9 Aligned)*
+*Architecture: WOKER Intel Agency*

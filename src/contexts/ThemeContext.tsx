@@ -1,14 +1,17 @@
 import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
-type Radius = 'none' | 'small' | 'medium' | 'large' | 'full';
+type Radius = 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+type Scaling = '90' | '95' | '100' | '105' | '110';
 
 interface ThemeContextValue {
   theme: Theme;
   radius: Radius;
+  scaling: Scaling;
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
   setRadius: (radius: Radius) => void;
+  setScaling: (scaling: Scaling) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
@@ -36,8 +39,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   // Radius state
   const [radius, setRadiusState] = useState<Radius>(() => {
     const saved = localStorage.getItem('mms-radius') as Radius;
-    if (['none', 'small', 'medium', 'large', 'full'].includes(saved)) return saved;
-    return 'medium';
+    if (['none', '1', '2', '3', '4', '5', '6', 'full'].includes(saved)) return saved;
+    return '4';
+  });
+
+  // Scaling state
+  const [scaling, setScalingState] = useState<Scaling>(() => {
+    const saved = localStorage.getItem('mms-scaling') as Scaling;
+    if (['90', '95', '100', '105', '110'].includes(saved)) return saved;
+    return '100';
   });
 
   // Apply Theme
@@ -53,12 +63,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     localStorage.setItem('mms-theme', theme);
   }, [theme]);
 
-  // Apply Radius
+  // Sync data attributes to root
   useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty('--radius-default', `var(--radius-${radius})`);
+    root.setAttribute('data-radius', radius);
+    root.setAttribute('data-scaling', scaling);
+    
     localStorage.setItem('mms-radius', radius);
-  }, [radius]);
+    localStorage.setItem('mms-scaling', scaling);
+  }, [radius, scaling]);
 
   const toggleTheme = () => {
     setThemeState(prev => (prev === 'light' ? 'dark' : 'light'));
@@ -72,9 +85,23 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     setRadiusState(newRadius);
   };
 
+  const setScaling = (newScaling: Scaling) => {
+    setScalingState(newScaling);
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, radius, toggleTheme, setTheme, setRadius }}>
-      {children}
+    <ThemeContext.Provider value={{ 
+      theme, 
+      radius, 
+      scaling, 
+      toggleTheme, 
+      setTheme, 
+      setRadius, 
+      setScaling 
+    }}>
+      <div id="mms-root" data-radius={radius} data-scaling={scaling}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 };

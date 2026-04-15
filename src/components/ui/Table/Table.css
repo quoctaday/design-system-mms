@@ -1,93 +1,115 @@
+/* ─────────────────────────────────────────────────────────
+ * 1. Root Container
+ * ───────────────────────────────────────────────────────── */
+
 .mms-table-container {
   width: 100%;
   overflow-x: auto;
-  font-family: var(--font-family);
-  background-color: transparent;
+  position: relative;
+  box-sizing: border-box;
 }
+
+/* Variant: Surface (Standard with boundary) */
+.mms-table-variant-surface {
+  background-color: var(--surface-panel);
+  border: var(--stroke-width-1) solid var(--border-subtle);
+  box-shadow: var(--shadow-1);
+}
+
+/* Variant: Ghost (Unbounded) */
+.mms-table-variant-ghost {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 2. Table Element
+ * ───────────────────────────────────────────────────────── */
 
 .mms-table {
   width: 100%;
+  caption-side: bottom;
   border-collapse: collapse;
-  border-spacing: 0;
-  text-align: left;
-  font-size: var(--font-size-3);
-  line-height: 1.5;
+  font-family: var(--font-family);
   font-variant-numeric: tabular-nums;
+  text-align: left;
 }
 
-.mms-table-variant-surface {
-  border: 1px solid var(--border-subtle);
-  background-color: var(--surface-panel);
-  border-radius: var(--radius-xl);
-  overflow: clip;
-  box-shadow: var(--shadow-xsmall);
-}
-
-.mms-table-variant-ghost {
-  border: none;
-  background-color: transparent;
-}
+/* ─────────────────────────────────────────────────────────
+ * 3. Header & Footer
+ * ───────────────────────────────────────────────────────── */
 
 .mms-table-header {
   background-color: var(--surface-subtle);
 }
 
+.mms-table-sticky-header .mms-table-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: inset 0 calc(-1 * var(--stroke-width-1)) 0 var(--border-subtle);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 4. Cells & Rows
+ * ───────────────────────────────────────────────────────── */
+
+.mms-table-cell {
+  padding: var(--space-3) var(--space-4);
+  vertical-align: middle;
+  border-bottom: var(--stroke-width-1) solid var(--border-subtle);
+  color: var(--content-default);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-5);
+  transition: background-color 150ms ease;
+}
+
 .mms-table-column-header-cell {
   color: var(--content-subtle);
-  font-weight: 600;
-  white-space: nowrap;
-  padding: var(--spacing-12) var(--spacing-16);
+  font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-1);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
 }
 
-.mms-table-cell {
-  padding: var(--spacing-12) var(--spacing-16);
-  border-bottom: 1px solid var(--border-subtle);
-  color: var(--content-subtle);
-  vertical-align: middle;
-  transition: color 200ms ease;
-}
-
+/* Row Hover */
 .mms-table-row {
-  transition: background-color 200ms ease;
+  transition: background-color 150ms ease;
 }
 
 .mms-table-row:hover {
   background-color: var(--surface-subtle);
 }
 
-.mms-table-row:hover .mms-table-cell {
-  color: var(--content-strong);
-}
-
-/* Zebra Striping */
+/* Striped Variant */
 .mms-table-striped .mms-table-body .mms-table-row:nth-child(even) {
-  background-color: var(--surface-app);
+  background-color: var(--surface-subtle);
 }
 
-/* Removal of bottom border for last row */
-.mms-table-body .mms-table-row:last-child .mms-table-cell {
-  border-bottom: none;
-}
+/* ─────────────────────────────────────────────────────────
+ * 5. Sizes
+ * ───────────────────────────────────────────────────────── */
 
-/* STICKY HEADER */
-.mms-table-sticky-header .mms-table-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
+.mms-table-size-1 .mms-table-cell { padding: var(--space-2) var(--space-3); font-size: var(--font-size-1); }
+.mms-table-size-2 .mms-table-cell { padding: var(--space-3) var(--space-4); font-size: var(--font-size-2); }
+.mms-table-size-3 .mms-table-cell { padding: var(--space-4) var(--space-5); font-size: var(--font-size-3); }
 
-/* SIZES mapping */
-.mms-table-size-1 .mms-table-cell { padding: var(--spacing-8) var(--spacing-16); font-size: var(--font-size-2); }
-.mms-table-size-2 .mms-table-cell { padding: var(--spacing-12) var(--spacing-16); font-size: var(--font-size-3); }
-.mms-table-size-3 .mms-table-cell { padding: var(--spacing-16) var(--spacing-24); font-size: var(--font-size-4); }
+/* ─────────────────────────────────────────────────────────
+ * 6. Radius
+ * ───────────────────────────────────────────────────────── */
 
-/* RADIUS */
 .mms-table-radius-none { border-radius: 0; }
-.mms-table-radius-xs { border-radius: var(--radius-xs); }
-.mms-table-radius-lg { border-radius: var(--radius-lg); }
-.mms-table-radius-xl { border-radius: var(--radius-xl); }
+.mms-table-radius-1    { border-radius: var(--radius-1); }
+.mms-table-radius-2    { border-radius: var(--radius-2); }
+.mms-table-radius-3    { border-radius: var(--radius-3); }
+.mms-table-radius-4    { border-radius: var(--radius-4); }
+.mms-table-radius-5    { border-radius: var(--radius-5); }
+.mms-table-radius-6    { border-radius: var(--radius-6); }
 .mms-table-radius-full { border-radius: var(--radius-full); }
+
+/* Apply radius to container and hide overflow */
+.mms-table-container[class*="mms-table-radius-"]:not(.mms-table-radius-none) {
+  overflow: hidden;
+}

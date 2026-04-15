@@ -1,12 +1,13 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import './Badge.css';
+import '../_internal/base.css';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'solid' | 'soft' | 'outline' | 'surface' | 'ghost';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'orange' | 'blue' | 'purple' | 'sky' | 'pink' | 'teal' | 'secondary' | 'black' | 'gray';
-  size?: '1' | '2';
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
+  size?: '1' | '2' | '3';
+  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
   children: React.ReactNode;
 }
 

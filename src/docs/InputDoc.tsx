@@ -1,72 +1,117 @@
 import React, { useState } from 'react';
-import Input from '../components/ui/Input/Input';
+import { Input, TextField, TextArea } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
 import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 import { Tabs } from '../components/ui/Tabs/Tabs';
-import { RiSearchLine, RiCommandLine } from 'react-icons/ri';
+import { RiSearchLine, RiCommandLine, RiMailLine } from 'react-icons/ri';
 
 const InputDoc: React.FC = () => {
-  const [activeColorVariant, setActiveColorVariant] = useState<'surface' | 'classic' | 'soft'>('surface');
+  const [activeColorVariant, setActiveColorVariant] = useState<'classic' | 'surface' | 'soft'>('surface');
   
-  const colors: Array<"brand" | "success" | "error" | "warning" | "gray"> = [
+  const colors: Array<"brand" | "gray" | "success" | "warning" | "error"> = [
     'brand', 'gray', 'success', 'warning', 'error'
   ];
 
   const toc = [
+    { id: 'compound', title: 'Compound Architecture' },
     { id: 'variants', title: 'Variants' },
+    { id: 'textarea', title: 'TextArea' },
     { id: 'colors', title: 'Colors' },
     { id: 'sizes', title: 'Sizes' },
     { id: 'radius', title: 'Radius' },
-    { id: 'slots', title: 'Slots' },
-    { id: 'states', title: 'States' },
     { id: 'api', title: 'API Reference' }
   ];
 
   const inputProps = [
     { name: 'placeholder', type: 'string', description: 'Văn bản gợi ý khi trống.' },
-    { name: 'variant', type: "'surface' | 'classic' | 'soft'", default: "'surface'", description: 'Phong cách hiển thị.' },
+    { name: 'variant', type: "'surface' | 'classic' | 'soft'", default: "'surface'", description: 'Phong cách hiển thị của Input.' },
     { name: 'color', type: 'ColorVariant', default: "'brand'", description: 'Màu sắc vòng tiêu điểm (focus ring).' },
-    { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước.' },
-    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", description: 'Độ bo góc.' },
-    { name: 'leftSlot', type: 'ReactNode', description: 'Nội dung hiển thị bên trái.' },
-    { name: 'rightSlot', type: 'ReactNode', description: 'Nội dung hiển thị bên phải.' },
+    { name: 'size', type: "'1' | '2' | '3' | '4'", default: "'2'", description: 'Kích thước.' },
+    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", description: 'Độ bo góc.' },
+    { name: 'leftSlot', type: 'ReactNode', description: 'Nội dung hiển thị bên trái (chỉ dùng cho Input shorthand).' },
+    { name: 'rightSlot', type: 'ReactNode', description: 'Nội dung hiển thị bên phải (chỉ dùng cho Input shorthand).' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa tương tác.' },
-    { name: 'isInvalid', type: 'boolean', default: 'false', description: 'Trạng thái lỗi.' },
     { name: 'className', type: 'string', description: 'CSS class tùy chỉnh.' }
   ];
 
   return (
     <DocLayout 
-      title="Input" 
-      description="A component for receiving text user input."
+      title="Input / TextField" 
+      description="A high-precision text entry component with Radix-inspired compound architecture."
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
+      <section id="compound" className="doc-section">
+        <h2>Compound Architecture</h2>
+        <p>Use the compound pattern for complex requirements like multiple slots or custom interactions.</p>
+        <CodePreview
+          code={`<TextField.Root size="2" variant="surface">
+  <TextField.Slot>
+    <RiSearchLine />
+  </TextField.Slot>
+  <TextField.Input placeholder="Search documentation..." />
+  <TextField.Slot>
+    <span className="flex items-center gap-1 text-xs px-1.5 py-0.5 rounded border bg-muted">
+      <RiCommandLine />K
+    </span>
+  </TextField.Slot>
+</TextField.Root>`}
+        >
+          <div className="max-w-sm">
+            <TextField.Root size="2" variant="surface">
+              <TextField.Slot>
+                <RiSearchLine size={16} />
+              </TextField.Slot>
+              <TextField.Input placeholder="Search documentation..." />
+              <TextField.Slot>
+                <span className="flex items-center gap-1 text-xs px-1.5 py-0.5 rounded border bg-muted">
+                  <RiCommandLine size={10} />K
+                </span>
+              </TextField.Slot>
+            </TextField.Root>
+          </div>
+        </CodePreview>
+      </section>
+
       <section id="variants" className="doc-section">
         <h2>Variants</h2>
-        <p>Inputs are available in three visual variants.</p>
+        <p>Choose from three levels of intensity to match your interface's surface logic.</p>
         <CodePreview
-          code={`<Input variant="surface" placeholder="Surface variant" />
-<Input variant="classic" placeholder="Classic variant" />
-<Input variant="soft" placeholder="Soft variant" />`}
+          code={`<Input variant="surface" placeholder="Surface (Subtle)" />
+<Input variant="classic" placeholder="Classic (Bordered)" />
+<Input variant="soft" placeholder="Soft (Fill only)" />`}
         >
           <div className="flex flex-col gap-4 max-w-sm">
-            <Input variant="surface" placeholder="Surface variant" />
-            <Input variant="classic" placeholder="Classic variant" />
-            <Input variant="soft" placeholder="Soft variant" />
+            <Input variant="surface" placeholder="Surface (Subtle)" />
+            <Input variant="classic" placeholder="Classic (Bordered)" />
+            <Input variant="soft" placeholder="Soft (Fill only)" />
+          </div>
+        </CodePreview>
+      </section>
+
+      <section id="textarea" className="doc-section">
+        <h2>TextArea</h2>
+        <p>A multi-line text input that shares the same visual architecture and variants as TextField.</p>
+        <CodePreview
+          code={`<TextArea variant="surface" placeholder="Type your message..." />
+<TextArea size="1" radius="2" placeholder="Small textarea" />`}
+        >
+          <div className="flex flex-col gap-4 max-w-sm">
+            <TextArea variant="surface" placeholder="Type your message..." />
+            <TextArea size="1" radius="2" placeholder="Small textarea (size 1)" rows={3} />
           </div>
         </CodePreview>
       </section>
 
       <section id="colors" className="doc-section">
         <h2>Focus Rings (Colors)</h2>
-        <p>Use the <code>color</code> prop to change the focus ring behavior.</p>
+        <p>Use the <code>color</code> prop to synchronize the focus ring with your semantic state.</p>
         
         <Tabs 
           value={activeColorVariant}
-          onValueChange={(value) => setActiveColorVariant(value as 'surface' | 'classic' | 'soft')}
+          onValueChange={(value) => setActiveColorVariant(value as 'classic' | 'surface' | 'soft')}
         >
           <Tabs.List>
             <Tabs.Trigger value="surface">Surface</Tabs.Trigger>
@@ -78,12 +123,11 @@ const InputDoc: React.FC = () => {
         <div className="flex flex-col gap-4 mt-6 max-w-sm">
           {colors.map((color) => (
             <div key={color} className="flex items-center gap-4">
-              <span className="text-sm font-medium w-20">{color}</span>
+              <span className="text-sm font-medium w-20 capitalize">{color}</span>
               <Input 
                 color={color} 
                 variant={activeColorVariant} 
-                defaultValue={color === 'error' ? 'Invalid entry' : undefined}
-                placeholder={`Focus me (${color})`} 
+                placeholder={`Focus halo (${color})`} 
               />
             </div>
           ))}
@@ -92,65 +136,18 @@ const InputDoc: React.FC = () => {
 
       <section id="sizes" className="doc-section">
         <h2>Sizes</h2>
-        <p>Available in three sizes.</p>
+        <p>Supports 4 sizes to cover all density scenarios from dense forms to hero search inputs.</p>
         <CodePreview
           code={`<Input size="1" placeholder="Size 1" />
 <Input size="2" placeholder="Size 2" />
-<Input size="3" placeholder="Size 3" />`}
+<Input size="3" placeholder="Size 3" />
+<Input size="4" placeholder="Size 4" />`}
         >
           <div className="flex flex-col gap-4 max-w-sm">
-            <Input size="1" placeholder="Size 1" />
-            <Input size="2" placeholder="Size 2" />
-            <Input size="3" placeholder="Size 3" />
-          </div>
-        </CodePreview>
-      </section>
-
-      <section id="radius" className="doc-section">
-        <h2>Radius</h2>
-        <p>Control the roundedness of the input corners.</p>
-        <CodePreview
-          code={`<Input radius="none" placeholder="None" />
-<Input radius="sm" placeholder="Small" />
-<Input radius="md" placeholder="Medium" />
-<Input radius="lg" placeholder="Large" />
-<Input radius="full" placeholder="Full" />`}
-        >
-          <div className="flex flex-col gap-4 max-w-sm">
-            <Input radius="none" placeholder="None" />
-            <Input radius="sm" placeholder="Small (sm)" />
-            <Input radius="md" placeholder="Medium (md)" />
-            <Input radius="lg" placeholder="Large (lg)" />
-            <Input radius="full" placeholder="Full (Pill)" />
-          </div>
-        </CodePreview>
-      </section>
-
-      <section id="slots" className="doc-section">
-        <h2>Slots</h2>
-        <p>Pass custom elements to either side of the input field.</p>
-        <CodePreview
-          code={`<Input leftSlot={<RiSearchLine />} placeholder="Search..." />
-<Input rightSlot={<kbd>⌘K</kbd>} placeholder="Quick find" />`}
-        >
-          <div className="flex flex-col gap-4 max-w-sm">
-            <Input leftSlot={<RiSearchLine size={16} />} placeholder="Search documentation" />
-            <Input rightSlot={<span className="flex items-center gap-1 text-xs px-1.5 py-0.5 rounded border bg-muted"><RiCommandLine />K</span>} placeholder="Search documentation" />
-            <Input leftSlot={<RiSearchLine size={16} />} rightSlot={<span className="text-xs">⏎</span>} placeholder="Search..." />
-          </div>
-        </CodePreview>
-      </section>
-      
-      <section id="states" className="doc-section">
-        <h2>Disabled State</h2>
-        <p>Use the <code>disabled</code> boolean to prevent interaction.</p>
-        <CodePreview
-          code={`<Input disabled placeholder="Cannot type here" />
-<Input disabled value="Pre-filled disabled" />`}
-        >
-          <div className="flex flex-col gap-4 max-w-sm">
-            <Input disabled placeholder="Cannot type here" />
-            <Input disabled value="Pre-filled disabled" />
+            <Input size="1" leftSlot={<RiMailLine />} placeholder="Size 1" />
+            <Input size="2" leftSlot={<RiMailLine />} placeholder="Size 2" />
+            <Input size="3" leftSlot={<RiMailLine />} placeholder="Size 3" />
+            <Input size="4" leftSlot={<RiMailLine />} placeholder="Size 4" />
           </div>
         </CodePreview>
       </section>
@@ -164,4 +161,3 @@ const InputDoc: React.FC = () => {
 };
 
 export default InputDoc;
-

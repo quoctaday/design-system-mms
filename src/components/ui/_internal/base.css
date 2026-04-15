@@ -1,0 +1,78 @@
+/* ═══════════════════════════════════════════
+   MMS DESIGN SYSTEM - INTERNAL BASE UTILITIES
+   Standardized interaction patterns & focus rings
+   ═══════════════════════════════════════════ */
+
+/**
+ * 1. FOCUS HALO (Radix UI Themes Standard)
+ * Used with :focus-visible to provide high-visibility, 
+ * variant-aware focus indicators.
+ *
+ * Use case: Button, IconButton, Checkbox, Radio, Switch, Slider
+ */
+.mms-focus-halo {
+  outline: none;
+  transition: box-shadow 150ms ease;
+}
+
+.mms-focus-halo:focus-visible {
+  box-shadow: 
+    0 0 0 calc(var(--space-1) / 2) var(--surface-panel), /* Inner spacer */
+    0 0 0 var(--space-1) var(--brand-a3),     /* Outer halo */
+    0 0 0 var(--stroke-width-1) var(--brand-9);      /* Sharp ring */
+}
+
+/* Variant-aware halos */
+.mms-focus-halo-success:focus-visible { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--success-a3), 0 0 0 var(--stroke-width-1) var(--success-9); }
+.mms-focus-halo-error:focus-visible   { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--error-a3), 0 0 0 var(--stroke-width-1) var(--error-9); }
+.mms-focus-halo-warning:focus-visible { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--warning-a3), 0 0 0 var(--stroke-width-1) var(--warning-9); }
+.mms-focus-halo-gray:focus-visible    { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--gray-a3), 0 0 0 var(--stroke-width-1) var(--gray-9); }
+
+/**
+ * 2. INTERACTIVE OVERLAYS
+ * Subtle state feedback for surface/ghost variants
+ */
+.mms-interactive-surface {
+  position: relative;
+  overflow: hidden;
+}
+
+.mms-interactive-surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+.mms-interactive-surface:hover::after { opacity: 0.06; }
+.mms-interactive-surface:active::after { opacity: 0.12; }
+
+/**
+ * 3. HIGH-CONTRAST BORDERS (Hairlines)
+ * Used for premium component definition
+ */
+.mms-border-hairline {
+  border: var(--stroke-width-hairline) solid var(--border-divider);
+}
+
+.mms-border-subtle-glow {
+  box-shadow: 0 0 0 var(--stroke-width-1) var(--gray-a3), var(--shadow-1);
+}
+
+/**
+ * 4. RESET UTILITIES
+ */
+.mms-reset-button {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: inherit;
+}

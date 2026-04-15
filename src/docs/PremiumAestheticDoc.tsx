@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { DocLayout } from '../components/docs/DocLayout';
 import { CodePreview } from '../components/docs/CodePreview';
 import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
-import { MetricCard } from '../components/ui/MetricCard/MetricCard';
-import { Button } from '../components/ui/Button/Button';
+import { MetricCard, Button } from '../components/ui';
 import { RiFocus2Line, RiCompassDiscoverLine, RiShapesLine, RiRuler2Line, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import './PremiumAestheticDoc.css';
 
@@ -20,24 +19,24 @@ const SpecCard: React.FC<SpecCardProps> = ({ children, show, type = 'default' })
       {show && (
         <div className="spec-overlay">
           {/* Outer Radius */}
-          <div className="spec-indicator radius-outer" data-label="R: 12px"></div>
+          <div className="spec-indicator radius-outer" data-label="Radius: 5"></div>
           
           {/* Outer Padding */}
           {type !== 'flush' && (
             <>
-              <div className="spec-indicator padding-outer top" data-label="4px"></div>
-              <div className="spec-indicator padding-outer left" data-label="4px"></div>
+              <div className="spec-indicator padding-outer top" data-label="Space: 1"></div>
+              <div className="spec-indicator padding-outer left" data-label="Space: 1"></div>
             </>
           )}
 
           {/* Inner Radius */}
-          <div className="spec-indicator radius-inner" data-label={type === 'flush' ? 'R: 12px' : 'R: 8px'}></div>
+          <div className="spec-indicator radius-inner" data-label={type === 'flush' ? 'Radius: 5' : 'Radius: 4'}></div>
 
           {/* Inner Padding */}
-          <div className="spec-indicator padding-inner" data-label="P: 12px"></div>
+          <div className="spec-indicator padding-inner" data-label="Space: 3"></div>
           
           {/* Header Padding */}
-          <div className="spec-indicator padding-header" data-label="12px"></div>
+          <div className="spec-indicator padding-header" data-label="Space: 3"></div>
 
           {/* Hairline Border */}
           <div className="spec-indicator border-hairline" data-label="0.5px"></div>
@@ -107,22 +106,22 @@ const PremiumAestheticDoc: React.FC = () => {
         <h2 className="section-title">The 12-4-8 Nesting Rule</h2>
         <p>
           To achieve a premium, engineered look, nested radii must follow a strict mathematical relationship. 
-          For most metrics and compact widgets, we use the <strong>12-4-8 standard</strong>:
+          For most metrics and compact widgets, we follow the <strong>Radix Spacing Alignment</strong> (Radius 5 + Space 1 = Radius 4):
         </p>
         
         <div className="nesting-formula-grid">
           <div className="formula-box">
-            <span className="formula-label">Outer Radius</span>
+            <span className="formula-label">Outer Radius (R5)</span>
             <span className="formula-value">12px</span>
           </div>
           <div className="formula-operator">+</div>
           <div className="formula-box">
-            <span className="formula-label">Outer Padding</span>
+            <span className="formula-label">Outer Padding (S1)</span>
             <span className="formula-value">4px</span>
           </div>
           <div className="formula-operator">=</div>
           <div className="formula-box highlight">
-            <span className="formula-label">Inner Radius</span>
+            <span className="formula-label">Inner Radius (R4)</span>
             <span className="formula-value">8px</span>
           </div>
         </div>
@@ -156,11 +155,11 @@ const PremiumAestheticDoc: React.FC = () => {
 
         <CodePreview
           code={`<div className="premium-container">
-  <header style={{ padding: '12px', gap: '8px' }}>
-    <Label>PROTOCOL STATUS (12px)</Label>
+  <header style={{ padding: 'var(--space-3)', gap: 'var(--space-2)' }}>
+    <Label>PROTOCOL STATUS (Radius-5)</Label>
   </header>
   {/* No Gap Here */}
-  <div className="inner-panel" style={{ padding: '12px', radius: '8px' }}>
+  <div className="inner-panel" style={{ padding: 'var(--space-3)', borderRadius: 'var(--radius-4)' }}>
     24.8B
   </div>
 </div>`}

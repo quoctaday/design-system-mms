@@ -1,0 +1,135 @@
+/* ─────────────────────────────────────────────────────────
+ * 1. Overlay & Backdrop
+ * ───────────────────────────────────────────────────────── */
+
+.mms-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--black-a8);
+  backdrop-filter: blur(var(--blur-md));
+  z-index: var(--z-index-modal, 1000);
+  animation: mms-dialog-overlay-fade-in 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mms-dialog-overlay-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 2. Container & Content
+ * ───────────────────────────────────────────────────────── */
+
+.mms-dialog-container {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-modal, 1001);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  pointer-events: none;
+}
+
+.mms-dialog-content {
+  pointer-events: auto;
+  position: relative;
+  background-color: var(--surface-panel);
+  border: var(--stroke-width-1) solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-6); /* Elevation v3 Max */
+  overflow: hidden;
+  max-height: 85vh;
+  width: 100%;
+  animation: mms-dialog-content-show 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mms-dialog-content-show {
+  from { opacity: 0; transform: scale(0.95) translateY(var(--space-2)); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 3. Sizes
+ * ───────────────────────────────────────────────────────── */
+
+.mms-dialog-size-1 { max-width: var(--size-13); } /* 400px */
+.mms-dialog-size-2 { max-width: calc(var(--size-13) + var(--size-9)); } /* Roughly 560px */
+.mms-dialog-size-3 { max-width: var(--size-18); } /* 800px */
+.mms-dialog-size-4 { max-width: calc(var(--size-18) + var(--size-12)); } /* Roughly 1120px */
+
+/* ─────────────────────────────────────────────────────────
+ * 4. Internal Layout
+ * ───────────────────────────────────────────────────────── */
+
+.mms-dialog-header {
+  padding: var(--space-5) var(--space-6);
+  border-bottom: var(--stroke-width-1) solid var(--border-subtle);
+}
+
+.mms-dialog-body {
+  padding: var(--space-6);
+  overflow-y: auto;
+  color: var(--content-default);
+  font-family: var(--font-family);
+  line-height: var(--line-height-6);
+}
+
+.mms-dialog-footer {
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--surface-subtle);
+  border-top: var(--stroke-width-1) solid var(--border-subtle);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+.mms-dialog-title {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-semibold);
+  color: var(--content-strong);
+  letter-spacing: -0.01em;
+}
+
+.mms-dialog-description {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-2);
+  color: var(--content-subtle);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 5. Close Button
+ * ───────────────────────────────────────────────────────── */
+
+.mms-dialog-close-button {
+  all: unset;
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-5);
+  color: var(--content-subtle);
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-2);
+  transition: all 150ms ease;
+  z-index: 10;
+}
+
+.mms-dialog-close-button:hover {
+  background-color: var(--surface-subtle);
+  color: var(--content-strong);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 6. Radius Mapping
+ * ───────────────────────────────────────────────────────── */
+
+.mms-dialog-radius-none { border-radius: var(--radius-none); }
+.mms-dialog-radius-1    { border-radius: var(--radius-1); }
+.mms-dialog-radius-2    { border-radius: var(--radius-2); }
+.mms-dialog-radius-3    { border-radius: var(--radius-3); }
+.mms-dialog-radius-4    { border-radius: var(--radius-4); }
+.mms-dialog-radius-5    { border-radius: var(--radius-5); }
+.mms-dialog-radius-6    { border-radius: var(--radius-6); }

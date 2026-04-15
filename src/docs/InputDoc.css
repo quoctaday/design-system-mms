@@ -9,7 +9,7 @@
   padding: 32px;
   background-color: var(--white);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-3);
 }
 
 .example-item {
@@ -19,7 +19,7 @@
   gap: 16px;
   padding: 24px 16px;
   background-color: var(--surface-panel);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-2);
   box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   border: 1px solid var(--border-subtle);
 }
@@ -30,7 +30,7 @@
   color: var(--content-accent);
   background-color: var(--bg-component);
   padding: 4px 8px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-1);
   align-self: center;
 }
 
@@ -41,7 +41,7 @@
   padding: 32px;
   background-color: var(--white);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-3);
 }
 
 .input-row {

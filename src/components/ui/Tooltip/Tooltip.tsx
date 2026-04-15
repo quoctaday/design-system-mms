@@ -1,124 +1,125 @@
-import React, { 
-  useState, 
-  useRef, 
-  useContext, 
-  createContext, 
-  forwardRef 
-} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { cn } from '../../../lib/utils';
 import './Tooltip.css';
 
-interface TooltipContextValue {
-  isVisible: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-  side: 'top' | 'right' | 'bottom' | 'left';
-}
-
-const TooltipContext = createContext<TooltipContextValue | undefined>(undefined);
-
-const useTooltip = () => {
-  const context = useContext(TooltipContext);
-  if (!context) {
-    throw new Error('Tooltip components must be used within a Tooltip.Root');
-  }
-  return context;
-};
-
-// Root Component
-export interface TooltipRootProps {
-  children: React.ReactNode;
+export interface TooltipProps {
+  content: React.ReactNode;
+  children: React.ReactElement;
   side?: 'top' | 'right' | 'bottom' | 'left';
+  align?: 'start' | 'center' | 'end';
   delayDuration?: number;
+  className?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-const TooltipRoot: React.FC<TooltipRootProps> = ({ 
-  children, 
-  side = 'top', 
-  delayDuration = 300 
+const Tooltip: React.FC<TooltipProps> = ({
+  content,
+  children,
+  side = 'top',
+  align = 'center',
+  delayDuration = 200,
+  className,
+  open: controlledOpen,
+  onOpenChange,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const timeoutRef = useRef<any>(null);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  const open = controlledOpen !== undefined ? controlledOpen : uncontrolledOpen;
+  
+  const timerRef = useRef<number | null>(null);
+  const triggerRef = useRef<HTMLElement>(null);
+  const [coords, setCoords] = useState({ top: 0, left: 0 });
 
-  const onOpen = () => {
-    if (delayDuration === 0) {
-      setIsVisible(true);
-      return;
+  const setOpen = (newOpen: boolean) => {
+    if (controlledOpen === undefined) setUncontrolledOpen(newOpen);
+    onOpenChange?.(newOpen);
+  };
+
+  const updateCoords = () => {
+    if (!triggerRef.current) return;
+    const rect = triggerRef.current.getBoundingClientRect();
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+
+    let top = 0;
+    let left = 0;
+
+    // Basic side positioning
+    switch (side) {
+      case 'top':
+        top = rect.top + scrollY - 8;
+        left = rect.left + scrollX + rect.width / 2;
+        break;
+      case 'bottom':
+        top = rect.bottom + scrollY + 8;
+        left = rect.left + scrollX + rect.width / 2;
+        break;
+      case 'left':
+        top = rect.top + scrollY + rect.height / 2;
+        left = rect.left + scrollX - 8;
+        break;
+      case 'right':
+        top = rect.top + scrollY + rect.height / 2;
+        left = rect.right + scrollX + 8;
+        break;
     }
-    timeoutRef.current = setTimeout(() => {
-      setIsVisible(true);
+
+    setCoords({ top, left });
+  };
+
+  const handleMouseEnter = () => {
+    timerRef.current = window.setTimeout(() => {
+      updateCoords();
+      setOpen(true);
     }, delayDuration);
   };
 
-  const onClose = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setIsVisible(false);
+  const handleMouseLeave = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setOpen(false);
   };
 
-  return (
-    <TooltipContext.Provider value={{ isVisible, onOpen, onClose, side }}>
-      <div className="mms-tooltip-root">
-        {children}
-      </div>
-    </TooltipContext.Provider>
-  );
-};
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
-// Trigger Component
-export interface TooltipTriggerProps {
-  children: React.ReactNode;
-}
-
-const TooltipTrigger: React.FC<TooltipTriggerProps> = ({ children }) => {
-  const { onOpen, onClose } = useTooltip();
+  const trigger = React.cloneElement(children, {
+    ref: triggerRef,
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
+    onFocus: handleMouseEnter,
+    onBlur: handleMouseLeave,
+  });
 
   return (
-    <div 
-      className="mms-tooltip-trigger" 
-      onMouseEnter={onOpen}
-      onMouseLeave={onClose}
-      onFocus={onOpen}
-      onBlur={onClose}
-    >
-      {children}
-    </div>
-  );
-};
-
-// Content Component
-export interface TooltipContentProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(({ 
-  children, 
-  className,
-  ...props 
-}, ref) => {
-  const { isVisible, side } = useTooltip();
-
-  if (!isVisible) return null;
-
-  return (
-    <div 
-      ref={ref}
-      className={cn(
-        'mms-tooltip-content',
-        `mms-tooltip-side-${side}`,
-        className
+    <>
+      {trigger}
+      {open && createPortal(
+        <div 
+          className={cn(
+            'mms-tooltip-content',
+            `mms-tooltip-side-${side}`,
+            `mms-tooltip-align-${align}`,
+            className
+          )}
+          style={{
+            position: 'absolute',
+            top: coords.top,
+            left: coords.left,
+            zIndex: 3000,
+          }}
+          data-state={open ? 'open' : 'closed'}
+        >
+          {content}
+          <div className="mms-tooltip-arrow" />
+        </div>,
+        document.body
       )}
-      data-state={isVisible ? 'open' : 'closed'}
-      {...props}
-    >
-      {children}
-      <div className="mms-tooltip-arrow" />
-    </div>
+    </>
   );
-});
-
-// Export as object
-export const Tooltip = Object.assign(TooltipRoot, {
-  Root: TooltipRoot,
-  Trigger: TooltipTrigger,
-  Content: TooltipContent,
-});
+};
 
 export default Tooltip;

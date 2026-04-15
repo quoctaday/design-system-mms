@@ -27,7 +27,7 @@ const DatePickerDoc: React.FC = () => {
     { name: 'placeholder', type: 'string', default: "'Select date'", description: 'Text hiển thị khi chưa chọn ngày.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa component.' },
     { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước của date picker.' },
-    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", default: "'md'", description: 'Độ bo góc của date picker.' }
+    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", default: "'md'", description: 'Độ bo góc của date picker.' }
   ];
 
   return (
@@ -130,22 +130,22 @@ const DatePickerDoc: React.FC = () => {
         <h2>Sizes & Radius</h2>
         <p>Standardizing the DatePicker trigger to match input field aesthetics.</p>
         <CodePreview
-          code={`<DatePicker size="1" radius="sm" />
-<DatePicker size="2" radius="md" />
-<DatePicker size="3" radius="lg" />`}
+          code={`<DatePicker size="1" radius="2" />
+<DatePicker size="2" radius="4" />
+<DatePicker size="3" radius="5" />`}
         >
           <div className="flex flex-col gap-6 max-w-[320px] py-2">
             <div className="flex flex-col gap-2">
               <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 1 (Small) + SM Radius</span>
-              <DatePicker size="1" radius="sm" placeholder="Small date picker" />
+              <DatePicker size="1" radius="2" placeholder="Small date picker" />
             </div>
             <div className="flex flex-col gap-2">
               <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 2 (Medium) + MD Radius</span>
-              <DatePicker size="2" radius="md" placeholder="Medium date picker" />
+              <DatePicker size="2" radius="4" placeholder="Medium date picker" />
             </div>
             <div className="flex flex-col gap-2">
               <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 3 (Large) + LG Radius</span>
-              <DatePicker size="3" radius="lg" placeholder="Large date picker" />
+              <DatePicker size="3" radius="5" placeholder="Large date picker" />
             </div>
           </div>
         </CodePreview>

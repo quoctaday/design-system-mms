@@ -1,16 +1,10 @@
 .mms-card {
   /* Internal Tokens (Local Contract) */
-  --card-bg: var(--surface-panel);
-  --card-border: var(--border-subtle);
-  --card-radius: var(--radius-container);
-  --card-shadow: none;
-  --card-padding: var(--spacing-24);
-
+  --card-padding: var(--space-4);
   background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-  padding: var(--card-padding);
+  border: var(--stroke-width-1) solid var(--card-border);
+  border-radius: var(--radius-3);
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
   overflow: clip;
@@ -21,53 +15,53 @@
 /* Variants */
 .mms-card--glass {
   background-color: var(--surface-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border: var(--stroke-width-1) solid var(--border-glass);
 }
 
 .mms-card--bordered {
-  border: 1px solid var(--border-default);
+  border: var(--stroke-width-1) solid var(--border-default);
   box-shadow: none;
 }
 
 /* Padding variants */
-.mms-card-body { padding: var(--spacing-8); }
-.mms-card--padding-md .mms-card-body { padding: var(--spacing-16); }
-.mms-card--padding-lg .mms-card-body { padding: var(--spacing-24); }
+.mms-card-body { padding: var(--space-2); }
+.mms-card--padding-md .mms-card-body { padding: var(--space-4); }
+.mms-card--padding-lg .mms-card-body { padding: var(--space-5); }
 
 /* Header */
 .mms-card-header {
-  padding: var(--spacing-16) var(--spacing-16) var(--spacing-8);
+  padding: var(--space-4) var(--space-4) var(--space-2);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: var(--spacing-12);
+  gap: var(--space-3);
 }
 
 .mms-card-header-content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
+  gap: var(--space-1);
 }
 
 .mms-card-title {
   margin: 0;
   font-size: var(--font-size-4);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--content-strong);
 }
 
 .mms-card-description {
-  margin: var(--spacing-4) 0 0;
+  margin: var(--space-1) 0 0;
   font-size: var(--font-size-2);
   color: var(--content-subtle);
 }
 
 /* Footer */
 .mms-card-footer {
-  padding: var(--spacing-8) var(--spacing-16) var(--spacing-16);
-  border-top: 1px solid var(--card-border);
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  border-top: var(--stroke-width-1) solid var(--card-border);
   margin-top: auto;
 }
 

@@ -11,7 +11,7 @@ Each documentation page begins with a high-impact hero area.
 ## 🃏 Floating Card Content
 The core content area is visually separated from the application chrome.
 - **Structure:** Content is wrapped in a large container with `border-radius: var(--radius-lg)` (16px) or larger.
-- **Shadow:** Uses `--shadow-large` to create depth against the app background.
+- **Shadow:** Uses `--shadow-5` to create depth against the app background.
 - **Internal Padding:** Scaled operational padding using `--spacing-40` to `--spacing-80`.
 
 ## 📍 Sticky Navigation (TOC)

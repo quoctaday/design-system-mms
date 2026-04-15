@@ -7,6 +7,20 @@
      ═══════════════════════════════════════════ */
 
   /* ── 1. Foundational Scales (Light Mode) ── */
+  
+  /* Spacing Scale (Radix Themes Aligned - Scaling Aware) */
+  --scaling: 1;
+  
+  --space-0: 0px;
+  --space-1: calc(4px * var(--scaling));
+  --space-2: calc(8px * var(--scaling));
+  --space-3: calc(12px * var(--scaling));
+  --space-4: calc(16px * var(--scaling));
+  --space-5: calc(24px * var(--scaling));
+  --space-6: calc(32px * var(--scaling));
+  --space-7: calc(40px * var(--scaling));
+  --space-8: calc(48px * var(--scaling));
+  --space-9: calc(64px * var(--scaling));
 
   /* Gray */
   --gray-1: #fcfcfc;
@@ -22,32 +36,46 @@
   --gray-11: #646464;
   --gray-12: #202020;
 
-  /* Transparent Scales (Alpha) */
-  --black-a1: rgba(0, 0, 0, 0.012);
-  --black-a2: rgba(0, 0, 0, 0.027);
-  --black-a3: rgba(0, 0, 0, 0.047);
-  --black-a4: rgba(0, 0, 0, 0.071);
-  --black-a5: rgba(0, 0, 0, 0.090);
-  --black-a6: rgba(0, 0, 0, 0.114);
-  --black-a7: rgba(0, 0, 0, 0.141);
-  --black-a8: rgba(0, 0, 0, 0.220);
-  --black-a9: rgba(0, 0, 0, 0.439);
-  --black-a10: rgba(0, 0, 0, 0.478);
-  --black-a11: rgba(0, 0, 0, 0.565);
-  --black-a12: rgba(0, 0, 0, 0.910);
+  /* Transparent Scales (Alpha Primitives - Radix Standard) */
+  --black-a1:  #00000003;
+  --black-a2:  #00000006;
+  --black-a3:  #0000000f;
+  --black-a4:  #00000017;
+  --black-a5:  #0000001f;
+  --black-a6:  #00000026;
+  --black-a7:  #00000031;
+  --black-a8:  #00000044;
+  --black-a9:  #00000072;
+  --black-a10: #0000007c;
+  --black-a11: #0000009b;
+  --black-a12: #000000df;
 
-  --white-a1: rgba(255, 255, 255, 0.012);
-  --white-a2: rgba(255, 255, 255, 0.027);
-  --white-a3: rgba(255, 255, 255, 0.047);
-  --white-a4: rgba(255, 255, 255, 0.071);
-  --white-a5: rgba(255, 255, 255, 0.090);
-  --white-a6: rgba(255, 255, 255, 0.114);
-  --white-a7: rgba(255, 255, 255, 0.141);
-  --white-a8: rgba(255, 255, 255, 0.220);
-  --white-a9: rgba(255, 255, 255, 0.439);
-  --white-a10: rgba(255, 255, 255, 0.478);
-  --white-a11: rgba(255, 255, 255, 0.565);
-  --white-a12: rgba(255, 255, 255, 0.910);
+  --white-a1:  #ffffff0d;
+  --white-a2:  #ffffff1a;
+  --white-a3:  #ffffff26;
+  --white-a4:  #ffffff33;
+  --white-a5:  #ffffff4d;
+  --white-a6:  #ffffff66;
+  --white-a7:  #ffffff80;
+  --white-a8:  #ffffff99;
+  --white-a9:  #ffffffb3;
+  --white-a10: #ffffffcc;
+  --white-a11: #ffffffe6;
+  --white-a12: #fffffff2;
+
+  /* Semantic Gray Alpha (Light Mode) */
+  --gray-a1:  var(--black-a1);
+  --gray-a2:  var(--black-a2);
+  --gray-a3:  var(--black-a3);
+  --gray-a4:  var(--black-a4);
+  --gray-a5:  var(--black-a5);
+  --gray-a6:  var(--black-a6);
+  --gray-a7:  var(--black-a7);
+  --gray-a8:  var(--black-a8);
+  --gray-a9:  var(--black-a9);
+  --gray-a10: var(--black-a10);
+  --gray-a11: var(--black-a11);
+  --gray-a12: var(--black-a12);
 
   /* Blue Scale */
   --blue-1: #fbfdff;
@@ -329,6 +357,20 @@
   --lime-a11: rgba(187, 224, 98, 0.565);
   --lime-a12: rgba(187, 224, 98, 0.910);
 
+  /* Indigo Scale */
+  --indigo-1: #fdfdfe;
+  --indigo-2: #f8f9ff;
+  --indigo-3: #f0f2ff;
+  --indigo-4: #e6eaff;
+  --indigo-5: #dbe1ff;
+  --indigo-6: #cbd5ff;
+  --indigo-7: #b1beff;
+  --indigo-8: #8da4ef;
+  --indigo-9: #3e63dd;
+  --indigo-10: #3a5ccc;
+  --indigo-11: #3451b2;
+  --indigo-12: #101d46;
+
   /* ── 2. Identity & Status Mapping ── */
 
   /* Primary Brand */
@@ -409,6 +451,7 @@
   --surface-hover: var(--gray-4);
   --surface-active: var(--gray-5);
   --surface-solid: var(--brand-9);
+  --surface-sunken: var(--gray-a3);
 
   --surface-accent-subtle: var(--brand-2);
   --surface-accent-component: var(--brand-3);
@@ -416,16 +459,101 @@
   --surface-accent-solid: var(--brand-9);
 
   --surface-overlay: var(--black-a8);
-  --surface-tooltip: var(--black-a9);
+  --surface-tooltip: var(--gray-a9);
   --surface-glass: var(--white-a11);
-  --surface-skeleton: var(--black-a4);
+  --surface-skeleton: var(--gray-a4);
   
   --surface-danger-subtle: var(--red-3);
+  --surface-danger-hover: var(--red-4);
   --surface-danger-solid: var(--red-9);
   --surface-success-subtle: var(--green-3);
+  --surface-success-hover: var(--green-4);
   --surface-success-solid: var(--green-9);
   --surface-warning-subtle: var(--amber-3);
+  --surface-warning-hover: var(--amber-4);
   --surface-warning-solid: var(--amber-9);
+
+  /* Accent Palettes (Semantic mapping for variants) */
+  --accent-orange-low: var(--orange-2);
+  --accent-orange-subtle: var(--orange-3);
+  --accent-orange-subtle-hover: var(--orange-4);
+  --accent-orange-divider: var(--orange-6);
+  --accent-orange-solid: var(--orange-9);
+  --accent-orange-border: var(--orange-7);
+  --accent-orange-border-hover: var(--orange-8);
+  --accent-orange-text: var(--orange-11);
+
+  --accent-blue-low: var(--blue-2);
+  --accent-blue-subtle: var(--blue-3);
+  --accent-blue-subtle-hover: var(--blue-4);
+  --accent-blue-divider: var(--blue-6);
+  --accent-blue-solid: var(--blue-9);
+  --accent-blue-border: var(--blue-7);
+  --accent-blue-border-hover: var(--blue-8);
+  --accent-blue-text: var(--blue-11);
+
+  --accent-indigo-low: var(--indigo-2);
+  --accent-indigo-subtle: var(--indigo-3);
+  --accent-indigo-subtle-hover: var(--indigo-4);
+  --accent-indigo-divider: var(--indigo-6);
+  --accent-indigo-solid: var(--indigo-9);
+  --accent-indigo-border: var(--indigo-7);
+  --accent-indigo-border-hover: var(--indigo-8);
+  --accent-indigo-text: var(--indigo-11);
+
+  --accent-purple-low: var(--purple-2);
+  --accent-purple-subtle: var(--purple-3);
+  --accent-purple-subtle-hover: var(--purple-4);
+  --accent-purple-divider: var(--purple-6);
+  --accent-purple-solid: var(--purple-9);
+  --accent-purple-border: var(--purple-7);
+  --accent-purple-border-hover: var(--purple-8);
+  --accent-purple-text: var(--purple-11);
+
+  --accent-sky-low: var(--sky-2);
+  --accent-sky-subtle: var(--sky-3);
+  --accent-sky-subtle-hover: var(--sky-4);
+  --accent-sky-divider: var(--sky-6);
+  --accent-sky-solid: var(--sky-9);
+  --accent-sky-border: var(--sky-7);
+  --accent-sky-border-hover: var(--sky-8);
+  --accent-sky-text: var(--sky-11);
+
+  --accent-pink-low: var(--pink-2);
+  --accent-pink-subtle: var(--pink-3);
+  --accent-pink-subtle-hover: var(--pink-4);
+  --accent-pink-divider: var(--pink-6);
+  --accent-pink-solid: var(--pink-9);
+  --accent-pink-border: var(--pink-7);
+  --accent-pink-border-hover: var(--pink-8);
+  --accent-pink-text: var(--pink-11);
+
+  --accent-teal-low: var(--teal-2);
+  --accent-teal-subtle: var(--teal-3);
+  --accent-teal-subtle-hover: var(--teal-4);
+  --accent-teal-divider: var(--teal-6);
+  --accent-teal-solid: var(--teal-9);
+  --accent-teal-border: var(--teal-7);
+  --accent-teal-border-hover: var(--teal-8);
+  --accent-teal-text: var(--teal-11);
+
+  --accent-lime-low: var(--lime-2);
+  --accent-lime-subtle: var(--lime-3);
+  --accent-lime-subtle-hover: var(--lime-4);
+  --accent-lime-divider: var(--lime-6);
+  --accent-lime-solid: var(--lime-9);
+  --accent-lime-border: var(--lime-7);
+  --accent-lime-border-hover: var(--lime-8);
+  --accent-lime-text: var(--lime-11);
+
+  --accent-amber-low: var(--amber-2);
+  --accent-amber-subtle: var(--amber-3);
+  --accent-amber-subtle-hover: var(--amber-4);
+  --accent-amber-divider: var(--amber-6);
+  --accent-amber-solid: var(--amber-9);
+  --accent-amber-border: var(--amber-7);
+  --accent-amber-border-hover: var(--amber-8);
+  --accent-amber-text: var(--amber-11);
 
   /* Content (Text/Icons) */
   --content-strong: var(--gray-12);
@@ -441,45 +569,151 @@
   --border-subtle: var(--gray-6);
   --border-default: var(--gray-7);
   --border-strong: var(--gray-8);
-  --border-divider: var(--black-a6);
+  --border-divider: var(--gray-a6);
   --border-accent: var(--brand-7);
   --border-accent-strong: var(--brand-8);
   --border-danger: var(--red-7);
+  --border-danger-strong: var(--red-8);
   --border-success: var(--green-7);
+  --border-success-strong: var(--green-8);
   --border-warning: var(--amber-7);
+  --border-warning-strong: var(--amber-8);
   --border-glass: var(--white-a4);
 
   /* Semantic Alphas (Context-Aware) */
-  --alpha-subtle: var(--black-a2);
-  --alpha-component: var(--black-a3);
-  --alpha-focus: var(--black-a4);
-  --alpha-hover: var(--black-a5);
+  --alpha-subtle: var(--gray-a2);
+  --alpha-component: var(--gray-a3);
+  --alpha-focus: var(--gray-a4);
+  --alpha-hover: var(--gray-a5);
 
   /* ── 4. Standard Design Tokens ── */
 
+  /* Radius Personality System (Radix-Aligned) */
+  --radius-factor: 1.0;
+}
+
+[data-radius] {
+  --radius-1: calc(3px  * var(--scaling) * var(--radius-factor));
+  --radius-2: calc(4px  * var(--scaling) * var(--radius-factor));
+  --radius-3: calc(6px  * var(--scaling) * var(--radius-factor));
+  --radius-4: calc(8px  * var(--scaling) * var(--radius-factor));
+  --radius-5: calc(12px * var(--scaling) * var(--radius-factor));
+  --radius-6: calc(16px * var(--scaling) * var(--radius-factor));
+}
+
+[data-radius=none] {
+  --radius-factor: 0;
+  --radius-full: 0px;
+  --radius-thumb: 0.5px;
+}
+
+[data-radius="2"] {
+  --radius-factor: 0.75;
+  --radius-full: 0px;
+  --radius-thumb: 9999px;
+}
+
+[data-radius="4"] {
+  --radius-factor: 1;
+  --radius-full: 0px;
+  --radius-thumb: 9999px;
+}
+
+[data-radius="5"] {
+  --radius-factor: 1.5;
+  --radius-full: 0px;
+  --radius-thumb: 9999px;
+}
+
+[data-radius=full] {
+  --radius-factor: 1.5;
+  --radius-full: 9999px;
+  --radius-thumb: 9999px;
+}
+
+:root {
   /* Global Foundations */
   --white: #ffffff;
   --black: #000000;
-  --sidebar-width: 260px;
+  --size-sidebar: calc(260px * var(--scaling));
+  --sidebar-width: var(--size-sidebar);
+  --size-max: calc(1200px * var(--scaling));
+  --size-scrollbar: 6px;
 
-  /* Interface Size Standards (Heights) */
-  --size-1: 32px;
-  --size-2: 40px;
-  --size-3: 48px;
-  --size-4: 56px;
+  /* Component & Container Dimensions (Phase 3 Standardization) */
+  --size-0: calc(20px * var(--scaling));
+  --size-1: calc(24px * var(--scaling));
+  --size-2: calc(32px * var(--scaling));
+  --size-3: calc(40px * var(--scaling));
+  --size-4: calc(48px * var(--scaling));
+  --size-5: calc(56px * var(--scaling));
+  --size-6: calc(64px * var(--scaling));
+  --size-7: calc(80px * var(--scaling));
+  --size-8: calc(120px * var(--scaling));
+  --size-9: calc(160px * var(--scaling));
+  --size-10: calc(240px * var(--scaling));
+  --size-11: calc(300px * var(--scaling));
+  --size-12: calc(320px * var(--scaling));
+  --size-13: calc(400px * var(--scaling));
+  --size-14: calc(420px * var(--scaling));
+  --size-15: calc(480px * var(--scaling));
+  --size-16: calc(500px * var(--scaling));
+  --size-17: calc(600px * var(--scaling));
+  --size-18: calc(800px * var(--scaling));
 
-  /* Typography */
+  /* Stroke / Border Standards */
+  --stroke-width-1: 1px;
+  --stroke-width-hairline: 0.5px;
+  --stroke-width-2: 1.5px;
+  --stroke-width-3: 2px;
+
+  /* Outline Standards */
+  --outline-width: 2px;
+  --outline-offset: 2px;
+
+  /* Typography (Scaling Aware) */
   --font-display: 'Inter Display', 'Inter', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --font-family: var(--font-body);
 
-  --font-size-1: 11px;
-  --font-size-2: 12px;
-  --font-size-3: 14px;
-  --font-size-4: 16px; 
-  --font-size-5: 18px;
-  --font-size-6: 20px;
+  /* Font Size Scale */
+  --font-size-1: calc(12px * var(--scaling));
+  --font-size-2: calc(14px * var(--scaling));
+  --font-size-3: calc(16px * var(--scaling));
+  --font-size-4: calc(18px * var(--scaling));
+  --font-size-5: calc(20px * var(--scaling));
+  --font-size-6: calc(24px * var(--scaling));
+  --font-size-7: calc(28px * var(--scaling));
+  --font-size-8: calc(32px * var(--scaling));
+  --font-size-9: calc(36px * var(--scaling));
+  --font-size-10: calc(48px * var(--scaling));
+  --font-size-11: calc(64px * var(--scaling));
+  --font-size-12: calc(72px * var(--scaling));
+
+  /* Line Height Scale */
+  --line-height-1: calc(16px * var(--scaling));
+  --line-height-2: calc(20px * var(--scaling));
+  --line-height-3: calc(24px * var(--scaling));
+  --line-height-4: calc(26px * var(--scaling));
+  --line-height-5: calc(28px * var(--scaling));
+  --line-height-6: calc(30px * var(--scaling));
+  --line-height-7: calc(34px * var(--scaling));
+  --line-height-8: calc(40px * var(--scaling));
+  --line-height-9: calc(44px * var(--scaling));
+
+  /* Font Weight Scale */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --font-size-sm: var(--font-size-1);
+  --font-size-base: var(--font-size-2);
+  --font-size-lg: var(--font-size-3);
+  --font-size-xl: var(--font-size-4);
+  --font-size-2xl: var(--font-size-5);
 
   /* Letter Spacing (Tracking) */
   --tracking-tighter: -0.05em;
@@ -491,40 +725,31 @@
   
   --tracking-default: var(--tracking-wide);
   --tracking-display: var(--tracking-wider);
-
-  /* Spacing */
-  --spacing-0: 0px;
-  --spacing-2: 2px;
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-48: 48px;
-  --spacing-64: 64px;
-  --spacing-80: 80px;
-
-  /* Radius (Atomic) */
-  --radius-none: 0px;
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-full: 999px;
-
-  /* Container Logic */
-  --radius-default: var(--radius-lg);
-  --radius-container: min(var(--radius-default), 24px);
+  --tracking-caps: 0.1em;
 
   /* Shadows */
-  --shadow-xsmall: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.05);
-  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.04);
-  --shadow-large: 0 10px 20px rgba(0, 0, 0, 0.08);
+  /* Shadows (Radix-Style Layered Scale) */
+  --shadow-1: 0 1px 2px var(--black-a2), 0 0 0 1px var(--gray-a3);
+  --shadow-2: 0 3px 6px var(--black-a2), 0 0 0 1px var(--gray-a3);
+  --shadow-3: 0 6px 12px var(--black-a3), 0 0 0 1px var(--gray-a3);
+  --shadow-4: 0 12px 24px var(--black-a3), 0 0 0 1px var(--gray-a3);
+  --shadow-5: 0 18px 36px var(--black-a4), 0 0 0 1px var(--gray-a3);
+  --shadow-6: 0 24px 48px var(--black-a4), 0 0 0 1px var(--gray-a3);
+
+  /* Blurs (Glassmorphism) */
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 12px;
+  --blur-xl: 16px;
 }
+
+/* ── 5. Global Radius & Scaling Modes ── */
+
+[data-scaling="90"]  { --scaling: 0.9;  }
+[data-scaling="95"]  { --scaling: 0.95; }
+[data-scaling="100"] { --scaling: 1;    }
+[data-scaling="105"] { --scaling: 1.05; }
+[data-scaling="110"] { --scaling: 1.1;  }
 
 /* ═══════════════════════════════════════════
    Dark Theme (OLED / Midnight)
@@ -574,6 +799,20 @@
 
   --red-1: #191111;
   --red-2: #201314;
+
+  /* Semantic Gray Alpha (Dark Mode) */
+  --gray-a1:  #00000000;
+  --gray-a2:  #ffffff09;
+  --gray-a3:  #ffffff12;
+  --gray-a4:  #ffffff1b;
+  --gray-a5:  #ffffff22;
+  --gray-a6:  #ffffff2c;
+  --gray-a7:  #ffffff3b;
+  --gray-a8:  #ffffff55;
+  --gray-a9:  #ffffff64;
+  --gray-a10: #ffffff72;
+  --gray-a11: #ffffffaf;
+  --gray-a12: #ffffffed;
   --red-3: #3b1219;
   --red-4: #54101c;
   --red-5: #72111d;
@@ -684,6 +923,7 @@
   --surface-hover: var(--gray-4);
   --surface-active: var(--gray-5);
   --surface-solid: var(--brand-9);
+  --surface-sunken: var(--gray-a3);
 
   --surface-accent-component: var(--brand-3);
   --surface-accent-hover: var(--brand-4);
@@ -697,6 +937,17 @@
   --surface-warning-subtle: var(--amber-3);
   --surface-warning-solid: var(--amber-9);
   --surface-skeleton: var(--white-a3);
+
+  /* Component-Specific Layers (Dark) */
+  --card-bg: var(--surface-panel);
+  --card-border: var(--border-subtle);
+  --card-padding: var(--space-5);
+  --badge-bg-solid: var(--brand-9);
+  --badge-text-soft: var(--brand-12);
+  --badge-bg-soft: var(--brand-3);
+
+  --skeleton-wave-1: var(--gray-a5);
+  --skeleton-wave-2: var(--gray-a8);
 
   --surface-overlay: rgba(0, 0, 0, 0.7);
   --surface-tooltip: var(--gray-3);
@@ -728,10 +979,13 @@
   --alpha-focus: var(--white-a4);
   --alpha-hover: var(--white-a5);
 
-  --shadow-xsmall: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.4);
-  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.4);
-  --shadow-large: 0 10px 20px rgba(0, 0, 0, 0.5);
+  /* Shadows (Radix-Style Layered Scale - Dark Mode High Contrast) */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--gray-a3);
+  --shadow-2: 0 3px 6px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--gray-a3);
+  --shadow-3: 0 6px 12px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--gray-a3);
+  --shadow-4: 0 12px 24px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--gray-a3);
+  --shadow-5: 0 18px 36px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--gray-a3);
+  --shadow-6: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--gray-a3);
 }
 
 body {

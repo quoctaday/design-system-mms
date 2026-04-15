@@ -20,8 +20,12 @@ const FormsDoc: React.FC = () => {
   ];
 
   const radioProps = [
-    { name: 'value', type: 'string', description: 'Giá trị đang được chọn.' },
+    { name: 'value', type: 'string', description: 'Giá trị đang được chọn (controlled).' },
+    { name: 'defaultValue', type: 'string', description: 'Giá trị mặc định ban đầu.' },
     { name: 'onValueChange', type: '(value: string) => void', description: 'Callback khi thay đổi giá trị.' },
+    { name: 'variant', type: "'classic' | 'surface' | 'soft'", default: "'classic'", description: 'Phong cách hiển thị của vòng tròn radio.' },
+    { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước của vòng tròn radio.' },
+    { name: 'color', type: 'SemanticColors', default: "'brand'", description: 'Màu sắc khi được chọn và focus.' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'vertical'", description: 'Hướng hiển thị của các item.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa toàn bộ group.' }
   ];
@@ -44,15 +48,15 @@ const FormsDoc: React.FC = () => {
         <h2>RadioGroup</h2>
         <p>A set of checkable buttons—known as radio buttons—where no more than one button can be checked at a time.</p>
         <CodePreview
-          code={`<RadioGroup value={plan} onValueChange={setPlan}>
+          code={`<RadioGroup value={plan} onValueChange={setPlan} variant="surface">
   <RadioGroup.Item value="basic">Basic Plan</RadioGroup.Item>
   <RadioGroup.Item value="pro">Pro Plan</RadioGroup.Item>
 </RadioGroup>`}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 py-2">
             <div>
-              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Vertical Selection</h3>
-              <RadioGroup value={selectedPlan} onValueChange={setSelectedPlan}>
+              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Surface Variant (Standard)</h3>
+              <RadioGroup value={selectedPlan} onValueChange={setSelectedPlan} variant="surface">
                 <RadioGroup.Item value="basic">
                   <div className="flex flex-col">
                     <span className="text-sm font-medium">Gói cơ bản</span>
@@ -70,12 +74,27 @@ const FormsDoc: React.FC = () => {
             </div>
 
             <div className="md:border-l border-subtle md:pl-12">
-              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Horizontal Layout</h3>
-              <RadioGroup orientation="horizontal" defaultValue="1">
+              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Classic Variant (Horizontal)</h3>
+              <RadioGroup orientation="horizontal" defaultValue="1" variant="classic">
                 <RadioGroup.Item value="1">Option 1</RadioGroup.Item>
                 <RadioGroup.Item value="2">Option 2</RadioGroup.Item>
                 <RadioGroup.Item value="3">Option 3</RadioGroup.Item>
               </RadioGroup>
+              
+              <div className="mt-8">
+                <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Sizes</h3>
+                <div className="flex flex-col gap-4">
+                  <RadioGroup size="1" defaultValue="1">
+                    <RadioGroup.Item value="1">Size 1 (16px)</RadioGroup.Item>
+                  </RadioGroup>
+                  <RadioGroup size="2" defaultValue="1">
+                    <RadioGroup.Item value="1">Size 2 (20px)</RadioGroup.Item>
+                  </RadioGroup>
+                  <RadioGroup size="3" defaultValue="1">
+                    <RadioGroup.Item value="1">Size 3 (24px)</RadioGroup.Item>
+                  </RadioGroup>
+                </div>
+              </div>
             </div>
           </div>
         </CodePreview>

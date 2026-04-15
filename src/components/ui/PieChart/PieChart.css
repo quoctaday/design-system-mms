@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-24);
+  gap: var(--space-5);
   width: 100%;
 }
 
@@ -26,7 +26,7 @@
 
 .pie-segment.is-active {
   stroke: var(--surface-app);
-  stroke-width: 2px;
+  stroke-width: var(--stroke-width-2);
 }
 
 .donut-center-info {
@@ -39,20 +39,20 @@
   align-items: center;
   pointer-events: none;
   text-align: center;
-  gap: 2px;
+  gap: calc(var(--space-1) / 2);
 }
 
 .center-value {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--content-strong); /* Step 12 */
+  font-size: var(--font-size-6);
+  font-weight: var(--font-weight-bold);
+  color: var(--content-strong);
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 
 .center-label {
   font-size: var(--font-size-2);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--content-subtle);
   line-height: 1;
 }
@@ -61,19 +61,19 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--spacing-12) var(--spacing-24);
+  gap: var(--space-3) var(--space-5);
   width: 100%;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: var(--spacing-8);
+  gap: var(--space-2);
   cursor: pointer;
-  padding: var(--spacing-4) var(--spacing-8);
-  border-radius: var(--radius-lg);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-3);
   transition: all 200ms ease;
-  border: 1px solid transparent;
+  border: var(--stroke-width-1) solid transparent;
 }
 
 .legend-item:hover,
@@ -83,8 +83,8 @@
 }
 
 .legend-dot {
-  width: var(--spacing-8);
-  height: var(--spacing-8);
+  width: var(--space-2);
+  height: var(--space-2);
   border-radius: var(--radius-full);
   flex-shrink: 0;
 }
@@ -96,7 +96,7 @@
 
 .legend-label {
   font-size: var(--font-size-2);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--content-strong);
 }
 

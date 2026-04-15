@@ -47,7 +47,7 @@
   gap: 1px;
   background-color: var(--border-subtle);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-5);
   overflow: hidden;
   margin-top: 24px;
 }
@@ -99,7 +99,7 @@
   padding: 20px;
   background-color: var(--surface-panel);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-5);
   margin-top: 24px;
 }
 
@@ -108,7 +108,7 @@
   height: 40px;
   background-color: white;
   padding: 8px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-3);
   border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
@@ -137,7 +137,7 @@
   padding: 24px;
   background-color: var(--surface-panel);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-5);
   display: flex;
   align-items: center;
   gap: 20px;
@@ -152,7 +152,7 @@
 .app-token-preview {
   width: 48px;
   height: 48px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-3);
   flex-shrink: 0;
   border: 1px solid rgba(0,0,0,0.05);
 }
@@ -183,7 +183,7 @@
 
 .semantic-table-premium {
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-5);
   overflow: hidden;
   margin-top: 24px;
 }
@@ -245,7 +245,7 @@
   width: 80px;
   height: 80px;
   background-color: var(--surface-panel);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -281,7 +281,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-5);
   font-size: 14px;
   font-weight: 600;
 }

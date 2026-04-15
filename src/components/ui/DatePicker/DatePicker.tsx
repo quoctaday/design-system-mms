@@ -17,7 +17,7 @@ export interface DatePickerProps {
   className?: string;
   disabled?: boolean;
   size?: '1' | '2' | '3';
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
+  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
 }
 
 const MONTH_NAMES = [
@@ -52,7 +52,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   className = '',
   disabled = false,
   size = '2',
-  radius = 'md',
+  radius = '4',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   

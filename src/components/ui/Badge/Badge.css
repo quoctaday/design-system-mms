@@ -2,62 +2,71 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  line-height: 1;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
   white-space: nowrap;
   user-select: none;
   font-family: var(--font-family);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: var(--radius-default); /* Global Inheritance */
-  border: 1px solid transparent;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --badge-radius: max(var(--radius-full), var(--radius-1));
+  border-radius: var(--badge-radius);
+  border: var(--stroke-width-1) solid transparent;
 }
 
-/* ── Sizes ──────────────────────────────── */
+/* ── Sizes (Natural Padding Logic) ──────── */
 .mms-badge-size-1 {
-  font-size: var(--font-size-2); /* 12px */
-  height: 20px;
-  padding: 0 var(--spacing-8);
-  gap: var(--spacing-4);
+  font-size: var(--font-size-1);
+  height: var(--size-0);
+  padding: 0 var(--space-2);
+  gap: var(--space-1);
 }
 
 .mms-badge-size-2 {
-  font-size: var(--font-size-3); /* 14px */
-  height: 24px;
-  padding: 0 var(--spacing-12);
-  gap: var(--spacing-8);
+  font-size: var(--font-size-2);
+  height: var(--size-1);
+  padding: 0 var(--space-2);
+  gap: var(--space-1);
 }
 
-/* ── Radius Overrides ───────────────────── */
-.mms-badge-radius-none { border-radius: 0; }
-.mms-badge-radius-sm { border-radius: var(--radius-sm); }
-.mms-badge-radius-md { border-radius: var(--radius-md); }
-.mms-badge-radius-lg { border-radius: var(--radius-lg); }
-.mms-badge-radius-full { border-radius: var(--radius-full); }
+.mms-badge-size-3 {
+  font-size: var(--font-size-2);
+  height: calc(var(--size-1) + var(--space-1));
+  padding: 0 var(--space-3);
+  gap: var(--space-1);
+}
+
+/* Radius standards (Numerical Scale) */
+.mms-badge-radius-none { --badge-radius: var(--radius-none); }
+.mms-badge-radius-1    { --badge-radius: max(var(--radius-full), var(--radius-1)); }
+.mms-badge-radius-2    { --badge-radius: max(var(--radius-full), var(--radius-2)); }
+.mms-badge-radius-3    { --badge-radius: max(var(--radius-full), var(--radius-3)); }
+.mms-badge-radius-4    { --badge-radius: max(var(--radius-full), var(--radius-4)); }
+.mms-badge-radius-full { --badge-radius: var(--radius-full); }
 
 /* ── Variant Logic (Functional Engine) ───── */
 
-/* [SOLID] - High Emphasis (Step 9 Background) */
+/* [SOLID] - High Emphasis */
 .mms-badge-variant-solid {
   background-color: var(--badge-bg-solid);
   color: var(--badge-text-solid, var(--content-on-solid));
 }
 
-/* [SOFT] - Low Emphasis (Step 3 Background) */
+/* [SOFT] - Low Emphasis */
 .mms-badge-variant-soft {
   background-color: var(--badge-bg-soft);
   color: var(--badge-text-soft);
 }
 
-/* [SURFACE] - Medium Emphasis (Step 2 BG + Step 6 Border) */
+/* [SURFACE] - Medium Emphasis */
 .mms-badge-variant-surface {
   background-color: var(--badge-bg-surface);
-  border-color: var(--badge-border-surface);
+  border: var(--stroke-width-hairline) solid var(--badge-border-surface);
   color: var(--badge-text-surface);
 }
 
-/* [OUTLINE] - No Background (Step 7 Border) */
+/* [OUTLINE] - No Background */
 .mms-badge-variant-outline {
   background-color: transparent;
   border-color: var(--badge-border-outline);
@@ -69,6 +78,7 @@
   background-color: transparent;
   border-color: transparent;
   color: var(--badge-text-ghost);
+  border-radius: var(--radius-1);
 }
 
 /* ── Color Mapping (Shared Tokens) ─────────── */
@@ -128,16 +138,16 @@
 
 /* Secondary (using Lime) */
 .mms-badge-color-secondary {
-  --badge-bg-solid: var(--lime-9);
+  --badge-bg-solid: var(--accent-lime-solid);
   --badge-text-solid: var(--content-on-solid);
-  --badge-bg-soft: var(--lime-3);
-  --badge-text-soft: var(--lime-11);
-  --badge-bg-surface: var(--lime-2);
-  --badge-border-surface: var(--lime-6);
-  --badge-text-surface: var(--lime-11);
-  --badge-border-outline: var(--lime-7);
-  --badge-text-outline: var(--lime-11);
-  --badge-text-ghost: var(--lime-11);
+  --badge-bg-soft: var(--accent-lime-subtle);
+  --badge-text-soft: var(--accent-lime-text);
+  --badge-bg-surface: var(--accent-lime-low);
+  --badge-border-surface: var(--accent-lime-divider);
+  --badge-text-surface: var(--accent-lime-text);
+  --badge-border-outline: var(--accent-lime-border);
+  --badge-text-outline: var(--accent-lime-text);
+  --badge-text-ghost: var(--accent-lime-text);
 }
 
 /* Gray */
@@ -170,80 +180,80 @@
 
 /* Purple */
 .mms-badge-color-purple {
-  --badge-bg-solid: var(--purple-9);
-  --badge-bg-soft: var(--purple-3);
-  --badge-text-soft: var(--purple-11);
-  --badge-bg-surface: var(--purple-2);
-  --badge-border-surface: var(--purple-6);
-  --badge-text-surface: var(--purple-11);
-  --badge-border-outline: var(--purple-7);
-  --badge-text-outline: var(--purple-11);
-  --badge-text-ghost: var(--purple-11);
+  --badge-bg-solid: var(--accent-purple-solid);
+  --badge-bg-soft: var(--accent-purple-subtle);
+  --badge-text-soft: var(--accent-purple-text);
+  --badge-bg-surface: var(--accent-purple-low);
+  --badge-border-surface: var(--accent-purple-divider);
+  --badge-text-surface: var(--accent-purple-text);
+  --badge-border-outline: var(--accent-purple-border);
+  --badge-text-outline: var(--accent-purple-text);
+  --badge-text-ghost: var(--accent-purple-text);
 }
 
 /* Orange */
 .mms-badge-color-orange {
-  --badge-bg-solid: var(--orange-9);
-  --badge-text-solid: var(--gray-12); /* Accessibility choice for Orange 9 */
-  --badge-bg-soft: var(--orange-3);
-  --badge-text-soft: var(--orange-11);
-  --badge-bg-surface: var(--orange-2);
-  --badge-border-surface: var(--orange-6);
-  --badge-text-surface: var(--orange-11);
-  --badge-border-outline: var(--orange-7);
-  --badge-text-outline: var(--orange-11);
-  --badge-text-ghost: var(--orange-11);
+  --badge-bg-solid: var(--accent-orange-solid);
+  --badge-text-solid: var(--gray-12);
+  --badge-bg-soft: var(--accent-orange-subtle);
+  --badge-text-soft: var(--accent-orange-text);
+  --badge-bg-surface: var(--accent-orange-low);
+  --badge-border-surface: var(--accent-orange-divider);
+  --badge-text-surface: var(--accent-orange-text);
+  --badge-border-outline: var(--accent-orange-border);
+  --badge-text-outline: var(--accent-orange-text);
+  --badge-text-ghost: var(--accent-orange-text);
 }
 
 /* Blue */
 .mms-badge-color-blue {
-  --badge-bg-solid: var(--blue-9);
-  --badge-bg-soft: var(--blue-3);
-  --badge-text-soft: var(--blue-11);
-  --badge-bg-surface: var(--blue-2);
-  --badge-border-surface: var(--blue-6);
-  --badge-text-surface: var(--blue-11);
-  --badge-border-outline: var(--blue-7);
-  --badge-text-outline: var(--blue-11);
-  --badge-text-ghost: var(--blue-11);
+  --badge-bg-solid: var(--accent-blue-solid);
+  --badge-bg-soft: var(--accent-blue-subtle);
+  --badge-text-soft: var(--accent-blue-text);
+  --badge-bg-surface: var(--accent-blue-low);
+  --badge-border-surface: var(--accent-blue-divider);
+  --badge-text-surface: var(--accent-blue-text);
+  --badge-border-outline: var(--accent-blue-border);
+  --badge-text-outline: var(--accent-blue-text);
+  --badge-text-ghost: var(--accent-blue-text);
 }
 
 /* Sky */
 .mms-badge-color-sky {
-  --badge-bg-solid: var(--sky-9);
+  --badge-bg-solid: var(--accent-sky-solid);
   --badge-text-solid: var(--content-strong);
-  --badge-bg-soft: var(--sky-3);
-  --badge-text-soft: var(--sky-11);
-  --badge-bg-surface: var(--sky-2);
-  --badge-border-surface: var(--sky-6);
-  --badge-text-surface: var(--sky-11);
-  --badge-border-outline: var(--sky-7);
-  --badge-text-outline: var(--sky-11);
-  --badge-text-ghost: var(--sky-11);
+  --badge-bg-soft: var(--accent-sky-subtle);
+  --badge-text-soft: var(--accent-sky-text);
+  --badge-bg-surface: var(--accent-sky-low);
+  --badge-border-surface: var(--accent-sky-divider);
+  --badge-text-surface: var(--accent-sky-text);
+  --badge-border-outline: var(--accent-sky-border);
+  --badge-text-outline: var(--accent-sky-text);
+  --badge-text-ghost: var(--accent-sky-text);
 }
 
 /* Pink */
 .mms-badge-color-pink {
-  --badge-bg-solid: var(--pink-9);
-  --badge-bg-soft: var(--pink-3);
-  --badge-text-soft: var(--pink-11);
-  --badge-bg-surface: var(--pink-2);
-  --badge-border-surface: var(--pink-6);
-  --badge-text-surface: var(--pink-11);
-  --badge-border-outline: var(--pink-7);
-  --badge-text-outline: var(--pink-11);
-  --badge-text-ghost: var(--pink-11);
+  --badge-bg-solid: var(--accent-pink-solid);
+  --badge-bg-soft: var(--accent-pink-subtle);
+  --badge-text-soft: var(--accent-pink-text);
+  --badge-bg-surface: var(--accent-pink-low);
+  --badge-border-surface: var(--accent-pink-divider);
+  --badge-text-surface: var(--accent-pink-text);
+  --badge-border-outline: var(--accent-pink-border);
+  --badge-text-outline: var(--accent-pink-text);
+  --badge-text-ghost: var(--accent-pink-text);
 }
 
 /* Teal */
 .mms-badge-color-teal {
-  --badge-bg-solid: var(--teal-9);
-  --badge-bg-soft: var(--teal-3);
-  --badge-text-soft: var(--teal-11);
-  --badge-bg-surface: var(--teal-2);
-  --badge-border-surface: var(--teal-6);
-  --badge-text-surface: var(--teal-11);
-  --badge-border-outline: var(--teal-7);
-  --badge-text-outline: var(--teal-11);
-  --badge-text-ghost: var(--teal-11);
+  --badge-bg-solid: var(--accent-teal-solid);
+  --badge-bg-soft: var(--accent-teal-subtle);
+  --badge-text-soft: var(--accent-teal-text);
+  --badge-bg-surface: var(--accent-teal-low);
+  --badge-border-surface: var(--accent-teal-divider);
+  --badge-text-surface: var(--accent-teal-text);
+  --badge-border-outline: var(--accent-teal-border);
+  --badge-text-outline: var(--accent-teal-text);
+  --badge-text-ghost: var(--accent-teal-text);
 }

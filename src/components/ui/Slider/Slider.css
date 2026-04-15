@@ -1,0 +1,188 @@
+/* ═══════════════════════════════════════════
+   MMS DESIGN SYSTEM - SLIDER (Radix Themes v3.0)
+   Precision Geometry & Interaction Logic
+   ═══════════════════════════════════════════ */
+
+.mms-slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  
+  /* Internal Variables Hierarchy */
+  --slider-track-size: var(--space-1);
+  --slider-thumb-size: var(--space-4);
+}
+
+.mms-slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-family);
+  user-select: none;
+}
+
+.mms-slider-label {
+  font-size: var(--font-size-2);
+  color: var(--content-strong);
+  font-weight: var(--font-weight-medium);
+}
+
+.mms-slider-value {
+  font-size: var(--font-size-1);
+  color: var(--content-subtle);
+  background-color: var(--alpha-subtle);
+  padding: calc(var(--space-1) / 2) var(--space-1);
+  border-radius: var(--radius-2);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.mms-slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--slider-thumb-size);
+  cursor: pointer;
+  touch-action: none;
+}
+
+/* ─────────────────────────────────────────────────────────
+ * TRACK & RANGE
+ * ───────────────────────────────────────────────────────── */
+
+.mms-slider-track {
+  position: relative;
+  width: 100%;
+  height: var(--slider-track-size);
+  background-color: var(--gray-a3);
+  border-radius: var(--radius-current, var(--radius-full));
+  flex-grow: 1;
+  transition: background-color 160ms ease;
+}
+
+.mms-slider-fill {
+  position: absolute;
+  height: 100%;
+  background-color: var(--brand-9);
+  border-radius: inherit;
+  transition: background-color 160ms ease;
+}
+
+/* ─────────────────────────────────────────────────────────
+ * THUMB
+ * ───────────────────────────────────────────────────────── */
+
+.mms-slider-thumb {
+  position: absolute;
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+  background-color: var(--white);
+  border-radius: var(--radius-full);
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  
+  /* Layered Radix Shadow */
+  box-shadow: 
+    0 0 0 var(--stroke-width-1) var(--black-a3),
+    0 calc(var(--space-1) / 2) var(--space-1) var(--black-a2),
+    0 var(--stroke-width-1) calc(var(--space-1) / 2) var(--black-a2);
+    
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 150ms ease;
+}
+
+.mms-slider-wrapper:active .mms-slider-thumb {
+  transform: translateX(-50%) scale(0.92); /* Pressed effect */
+}
+
+/* ─────────────────────────────────────────────────────────
+ * NATIVE INPUT (HIDDEN)
+ * ───────────────────────────────────────────────────────── */
+
+.mms-slider-native-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Focus Halo Integration */
+.mms-slider-native-input:focus-visible ~ .mms-slider-thumb {
+  box-shadow: 
+    0 0 0 calc(var(--space-1) / 2) var(--surface-panel),
+    0 0 0 var(--space-1) var(--brand-a3),
+    0 0 0 var(--stroke-width-1) var(--brand-9);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * VARIANTS (Radix Logic)
+ * ───────────────────────────────────────────────────────── */
+
+/* 1. SURFACE (Inner Shadow) */
+.mms-slider-variant-surface .mms-slider-track {
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--black-a2);
+  background-color: var(--gray-3);
+}
+
+/* 2. CLASSIC (Higher Contrast) */
+.mms-slider-variant-classic .mms-slider-track {
+  background-color: var(--gray-4);
+  box-shadow: 0 0 0 var(--stroke-width-1) var(--gray-a4);
+}
+
+/* 3. SOFT (Translucent) */
+.mms-slider-variant-soft .mms-slider-track {
+  background-color: var(--gray-a2);
+}
+.mms-slider-variant-soft .mms-slider-fill {
+  background-color: var(--brand-a5);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * COLORS
+ * ───────────────────────────────────────────────────────── */
+
+.mms-slider-color-success .mms-slider-fill { background-color: var(--success-9); }
+.mms-slider-color-error   .mms-slider-fill { background-color: var(--error-9); }
+.mms-slider-color-warning .mms-slider-fill { background-color: var(--warning-9); }
+.mms-slider-color-gray    .mms-slider-fill { background-color: var(--gray-9); }
+.mms-slider-color-blue    .mms-slider-fill { background-color: var(--blue-9); }
+.mms-slider-color-purple  .mms-slider-fill { background-color: var(--purple-9); }
+
+/* Focus Halo Color Matching */
+.mms-slider-color-success .mms-slider-native-input:focus-visible ~ .mms-slider-thumb { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--success-a3), 0 0 0 var(--stroke-width-1) var(--success-9); }
+.mms-slider-color-error   .mms-slider-native-input:focus-visible ~ .mms-slider-thumb { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--error-a3), 0 0 0 var(--stroke-width-1) var(--error-9); }
+
+/* ─────────────────────────────────────────────────────────
+ * SIZES
+ * ───────────────────────────────────────────────────────── */
+
+.mms-slider-size-1 { --slider-track-size: calc(var(--space-1) - var(--stroke-width-1)); --slider-thumb-size: var(--space-3); }
+.mms-slider-size-2 { --slider-track-size: var(--space-1); --slider-thumb-size: var(--space-4); }
+.mms-slider-size-3 { --slider-track-size: var(--space-1); --slider-thumb-size: var(--space-4); }
+
+/* ─────────────────────────────────────────────────────────
+ * RADIUS
+ * ───────────────────────────────────────────────────────── */
+
+.mms-slider-radius-none { --radius-current: var(--radius-none); }
+.mms-slider-radius-1    { --radius-current: var(--radius-1); }
+.mms-slider-radius-2    { --radius-current: var(--radius-2); }
+.mms-slider-radius-3    { --radius-current: var(--radius-3); }
+.mms-slider-radius-4    { --radius-current: var(--radius-4); }
+.mms-slider-radius-full { --radius-current: var(--radius-full); }
+
+
+/* Disabled State */
+.mms-slider-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mms-slider-disabled .mms-slider-native-input { cursor: not-allowed; }

@@ -1,23 +1,51 @@
 # Select
 
-Thành phần cho phép người dùng chọn một giá trị từ danh sách tùy chọn được định sẵn.
+Thành phần chọn từ danh sách, được xây dựng trên mô hình Compound tiên tiến và hỗ trợ hiển thị qua Portal để tránh bị cắt bởi container.
 
-## Props
+## 🧱 Compound Pattern
 
-| Prop | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `size` | `'1' \| '2' \| '3'` | `'2'` | Kích thước của trigger và các mục item bên trong. |
-| `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'` | `'md'` | Độ bo góc của trigger và menu layer. |
-| `value` | `string` | - | Giá trị được chọn. |
-| `disabled` | `boolean` | `false` | Vô hiệu hóa toàn bộ select. |
+```tsx
+import { Select } from '@mms/ui';
 
-## Đặc điểm
+<Select.Root value="apple" variant="surface">
+  <Select.Trigger placeholder="Chọn trái cây..." />
+  <Select.Portal>
+    <Select.Content>
+      <Select.Group>
+        <Select.Label>Trái cây</Select.Label>
+        <Select.Item value="apple">Táo</Select.Item>
+        <Select.Item value="banana">Chuối</Select.Item>
+        <Select.Separator />
+        <Select.Item value="orange">Cam</Select.Item>
+      </Select.Group>
+    </Select.Content>
+  </Select.Portal>
+</Select.Root>
+```
 
-- **Trigger**: Có trạng thái Open đặc biệt với border highlight.
-- **Menu**: Tự động tính toán vị trí để hiển thị overlay (SelectPortal).
-- **Items**: Hỗ trợ trạng thái Selected rõ ràng với check icon.
+## 🎨 Variants & Contrast
 
-## Thiết kế
+Tuân thủ triết lý **Contextual Contrast**, Select hỗ trợ 3 biến thể chính:
 
-- Luôn sử dụng cùng một `radius` cho cả Trigger và Content để tạo sự đồng bộ khi menu mở ra.
-- Sử dụng `size="1"` cho các bảng dữ liệu hoặc giao diện cần mật độ thông tin cao.
+- **Surface (Mặc định)**: Nền xám nhẹ (`--surface-subtle`), viền Hairline. Dành cho các giao diện quản trị dày đặc thông tin.
+- **Classic**: Nền trắng (`--surface-panel`), tương phản cao. Dành cho các Form quan trọng cần sự nổi bật.
+- **Soft**: Không viền, nền nhẹ. Dùng cho Toolbar hoặc các trường hợp ít quan trọng hơn.
+
+## 🎨 Token Specs
+
+- **Elevation:** `Shadow 4` (Elevation v2) với `Backdrop Blur (12px)`.
+- **Focus:** Tiêu chuẩn `mms-focus-halo-brand`.
+- **Radius:** Mặc định `var(--radius-4)`.
+
+## 📏 Sizing
+
+Đồng bộ với hệ thống Button và Input (32px / 40px / 48px).
+
+| Prop | Height | Usage |
+| :--- | :--- | :--- |
+| `size="1"` | `32px` | Table filters, Micro-UIs |
+| `size="2"` | `40px` | Standard forms (Default) |
+| `size="3"` | `48px` | Hero sections, Promising entries |
+
+---
+[[00 - Introduction|Quay lại trang chủ]]

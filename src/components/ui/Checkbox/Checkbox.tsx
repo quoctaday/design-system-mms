@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { RiCheckLine, RiSubtractLine } from 'react-icons/ri';
 import './Checkbox.css';
+import '../_internal/base.css';
 
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'checked' | 'size'> {
   checked?: boolean | 'indeterminate';
@@ -9,7 +10,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   label?: string;
   size?: '1' | '2';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'gray';
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
+  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
@@ -63,6 +64,8 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
         <div 
           className={cn(
             'mms-checkbox-indicator',
+            'mms-focus-halo',
+            `mms-focus-halo-${color}`,
             radius && `mms-checkbox-radius-${radius}`,
             (isChecked || isIndeterminate) && 'mms-checkbox-indicator-checked'
           )}

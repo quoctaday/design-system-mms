@@ -1,11 +1,11 @@
 .mms-checkbox-root {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-8);
+  gap: var(--space-2);
   cursor: pointer;
   user-select: none;
   font-family: var(--font-family);
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-2);
 }
 
 .mms-checkbox-disabled {
@@ -31,10 +31,11 @@
 }
 
 .mms-checkbox {
-  width: var(--spacing-16);
-  height: var(--spacing-16);
-  border-radius: var(--radius-xs);
-  border: 1px solid var(--border-subtle);
+  width: var(--space-4);
+  height: var(--space-4);
+  --checkbox-radius: var(--radius-1);
+  border-radius: var(--checkbox-radius);
+  border: var(--stroke-width-1) solid var(--border-subtle);
   background-color: var(--surface-panel);
   display: flex;
   align-items: center;
@@ -46,7 +47,8 @@
 
 .mms-checkbox-label {
   font-family: var(--font-family);
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-medium);
   color: var(--content-strong);
   cursor: pointer;
   user-select: none;
@@ -57,10 +59,9 @@
   background-color: var(--surface-subtle);
 }
 
-.mms-checkbox-input:focus-visible + .mms-checkbox-indicator {
-  outline: 2px solid var(--brand-9);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px var(--brand-a3);
+/* Focus halo is handled by .mms-focus-halo and :focus-within on the container */
+.mms-checkbox-container:focus-within .mms-checkbox-indicator {
+  /* This ensures the halo appears when the hidden input is focused */
 }
 
 .mms-checkbox-indicator-checked {
@@ -68,20 +69,23 @@
   border-color: var(--brand-9);
 }
 
-/* Radius Overrides */
-.mms-checkbox-radius-none { border-radius: 0; }
-.mms-checkbox-radius-sm { border-radius: var(--radius-sm); }
-.mms-checkbox-radius-md { border-radius: var(--radius-md); }
-.mms-checkbox-radius-lg { border-radius: var(--radius-lg); }
-.mms-checkbox-radius-full { border-radius: 999px; }
+/* Radius Overrides (Numerical Scale) */
+.mms-checkbox-radius-none { border-radius: var(--radius-none); }
+.mms-checkbox-radius-1    { border-radius: var(--radius-1); }
+.mms-checkbox-radius-2    { border-radius: var(--radius-2); }
+.mms-checkbox-radius-3    { border-radius: var(--radius-3); }
+.mms-checkbox-radius-4    { border-radius: var(--radius-4); }
+.mms-checkbox-radius-5    { border-radius: var(--radius-5); }
+.mms-checkbox-radius-6    { border-radius: var(--radius-6); }
+.mms-checkbox-radius-full { border-radius: var(--radius-full); }
 
 .mms-checkbox-root:hover .mms-checkbox-indicator-checked {
   filter: brightness(1.1);
 }
 
 .mms-checkbox-icon {
-  font-size: 1.1em;
-  stroke-width: 0.5px;
+  font-size: 1em;
+  stroke-width: var(--stroke-width-1);
   animation: mms-checkbox-bounce 0.15s cubic-bezier(0.12, 0.4, 0.29, 1.46);
 }
 
@@ -91,8 +95,8 @@
 }
 
 /* SIZES */
-.mms-checkbox-size-1 { font-size: 16px; }
-.mms-checkbox-size-2 { font-size: 20px; }
+.mms-checkbox-size-1 { font-size: var(--font-size-1); }
+.mms-checkbox-size-2 { font-size: var(--font-size-2); }
 
 /* COLORS ROUTING */
 .mms-checkbox-color-brand {

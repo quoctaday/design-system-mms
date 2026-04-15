@@ -8,7 +8,7 @@ interface ComponentHeroProps {
 
 const ComponentHero: React.FC<ComponentHeroProps> = ({ title, description, badge }) => {
   return (
-    <header className="doc-hero" style={{ marginBottom: 'var(--spacing-48)' }}>
+    <header className="doc-hero" style={{ marginBottom: 'var(--space-8)' }}>
       {badge && (
         <span 
           style={{ 
@@ -19,7 +19,7 @@ const ComponentHero: React.FC<ComponentHeroProps> = ({ title, description, badge
             color: 'var(--content-accent)',
             fontSize: 'var(--font-size-2)',
             fontWeight: 600,
-            marginBottom: 'var(--spacing-16)'
+            marginBottom: 'var(--space-4)'
           }}
         >
           {badge}
@@ -30,7 +30,7 @@ const ComponentHero: React.FC<ComponentHeroProps> = ({ title, description, badge
           fontSize: 'var(--font-size-8)', 
           fontWeight: 700, 
           letterSpacing: '-0.02em',
-          margin: '0 0 var(--spacing-16) 0',
+          margin: '0 0 var(--space-4) 0',
           color: 'var(--content-strong)'
         }}
       >

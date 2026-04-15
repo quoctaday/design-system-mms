@@ -30,7 +30,7 @@
   padding: 64px 80px;
   margin: 16px 16px 16px 276px;
   background-color: var(--surface-panel);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-6);
   border: 0.5px solid var(--border-subtle);
   box-shadow: none;
   min-height: calc(100vh - 32px);

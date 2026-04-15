@@ -74,7 +74,7 @@
   padding: 24px;
   background-color: #1a1a1a;
   color: #fff;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-3);
   overflow-x: auto;
   font-size: 14px;
   line-height: 1.6;

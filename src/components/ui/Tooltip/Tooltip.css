@@ -1,116 +1,85 @@
-.mms-tooltip-root {
-  position: relative;
-  display: inline-block;
-  width: fit-content;
-}
-
-.mms-tooltip-trigger {
-  display: inline-flex;
-  cursor: pointer;
-}
-
 .mms-tooltip-content {
   background-color: var(--surface-tooltip);
   color: var(--content-on-solid);
-  padding: var(--spacing-6) var(--spacing-12);
-  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-2);
   font-family: var(--font-body);
   font-size: var(--font-size-2);
-  font-weight: 500;
-  line-height: 1.4;
-  box-shadow: var(--shadow-medium);
-  border: 0.5px solid var(--white-a3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+  box-shadow: var(--shadow-2);
+  border: var(--stroke-width-1) solid var(--white-a4);
   white-space: nowrap;
   pointer-events: none;
-  z-index: 1000;
-  position: absolute;
-  animation-duration: 0.15s;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 3000;
   will-change: transform, opacity;
-}
-
-.mms-tooltip-content[data-state='open'] {
-  opacity: 1;
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .mms-tooltip-arrow {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: var(--space-1);
+  height: var(--space-1);
   background-color: var(--surface-tooltip);
   transform: rotate(45deg);
+  z-index: -1;
 }
 
-/* SIDES POSITIONING & ANIMATIONS */
+/* SIDES */
 
-/* TOP */
 .mms-tooltip-side-top {
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -100%) translateY(calc(-1 * var(--space-1)));
   animation-name: mms-tooltip-slide-up;
 }
 .mms-tooltip-side-top .mms-tooltip-arrow {
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
+  bottom: calc(var(--space-1) / -2);
+  left: calc(50% - (var(--space-1) / 2));
 }
 
-/* BOTTOM */
 .mms-tooltip-side-bottom {
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0) translateY(var(--space-1));
   animation-name: mms-tooltip-slide-down;
 }
 .mms-tooltip-side-bottom .mms-tooltip-arrow {
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
+  top: calc(var(--space-1) / -2);
+  left: calc(50% - (var(--space-1) / 2));
 }
 
-/* LEFT */
 .mms-tooltip-side-left {
-  right: calc(100% + 8px);
-  top: 50%;
-  transform: translateY(-50%);
+  transform: translate(-100%, -50%) translateX(calc(-1 * var(--space-1)));
   animation-name: mms-tooltip-slide-left;
 }
 .mms-tooltip-side-left .mms-tooltip-arrow {
-  right: -4px;
-  top: 50%;
-  transform: translateY(-50%) rotate(45deg);
+  right: calc(var(--space-1) / -2);
+  top: calc(50% - (var(--space-1) / 2));
 }
 
-/* RIGHT */
 .mms-tooltip-side-right {
-  left: calc(100% + 8px);
-  top: 50%;
-  transform: translateY(-50%);
+  transform: translate(0, -50%) translateX(var(--space-1));
   animation-name: mms-tooltip-slide-right;
 }
 .mms-tooltip-side-right .mms-tooltip-arrow {
-  left: -4px;
-  top: 50%;
-  transform: translateY(-50%) rotate(45deg);
+  left: calc(var(--space-1) / -2);
+  top: calc(50% - (var(--space-1) / 2));
 }
 
 @keyframes mms-tooltip-slide-up {
-  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; transform: translate(-50%, -100%) translateY(0); }
+  to { opacity: 1; transform: translate(-50%, -100%) translateY(calc(-1 * var(--space-1))); }
 }
 
 @keyframes mms-tooltip-slide-down {
-  from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; transform: translate(-50%, 0) translateY(0); }
+  to { opacity: 1; transform: translate(-50%, 0) translateY(var(--space-1)); }
 }
 
 @keyframes mms-tooltip-slide-left {
-  from { opacity: 0; transform: translateY(-50%) translateX(4px); }
-  to { opacity: 1; transform: translateY(-50%) translateX(0); }
+  from { opacity: 0; transform: translate(-100%, -50%) translateX(0); }
+  to { opacity: 1; transform: translate(-100%, -50%) translateX(calc(-1 * var(--space-1))); }
 }
 
 @keyframes mms-tooltip-slide-right {
-  from { opacity: 0; transform: translateY(-50%) translateX(-4px); }
-  to { opacity: 1; transform: translateY(-50%) translateX(0); }
+  from { opacity: 0; transform: translate(0, -50%) translateX(0); }
+  to { opacity: 1; transform: translate(0, -50%) translateX(var(--space-1)); }
 }

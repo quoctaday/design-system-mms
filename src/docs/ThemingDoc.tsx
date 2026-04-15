@@ -44,8 +44,8 @@ const ThemingDoc: React.FC = () => {
           <div className="stack-item semantic">
             <div className="stack-level">03</div>
             <div className="stack-content">
-              <h3>Semantic Roles (v3.0)</h3>
-              <p>The "Consumable" layer. High-integrity roles like <code>--surface-panel</code>, <code>--content-strong</code>, and <code>--border-default</code>. This layer translates the 1-12 luminance scale into predictable UI behaviors.</p>
+              <h3>Semantic Roles (v4.0)</h3>
+              <p>The "Consumable" layer. High-integrity roles like <code>--surface-panel</code>, <code>--content-strong</code>, and <code>--border-default</code>. This layer translates luminance and geometric spacing scales into predictable UI behaviors.</p>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ const ThemingDoc: React.FC = () => {
 {`.action-surface {
   background: var(--brand-9);
   color: var(--content-on-solid);
-  border-radius: var(--radius-default);
+  border-radius: var(--radius-4);
   transition: all 200ms var(--ease-out);
 }`}
              </pre>
@@ -92,7 +92,7 @@ const ThemingDoc: React.FC = () => {
             <RiRulerLine className="token-card-icon" />
             <div className="token-card-body">
               <span className="token-card-label">Radius Geometry</span>
-              <span className="token-card-value">--radius-lg (16px)</span>
+              <span className="token-card-value">--radius-5 (16px)</span>
               <p>Derived from our "Flat-Premium" core logic to emphasize clean, professional structural containment.</p>
             </div>
           </div>
@@ -101,8 +101,8 @@ const ThemingDoc: React.FC = () => {
             <RiListCheck2 className="token-card-icon" />
             <div className="token-card-body">
               <span className="token-card-label">Modular Spacing</span>
-              <span className="token-card-value">--spacing-16 (1rem)</span>
-              <p>Our 4px base modular unit ensures perfect vertical rhythm in high-density operational views.</p>
+              <span className="token-card-value">--space-4 (16px)</span>
+              <p>Our Radix Themes-aligned geometric scale ensures perfect vertical rhythm in high-density operational views.</p>
             </div>
           </div>
 

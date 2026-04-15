@@ -4,7 +4,7 @@ To maintain a professional, high-density fintech aesthetic, avoid the following 
 
 ## ❌ Visual Drifts
 - **Neon Colors**: No generic vibrant backgrounds — Use neutral surfaces (`--bg-surface`).
-- **Shadow Drift**: No custom `box-shadow` — Use `--shadow-small` or `--shadow-medium`.
+- **Shadow Drift**: No custom `box-shadow` — Use `--shadow-2` or `--shadow-3`.
 - **Hardcoded Density**: Avoid `px` for spacing/sizing — Always use system tokens.
 
 ## ❌ UX Infractions

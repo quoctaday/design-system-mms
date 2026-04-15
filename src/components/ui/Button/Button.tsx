@@ -1,18 +1,19 @@
 import React, { forwardRef } from 'react';
 import { cn } from '../../../lib/utils';
 import './Button.css';
+import '../_internal/base.css';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'solid' | 'soft' | 'outline' | 'ghost' | 'surface';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'orange' | 'blue' | 'purple' | 'sky' | 'pink' | 'teal' | 'secondary' | 'black' | 'gray';
   size?: '1' | '2' | '3' | '4';
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
+  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   className,
   variant = 'solid',
   color = 'brand',
@@ -30,6 +31,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
       ref={ref}
       className={cn(
         'mms-button',
+        'mms-focus-halo',
+        `mms-focus-halo-${color}`,
         `mms-button-variant-${variant}`,
         `mms-button-color-${color}`,
         `mms-button-size-${size}`,

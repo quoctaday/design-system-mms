@@ -1,53 +1,51 @@
 import React, { forwardRef } from 'react';
-import { cn } from '../../../lib/utils';
+import { TextField } from './TextField';
 import './Input.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  variant?: 'surface' | 'classic' | 'soft';
+  variant?: 'classic' | 'soft';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'gray';
-  size?: '1' | '2' | '3';
-  radius?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  size?: '1' | '2' | '3' | '4';
+  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
   leftSlot?: React.ReactNode;
   rightSlot?: React.ReactNode;
 }
 
+/**
+ * Shorthand Input component built on top of the TextField system.
+ * Use this for standard form inputs. For complex requirements, use TextField.Root directly.
+ */
 const Input = forwardRef<HTMLInputElement, InputProps>(({
-  className,
   variant = 'surface',
   color = 'brand',
   size = '2',
-  radius,
+  radius = '4',
   leftSlot,
   rightSlot,
   disabled,
   ...props
 }, ref) => {
   return (
-    <div
-      className={cn(
-        'mms-input-wrapper',
-        `mms-input-variant-${variant}`,
-        `mms-input-color-${color}`,
-        `mms-input-size-${size}`,
-        radius && `mms-input-radius-${radius}`,
-        disabled && 'mms-input-disabled',
-        className
-      )}
+    <TextField.Root 
+      variant={variant} 
+      color={color} 
+      size={size} 
+      radius={radius} 
+      disabled={disabled}
     >
-      {leftSlot && <div className="mms-input-slot">{leftSlot}</div>}
+      {leftSlot && <TextField.Slot side="left">{leftSlot}</TextField.Slot>}
       
-      <input
+      <TextField.Input
         ref={ref}
-        className="mms-input-control"
-        disabled={disabled}
         {...props}
       />
       
-      {rightSlot && <div className="mms-input-slot">{rightSlot}</div>}
-    </div>
+      {rightSlot && <TextField.Slot side="right">{rightSlot}</TextField.Slot>}
+    </TextField.Root>
   );
 });
 
 Input.displayName = 'Input';
 
 export default Input;
+export { TextField };

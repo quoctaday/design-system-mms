@@ -36,7 +36,7 @@ const ButtonDoc: React.FC = () => {
     { name: 'variant', type: "'solid' | 'soft' | 'outline' | 'ghost' | 'surface'", default: "'solid'", description: 'Phong cách hiển thị của nút.' },
     { name: 'color', type: 'ColorVariant', default: "'brand'", description: 'Màu sắc chủ đề của nút.' },
     { name: 'size', type: "'1' | '2' | '3' | '4'", default: "'2'", description: 'Kích thước của nút.' },
-    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", description: 'Độ bo góc của nút.' },
+    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", description: 'Độ bo góc của nút.' },
     { name: 'leftIcon', type: 'ReactNode', description: 'Icon hiển thị bên trái văn bản.' },
     { name: 'rightIcon', type: 'ReactNode', description: 'Icon hiển thị bên phải văn bản.' },
     { name: 'loading', type: 'boolean', default: 'false', description: 'Trạng thái đang tải.' },
@@ -178,16 +178,16 @@ const ButtonDoc: React.FC = () => {
         <p>Control the roundedness of the button corners.</p>
         <CodePreview
           code={`<Button radius="none">None</Button>
-<Button radius="sm">Small</Button>
-<Button radius="md">Medium</Button>
-<Button radius="lg">Large</Button>
+<Button radius="2">Small</Button>
+<Button radius="4">Medium</Button>
+<Button radius="5">Large</Button>
 <Button radius="full">Full</Button>`}
         >
           <div className="flex flex-wrap gap-2">
             <Button radius="none">None</Button>
-            <Button radius="sm">Small</Button>
-            <Button radius="md">Medium</Button>
-            <Button radius="lg">Large</Button>
+            <Button radius="2">Small</Button>
+            <Button radius="4">Medium</Button>
+            <Button radius="5">Large</Button>
             <Button radius="full">Full</Button>
           </div>
         </CodePreview>

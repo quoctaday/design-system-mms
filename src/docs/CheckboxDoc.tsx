@@ -28,7 +28,7 @@ const CheckboxDoc: React.FC = () => {
     { name: 'label', type: 'string', description: 'Văn bản nhãn hiển thị bên cạnh.' },
     { name: 'size', type: "'1' | '2'", default: "'1'", description: 'Kích thước của checkbox.' },
     { name: 'color', type: 'ColorVariant', default: "'brand'", description: 'Màu sắc chủ đề.' },
-    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", description: 'Độ bo góc của checkbox.' },
+    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", description: 'Độ bo góc của checkbox.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa tương tác.' },
     { name: 'className', type: 'string', description: 'CSS class tùy chỉnh.' }
   ];
@@ -104,16 +104,16 @@ const CheckboxDoc: React.FC = () => {
         <p>Control the rounding of the checkbox to match your UI protocol.</p>
         <CodePreview
           code={`<Checkbox radius="none" label="None" checked />
-<Checkbox radius="sm" label="Small" checked />
-<Checkbox radius="md" label="Medium" checked />
-<Checkbox radius="lg" label="Large" checked />
+<Checkbox radius="2" label="Small" checked />
+<Checkbox radius="4" label="Medium" checked />
+<Checkbox radius="5" label="Large" checked />
 <Checkbox radius="full" label="Full" checked />`}
         >
           <div className="flex flex-wrap gap-6">
             <Checkbox radius="none" label="None" checked />
-            <Checkbox radius="sm" label="Small" checked />
-            <Checkbox radius="md" label="Medium" checked />
-            <Checkbox radius="lg" label="Large" checked />
+            <Checkbox radius="2" label="Small" checked />
+            <Checkbox radius="4" label="Medium" checked />
+            <Checkbox radius="5" label="Large" checked />
             <Checkbox radius="full" label="Full" checked />
           </div>
         </CodePreview>

@@ -10,9 +10,9 @@
   position: relative;
 }
 
-.mms-progress-track.size-sm { height: var(--spacing-4); }
-.mms-progress-track.size-md { height: var(--spacing-8); }
-.mms-progress-track.size-lg { height: var(--spacing-12); }
+.mms-progress-track.size-sm { height: var(--space-1); }
+.mms-progress-track.size-md { height: var(--space-2); }
+.mms-progress-track.size-lg { height: var(--space-3); }
 
 .mms-progress-fill {
   height: 100%;
@@ -29,7 +29,7 @@
 .mms-progress-label {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--space-1);
   font-family: var(--font-family);
   font-size: var(--font-size-2);
   color: var(--content-subtle);

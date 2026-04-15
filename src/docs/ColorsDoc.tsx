@@ -237,8 +237,8 @@ const ColorsDoc: React.FC = () => {
           {activeTab === 'semantic' && (
             <div className="animate-reveal">
               <section id="semantic" className="doc-section">
-                <h2 className="section-title">The Semantic Registry (v3.0)</h2>
-                <p className="mb-8">Consumable tokens mapped to specific behavioral roles. Do not use primitive scales (e.g. blue-9) directly in components; always prefer these roles.</p>
+                <h2 className="section-title">The Semantic Registry (v4.0)</h2>
+                <p className="mb-8">Consumable tokens mapped to specific behavioral roles. Built on a strict Radix-aligned foundation.</p>
                 
                 <h3 className="sub-section-title mt-12">Surfaces</h3>
                 <div className="semantic-table-premium">
@@ -300,17 +300,20 @@ const ColorsDoc: React.FC = () => {
                 <h2 className="section-title">Spatial Protocols</h2>
                 <p>Consistent vertical rhythm is enforced via a 4px modular unit for padding/margin, and standardized heights for components.</p>
                 
-                <h3 className="sub-section-title mt-8">Utility Spacing</h3>
+                <h3 className="sub-section-title mt-8">Modular Spacing (Radix Scales 1-9)</h3>
                 <div className="spacing-premium-grid">
-                  {[4, 8, 12, 16, 24, 32, 40, 48, 64].map(s => (
-                    <div key={s} className="spacing-premium-item">
-                      <div className="spacing-box-wrapper">
-                         <div className="spacing-box-core" style={{ width: s, height: s }} />
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {
+                    const pixels = index === 1 ? 4 : index === 2 ? 8 : index === 3 ? 12 : index === 4 ? 16 : index === 5 ? 24 : index === 6 ? 32 : index === 7 ? 40 : index === 8 ? 48 : 64;
+                    return (
+                      <div key={index} className="spacing-premium-item">
+                        <div className="spacing-box-wrapper">
+                           <div className="spacing-box-core" style={{ width: `var(--space-${index})`, height: `var(--space-${index})` }} />
+                        </div>
+                        <span className="spacing-label">--space-{index}</span>
+                        <span className="spacing-val">{pixels}px</span>
                       </div>
-                      <span className="spacing-label">--spacing-{s}</span>
-                      <span className="spacing-val">{s}px</span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 <h3 className="sub-section-title mt-12">Interface Heights (Sizes)</h3>

@@ -2,9 +2,9 @@
   all: unset;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-8);
-  padding: var(--spacing-8);
-  border-radius: var(--radius-lg);
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-3);
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
   color: var(--content-subtle);
@@ -22,7 +22,7 @@
 }
 
 .mms-theme-toggle .toggle-icon {
-  font-size: 18px;
+  font-size: var(--font-size-4);
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -32,7 +32,7 @@
 
 .mms-theme-toggle .toggle-label {
   font-size: var(--font-size-3);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   user-select: none;
 }
 
@@ -42,11 +42,11 @@
 }
 
 .mms-theme-toggle .toggle-icon.sun {
-  color: var(--amber-9);
+  color: var(--accent-amber-solid);
 }
 
 /* Dark mode specific hover adjustment */
 .dark .mms-theme-toggle:hover {
   background-color: var(--surface-panel);
-  color: #ffffff;
+  color: var(--content-strong);
 }

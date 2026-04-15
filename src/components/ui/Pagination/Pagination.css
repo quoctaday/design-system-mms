@@ -3,7 +3,7 @@
   list-style-type: none;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-4);
+  gap: var(--space-1);
   user-select: none;
   padding: 0;
   margin: 0;
@@ -13,13 +13,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm); /* Slightly smaller for small square items */
+  border-radius: var(--radius-1); /* Slightly smaller for small square items */
   cursor: pointer;
   background: transparent;
-  border: 0.5px solid transparent;
+  border: var(--stroke-width-1) solid transparent;
   color: var(--content-subtle);
   font-family: var(--font-family);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   width: var(--size-2);
@@ -53,7 +53,7 @@
 }
 
 .pagination-icon {
-  font-size: 20px;
+  font-size: var(--font-size-5); /* 20px */
 }
 
 /* SIZES mapping */

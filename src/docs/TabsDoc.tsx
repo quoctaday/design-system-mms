@@ -4,13 +4,12 @@ import { DocLayout } from '../components/docs/DocLayout';
 import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
+import { RiUser6Line, RiSettings4Line, RiFileList3Line } from 'react-icons/ri';
 
 const TabsDoc: React.FC = () => {
   const toc = [
-    { id: 'line', title: 'Line Variant' },
-    { id: 'border', title: 'Border Variant' },
-    { id: 'simple', title: 'Simple Variant' },
-    { id: 'toggle', title: 'Toggle Variant' },
+    { id: 'classic', title: 'Classic Variant' },
+    { id: 'surface', title: 'Surface Variant' },
     { id: 'sizes', title: 'Sizes & Radius' },
     { id: 'api', title: 'API Reference' }
   ];
@@ -19,24 +18,23 @@ const TabsDoc: React.FC = () => {
     { name: 'defaultValue', type: 'string', description: 'Giá trị tab mặc định được chọn khi khởi tạo.' },
     { name: 'value', type: 'string', description: 'Giá trị tab hiện tại (controlled mode).' },
     { name: 'onValueChange', type: '(value: string) => void', description: 'Callback khi chuyển đổi tab.' },
-    { name: 'variant', type: "'line' | 'border' | 'simple' | 'toggle'", default: "'line'", description: 'Kiểu hiển thị của các tab.' },
+    { name: 'variant', type: "'classic' | 'surface'", default: "'classic'", description: 'Kiểu hiển thị. Classic cho điều hướng chính, Surface cho điều hướng phụ.' },
     { name: 'size', type: "'1' | '2'", default: "'2'", description: 'Kích thước của các tab.' },
-    { name: 'radius', type: "'none' | 'sm' | 'md' | 'lg' | 'full'", default: "'md'", description: 'Độ bo góc của các tab (áp dụng cho variant list/trigger).' },
-    { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Hướng hiển thị của tabs.' }
+    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", default: "'4'", description: 'Độ bo góc. Với variant surface, bo góc sẽ tự động tính toán bù trừ (nesting) dựa trên 6px padding.' },
   ];
 
   return (
     <DocLayout 
       title="Tabs" 
-      description="A set of layered sections of content, known as tab panels, that are displayed one at a time."
+      description="A high-performance navigation component with smooth sliding transitions and Radix-aligned architecture."
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="line" className="doc-section">
-        <h2>Line Variant</h2>
-        <p>The default style with a bottom indicator line. Best for high-level page sections.</p>
+      <section id="classic" className="doc-section">
+        <h2>Classic Variant</h2>
+        <p>A minimalist design with a subtle bottom indicator line. Ideal for main navigation or high-level views.</p>
         <CodePreview
-          code={`<Tabs defaultValue="account" variant="line">
+          code={`<Tabs defaultValue="account" variant="classic">
   <Tabs.List>
     <Tabs.Trigger value="account">Account</Tabs.Trigger>
     <Tabs.Trigger value="profile">Profile</Tabs.Trigger>
@@ -46,134 +44,102 @@ const TabsDoc: React.FC = () => {
 </Tabs>`}
         >
           <div className="py-2">
-            <Tabs defaultValue="account" variant="line">
+            <Tabs defaultValue="account" variant="classic">
               <Tabs.List>
                 <Tabs.Trigger value="account">Account</Tabs.Trigger>
-                <Tabs.Trigger value="profile" disabled>Profile</Tabs.Trigger>
+                <Tabs.Trigger value="profile">Profile</Tabs.Trigger>
                 <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
+                <Tabs.Trigger value="disabled" disabled>Security</Tabs.Trigger>
               </Tabs.List>
-              <div className="mt-4 p-4 min-h-[80px] bg-muted/5 border border-dashed border-subtle rounded-xl text-sm text-secondary flex items-center justify-center italic">
-                <Tabs.Content value="account">Manage your account details and security settings.</Tabs.Content>
-                <Tabs.Content value="settings">Adjust your preferences and application settings.</Tabs.Content>
+              <div className="mt-4 min-h-[100px] flex items-center justify-center bg-surface-subtle/30 rounded-2xl border border-dashed border-subtle">
+                <Tabs.Content value="account" className="w-full h-full flex items-center justify-center italic text-secondary text-sm">
+                  Manage your personal information and security settings.
+                </Tabs.Content>
+                <Tabs.Content value="profile" className="w-full h-full flex items-center justify-center italic text-secondary text-sm">
+                  Public profile information and social connections.
+                </Tabs.Content>
+                <Tabs.Content value="settings" className="w-full h-full flex items-center justify-center italic text-secondary text-sm">
+                  Notification preferences and application defaults.
+                </Tabs.Content>
               </div>
             </Tabs>
           </div>
         </CodePreview>
       </section>
 
-      <section id="border" className="doc-section">
-        <h2>Border Variant</h2>
-        <p>A bordered variant that clearly separates the active tab from its context.</p>
+      <section id="surface" className="doc-section">
+        <h2>Surface Variant</h2>
+        <p>A spacious, segmented-style navigation. Optimized with <strong>6px Padding</strong> to create a clear visual distinction from tighter form controls.</p>
         <CodePreview
-          code={`<Tabs defaultValue="overview" variant="border">
+          code={`<Tabs defaultValue="overview" variant="surface">
   <Tabs.List>
     <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
-    <Tabs.Trigger value="analytics">Analytics</Tabs.Trigger>
+    <Tabs.Trigger value="integration">Integration</Tabs.Trigger>
+    <Tabs.Trigger value="api">API Keys</Tabs.Trigger>
   </Tabs.List>
 </Tabs>`}
         >
-          <div className="py-2">
-            <Tabs defaultValue="overview" variant="border">
-              <Tabs.List>
-                <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
-                <Tabs.Trigger value="analytics">Analytics</Tabs.Trigger>
-                <Tabs.Trigger value="reports">Reports</Tabs.Trigger>
-              </Tabs.List>
-              <div className="mt-4 p-4 min-h-[80px] bg-muted/5 border border-dashed border-subtle rounded-xl text-sm text-secondary flex items-center justify-center italic text-center">
-                <Tabs.Content value="overview">A quick summary of your recent activities and performance metrics.</Tabs.Content>
-                <Tabs.Content value="analytics">Deep dive into your data with advanced charting tools.</Tabs.Content>
-                <Tabs.Content value="reports">Download and share detailed performance reports.</Tabs.Content>
-              </div>
-            </Tabs>
-          </div>
-        </CodePreview>
-      </section>
+          <div className="py-6 flex flex-col gap-12">
+            <div>
+              <Tabs defaultValue="overview" variant="surface">
+                <Tabs.List>
+                  <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+                  <Tabs.Trigger value="integration">Integration</Tabs.Trigger>
+                  <Tabs.Trigger value="api">API Keys</Tabs.Trigger>
+                </Tabs.List>
+              </Tabs>
+            </div>
 
-      <section id="simple" className="doc-section">
-        <h2>Simple Variant</h2>
-        <p>A minimalist design that uses background highlighting for the active state.</p>
-        <CodePreview
-          code={`<Tabs defaultValue="inbox" variant="simple">
-  <Tabs.List>
-    <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
-    <Tabs.Trigger value="sent">Sent</Tabs.Trigger>
-  </Tabs.List>
-</Tabs>`}
-        >
-          <div className="py-2">
-            <Tabs defaultValue="inbox" variant="simple">
-              <Tabs.List>
-                <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
-                <Tabs.Trigger value="sent">Sent</Tabs.Trigger>
-                <Tabs.Trigger value="archived">Archived</Tabs.Trigger>
-              </Tabs.List>
-              <div className="mt-4 p-4 min-h-[80px] bg-muted/5 border border-dashed border-subtle rounded-xl text-sm text-secondary flex items-center justify-center italic">
-                <Tabs.Content value="inbox">Your incoming messages are listed here.</Tabs.Content>
-                <Tabs.Content value="sent">Review messages you have sent to others.</Tabs.Content>
-                <Tabs.Content value="archived">Access your saved and archived conversations.</Tabs.Content>
-              </div>
-            </Tabs>
-          </div>
-        </CodePreview>
-      </section>
-
-      <section id="toggle" className="doc-section">
-        <h2>Toggle Variant</h2>
-        <p>A segmented control style, ideal for toggling between small sets of mutually exclusive options.</p>
-        <CodePreview
-          code={`<Tabs defaultValue="weekly" variant="toggle">
-  <Tabs.List>
-    <Tabs.Trigger value="daily">Daily</Tabs.Trigger>
-    <Tabs.Trigger value="weekly">Weekly</Tabs.Trigger>
-  </Tabs.List>
-</Tabs>`}
-        >
-          <div className="py-2">
-            <Tabs defaultValue="weekly" variant="toggle">
-              <Tabs.List>
-                <Tabs.Trigger value="daily">Daily</Tabs.Trigger>
-                <Tabs.Trigger value="weekly">Weekly</Tabs.Trigger>
-                <Tabs.Trigger value="monthly">Monthly</Tabs.Trigger>
-              </Tabs.List>
-              <div className="mt-4 p-4 min-h-[80px] bg-muted/5 border border-dashed border-subtle rounded-xl text-sm text-secondary flex items-center justify-center italic">
-                <Tabs.Content value="daily">Viewing data for today.</Tabs.Content>
-                <Tabs.Content value="weekly">Viewing data for the current week.</Tabs.Content>
-                <Tabs.Content value="monthly">Viewing data for the current month.</Tabs.Content>
-              </div>
-            </Tabs>
+            <div>
+              <h3 className="text-xs font-bold text-muted uppercase tracking-widest mb-4">With Icons</h3>
+              <Tabs defaultValue="user" variant="surface" size="1">
+                <Tabs.List>
+                  <Tabs.Trigger value="user"><RiUser6Line size={14} /> User</Tabs.Trigger>
+                  <Tabs.Trigger value="files"><RiFileList3Line size={14} /> Files</Tabs.Trigger>
+                  <Tabs.Trigger value="settings"><RiSettings4Line size={14} /> Settings</Tabs.Trigger>
+                </Tabs.List>
+              </Tabs>
+            </div>
           </div>
         </CodePreview>
       </section>
 
       <section id="sizes" className="doc-section">
         <h2>Sizes & Radius</h2>
-        <p>Control the visual scale and corner rounding of tab elements.</p>
+        <p>Adjust the density and shape of your tabs to match the surrounding UI components.</p>
         <CodePreview
-          code={`<Tabs size="1" radius="sm" variant="toggle" defaultValue="1">
+          code={`<Tabs size="1" radius="2" variant="surface" defaultValue="1">
   <Tabs.List>
-    <Tabs.Trigger value="1">Option 1</Tabs.Trigger>
-    <Tabs.Trigger value="2">Option 2</Tabs.Trigger>
+    <Tabs.Trigger value="1">Small</Tabs.Trigger>
+    <Tabs.Trigger value="2">Compact</Tabs.Trigger>
+  </Tabs.List>
+</Tabs>
+
+<Tabs size="2" radius="full" variant="surface" defaultValue="1">
+  <Tabs.List>
+    <Tabs.Trigger value="1">Default</Tabs.Trigger>
+    <Tabs.Trigger value="2">Standard</Tabs.Trigger>
   </Tabs.List>
 </Tabs>`}
         >
           <div className="flex flex-col gap-8 py-4">
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 1 + SM Radius (Toggle)</span>
-              <Tabs size="1" radius="sm" variant="toggle" defaultValue="a">
+            <div className="flex flex-col gap-3">
+              <span className="text-[10px] uppercase font-bold text-muted tracking-widest">Size 1 + Radius 2</span>
+              <Tabs size="1" radius="2" variant="surface" defaultValue="a">
                 <Tabs.List>
-                  <Tabs.Trigger value="a">Weekly</Tabs.Trigger>
-                  <Tabs.Trigger value="b">Monthly</Tabs.Trigger>
+                  <Tabs.Trigger value="a">Development</Tabs.Trigger>
+                  <Tabs.Trigger value="b">Production</Tabs.Trigger>
                 </Tabs.List>
               </Tabs>
             </div>
             
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 2 + LG Radius (Border)</span>
-              <Tabs size="2" radius="lg" variant="border" defaultValue="1">
+            <div className="flex flex-col gap-3">
+              <span className="text-[10px] uppercase font-bold text-muted tracking-widest">Size 2 + Radius Full</span>
+              <Tabs size="2" radius="full" variant="surface" defaultValue="1">
                 <Tabs.List>
-                  <Tabs.Trigger value="1">Active</Tabs.Trigger>
-                  <Tabs.Trigger value="2">Completed</Tabs.Trigger>
-                  <Tabs.Trigger value="3">Archived</Tabs.Trigger>
+                  <Tabs.Trigger value="1">Line Chart</Tabs.Trigger>
+                  <Tabs.Trigger value="2">Bar Chart</Tabs.Trigger>
+                  <Tabs.Trigger value="3">Table View</Tabs.Trigger>
                 </Tabs.List>
               </Tabs>
             </div>

@@ -15,9 +15,14 @@ Before delivering any UI code or new pages, please verify against this quality c
 - [ ] **Safeguards**: No content hidden behind fixed navbars.
 - [ ] **Scroll**: No horizontal scroll on mobile devices.
 
-## 📏 Spacing Logic
-- [ ] **Parental Control**: Section spacing controlled by parent `gap`, NOT by individual margins.
 - [ ] **Orphan Margins**: No `margin-bottom` on the last element of a container.
+
+## 🛡️ The Guardian Protocol (V4.0)
+- [ ] **Audit Pass**: `npm run guard` returns zero errors.
+- [ ] **Strict Spacing**: 100% usage of modular `space-1` to `space-9` tokens.
+- [ ] **Strict Radius**: 100% usage of modular `radius-1` to `radius-6` tokens.
+- [ ] **Circular Safety**: Verified no self-referencing variables in `theme.css`.
+- [ ] **Zero Hardcodes**: No raw hex codes or pixel values in component CSS.
 
 ---
 [[00 - Introduction|Back to Introduction]]

@@ -1,6 +1,6 @@
 .terminal-snippet-wrapper {
   background-color: var(--surface-subtle);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-6);
   border: 0.5px solid var(--border-subtle);
   overflow: hidden;
   margin-bottom: 32px;
@@ -84,7 +84,7 @@
 .terminal-code-box {
   background-color: var(--surface-panel);
   border: 0.5px solid var(--border-subtle);
-  border-radius: calc(var(--radius-xl) - 8px);
+  border-radius: calc(var(--radius-6) - 8px);
   padding: 20px 24px;
   overflow-x: auto;
 }

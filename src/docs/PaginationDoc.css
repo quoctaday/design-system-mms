@@ -29,7 +29,7 @@
   padding: 40px;
   background-color: var(--surface-panel);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-3);
 }
 
 .page-indicator {
@@ -65,7 +65,7 @@
   padding: 16px 24px;
   background-color: var(--surface-panel);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-3);
 }
 
 .items-info {

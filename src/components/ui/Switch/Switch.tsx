@@ -1,6 +1,7 @@
 import React, { useId } from 'react';
 import { cn } from '../../../lib/utils';
 import './Switch.css';
+import '../_internal/base.css';
 
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
@@ -34,7 +35,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             onChange={onChange}
             disabled={disabled}
           />
-          <span className="mms-switch-track">
+          <span className={cn('mms-switch-track', 'mms-focus-halo', 'mms-focus-halo-brand')}>
             <span className="mms-switch-thumb" />
           </span>
         </div>

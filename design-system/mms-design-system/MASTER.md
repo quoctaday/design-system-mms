@@ -1,203 +1,85 @@
-# Design System Master File
+# 🗺️ MMS Design System - Master Hub
 
-> **LOGIC:** When building a specific page, first check `design-system/pages/[page-name].md`.
-> If that file exists, its rules **override** this Master file.
-> If not, strictly follow the rules below.
-
----
-
-**Project:** MMS Design System
-**Generated:** 2026-04-09 10:29:56
-**Category:** Financial Dashboard
+> [!IMPORTANT]
+> **Source of Truth Protocol**: This is the primary navigation and strategic logic hub. 
+> - Implementation details (Code) live in specific **Foundations** or **Components** files.
+> - When building a specific page, check `design-system/pages/[page-name].md` for overrides.
 
 ---
 
-## Global Rules
+## 🏛️ Documentation Map
 
-### Color Palette
+### 🏛️ Foundations
+- [[01 - Foundations/Colors|Colors]] • [[01 - Foundations/Typography|Typography]] • [[01 - Foundations/Spacing & Grid|Spacing & Grid]] 
+- [[01 - Foundations/Radius & Elevation|Radius & Elevation]] • [[01 - Foundations/Sizing|Sizing]] • [[01 - Foundations/Widgets|Widgets]] • [[01 - Foundations/Metrics|Metrics]]
 
-| Role | Hex | CSS Variable |
-|------|-----|--------------|
-| Primary | `#1E40AF` | `var(--brand-9)` |
-| Secondary | `#3B82F6` | `var(--brand-10)` |
-| CTA/Accent | `#F59E0B` | `var(--brand-9)` |
-| Background | `#F8FAFC` | `var(--surface-app)` |
-| Text | `#1E3A8A` | `var(--content-strong)` |
+### 🧱 Core UI (Actions & Inputs)
+- **Actions:** [[02 - Components/Button|Buttons]] • [[02 - Components/Badge|Badges]] • [[02 - Components/SegmentedControl|SegmentedControl]] • [[02 - Components/DropdownMenu|DropdownMenu]]
+- **Selection:** [[02 - Components/Checkbox|Checkbox]] • [[02 - Components/Switch|Switch]] • [[02 - Components/RadioGroup|RadioGroup]]
+- **Text Entry:** [[02 - Components/Input|Inputs]] • [[02 - Components/Search|Search]]
 
-**Color Notes:** Blue data + amber highlights
+### 📊 Data & Complex Components
+- **Enumeration:** [[02 - Components/Table|Table]] • [[02 - Components/Timeline|Timeline]]
+- **Selection:** [[02 - Components/Select|Select]] • [[02 - Components/MultiSelect|MultiSelect]] • [[02 - Components/DatePicker|DatePicker]]
+- **Visualization:** [[02 - Components/PieChart|PieChart]] • [[02 - Components/Progress|Progress]]
 
-### Typography
+### 🍱 Dashboard & Feedback
+- **Containers:** [[02 - Components/Card|Card]] • [[02 - Components/MetricCard|MetricCard]] • [[02 - Components/Sidebar|Sidebar]]
+- **Feedback:** [[02 - Components/Dialog|Dialog]] • [[02 - Components/Toast|Toast]] • [[02 - Components/Tooltip|Tooltip]] • [[02 - Components/EmptyState|EmptyState]] • [[02 - Components/Result|Result]]
+- **Loading:** [[02 - Components/Skeleton|Skeleton]] • [[02 - Components/Pagination|Pagination]]
+- **Visuals:** [[02 - Components/AuroraBackground|AuroraBackground]] • [[02 - Components/Breadcrumbs|Breadcrumbs]]
 
-- **Heading Font:** Inter Display
-- **Body Font:** Inter
-- **Mood:** dashboard, data, analytics, code, technical, precise
+### 📏 Strategic Guidelines
+- [[03 - Guidelines/Introduction|Introduction]] • [[03 - Guidelines/Workflow|Workflow]] • [[03 - Guidelines/Checklist|Checklist]] 
+- [[03 - Guidelines/Anti-Patterns|Anti-Patterns]] • [[03 - Guidelines/Design Agency CLI|Design Agency CLI]]
 
-**CSS Import:**
-```css
-/* Using local Inter Display and Inter */
-```
+### 🏗️ Layout Standards
+- [[04 - Layouts/Introduction|Introduction]] • [[04 - Layouts/Layout Contract|Layout Contract]] • [[04 - Layouts/Documentation Layout|Documentation Layout]]
 
-### Spacing Variables
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--space-xs` | `4px` / `0.25rem` | Tight gaps |
-| `--space-sm` | `8px` / `0.5rem` | Icon gaps, inline spacing |
-| `--space-md` | `16px` / `1rem` | Standard padding |
-| `--space-lg` | `24px` / `1.5rem` | Section padding |
-| `--space-xl` | `32px` / `2rem` | Large gaps |
-| `--space-2xl` | `48px` / `3rem` | Section margins |
-| `--space-3xl` | `64px` / `4rem` | Hero padding |
-
-### Shadow Depths
-
-| Level | Value | Usage |
-|-------|-------|-------|
-| `--shadow-sm` | `0 1px 2px rgba(0,0,0,0.05)` | Subtle lift |
-| `--shadow-md` | `0 4px 6px rgba(0,0,0,0.1)` | Cards, buttons |
-| `--shadow-lg` | `0 10px 15px rgba(0,0,0,0.1)` | Modals, dropdowns |
-| `--shadow-xl` | `0 20px 25px rgba(0,0,0,0.15)` | Hero images, featured cards |
+### 🏢 Quality & Governance
+- [[03 - Guidelines/Workflow|Systemic Workflow]] • [[03 - Guidelines/Checklist|Audit Checklist]]
+- **Audit Skill**: `mms-quality-control` (PPA Protocol)
+- **Validation**: `npm run guard` (Circular Reference & Token Audit)
 
 ---
 
-## Component Specs
+## 💎 The MMS Protocol (Core Rules)
 
-### Buttons
+### 1. The Evolved Flat-Premium Standard
+Our aesthetic relies on **Soft-Elevation** and structural clarity. Hierarchy is achieved through:
+- **Surface Shifts**: Moving between `S1` (App), `S2` (Subtle), and `White` (Panel).
+- **Contextual Contrast**: We distinguish between **Operational Context** (using Surface variants to reduce fatigue) and **Intentional Context** (using Classic high-contrast for primary forms).
+- **Hairline Borders**: Using `0.5px` to `1px` borders with `var(--border-subtle)`.
+- **Layered Shadows**: Shadows are used strategically to define depth. We avoid heavy black shadows in favor of **Alpha-Layered Elevation (Steps 1-6)**.
 
-```css
-/* Primary Button */
-.btn-primary {
-  background: #F59E0B;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
+### 2. The Mathematical Nesting Principle (Dynamic 12-4-8)
+To maintain visual harmony, the radius of internal elements must be calculated based on the outer container's radius and the padding between them.
 
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
+**Formula:** $R_{inner} = R_{outer} - Padding$
 
-/* Secondary Button */
-.btn-secondary {
-  background: transparent;
-  color: #1E40AF;
-  border: 2px solid #1E40AF;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-```
+| Scenario | Outer Radius | Padding | Resulting Inner | Recommended Tokens |
+| :--- | :--- | :--- | :--- | :--- |
+| **High Density** | 12px | 4px | 8px | `radius-5` + `space-1` + `radius-4` |
+| **Relaxed** | 12px | 8px | 4px | `radius-5` + `space-2` + `radius-2` |
+| **Micro-UI** | 8px | 4px | 4px | `radius-4` + `space-1` + `radius-2` |
 
-### Cards
+**Why this matters:** This prevents the "corner-clash" effect and ensures that nested boundaries look parallel to the eye, regardless of the chose spacing or scale.
 
-```css
-.card {
-  background: #F8FAFC;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
-```
-
-### Inputs
-
-```css
-.input {
-  padding: 12px 16px;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 200ms ease;
-}
-
-.input:focus {
-  border-color: #1E40AF;
-  outline: none;
-  box-shadow: 0 0 0 3px #1E40AF20;
-}
-```
-
-### Modals
-
-```css
-.modal-overlay {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-}
-
-.modal {
-  background: white;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: var(--shadow-xl);
-  max-width: 500px;
-  width: 90%;
-}
-```
+- **Radix-style Max Logic**: Internal action components use `max(var(--radius-full), var(--current-radius))`. The `--radius-full` variable acts as a global toggle (switching between `0px` and `9999px`) to trigger pill-shapes without breaking the structural stability of outer containers.
 
 ---
 
-## Style Guidelines
+## 🚥 Semantic Token Glossary (Quick Reference)
 
-**Style:** Dark Mode (OLED)
-
-**Keywords:** Dark theme, low light, high contrast, deep black, midnight blue, eye-friendly, OLED, night mode, power efficient
-
-**Best For:** Night-mode apps, coding platforms, entertainment, eye-strain prevention, OLED devices, low-light
-
-**Key Effects:** Minimal glow (text-shadow: 0 0 10px), dark-to-light transitions, low white emission, high readability, visible focus | ⚠️ ALERT: System-level shadows detected. USE ONLY IF NECESSARY and ask user before implementation.
-
-### Page Pattern
-
-**Pattern Name:** Product Demo + Features
-
-- **Conversion Strategy:** Embedded product demo increases engagement. Use interactive mockup if possible. Auto-play video muted.
-- **CTA Placement:** Video center + CTA right/bottom
-- **Section Order:** 1. Hero, 2. Product video/mockup (center), 3. Feature breakdown per section, 4. Comparison (optional), 5. CTA
+| Group | Key Tokens | Purpose |
+| :--- | :--- | :--- |
+| **Surface** | `--surface-app`, `--surface-panel`, `--surface-component` | Background layers & elevation |
+| **Content** | `--content-strong`, `--content-subtle`, `--content-on-solid` | Typography & readable icons |
+| **Border** | `--border-subtle`, `--border-default`, `--border-strong` | Structural separation & focus |
+| Radius | `--radius-1` to `--radius-6` (Scale) | Smart numeric scale + pill-shape fallback |
+| **Spacing** | `--space-1` to `--space-9` (Numeric Index) | Modular 4px-baseline scale (Standardized) |
+| Shadow | `--shadow-1` to `--shadow-6` (Numeric Scale) | Layered depth for high-luxury surface isolation |
+| Brand | `--brand-9` (Solid), `--brand-10` (Soft) | Action & High-intent areas |
 
 ---
-
-## Anti-Patterns (Do NOT Use)
-
-- ❌ Light mode default
-- ❌ Slow rendering
-- ❌ ❌ Shadows (Strict Flat-Premium Mode)
-
-### Additional Forbidden Patterns
-
-- ❌ **Emojis as icons** — Use SVG icons (Heroicons, Lucide, Simple Icons)
-- ❌ **Missing cursor:pointer** — All clickable elements must have cursor:pointer
-- ❌ **Layout-shifting hovers** — Avoid scale transforms that shift layout
-- ❌ **Low contrast text** — Maintain 4.5:1 minimum contrast ratio
-- ❌ **Instant state changes** — Always use transitions (150-300ms)
-- ❌ **Invisible focus states** — Focus states must be visible for a11y
-
----
-
-## Pre-Delivery Checklist
-
-Before delivering any UI code, verify:
-
-- [ ] No emojis used as icons (use SVG instead)
-- [ ] All icons from consistent icon set (Heroicons/Lucide)
-- [ ] `cursor-pointer` on all clickable elements
-- [ ] Hover states with smooth transitions (150-300ms)
-- [ ] Light mode: text contrast 4.5:1 minimum
-- [ ] Focus states visible for keyboard navigation
-- [ ] `prefers-reduced-motion` respected
-- [ ] Responsive: 375px, 768px, 1024px, 1440px
-- [ ] No content hidden behind fixed navbars
-- [ ] No horizontal scroll on mobile
+[[00 - Intelligence/agent-instructions|Agent Instructions]] • [[00 - Standards/PremiumBlock|Premium Block Standard]] • [[00 - Introduction|Back to Home]]

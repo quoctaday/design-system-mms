@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "6c53e3424c706dd7",
+        "id": "ce4115891c58f92b",
         "type": "tabs",
         "children": [
           {
-            "id": "2c7a2df361900882",
+            "id": "42ce7141b8ca814b",
             "type": "leaf",
             "state": {
               "type": "graph",
@@ -70,7 +70,8 @@
               "title": "Đánh dấu"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -179,37 +180,37 @@
       "bases:Tạo cơ sở mới": false
     }
   },
-  "active": "2c7a2df361900882",
+  "active": "42ce7141b8ca814b",
   "lastOpenFiles": [
-    "00 - Standards/PremiumBlock.md",
-    "00 - Standards",
-    "02 - Components/Modal.md",
-    "00 - Intelligence/agent-instructions.md",
-    "02 - Components/Select.md",
-    "02 - Components/Dropdown.md",
-    "02 - Components/Tabs.md",
+    "00 - Intelligence/lessons-learned.md",
     "MASTER.md",
-    "03 - Guidelines/Design Agency CLI.md",
-    "00 - Introduction.md",
-    "04 - Layouts/Documentation Layout.md",
-    "02 - Components/Checkbox.md",
+    "02 - Components/Dialog.md",
+    "02 - Components/DropdownMenu.md",
+    "01 - Foundations/Metrics.md",
+    "02 - Components/Slider.md",
     "02 - Components/Badge.md",
-    "02 - Components/MultiSelect.md",
-    "pages/dashboard.md",
-    "02 - Components/Pagination.md",
-    "02 - Components/Switch.md",
-    "02 - Components/RadioGroup.md",
-    "02 - Components/Timeline.md",
-    "02 - Components/DatePicker.md",
-    "01 - Foundations/Colors.md",
+    "02 - Components/Tooltip.md",
+    "02 - Components/Dropdown.md",
+    "03 - Guidelines/Checklist.md",
+    "01 - Foundations/Radius & Elevation.md",
+    "03 - Guidelines/Standardization.md",
+    "00 - Introduction.md",
+    "00 - Standards/PremiumBlock.md",
+    "01 - Foundations/Typography.md",
+    "01 - Foundations/Widgets.md",
+    "02 - Components/AuroraBackground.md",
+    "02 - Components/SegmentedControl.md",
+    "02 - Components/Search.md",
+    "02 - Components/Result.md",
+    "02 - Components/EmptyState.md",
+    "02 - Components/Breadcrumbs.md",
+    "02 - Components/PieChart.md",
+    "02 - Components/Progress.md",
+    "02 - Components/Sidebar.md",
+    "02 - Components/Toast.md",
+    "00 - Standards",
     "pages",
     "00 - Intelligence/agent-protocol.json",
-    "00 - Intelligence",
-    "01 - Foundations/Radius & Elevation.md",
-    "04 - Layouts/Introduction.md",
-    "01 - Foundations/Metrics.md",
-    "02 - Components/Button.md",
-    "01 - Foundations/Widgets.md",
-    "03 - Guidelines/Workflow.md"
+    "00 - Intelligence"
   ]
 }
