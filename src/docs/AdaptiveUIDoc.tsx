@@ -2,7 +2,11 @@ import React from 'react';
 import { DocLayout } from '../components/docs/DocLayout';
 import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
 
-const AdaptiveUIDoc: React.FC = () => {
+interface AdaptiveUIDocProps {
+  onPageChange?: (pageId: string) => void;
+}
+
+const AdaptiveUIDoc: React.FC<AdaptiveUIDocProps> = ({ onPageChange }) => {
   const toc = [
     { id: 'overview', title: 'Overview' },
     { id: 'design-system', title: 'Design System' },
@@ -92,9 +96,12 @@ const AdaptiveUIDoc: React.FC = () => {
         <DocHeading>View Full Demo</DocHeading>
         <DocText>To see the interactive Adaptive UI in action, visit the full demo:</DocText>
         <div style={{ marginTop: '16px', padding: '12px 16px', backgroundColor: '#f3f4f6', borderRadius: '8px', borderLeft: '4px solid #3b82f6' }}>
-          <a href="/mms-poc" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: '500' }}>
+          <button
+            onClick={() => onPageChange?.('mms-poc')}
+            style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: '500', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1rem' }}
+          >
             Open Adaptive UI Demo →
-          </a>
+          </button>
         </div>
       </DocSection>
 
