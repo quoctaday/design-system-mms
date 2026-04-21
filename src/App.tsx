@@ -30,6 +30,7 @@ import SelectDoc from './docs/SelectDoc'
 import MultiSelectDoc from './docs/MultiSelectDoc'
 import PremiumAestheticDoc from './docs/PremiumAestheticDoc'
 import OperationCenter from './pages/OperationCenter/OperationCenter'
+import AdaptiveUIDoc from './docs/AdaptiveUIDoc'
 import SliderDoc from './docs/SliderDoc'
 import PremiumBlockDoc from './docs/PremiumBlockDoc'
 import OperationalDoc from './docs/OperationalDoc'
@@ -93,6 +94,7 @@ function App() {
             {activePage === 'select' && <SelectDoc />}
             {activePage === 'multiselect' && <MultiSelectDoc />}
             {activePage === 'premium-aesthetic' && <PremiumAestheticDoc />}
+            {activePage === 'adaptive-ui' && <AdaptiveUIDoc />}
             {activePage === 'slider' && <SliderDoc />}
             {activePage === 'dashboard' && <DashboardExample onPageChange={setActivePage} />}
             {activePage === 'operation-center' && <OperationCenter onPageChange={setActivePage} />}

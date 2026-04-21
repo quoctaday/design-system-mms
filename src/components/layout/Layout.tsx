@@ -135,6 +135,14 @@ const NAVIGATION_DATA: NavGroup[] = [
       { id: 'pie-chart', label: 'Pie Chart' },
     ],
   },
+  {
+    id: 'portal-docs',
+    title: 'Portal Documentation',
+    icon: <RiMagicLine />,
+    items: [
+      { id: 'adaptive-ui', label: 'Adaptive UI Demo' },
+    ],
+  },
 ];
 
 interface LayoutProps {
