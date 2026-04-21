@@ -23,10 +23,38 @@ For micro-alignments that don't fit the modular scale (like 2px strokes or preci
 
 - **2px Alignment**: `calc(var(--space-1) / 2)` — Used for focus halos and Radio dots.
 
-## 🕸 Grid System (Layout Contract)
-- **Primary Grid:** 12-column fluid grid.
-- **Section Spacing:** Standard sections must be separated by `var(--space-9)` (64px) to maintain the "MMS High-Density" rhythm while providing breathing room.
-- **Constraint Enforcement:** Never use hardcoded pixel values or spacing tokens outside the 1-9 indices. Use `npm run guard` to audit compliance.
+## 🕸 Layout Primitives (WDS-R System)
+MMS provides a suite of "Atomic" layout primitives that fully support **Responsive Props**. You can pass static values or a responsive object mapping specific values to each breakpoint.
+
+### Core Components
+| Component | Purpose | Key Props |
+| :--- | :--- | :--- |
+| **`<Flex>`** | Horizontal/Vertical alignment | `direction`, `align`, `justify`, `gap`, `wrap` |
+| **`<Grid>`** | Column and row grid partitioning | `columns`, `rows`, `gap`, `gapX`, `gapY` |
+| **`<Container>`** | Content width limiting & centering | `size` (1-4) |
+| **`<Section>`** | Vertical content separation & padding | `size` (1-3) |
+| **`<Box>`** | The basic layout primitive | `p`, `m`, `display`, `inset` |
+
+### 📱 Responsive Props Example
+```tsx
+<Flex 
+  direction={{ initial: 'column', md: 'row' }} 
+  gap={{ initial: '2', lg: '5' }}
+>
+  <Box p="4">Item 1</Box>
+  <Box p="4">Item 2</Box>
+</Flex>
+```
+
+### 📏 Breakpoint Specification (Radix Standard)
+| Breakpoint | Min-Width | CSS Class Prefix |
+| :--- | :--- | :--- |
+| **initial** | 0px | `wds-r-` |
+| **xs** | 520px | `wds-r-xs-` |
+| **sm** | 768px | `wds-r-sm-` |
+| **md** | 1024px | `wds-r-md-` |
+| **lg** | 1280px | `wds-r-lg-` |
+| **xl** | 1640px | `wds-r-xl-` |
 
 ---
 [[00 - Introduction|Back to Introduction]]

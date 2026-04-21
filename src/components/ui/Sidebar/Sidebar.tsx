@@ -42,5 +42,3 @@ export const Sidebar: React.FC<SidebarProps> = ({
     </aside>
   );
 };
-
-export default Sidebar;

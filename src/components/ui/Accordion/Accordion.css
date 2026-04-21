@@ -1,0 +1,95 @@
+/* ─────────────────────────────────────────────────────────
+ * MMS DESIGN SYSTEM - IRONCLAD: ACCORDION
+ * Precision collapsible mechanics for high-density information.
+ * ───────────────────────────────────────────────────────── */
+
+.mms-accordion-root {
+  width: 100%;
+}
+
+.mms-accordion-item {
+  border-bottom: var(--stroke-width-1) solid var(--gray-a4);
+  overflow: hidden;
+}
+
+.mms-accordion-item:last-child {
+  border-bottom: none;
+}
+
+/* ── Trigger & Header ── */
+.mms-accordion-header {
+  display: flex;
+}
+
+.mms-accordion-trigger {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  height: var(--space-8);
+  padding: 0 var(--space-2);
+  
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  
+  font-family: var(--font-body);
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-12);
+  
+  transition: background-color 140ms ease;
+  outline: none;
+}
+
+.mms-accordion-trigger:hover {
+  background-color: var(--gray-a2);
+}
+
+.mms-accordion-trigger:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent-a8);
+}
+
+/* ── Chevron Animation ── */
+.mms-accordion-chevron {
+  font-size: 20px;
+  color: var(--gray-a8);
+  transform: rotate(90deg); /* Right chevron down */
+  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
+  line-height: 1;
+}
+
+.mms-accordion-trigger[data-state='open'] .mms-accordion-chevron {
+  transform: rotate(270deg); /* Upward chevron */
+}
+
+/* ── Content ── */
+.mms-accordion-content {
+  overflow: hidden;
+  font-family: var(--font-body);
+  font-size: var(--font-size-2);
+  color: var(--gray-11);
+  line-height: var(--line-height-3);
+  
+  /* Radix Architecture: Variable for height projection if using animations */
+  --mms-accordion-content-height: auto;
+}
+
+.mms-accordion-content-inner {
+  padding: var(--space-1) var(--space-2) var(--space-4) var(--space-2);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 2. Visual Variants (Surface & Classic)
+ * ───────────────────────────────────────────────────────── */
+
+/* Surface variant: Uses hairline and subtle panel shifts */
+.mms-accordion-variant-surface .mms-accordion-item {
+  border-bottom-width: 0.5px;
+}
+
+/* Clean variant: No borders between items */
+.mms-accordion-variant-ghost .mms-accordion-item {
+  border-bottom: none;
+}

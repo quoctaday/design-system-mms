@@ -7,12 +7,17 @@ Each documentation page begins with a high-impact hero area.
 - **Background:** `AuroraBackground` UI component.
 - **Aesthetic:** Animated, borderless glassmorphism.
 - **Hierarchy:** H1 title and description are centered within the aurora field.
+- **Spacing:** `var(--space-9)` vertical padding.
 
-## 🃏 Floating Card Content
-The core content area is visually separated from the application chrome.
-- **Structure:** Content is wrapped in a large container with `border-radius: var(--radius-lg)` (16px) or larger.
-- **Shadow:** Uses `--shadow-5` to create depth against the app background.
-- **Internal Padding:** Scaled operational padding using `--spacing-40` to `--spacing-80`.
+## 🃏 Content Sectioning
+The documentation system uses a dense, operational spacing scale.
+- **Section Gap:** `var(--space-9)` (64px) between major sections.
+- **Internal Padding:** `var(--space-8)` (48px) for body content.
+- **Radius:** `var(--radius-6)` (16px) for the main card structure.
+- **Typography:**
+  - H1: Clamp(Radius-7, Radius-11).
+  - H2: `var(--font-size-8)` (32px).
+  - H3: `var(--font-size-5)` (20px).
 
 ## 📍 Sticky Navigation (TOC)
 To maintain context during long scrolls:

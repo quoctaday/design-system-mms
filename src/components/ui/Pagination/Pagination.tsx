@@ -21,7 +21,7 @@ export interface PaginationProps {
   color?: 'brand' | 'gray';
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+export const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   totalCount,
   siblingCount = 1,
@@ -159,5 +159,7 @@ const Pagination: React.FC<PaginationProps> = ({
     </nav>
   );
 };
+
+Pagination.displayName = 'Pagination';
 
 export default Pagination;

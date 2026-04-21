@@ -153,3 +153,51 @@ export function getAccessibleTextColor(bgColor: string): string {
   // Saturated blues/greens like Unipay/OCB look better with White even if they are below 4.5.
   return chroma.contrast(bgColor, 'white') >= 3.0 ? '#ffffff' : '#000000';
 }
+
+/**
+ * Generates a 12-step Gray scale, optionally tinted with a color.
+ */
+export function generateGrayScale(baseColor: string, variant: string = 'neutral', prefix: string = '--gray'): ColorScale {
+  const c = chroma(baseColor);
+  const hue = c.get('hcl.h');
+  
+  // Saturation (chroma) levels for different gray variants
+  const saturationMap: Record<string, number> = {
+    neutral: 0,
+    gray: 2,
+    mauve: 3,
+    slate: 4,
+    sage: 4,
+    olive: 5,
+    sand: 3
+  };
+
+  // Hue offsets if needed (e.g., mauve is purplish)
+  const hueMap: Record<string, number | null> = {
+    mauve: 300,
+    slate: 250,
+    sage: 145,
+    olive: 110,
+    sand: 50,
+    neutral: null
+  };
+
+  const targetHue = hueMap[variant] !== undefined && hueMap[variant] !== null ? (hueMap[variant] as number) : hue;
+  const targetSaturation = saturationMap[variant] ?? 0;
+
+  const scale: ColorScale = {};
+
+  // Light Mode Gray Scale
+  const lightLuminance = [99, 97, 94, 91, 88, 84, 78, 70, 55, 48, 38, 12];
+  lightLuminance.forEach((l, index) => {
+    scale[`${prefix}-${index + 1}`] = chroma.hcl(targetHue, targetSaturation, l).hex();
+  });
+
+  // Dark Mode Gray Scale (prefixed for later ingestion in .dark)
+  const darkLuminance = [10, 12, 15, 18, 22, 26, 30, 38, 48, 62, 75, 94];
+  darkLuminance.forEach((l, index) => {
+    scale[`${prefix}-dark-${index + 1}`] = chroma.hcl(targetHue, targetSaturation, l).hex();
+  });
+
+  return scale;
+}

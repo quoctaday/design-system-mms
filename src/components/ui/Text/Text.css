@@ -1,0 +1,84 @@
+@import '../../../styles/utilities/typography.css';
+
+.mms-Text {
+  font-family: var(--font-body);
+  font-style: normal;
+  color: var(--content-subtle); /* Standard body text color in MMS */
+  line-height: var(--line-height);
+  margin: 0 !important;
+}
+
+.mms-Text.mms-r-high-contrast {
+  color: var(--gray-12);
+}
+
+/* Font Weights */
+.mms-r-weight-light { font-weight: var(--font-weight-light); }
+.mms-r-weight-regular { font-weight: var(--font-weight-regular); }
+.mms-r-weight-medium { font-weight: var(--font-weight-medium); }
+.mms-r-weight-semibold { font-weight: var(--font-weight-semibold); }
+.mms-r-weight-bold { font-weight: var(--font-weight-bold); }
+
+/* Text Alignments */
+.mms-r-ta-left { text-align: left; }
+.mms-r-ta-center { text-align: center; }
+.mms-r-ta-right { text-align: right; }
+
+/* 
+ * SIZES & TRACKING
+ * Consistent 1-9 mapping with Heading for mathematical alignment.
+ */
+
+.mms-Text.mms-r-size-1 {
+  font-size: var(--font-size-1);
+  --line-height: var(--line-height-1);
+  letter-spacing: var(--letter-spacing-1);
+}
+
+.mms-Text.mms-r-size-2 {
+  font-size: var(--font-size-2);
+  --line-height: var(--line-height-2);
+  letter-spacing: var(--letter-spacing-2);
+}
+
+.mms-Text.mms-r-size-3 {
+  font-size: var(--font-size-3);
+  --line-height: var(--line-height-3);
+  letter-spacing: var(--letter-spacing-3);
+}
+
+.mms-Text.mms-r-size-4 {
+  font-size: var(--font-size-4);
+  --line-height: var(--line-height-4);
+  letter-spacing: var(--letter-spacing-4);
+}
+
+.mms-Text.mms-r-size-5 {
+  font-size: var(--font-size-5);
+  --line-height: var(--line-height-5);
+  letter-spacing: var(--letter-spacing-5);
+}
+
+.mms-Text.mms-r-size-6 {
+  font-size: var(--font-size-6);
+  --line-height: var(--line-height-6);
+  letter-spacing: var(--letter-spacing-6);
+}
+
+.mms-Text.mms-r-size-7 {
+  font-size: var(--font-size-7);
+  --line-height: var(--line-height-7);
+  letter-spacing: var(--letter-spacing-7);
+}
+
+.mms-Text.mms-r-size-8 {
+  font-size: var(--font-size-8);
+  --line-height: var(--line-height-8);
+  letter-spacing: var(--letter-spacing-8);
+}
+
+.mms-Text.mms-r-size-9 {
+  font-size: var(--font-size-9);
+  --line-height: var(--line-height-9);
+  letter-spacing: var(--letter-spacing-9);
+}

@@ -1,0 +1,21 @@
+/* Position Utilities */
+.wds-r-pos-static { position: static; }
+.wds-r-pos-relative { position: relative; }
+.wds-r-pos-absolute { position: absolute; }
+.wds-r-pos-fixed { position: fixed; }
+.wds-r-pos-sticky { position: sticky; }
+
+/* Inset / Directions */
+.wds-r-top-0 { top: 0; }
+.wds-r-right-0 { right: 0; }
+.wds-r-bottom-0 { bottom: 0; }
+.wds-r-left-0 { left: 0; }
+.wds-r-inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+
+/* Z-Index */
+.wds-r-zIndex-0 { z-index: 0; }
+.wds-r-zIndex-1 { z-index: 10; }
+.wds-r-zIndex-2 { z-index: 100; }
+.wds-r-zIndex-3 { z-index: 500; }
+.wds-r-zIndex-4 { z-index: 1000; }
+.wds-r-zIndex-5 { z-index: 5000; }

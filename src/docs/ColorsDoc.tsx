@@ -6,7 +6,8 @@ import {
   RiPaletteLine
 } from 'react-icons/ri';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import './ColorsDoc.css';
 
 // ─── Helpers ──────────────────────────────────────────
@@ -30,7 +31,7 @@ const surfaceTokens: ColorToken[] = [
   { variable: '--surface-app', value: 'var(--surface-app)', description: 'The absolute foundation. S1 light gray for app-wide containment.' },
   { variable: '--surface-panel', value: 'var(--surface-panel)', description: 'Clean white surface for primary content cards and data tables.' },
   { variable: '--surface-component', value: 'var(--surface-component)', description: 'Subtle gray fill (S3) for input fields, buttons, and secondary modules.' },
-  { variable: '--surface-solid', value: 'var(--brand-9)', description: 'High-impact identity surface for primary CTAs and active states.' },
+  { variable: '--surface-solid', value: 'var(--accent-9)', description: 'High-impact identity surface for primary CTAs and active states.' },
   { variable: '--surface-overlay', value: 'var(--black-a8)', description: 'Backdrop for modals and dialogs to enforce visual hierarchy.' },
 ];
 
@@ -146,13 +147,13 @@ const ColorsDoc: React.FC = () => {
   const { copy, copied } = useClipboard();
 
   const brandScale = useMemo(() => Array.from({ length: 12 }, (_, i) => ({
-    variable: `--brand-${i + 1}`,
-    value: `var(--brand-${i + 1})`,
+    variable: `--accent-${i + 1}`,
+    value: `var(--accent-${i + 1})`,
   })), []);
 
   const brandAlphaScale = useMemo(() => Array.from({ length: 12 }, (_, i) => ({
-    variable: `--brand-a${i + 1}`,
-    value: `var(--brand-a${i + 1})`,
+    variable: `--accent-a${i + 1}`,
+    value: `var(--accent-a${i + 1})`,
   })), []);
 
   const toc = [
@@ -173,7 +174,7 @@ const ColorsDoc: React.FC = () => {
         <RiSearchLine className="search-icon-inside" />
         <input 
           type="text" 
-          placeholder="Filter protocols e.g. success, brand-9..."
+          placeholder="Filter protocols e.g. success, accent-9..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="premium-token-search"
@@ -191,34 +192,34 @@ const ColorsDoc: React.FC = () => {
         <div className="premium-tab-content">
           {activeTab === 'brand' && (
             <div className="animate-reveal">
-              <section id="brand" className="doc-section">
-                <h2 className="section-title">Brand Protocol: {activeBrand.name}</h2>
-                <div className="brand-info-stripe">
-                   <div className="brand-logo-mini">
+              <DocSection id="brand">
+                <DocHeading>Brand Protocol: {activeBrand.name}</DocHeading>
+                <div className="accent-info-stripe">
+                   <div className="accent-logo-mini">
                      <img src={activeBrand.logo} alt="" />
                    </div>
-                   <div className="brand-summary">
-                     <p>Dynamic 12-step identity scale derived from <code>{activeBrand.primaryColor}</code> using our precision luminance curve.</p>
+                   <div className="accent-summary">
+                     <DocText>Dynamic 12-step identity scale derived from <code>{activeBrand.primaryColor}</code> using our precision luminance curve.</DocText>
                    </div>
                 </div>
                 <div className="swatch-premium-row">
                   {brandScale.map(t => <ColorSwatch key={t.variable} token={t} />)}
                 </div>
 
-                <h3 className="sub-section-title mt-12">Adaptive Alpha Standards (Glassmorphism)</h3>
-                <p className="mb-4">Identity scales with progressive transparency for overlays and glass effects. These are aliased from foundational alpha primitives.</p>
+                <DocHeading level={3} className="mt-12">Adaptive Alpha Standards (Glassmorphism)</DocHeading>
+                <DocText className="mb-4">Identity scales with progressive transparency for overlays and glass effects. These are aliased from foundational alpha primitives.</DocText>
                 <div className="swatch-premium-row">
                   {brandAlphaScale.map(t => <ColorSwatch key={t.variable} token={t} />)}
                 </div>
-              </section>
+              </DocSection>
 
-              <section className="doc-section">
-                <h3 className="sub-section-title">Established Applications</h3>
+              <DocSection>
+                <DocHeading level={3}>Established Applications</DocHeading>
                 <div className="app-token-grid">
                   {[
-                    { variable: '--brand-9', label: 'Primary Directive', desc: 'The base surface for mission-critical actions.' },
-                    { variable: '--brand-a3', label: 'Adaptive Surface', desc: 'Low-impact component containers.' },
-                    { variable: '--brand-a6', label: 'Protocol Separator', desc: 'Internal structural dividers.' },
+                    { variable: '--accent-9', label: 'Primary Directive', desc: 'The base surface for mission-critical actions.' },
+                    { variable: '--accent-a3', label: 'Adaptive Surface', desc: 'Low-impact component containers.' },
+                    { variable: '--accent-a6', label: 'Protocol Separator', desc: 'Internal structural dividers.' },
                   ].map(t => (
                     <div key={t.variable} className="app-token-card" onClick={() => copy(t.variable)}>
                       <div className="app-token-preview" style={{ backgroundColor: `var(${t.variable})` }} />
@@ -230,17 +231,17 @@ const ColorsDoc: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </section>
+              </DocSection>
             </div>
           )}
 
           {activeTab === 'semantic' && (
             <div className="animate-reveal">
-              <section id="semantic" className="doc-section">
-                <h2 className="section-title">The Semantic Registry (v4.0)</h2>
-                <p className="mb-8">Consumable tokens mapped to specific behavioral roles. Built on a strict Radix-aligned foundation.</p>
+              <DocSection id="semantic">
+                <DocHeading>The Semantic Registry (v4.0)</DocHeading>
+                <DocText className="mb-8">Consumable tokens mapped to specific behavioral roles. Built on a strict Radix-aligned foundation.</DocText>
                 
-                <h3 className="sub-section-title mt-12">Surfaces</h3>
+                <DocHeading level={3} className="mt-12">Surfaces</DocHeading>
                 <div className="semantic-table-premium">
                   <div className="table-header-premium">
                     <span>Preview</span>
@@ -256,7 +257,7 @@ const ColorsDoc: React.FC = () => {
                   ))}
                 </div>
 
-                <h3 className="sub-section-title mt-12">Data Ink & Content</h3>
+                <DocHeading level={3} className="mt-12">Data Ink & Content</DocHeading>
                 <div className="semantic-table-premium">
                   {contentTokens.map(t => (
                     <div key={t.variable} className="table-row-premium" onClick={() => copy(t.variable)}>
@@ -267,7 +268,7 @@ const ColorsDoc: React.FC = () => {
                   ))}
                 </div>
 
-                <h3 className="sub-section-title mt-12">Structural Boundaries</h3>
+                <DocHeading level={3} className="mt-12">Structural Boundaries</DocHeading>
                 <div className="semantic-table-premium">
                   {borderTokens.map(t => (
                     <div key={t.variable} className="table-row-premium" onClick={() => copy(t.variable)}>
@@ -277,30 +278,30 @@ const ColorsDoc: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </section>
+              </DocSection>
             </div>
           )}
 
           {activeTab === 'accents' && (
             <div className="animate-reveal space-y-16">
               {statusColors.concat(accentColors).map(g => (
-                <section id={g.id} key={g.name} className="doc-section">
-                  <h3 className="sub-section-title">{g.name} Protocol</h3>
+                <DocSection id={g.id} key={g.name}>
+                  <DocHeading level={3}>{g.name} Protocol</DocHeading>
                   <div className="swatch-premium-row">
                     {g.shades.map(t => <ColorSwatch key={t.variable} token={t} />)}
                   </div>
-                </section>
+                </DocSection>
               ))}
             </div>
           )}
 
           {activeTab === 'foundations' && (
             <div className="animate-reveal space-y-24">
-              <section id="foundations" className="doc-section">
-                <h2 className="section-title">Spatial Protocols</h2>
-                <p>Consistent vertical rhythm is enforced via a 4px modular unit for padding/margin, and standardized heights for components.</p>
+              <DocSection id="foundations">
+                <DocHeading>Spatial Protocols</DocHeading>
+                <DocText>Consistent vertical rhythm is enforced via a 4px modular unit for padding/margin, and standardized heights for components.</DocText>
                 
-                <h3 className="sub-section-title mt-8">Modular Spacing (Radix Scales 1-9)</h3>
+                <DocHeading level={3} className="mt-8">Modular Spacing (Radix Scales 1-9)</DocHeading>
                 <div className="spacing-premium-grid">
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {
                     const pixels = index === 1 ? 4 : index === 2 ? 8 : index === 3 ? 12 : index === 4 ? 16 : index === 5 ? 24 : index === 6 ? 32 : index === 7 ? 40 : index === 8 ? 48 : 64;
@@ -316,8 +317,8 @@ const ColorsDoc: React.FC = () => {
                   })}
                 </div>
 
-                <h3 className="sub-section-title mt-12">Interface Heights (Sizes)</h3>
-                <p className="mb-8">Standardized heights for input components, buttons, and row items across the platform.</p>
+                <DocHeading level={3} className="mt-12">Interface Heights (Sizes)</DocHeading>
+                <DocText className="mb-8">Standardized heights for input components, buttons, and row items across the platform.</DocText>
                 <div className="spacing-premium-grid">
                   {[1, 2, 3, 4].map(size => (
                     <div key={size} className="spacing-premium-item">
@@ -330,17 +331,17 @@ const ColorsDoc: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </section>
+              </DocSection>
 
-              <section className="doc-section">
-                <h2 className="section-title">The Flat Policy</h2>
-                <p>In accordance with our **Flat-Premium** core directive, shadows are deprecated. Elevation hierarchy is achieved through high-contrast borders and surgical background shifts, maximizing interface clarity in data-dense scenarios.</p>
+              <DocSection>
+                <DocHeading>The Flat Policy</DocHeading>
+                <DocText>In accordance with our **Flat-Premium** core directive, shadows are deprecated. Elevation hierarchy is achieved through high-contrast borders and surgical background shifts, maximizing interface clarity in data-dense scenarios.</DocText>
                 <div className="elevation-flat-grid">
                    <div className="elevation-box level-0">Background (S1)</div>
                    <div className="elevation-box level-1">Raised Interface (Border)</div>
                    <div className="elevation-box level-2">Active Overlay (High Contrast)</div>
                 </div>
-              </section>
+              </DocSection>
             </div>
           )}
         </div>

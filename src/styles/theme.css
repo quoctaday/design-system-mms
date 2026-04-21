@@ -22,6 +22,11 @@
   --space-8: calc(48px * var(--scaling));
   --space-9: calc(64px * var(--scaling));
 
+  /* Stroke Weight Scale (Scaling Aware - Global Foundations) */
+  --stroke-width-1: calc(1px * var(--scaling));
+  --stroke-width-2: calc(2px * var(--scaling));
+  --stroke-hairline: 0.5px; 
+
   /* Gray */
   --gray-1: #fcfcfc;
   --gray-2: #f9f9f9;
@@ -373,33 +378,9 @@
 
   /* ── 2. Identity & Status Mapping ── */
 
-  /* Primary Brand */
-  --brand-1: var(--blue-1);
-  --brand-2: var(--blue-2);
-  --brand-3: var(--blue-3);
-  --brand-4: var(--blue-4);
-  --brand-5: var(--blue-5);
-  --brand-6: var(--blue-6);
-  --brand-7: var(--blue-7);
-  --brand-8: var(--blue-8);
-  --brand-9: var(--blue-9);
-  --brand-10: var(--blue-10);
-  --brand-11: var(--blue-11);
-  --brand-12: var(--blue-12);
-
-  /* Brand Alphas (Alias -> Primitive) */
-  --brand-a1: var(--blue-a1);
-  --brand-a2: var(--blue-a2);
-  --brand-a3: var(--blue-a3);
-  --brand-a4: var(--blue-a4);
-  --brand-a5: var(--blue-a5);
-  --brand-a6: var(--blue-a6);
-  --brand-a7: var(--blue-a7);
-  --brand-a8: var(--blue-a8);
-  --brand-a9: var(--blue-a9);
-  --brand-a10: var(--blue-a10);
-  --brand-a11: var(--blue-a11);
-  --brand-a12: var(--blue-a12);
+  /* Note: --accent and --brand scales are now dynamically injected by BrandContext.tsx 
+     to support Whitelabeling (Unipay, OCB, etc.). The values below are deleted to avoid 
+     specificity conflicts with dynamic theming. */
 
   /* Semantic Feedback Scales (Expanded for Component Logic) */
   --success-1: var(--green-1);
@@ -414,6 +395,18 @@
   --success-10: var(--green-10);
   --success-11: var(--green-11);
   --success-12: var(--green-12);
+  --success-a1: var(--green-a1);
+  --success-a2: var(--green-a2);
+  --success-a3: var(--green-a3);
+  --success-a4: var(--green-a4);
+  --success-a5: var(--green-a5);
+  --success-a6: var(--green-a6);
+  --success-a7: var(--green-a7);
+  --success-a8: var(--green-a8);
+  --success-a9: var(--green-a9);
+  --success-a10: var(--green-a10);
+  --success-a11: var(--green-a11);
+  --success-a12: var(--green-a12);
 
   --error-1: var(--red-1);
   --error-2: var(--red-2);
@@ -427,42 +420,83 @@
   --error-10: var(--red-10);
   --error-11: var(--red-11);
   --error-12: var(--red-12);
+  --error-a1: var(--red-a1);
+  --error-a2: var(--red-a2);
+  --error-a3: var(--red-a3);
+  --error-a4: var(--red-a4);
+  --error-a5: var(--red-a5);
+  --error-a6: var(--red-a6);
+  --error-a7: var(--red-a7);
+  --error-a8: var(--red-a8);
+  --error-a9: var(--red-a9);
+  --error-a10: var(--red-a10);
+  --error-a11: var(--red-a11);
+  --error-a12: var(--red-a12);
 
   --warning-1: var(--amber-1);
   --warning-2: var(--amber-2);
   --warning-3: var(--amber-3);
   --warning-4: var(--amber-4);
-  --warning-5: var(--amber-5);
-  --warning-6: var(--amber-6);
-  --warning-7: var(--amber-7);
-  --warning-8: var(--amber-8);
-  --warning-9: var(--amber-9);
-  --warning-10: var(--amber-10);
-  --warning-11: var(--amber-11);
-  --warning-12: var(--amber-12);
+  --warning-a1: var(--amber-a1);
+  --warning-a2: var(--amber-a2);
+  --warning-a3: var(--amber-a3);
+  --warning-a4: var(--amber-a4);
+  --warning-a5: var(--amber-a5);
+  --warning-a6: var(--amber-a6);
+  --warning-a7: var(--amber-a7);
+  --warning-a8: var(--amber-a8);
+  --warning-a9: var(--amber-a9);
+  --warning-a10: var(--amber-a10);
+  --warning-a11: var(--amber-a11);
+  --warning-a12: var(--amber-a12);
+  /* ── 2. Color Aliases (Radix UI Architecture) ── */
+  
+  /* Dynamic Accent scales moved to runtime injection. */
+  --accent-a10: var(--blue-a10);
+  --accent-a11: var(--blue-a11);
+  --accent-a12: var(--blue-a12);
 
-  /* ── 3. Semantic Role Overrides v3.0 (Surface, Content, Border) ── */
+  /* ── 3. High-Level Semantic Tokens (Outcomes) ── */
 
-  /* Surface (Backgrounds) */
+  /* Backgrounds */
+  --color-page-background: var(--gray-1);
+  --color-surface: var(--white);
+  --color-panel: var(--white);
+  --color-transparent: rgba(0, 0, 0, 0);
+
+  /* Content */
+  --content-strong: var(--gray-12);
+  --content-default: var(--gray-11);
+  --content-subtle: var(--gray-10);
+  --content-placeholder: var(--gray-9);
+  --content-accent: var(--accent-11);
+  --content-on-solid: white;
+  --content-on-accent: white;
+
+  /* Surfaces */
   --surface-app: var(--gray-1);
   --surface-panel: var(--white);
   --surface-subtle: var(--gray-2);
   --surface-component: var(--gray-3);
   --surface-hover: var(--gray-4);
   --surface-active: var(--gray-5);
-  --surface-solid: var(--brand-9);
-  --surface-sunken: var(--gray-a3);
-
-  --surface-accent-subtle: var(--brand-2);
-  --surface-accent-component: var(--brand-3);
-  --surface-accent-hover: var(--brand-4);
-  --surface-accent-solid: var(--brand-9);
-
-  --surface-overlay: var(--black-a8);
-  --surface-tooltip: var(--gray-a9);
-  --surface-glass: var(--white-a11);
-  --surface-skeleton: var(--gray-a4);
+  --surface-solid: var(--accent-9);
   
+  --surface-accent-subtle: var(--accent-2);
+  --surface-accent-component: var(--accent-3);
+  --surface-accent-hover: var(--accent-4);
+  --surface-accent-active: var(--accent-5);
+  --surface-accent-solid: var(--accent-9);
+
+  /* Borders */
+  --border-subtle: var(--gray-4);
+  --border-default: var(--gray-6);
+  --border-strong: var(--gray-8);
+  --border-accent: var(--accent-7);
+
+  /* Selection & Focus */
+  --color-selection: var(--accent-a5);
+  --color-focus-outline: var(--accent-8);
   --surface-danger-subtle: var(--red-3);
   --surface-danger-hover: var(--red-4);
   --surface-danger-solid: var(--red-9);
@@ -559,25 +593,34 @@
   --content-strong: var(--gray-12);
   --content-subtle: var(--gray-11);
   --content-placeholder: var(--gray-9);
-  --content-accent: var(--brand-11);
+  --content-accent: var(--accent-11);
   --content-on-solid: var(--white);
   --content-danger: var(--red-11);
   --content-success: var(--green-11);
   --content-warning: var(--amber-11);
   
   /* Border (Dividers) */
-  --border-subtle: var(--gray-6);
+  --border-subtle: var(--gray-a4);
   --border-default: var(--gray-7);
   --border-strong: var(--gray-8);
   --border-divider: var(--gray-a6);
-  --border-accent: var(--brand-7);
-  --border-accent-strong: var(--brand-8);
+  --border-accent: var(--accent-7);
+  --border-accent-strong: var(--accent-8);
   --border-danger: var(--red-7);
   --border-danger-strong: var(--red-8);
   --border-success: var(--green-7);
   --border-success-strong: var(--green-8);
   --border-warning: var(--amber-7);
   --border-warning-strong: var(--amber-8);
+  --border-glass: var(--white-a4);
+
+  /* Semantic Special Surfaces */
+  --skeleton-wave-1: var(--gray-a3);
+  --skeleton-wave-2: var(--gray-a4);
+
+  --surface-overlay: rgba(0, 0, 0, 0.4);
+  --surface-tooltip: var(--gray-12);
+  --surface-glass: var(--white-a11);
   --border-glass: var(--white-a4);
 
   /* Semantic Alphas (Context-Aware) */
@@ -590,9 +633,12 @@
 
   /* Radius Personality System (Radix-Aligned) */
   --radius-factor: 1.0;
+
+  --alpha-hover: var(--gray-a5);
 }
 
 [data-radius] {
+  --radius-none: 0px;
   --radius-1: calc(3px  * var(--scaling) * var(--radius-factor));
   --radius-2: calc(4px  * var(--scaling) * var(--radius-factor));
   --radius-3: calc(6px  * var(--scaling) * var(--radius-factor));
@@ -607,19 +653,25 @@
   --radius-thumb: 0.5px;
 }
 
+[data-radius=small],
+[data-radius="1"],
 [data-radius="2"] {
   --radius-factor: 0.75;
   --radius-full: 0px;
   --radius-thumb: 9999px;
 }
 
+[data-radius=medium],
+[data-radius="3"],
 [data-radius="4"] {
   --radius-factor: 1;
   --radius-full: 0px;
   --radius-thumb: 9999px;
 }
 
-[data-radius="5"] {
+[data-radius=large],
+[data-radius="5"],
+[data-radius="6"] {
   --radius-factor: 1.5;
   --radius-full: 0px;
   --radius-thumb: 9999px;
@@ -672,8 +724,8 @@
   --outline-offset: 2px;
 
   /* Typography (Scaling Aware) */
-  --font-display: 'Inter Display', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-display-custom, 'Inter Display', 'Inter', system-ui, -apple-system, sans-serif);
+  --font-body: var(--font-body-custom, 'Inter', system-ui, -apple-system, sans-serif);
   --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --font-family: var(--font-body);
 
@@ -709,32 +761,105 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
+  /* Leading Trim (Cap Height Alignment) - Radix Themes Standard */
+  --default-leading-trim-start: 0.42em;
+  --default-leading-trim-end: 0.36em;
+  --heading-leading-trim-start: 0.42em;
+  --heading-leading-trim-end: 0.36em;
+
   --font-size-sm: var(--font-size-1);
   --font-size-base: var(--font-size-2);
   --font-size-lg: var(--font-size-3);
   --font-size-xl: var(--font-size-4);
   --font-size-2xl: var(--font-size-5);
 
-  /* Letter Spacing (Tracking) */
-  --tracking-tighter: -0.05em;
-  --tracking-tight: -0.02em;
-  --tracking-normal: 0em;
-  --tracking-wide: 0.01em;
-  --tracking-wider: 0.02em;
-  --tracking-widest: 0.05em;
-  
-  --tracking-default: var(--tracking-wide);
-  --tracking-display: var(--tracking-wider);
+  /* Letter Spacing (Tracking) - Radix Themes 9-Point Scale */
+  --letter-spacing-1: 0.0025em;
+  --letter-spacing-2: 0em;
+  --letter-spacing-3: 0em;
+  --letter-spacing-4: -0.0025em;
+  --letter-spacing-5: -0.005em;
+  --letter-spacing-6: -0.00625em;
+  --letter-spacing-7: -0.0075em;
+  --letter-spacing-8: -0.01em;
+  --letter-spacing-9: -0.025em;
+
+  --tracking-tighter: var(--letter-spacing-9);
+  --tracking-tight: var(--letter-spacing-5);
+  --tracking-normal: var(--letter-spacing-2);
+  --tracking-wide: var(--letter-spacing-1);
+
+  --tracking-default: var(--letter-spacing-2);
+  --tracking-display: var(--letter-spacing-8);
   --tracking-caps: 0.1em;
 
   /* Shadows */
   /* Shadows (Radix-Style Layered Scale) */
-  --shadow-1: 0 1px 2px var(--black-a2), 0 0 0 1px var(--gray-a3);
-  --shadow-2: 0 3px 6px var(--black-a2), 0 0 0 1px var(--gray-a3);
-  --shadow-3: 0 6px 12px var(--black-a3), 0 0 0 1px var(--gray-a3);
-  --shadow-4: 0 12px 24px var(--black-a3), 0 0 0 1px var(--gray-a3);
-  --shadow-5: 0 18px 36px var(--black-a4), 0 0 0 1px var(--gray-a3);
-  --shadow-6: 0 24px 48px var(--black-a4), 0 0 0 1px var(--gray-a3);
+  /* Shadows (Radix-Style Layered Scale - Premium Fidelity) */
+  --shadow-1:
+    inset 0 0 0 1px var(--gray-a5),
+    inset 0 1.5px 2px 0 var(--gray-a2),
+    inset 0 1.5px 2px 0 var(--black-a2);
+
+  --shadow-2:
+    0 0 0 1px var(--gray-a3),
+    0 0 0 0.5px var(--black-a1),
+    0 1px 1px 0 var(--gray-a2),
+    0 2px 1px -1px var(--black-a1),
+    0 1px 3px 0 var(--black-a1);
+
+  --shadow-3:
+    0 0 0 1px var(--gray-a3),
+    0 2px 3px -2px var(--gray-a3),
+    0 3px 12px -4px var(--black-a2),
+    0 4px 16px -8px var(--black-a2);
+
+  --shadow-4:
+    0 0 0 1px var(--gray-a3),
+    0 8px 40px var(--black-a1),
+    0 12px 32px -16px var(--gray-a3);
+
+  --shadow-5:
+    0 0 0 1px var(--gray-a3),
+    0 12px 60px var(--black-a3),
+    0 12px 32px -16px var(--gray-a5);
+
+  --shadow-6:
+    0 0 0 1px var(--gray-a3),
+    0 12px 60px var(--black-a3),
+    0 16px 64px var(--gray-a2),
+    0 16px 36px -20px var(--gray-a7);
+
+  @supports (color: color-mix(in oklab, white, black)) {
+    --shadow-2:
+      0 0 0 1px color-mix(in oklab, var(--gray-a3), var(--gray-3) 25%),
+      0 0 0 0.5px var(--black-a1),
+      0 1px 1px 0 var(--gray-a2),
+      0 2px 1px -1px var(--black-a1),
+      0 1px 3px 0 var(--black-a1);
+
+    --shadow-3:
+      0 0 0 1px color-mix(in oklab, var(--gray-a3), var(--gray-3) 25%),
+      0 2px 3px -2px var(--gray-a3),
+      0 3px 12px -4px var(--black-a2),
+      0 4px 16px -8px var(--black-a2);
+
+    --shadow-4:
+      0 0 0 1px color-mix(in oklab, var(--gray-a3), var(--gray-3) 25%),
+      0 8px 40px var(--black-a1),
+      0 12px 32px -16px var(--gray-a3);
+
+    --shadow-5:
+      0 0 0 1px color-mix(in oklab, var(--gray-a3), var(--gray-3) 25%),
+      0 12px 60px var(--black-a3),
+      0 12px 32px -16px var(--gray-a5);
+
+    --shadow-6:
+      0 0 0 1px color-mix(in oklab, var(--gray-a3), var(--gray-3) 25%),
+      0 12px 60px var(--black-a3),
+      0 16px 64px var(--gray-a2),
+      0 16px 36px -20px var(--gray-a7);
+  }
 
   /* Blurs (Glassmorphism) */
   --blur-sm: 4px;
@@ -915,20 +1040,76 @@
   --lime-11: #e1f3ac;
   --lime-12: #f2fadc;
 
-  /* Semantic Roles (Dark) */
+  /* ── 2. Color Aliases (Dark) ── */
+  
+  /* Accent Aliases */
+  --accent-1: var(--blue-1);
+  --accent-2: var(--blue-2);
+  --accent-3: var(--blue-3);
+  --accent-4: var(--blue-4);
+  --accent-5: var(--blue-5);
+  --accent-6: var(--blue-6);
+  --accent-7: var(--blue-7);
+  --accent-8: var(--blue-8);
+  --accent-9: var(--blue-9);
+  --accent-10: var(--blue-10);
+  --accent-11: var(--blue-11);
+  --accent-12: var(--blue-12);
+
+  /* Accent Alpha Aliases */
+  --accent-a1: var(--blue-a1);
+  --accent-a2: var(--blue-a2);
+  --accent-a3: var(--blue-a3);
+  --accent-a4: var(--blue-a4);
+  --accent-a5: var(--blue-a5);
+  --accent-a6: var(--blue-a6);
+  --accent-a7: var(--blue-a7);
+  --accent-a8: var(--blue-a8);
+  --accent-a9: var(--blue-a9);
+  --accent-a10: var(--blue-a10);
+  --accent-a11: var(--blue-a11);
+  --accent-a12: var(--blue-a12);
+
+  /* ── 3. High-Level Semantic Tokens (Dark Outcomes) ── */
+
+  /* Backgrounds */
+  --color-page-background: var(--gray-1);
+  --color-surface: var(--gray-2);
+  --color-panel: var(--gray-3);
+
+  /* Content */
+  --content-strong: var(--gray-12);
+  --content-default: var(--gray-11);
+  --content-subtle: var(--gray-10);
+  --content-placeholder: var(--gray-9);
+  --content-accent: var(--accent-11);
+  --content-on-solid: white;
+  --content-on-accent: white;
+
+  /* Surfaces */
   --surface-app: var(--gray-1);
   --surface-panel: var(--gray-2);
   --surface-subtle: var(--gray-2);
   --surface-component: var(--gray-3);
   --surface-hover: var(--gray-4);
   --surface-active: var(--gray-5);
-  --surface-solid: var(--brand-9);
-  --surface-sunken: var(--gray-a3);
+  --surface-solid: var(--accent-9);
+  
+  --surface-accent-subtle: var(--accent-2);
+  --surface-accent-component: var(--accent-3);
+  --surface-accent-hover: var(--accent-4);
+  --surface-accent-active: var(--accent-5);
+  --surface-accent-solid: var(--accent-9);
 
-  --surface-accent-component: var(--brand-3);
-  --surface-accent-hover: var(--brand-4);
-  --surface-accent-solid: var(--brand-9);
-  --surface-accent-subtle: var(--brand-2);
+
+  /* Selection & Focus */
+  --color-selection: var(--accent-a5);
+  --color-focus-outline: var(--accent-8);
+
+  --surface-accent-component: var(--accent-3);
+  --surface-accent-hover: var(--accent-4);
+  --surface-accent-solid: var(--accent-9);
+  --surface-accent-subtle: var(--accent-2);
 
   --surface-danger-subtle: var(--red-3);
   --surface-danger-solid: var(--red-9);
@@ -938,14 +1119,7 @@
   --surface-warning-solid: var(--amber-9);
   --surface-skeleton: var(--white-a3);
 
-  /* Component-Specific Layers (Dark) */
-  --card-bg: var(--surface-panel);
-  --card-border: var(--border-subtle);
-  --card-padding: var(--space-5);
-  --badge-bg-solid: var(--brand-9);
-  --badge-text-soft: var(--brand-12);
-  --badge-bg-soft: var(--brand-3);
-
+  /* Semantic Special Surfaces */
   --skeleton-wave-1: var(--gray-a5);
   --skeleton-wave-2: var(--gray-a8);
 
@@ -957,18 +1131,19 @@
   --content-strong: var(--gray-12);
   --content-subtle: var(--gray-11);
   --content-placeholder: var(--gray-9);
-  --content-accent: var(--brand-11);
-  --content-on-solid: #ffffff;
+  --content-accent: var(--accent-11);
+  --content-on-solid: white;
   --content-danger: var(--red-11);
   --content-success: var(--green-11);
   --content-warning: var(--amber-11);
 
-  --border-subtle: var(--gray-6);
+  /* Border (Dividers) */
+  --border-subtle: var(--gray-a4);
   --border-default: var(--gray-7);
   --border-strong: var(--gray-8);
-  --border-divider: rgba(255, 255, 255, 0.08);
-  --border-accent: var(--brand-7);
-  --border-accent-strong: var(--brand-8);
+  --border-divider: var(--gray-a6);
+  --border-accent: var(--accent-7);
+  --border-accent-strong: var(--accent-8);
   --border-danger: var(--red-7);
   --border-success: var(--green-7);
   --border-warning: var(--amber-7);
@@ -980,16 +1155,94 @@
   --alpha-hover: var(--white-a5);
 
   /* Shadows (Radix-Style Layered Scale - Dark Mode High Contrast) */
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--gray-a3);
-  --shadow-2: 0 3px 6px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--gray-a3);
-  --shadow-3: 0 6px 12px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--gray-a3);
-  --shadow-4: 0 12px 24px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--gray-a3);
-  --shadow-5: 0 18px 36px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--gray-a3);
-  --shadow-6: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--gray-a3);
+  /* Shadows (Radix-Style Layered Scale - Dark Mode Depth) */
+  --shadow-1:
+    inset 0 -1px 1px 0 var(--gray-a3),
+    inset 0 0 0 1px var(--gray-a3),
+    inset 0 3px 4px 0 var(--black-a5),
+    inset 0 0 0 1px var(--gray-a4);
+
+  --shadow-2:
+    0 0 0 1px var(--gray-a6),
+    0 0 0 0.5px var(--black-a3),
+    0 1px 1px 0 var(--black-a6),
+    0 2px 1px -1px var(--black-a6),
+    0 1px 3px 0 var(--black-a5);
+
+  --shadow-3:
+    0 0 0 1px var(--gray-a6),
+    0 2px 3px -2px var(--black-a3),
+    0 3px 8px -2px var(--black-a6),
+    0 4px 12px -4px var(--black-a7);
+
+  --shadow-4:
+    0 0 0 1px var(--gray-a6),
+    0 8px 40px var(--black-a3),
+    0 12px 32px -16px var(--black-a5);
+
+  --shadow-5:
+    0 0 0 1px var(--gray-a6),
+    0 12px 60px var(--black-a5),
+    0 12px 32px -16px var(--black-a7);
+
+  --shadow-6:
+    0 0 0 1px var(--gray-a6),
+    0 12px 60px var(--black-a4),
+    0 16px 64px var(--black-a6),
+    0 16px 36px -20px var(--black-a11);
+
+  @supports (color: color-mix(in oklab, white, black)) {
+    --shadow-2:
+      0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6) 25%),
+      0 0 0 0.5px var(--black-a3),
+      0 1px 1px 0 var(--black-a6),
+      0 2px 1px -1px var(--black-a6),
+      0 1px 3px 0 var(--black-a5);
+
+    --shadow-3:
+      0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6) 25%),
+      0 2px 3px -2px var(--black-a3),
+      0 3px 8px -2px var(--black-a6),
+      0 4px 12px -4px var(--black-a7);
+
+    --shadow-4:
+      0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6) 25%),
+      0 8px 40px var(--black-a3),
+      0 12px 32px -16px var(--black-a5);
+
+    --shadow-5:
+      0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6) 25%),
+      0 12px 60px var(--black-a5),
+      0 12px 32px -16px var(--black-a7);
+
+    --shadow-6:
+      0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6) 25%),
+      0 12px 60px var(--black-a4),
+      0 16px 64px var(--black-a6),
+      0 16px 36px -20px var(--black-a11);
+  }
+
+  /* ─────────────────────────────────────────────────────────
+   * HIGH CONTRAST (Radix V4 Alignment)
+   * ───────────────────────────────────────────────────────── */
+  
+  /* Global high-contrast toggle for components */
+  .rt-high-contrast {
+    --accent-a11: var(--accent-12);
+    --gray-a11: var(--gray-12);
+    --green-a11: var(--green-12);
+    --red-a11: var(--red-12);
+    --amber-a11: var(--amber-12);
+    
+    /* Force solid text for critical visibility */
+    --content-subtle: var(--gray-11);
+    --content-default: var(--gray-12);
+    --content-strong: var(--gray-12);
+  }
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--font-body);
   color: var(--content-strong);
   background-color: var(--surface-app);
   letter-spacing: var(--tracking-default);

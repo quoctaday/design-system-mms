@@ -1,10 +1,10 @@
 # Segmented Control
 
-Thành phần điều khiển phân đoạn (Segmented Control) được thiết kế cho việc chọn giá trị (Form Selection) trên các giao diện có mật độ thông tin cao. Hệ thống được tối ưu với **Padding 4px**, tạo cảm giác "cơ học" chắc chắn và gọn gàng, tách biệt rõ rệt với diện mạo thoáng đạt của Tabs.
+The Segmented Control component is engineered specifically for value selection (Form Selection) within high-density operational interfaces. It is optimized with a **4px Internal Padding** to provide a solid, "mechanical" and compact character—distinctly separated from the more spacious and navigation-focused aesthetic of the Tabs component.
 
 ## 🧱 Compound Architecture
 
-Sử dụng mô hình `Root` và `Item` để tách biệt logic quản lý trạng thái và hiển thị từng phân đoạn.
+This component utilizes a `Root` and `Item` structural model to decouple state management logic from the individual segment rendering.
 
 ```tsx
 import { SegmentedControl } from '@mms/ui';
@@ -19,23 +19,24 @@ import { SegmentedControl } from '@mms/ui';
 
 | Variant | Aesthetic | Usage |
 | :--- | :--- | :--- |
-| `surface` | Flat, subtle | (Default) Dành cho các thanh công cụ tiêu chuẩn. |
-| `classic` | High contrast | Dành cho các nút chuyển đổi chế độ xem chính. |
-| `soft` | Sunken track | Dành cho sidebar hoặc giao diện có mật độ cao. |
+| `surface` | Flat, subtle | (Default) Designed for standard operational toolbars. |
+| `classic` | High contrast | Reserved for primary mode-switching or view toggles. |
+| `soft` | Sunken track | Optimized for sidebars or ultra-high-density data views. |
 
 ## 📏 Sizing
 
-Sử dụng thang đo số (Numeric scaling) để đảm bảo độ chính xác tuyệt đối.
+The component adheres to a precise numeric scaling system to ensure layout consistency across all viewports.
 
-- **Size 1 (28px)**: Mật độ cao.
-- **Size 2 (36px)**: Tiêu chuẩn (Default).
-- **Size 3 (44px)**: Hero sections.
+- **Size 1 (28px)**: Optimized for ultra-high-density data grids.
+- **Size 2 (36px)**: The standard operational baseline (Default).
+- **Size 3 (44px)**: Designed for Hero sections and prominent landing areas.
 
 ## ✨ The Premium Sliding Indicator
-Tương tự như `Tabs`, `SegmentedControl` sử dụng một thanh chỉ báo (Indicator) trượt độc lập:
-1. **Mechanical Feel**: Indicator di chuyển mượt mà giữa các điểm dừng bằng `transform`.
-2. **Context Awareness**: Tự động tính toán kích thướt (Width/Height) dựa trên phần tử Active thông qua `useLayoutEffect`.
-3. **Visual Depth**: Áp dụng shadow nhẹ (`shadow-1` hoặc `shadow-2`) trên thanh chỉ báo để tạo độ nổi khối so với đường rãnh (Track).
+
+Mirroring the behavior of the `Tabs` component, the `SegmentedControl` features an independent, fluid sliding Indicator:
+1. **Mechanical Feel**: The indicator glides seamlessly between stops using hardware-accelerated `transform` transitions.
+2. **Context Awareness**: Dynamically calculates its dimensions (Width/Height) based on the currently active element via `useLayoutEffect`.
+3. **Visual Depth**: Applies subtle layering (`shadow-1` or `shadow-2`) to the indicator to create the necessary physical relief against the track background.
 
 ---
 **Related:** [[02 - Components/Tabs|Tabs]] • [[02 - Components/Button|Button]] • [[02 - Components/Switch|Switch]]

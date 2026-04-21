@@ -1,37 +1,38 @@
 # Badge
 
-Thành phần hiển thị nhãn trạng thái hoặc phân loại thông tin. Được tối ưu hóa cho mật độ dữ liệu cao với thiết kế Flat-Premium.
+A component utilized for displaying status labels or categorizing information. Optimized for high data density scenarios within the Flat-Premium design aesthetic.
 
-## 🧱 Cấu trúc
+## 🧱 Structure
 
 ```tsx
 import { Badge } from '@mms/ui';
 
-<Badge variant="surface" color="brand">Hoạt động</Badge>
+<Badge variant="surface" color="brand">Active</Badge>
 ```
 
 ## 🎨 Variants & Contrast
 
-- **Solid**: Sử dụng nền đậm (Brand/State colors). Dành cho các trạng thái cực kỳ quan trọng.
-- **Soft**: Nền màu nhạt, không viền. Tiêu chuẩn quốc tế cho nhãn phân loại.
-- **Surface**: Nền nhạt kết hợp với **viền Hairline (0.5px)**. Mang lại cảm giác tinh tế và cao cấp nhất.
-- **Outline**: Chỉ có viền, không nền.
-- **Ghost**: Tối giản tối đa.
+- **Solid**: Utilizes a high-impact solid background (Brand/State colors). Reserved for critical or high-priority status indicators.
+- **Soft**: Features a subtle background without a border. The standard for non-intrusive metadata categorization.
+- **Surface**: Combines a subtle background with an ultra-sharp **Hairline border (0.5px)**. Delivers the most sophisticated and premium visual character.
+- **Outline**: Provides a defined border without an underlying background.
+- **Ghost**: Minimalist approach with no background or border until interaction.
 
 ## 📏 Sizing
 
-Hệ thống kích thước mới hỗ trợ 3 cấp độ để linh hoạt trong mọi vị trí hiển thị:
+The system supports three precision sizing levels to accommodate various layout densities:
 
 | Prop | Height | Font Size | Usage |
 | :--- | :--- | :--- | :--- |
-| `size="1"` | `20px` | `11px` | Micro-tags, Table rows |
-| `size="2"` | `24px` | `12px` | Standard (Mặc định) |
-| `size="3"` | `28px` | `13px` | Large cards, Headers |
+| `size="1"` | `20px` | `11px` | Micro-tags, dense table rows |
+| `size="2"` | `24px` | `12px` | Standard operational baseline (Default) |
+| `size="3"` | `28px` | `13px` | Large cards, prominent headers |
 
 ## 🎨 Token Specs
-
-- **Radius:** Mặc định `var(--radius-1)` cho cảm giác hiện đại, hoặc `radius="full"` cho dạng viên thuốc (Pill).
-- **Border:** `0.5px` cho biến thể `surface`.
+- **Variants**: `solid`, `soft`, `outline`, `surface` (Inset-Border), `ghost`.
+- **Border Architecture**: Employs `box-shadow: inset` with `var(--stroke-width-1)` (or `hairline` for surface variants) to ensure absolute perimeter sharpness.
+- **Radius Strategy**: Uses `max(var(--radius-full), var(--radius-1))` to support the global system-wide toggle between Square and Pill-shaped indicators.
+- **Vertical Alignment**: Applies the **WokerDS Leading-Trim** technique to achieve pixel-perfect vertical centering of text.
 
 ---
-[[00 - Introduction|Quay lại trang chủ]]
+[[00 - Introduction|Back to Introduction]]

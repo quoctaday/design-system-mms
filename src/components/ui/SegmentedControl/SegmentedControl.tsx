@@ -15,8 +15,8 @@ interface SegmentedControlContextValue {
   value?: string;
   onValueChange?: (value: string) => void;
   size?: '1' | '2' | '3';
-  variant?: 'surface' | 'classic' | 'soft';
-  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  variant?: 'surface' | 'classic';
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
   disabled?: boolean;
   registerItem?: (value: string, element: HTMLButtonElement) => void;
   unregisterItem?: (value: string) => void;
@@ -31,8 +31,8 @@ export interface SegmentedControlRootProps extends React.HTMLAttributes<HTMLDivE
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   size?: '1' | '2' | '3';
-  variant?: 'surface' | 'classic' | 'soft';
-  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  variant?: 'surface' | 'classic';
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
   disabled?: boolean;
   fullWidth?: boolean;
 }
@@ -125,9 +125,7 @@ const Root = forwardRef<HTMLDivElement, SegmentedControlRootProps>((props, ref) 
         {/* Animated Indicator */}
         <div className="mms-segmented-indicator" style={indicatorStyle} aria-hidden="true" />
         
-        <div className="mms-segmented-items-container">
-          {children}
-        </div>
+        {children}
       </div>
     </SegmentedControlContext.Provider>
   );

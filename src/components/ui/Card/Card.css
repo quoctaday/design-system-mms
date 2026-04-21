@@ -1,10 +1,14 @@
 .mms-card {
-  /* Internal Tokens (Local Contract) */
-  --card-padding: var(--space-4);
+  --card-bg: var(--surface-panel);
+  --card-border: var(--border-subtle);
+  --card-padding: var(--space-5);
+  --current-radius: var(--radius-4); /* Default card radius */
+  --card-inner-radius: calc(var(--current-radius) - var(--card-padding));
+  
   background-color: var(--card-bg);
-  border: var(--stroke-width-1) solid var(--card-border);
-  border-radius: var(--radius-3);
-  padding: var(--space-4);
+  box-shadow: inset 0 0 0 1px var(--card-border);
+  border-radius: var(--current-radius);
+  padding: var(--card-padding);
   display: flex;
   flex-direction: column;
   overflow: clip;
@@ -17,12 +21,11 @@
   background-color: var(--surface-glass);
   backdrop-filter: blur(var(--blur-lg));
   -webkit-backdrop-filter: blur(var(--blur-lg));
-  border: var(--stroke-width-1) solid var(--border-glass);
+  box-shadow: inset 0 0 0 1px var(--border-glass);
 }
 
 .mms-card--bordered {
-  border: var(--stroke-width-1) solid var(--border-default);
-  box-shadow: none;
+  box-shadow: inset 0 0 0 1px var(--border-default);
 }
 
 /* Padding variants */
@@ -46,31 +49,43 @@
 }
 
 .mms-card-title {
-  margin: 0;
+  margin: 0 !important;
+  font-family: var(--font-heading);
   font-size: var(--font-size-4);
   font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-4);
+  line-height: var(--line-height-4);
   color: var(--content-strong);
 }
 
 .mms-card-description {
-  margin: var(--space-1) 0 0;
+  margin: 0 !important;
+  margin-top: var(--space-1) !important;
+  font-family: var(--font-body);
   font-size: var(--font-size-2);
+  letter-spacing: var(--letter-spacing-2);
+  line-height: var(--line-height-2);
   color: var(--content-subtle);
 }
 
 /* Footer */
 .mms-card-footer {
   padding: var(--space-2) var(--space-4) var(--space-4);
-  border-top: var(--stroke-width-1) solid var(--card-border);
+  border-top: 1px solid var(--card-border);
   margin-top: auto;
 }
 
 /* Hover effect */
 .mms-card:hover {
-  border-color: var(--border-default);
+  box-shadow: inset 0 0 0 1px var(--border-default);
 }
 
 .mms-card--glass:hover {
   background-color: var(--surface-glass);
   filter: brightness(1.1);
 }
+.mms-card-radius-none   { --current-radius: var(--radius-none); }
+.mms-card-radius-small  { --current-radius: var(--radius-2); }
+.mms-card-radius-medium { --current-radius: var(--radius-4); }
+.mms-card-radius-large  { --current-radius: var(--radius-6); }
+.mms-card-radius-full   { --current-radius: var(--radius-full); }

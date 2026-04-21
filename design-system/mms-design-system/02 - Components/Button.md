@@ -2,27 +2,26 @@
 
 The primary action component for the MMS Platform, optimized for both high-impact CTAs and dense operational navigation.
 
-## 📏 Sizing
-Buttons follow the standardized height tokens for operational density.
+## 📏 Sizing (Radix 3.0 Standard)
+Buttons follow the standardized height tokens for operational density, matching Input and Select grids.
 
 | Prop | Height | Usage |
 | :--- | :--- | :--- |
-| **`size="1"`** | `32px` | Micro actions, compact tables |
-| **`size="2"`** | `40px` | Standard UI actions (Default) |
-| **`size="3"`** | `48px` | Primary CTA, Large modals |
-| **`size="4"`** | `56px` | Hero sections, high-impact actions |
+| **`size="1"`** | `24px` | Micro actions, compact tables |
+| **`size="2"`** | `32px` | Standard UI actions (Default) |
+| **`size="3"`** | `40px` | Primary CTA, Large modals |
+| **`size="4"`** | `56px` | Large emphasis actions and hero-grade CTAs |
 
-## ⤗ Radius
-Buttons use the standard numeric scale. When the theme is set to `Full`, buttons automatically opt-in to a pill shape.
+## ⤗ Radius (5-Level Ironclad)
+Buttons use the semantic radius scale. For a modern, organic look, `radius="full"` creates a pill-shaped button.
 
-| Prop | Value | Note |
+| Prop | Logic | Note |
 | :--- | :--- | :--- |
 | **`radius="none"`** | `0px` | Sharp corners |
-| **`radius="1"`**    | `3px` | Micro rounding |
-| **`radius="2"`**    | `4px` | Small rounding |
-| **`radius="3"`**    | `6px` | Medium rounding |
-| **`radius="4"`**    | `8px` | Standard rounding (Default) |
-| **`radius="full"`** | `9999px`| Pill shape (Force) |
+| **`radius="small"`** | `var(--radius-1)` | Micro rounding |
+| **`radius="medium"`**| `var(--radius-2)` | Standard rounding (Default) |
+| **`radius="large"`** | `var(--radius-3)` | Soft rounding |
+| **`radius="full"`**  | `9999px` | Pill shape |
 
 ## 🎨 Variants
 - **Solid**: High-intent actions using solid brand/semantic backgrounds (`--surface-solid`).
@@ -32,7 +31,20 @@ Buttons use the standard numeric scale. When the theme is set to `Full`, buttons
 - **Surface**: High-precision buttons with both borders and subtle backgrounds.
 
 ## 🛡️ Focus Halo Standard
-Tất cả các Buttons (trừ Ghost/Links tùy trường hợp) đều áp dụng tiêu chuẩn **mms-focus-halo-brand**. Đây là hệ thống đổ bóng 3 lớp giúp trạng thái Focus trông sắc nét và rực rỡ, đảm bảo khả năng truy cập (Accessibility).
+All Buttons implement the `mms-focus-halo` system with color-aware focus-visible rings. Brand and semantic colors must preserve sharp, accessible focus feedback across all supported themes.
+
+## 🎨 Color Contract
+- **Canonical MMS semantics**: `brand`, `success`, `error`, `warning`, `gray`
+- **Extended palette / legacy support**: `secondary`, `black`, `orange`, `blue`, `purple`, `sky`, `pink`, `teal`
+- **Rule**: Mechanical behavior mirrors Radix, but color meaning must follow MMS semantic tokens and white-label-ready accent logic.
+
+## 🎨 Token Specs
+- **Variants**: `solid` (Layered Elevation), `soft`, `outline`, `surface` (Premium Depth), `ghost`.
+- **Primary Fill**: `var(--accent-9)` or semantic color equivalents.
+- **Border Logic**: Using `box-shadow: inset` with `var(--stroke-width-1)` for precise scaling across all resolutions.
+- **Radius**: `max(var(--radius-full), var(--radius-4))` (Defaults to Radius-4 for a High-Density operational feel).
+- **Active State**: Implements a multi-layered "Pressed" effect via `box-shadow: inset`, preserving layout stability and avoiding the visual jitter often associated with transform-based scaling.
+- **Centering**: Utilizes the custom **WokerDS leading-trim** for the `mms-button-content` to achieve pixel-perfect vertical text alignment.
 
 ---
-**Related:** [[02 - Components/DropdownMenu|DropdownMenu]] • [[01 - Foundations/Colors|Colors Foundation]] • [[02 - Components/Badge|Badge]]
+**Related:** [[02 - Components/Button Contract|Button Contract]] • [[02 - Components/DropdownMenu|DropdownMenu]] • [[01 - Foundations/Colors|Colors Foundation]] • [[02 - Components/Badge|Badge]]

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useToast, Button } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -31,9 +32,9 @@ const ToastDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="basic" className="doc-section">
-        <h2>Basic Usage</h2>
-        <p>Trigger different types of toasts to give feedback to the user.</p>
+      <DocSection id="basic">
+        <DocHeading>Basic Usage</DocHeading>
+        <DocText>Trigger different types of toasts to give feedback to the user.</DocText>
         <CodePreview
           code={`const { toast } = useToast();
 
@@ -79,11 +80,11 @@ const ToastDoc: React.FC = () => {
             </Button>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="interactive" className="doc-section">
-        <h2>Interactive Toasts</h2>
-        <p>Toasts that allow users to take action or follow a process.</p>
+      <DocSection id="interactive">
+        <DocHeading>Interactive Toasts</DocHeading>
+        <DocText>Toasts that allow users to take action or follow a process.</DocText>
         <CodePreview
           code={`toast.custom({
   type: 'info',
@@ -137,11 +138,11 @@ const ToastDoc: React.FC = () => {
             </Button>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="configurations" className="doc-section">
-        <h2>Configurations</h2>
-        <p>Customizing duration or excluding descriptions.</p>
+      <DocSection id="configurations">
+        <DocHeading>Configurations</DocHeading>
+        <DocText>Customizing duration or excluding descriptions.</DocText>
         <CodePreview
           code={`toast.success('Fast Toast', undefined, 2000); // 2s duration
 toast.info('Persistent Toast', 'Wait for it', 0); // Never auto-closes`}
@@ -161,12 +162,12 @@ toast.info('Persistent Toast', 'Wait for it', 0); // Never auto-closes`}
             </Button>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={toastMethods} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

@@ -25,10 +25,13 @@ Every component container must satisfy the nesting law:
 
 ## 🔍 Audit Workflow
 
-### Phase 1: Architectural Integrity (NEW)
-1. **Library Reuse**: Scan `src/components/ui/` before any development. Verify that standard patterns (Tabs, Buttons, Inputs) are not being reinvented with custom CSS.
-2. **Evolution Gate**: Verify that any NEW primitive or widget added to the system has been explicitly approved by the User in the conversation history.
-3. **Documentation Alignment**: Ensure that new components are added to docs ONLY after approval.
+### Phase 1: Architectural Integrity (IRONCLAD 3.0)
+1. **Atomic Blueprinting**: Before coding, sketch the HTML structure. Verify that no wrapper tags block Flex/Grid properties of parents.
+2. **Mechanical Mapping Protocol**: Extract Radix source code. Document the Mapping (Height, Padding, Radius, Spacing, Display).
+3. **Visual Audit (MANDATORY)**: After implementation, use `get_screenshot` on relevant nodes to catch alignment or centering errors.
+4. **Self-Improving Protocol**: Review `lessons-learned.md`. Do not repeat past failures.
+3. **MMS Engine First**: Complex logic (state, positioning, focus) MUST be pulled from `src/lib/mms-engine.ts`.
+4. **Guardian Audit**: Run `node scripts/mms-native-guardian.mjs` before delivery. Ensure 0 failures for paths and engine alignment.
 
 ### Phase 2: Compliance (Static Audit)
 1. **Foundation Standards**: Cross-reference all changes with `knowledge/foundation_standards.md`.

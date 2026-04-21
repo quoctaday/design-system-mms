@@ -1,7 +1,8 @@
 import React from 'react';
 import { Dialog, Button, Badge } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 import { RiShieldCheckLine, RiInformationLine, RiDeleteBinLine } from 'react-icons/ri';
@@ -26,9 +27,9 @@ const DialogDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="basic" className="doc-section">
-        <h2>Basic Usage</h2>
-        <p>A standard dialog for displaying important information or multi-step forms.</p>
+      <DocSection id="basic">
+        <DocHeading>Basic Usage</DocHeading>
+        <DocText>A standard dialog for displaying important information or multi-step forms.</DocText>
         <CodePreview
           code={`<Dialog.Root>
   <Dialog.Trigger>
@@ -96,11 +97,11 @@ const DialogDoc: React.FC = () => {
             </Dialog.Root>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="sizes" className="doc-section">
-        <h2>Sizes</h2>
-        <p>Choose from four standardized widths to accommodate different content types.</p>
+      <DocSection id="sizes">
+        <DocHeading>Sizes</DocHeading>
+        <DocText>Choose from four standardized widths to accommodate different content types.</DocText>
         <div className="flex flex-wrap gap-4 py-4">
           <Dialog.Root>
             <Dialog.Trigger><Button variant="surface">Size 1 (Small)</Button></Dialog.Trigger>
@@ -124,13 +125,13 @@ const DialogDoc: React.FC = () => {
             </Dialog.Portal>
           </Dialog.Root>
         </div>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
-        <h3 className="text-sm font-bold mb-4">Dialog.Content</h3>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
+        <DocHeading level={3} className="text-sm font-bold mb-4">Dialog.Content</DocHeading>
         <PropsTable props={contentProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

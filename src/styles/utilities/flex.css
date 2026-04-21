@@ -1,0 +1,58 @@
+/* Flex Direction */
+.wds-r-fd-row { flex-direction: row; }
+.wds-r-fd-column { flex-direction: column; }
+.wds-r-fd-row-reverse { flex-direction: row-reverse; }
+.wds-r-fd-column-reverse { flex-direction: column-reverse; }
+
+/* Align Items */
+.wds-r-ai-start { align-items: flex-start; }
+.wds-r-ai-center { align-items: center; }
+.wds-r-ai-end { align-items: flex-end; }
+.wds-r-ai-baseline { align-items: baseline; }
+.wds-r-ai-stretch { align-items: stretch; }
+
+/* Justify Content */
+.wds-r-jc-start { justify-content: flex-start; }
+.wds-r-jc-center { justify-content: center; }
+.wds-r-jc-end { justify-content: flex-end; }
+.wds-r-jc-between { justify-content: space-between; }
+
+/* Flex Wrap */
+.wds-r-fw-nowrap { flex-wrap: nowrap; }
+.wds-r-fw-wrap { flex-wrap: wrap; }
+.wds-r-fw-wrap-reverse { flex-wrap: wrap-reverse; }
+
+/* Flex Child Properties */
+.wds-r-grow-0 { flex-grow: 0; }
+.wds-r-grow-1 { flex-grow: 1; }
+.wds-r-shrink-0 { flex-shrink: 0; }
+.wds-r-shrink-1 { flex-shrink: 1; }
+.wds-r-basis-0 { flex-basis: 0; }
+.wds-r-basis-auto { flex-basis: auto; }
+.wds-r-basis-full { flex-basis: 100%; }
+
+/* Responsive - SM */
+@media (min-width: 768px) {
+  .wds-r-sm-fd-row { flex-direction: row; }
+  .wds-r-sm-fd-column { flex-direction: column; }
+  .wds-r-sm-ai-start { align-items: flex-start; }
+  .wds-r-sm-ai-center { align-items: center; }
+  .wds-r-sm-ai-end { align-items: flex-end; }
+  .wds-r-sm-jc-start { justify-content: flex-start; }
+  .wds-r-sm-jc-center { justify-content: center; }
+  .wds-r-sm-jc-end { justify-content: flex-end; }
+  .wds-r-sm-jc-between { justify-content: space-between; }
+}
+
+/* Responsive - MD */
+@media (min-width: 1024px) {
+  .wds-r-md-fd-row { flex-direction: row; }
+  .wds-r-md-fd-column { flex-direction: column; }
+  .wds-r-md-ai-start { align-items: flex-start; }
+  .wds-r-md-ai-center { align-items: center; }
+  .wds-r-md-ai-end { align-items: flex-end; }
+  .wds-r-md-jc-start { justify-content: flex-start; }
+  .wds-r-md-jc-center { justify-content: center; }
+  .wds-r-md-jc-end { justify-content: flex-end; }
+  .wds-r-md-jc-between { justify-content: space-between; }
+}

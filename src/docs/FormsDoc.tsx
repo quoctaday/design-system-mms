@@ -5,7 +5,8 @@ import {
   Badge 
 } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -44,9 +45,9 @@ const FormsDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="radio" className="doc-section">
-        <h2>RadioGroup</h2>
-        <p>A set of checkable buttons—known as radio buttons—where no more than one button can be checked at a time.</p>
+      <DocSection id="radio">
+        <DocHeading>RadioGroup</DocHeading>
+        <DocText>A set of checkable buttons—known as radio buttons—where no more than one button can be checked at a time.</DocText>
         <CodePreview
           code={`<RadioGroup value={plan} onValueChange={setPlan} variant="surface">
   <RadioGroup.Item value="basic">Basic Plan</RadioGroup.Item>
@@ -55,7 +56,7 @@ const FormsDoc: React.FC = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 py-2">
             <div>
-              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Surface Variant (Standard)</h3>
+              <DocHeading level={3} className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Surface Variant (Standard)</DocHeading>
               <RadioGroup value={selectedPlan} onValueChange={setSelectedPlan} variant="surface">
                 <RadioGroup.Item value="basic">
                   <div className="flex flex-col">
@@ -74,7 +75,7 @@ const FormsDoc: React.FC = () => {
             </div>
 
             <div className="md:border-l border-subtle md:pl-12">
-              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Classic Variant (Horizontal)</h3>
+              <DocHeading level={3} className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Classic Variant (Horizontal)</DocHeading>
               <RadioGroup orientation="horizontal" defaultValue="1" variant="classic">
                 <RadioGroup.Item value="1">Option 1</RadioGroup.Item>
                 <RadioGroup.Item value="2">Option 2</RadioGroup.Item>
@@ -82,7 +83,7 @@ const FormsDoc: React.FC = () => {
               </RadioGroup>
               
               <div className="mt-8">
-                <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Sizes</h3>
+                <DocHeading level={3} className="text-xs font-bold text-muted uppercase tracking-tighter mb-4">Sizes</DocHeading>
                 <div className="flex flex-col gap-4">
                   <RadioGroup size="1" defaultValue="1">
                     <RadioGroup.Item value="1">Size 1 (16px)</RadioGroup.Item>
@@ -98,11 +99,11 @@ const FormsDoc: React.FC = () => {
             </div>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="select" className="doc-section">
-        <h2>Select</h2>
-        <p>Displays a list of options for the user to pick from—triggered by a button.</p>
+      <DocSection id="select">
+        <DocHeading>Select</DocHeading>
+        <DocText>Displays a list of options for the user to pick from—triggered by a button.</DocText>
         <CodePreview
           code={`<Select value={role} onValueChange={setRole}>
   <Select.Trigger placeholder="Select role..." />
@@ -115,7 +116,7 @@ const FormsDoc: React.FC = () => {
         >
           <div className="flex flex-wrap gap-8 py-2">
             <div className="w-60">
-              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-3">User Options</h3>
+              <DocHeading level={3} className="text-xs font-bold text-muted uppercase tracking-tighter mb-3">User Options</DocHeading>
               <Select value={selectedRole} onValueChange={setSelectedRole}>
                 <Select.Trigger placeholder="Chọn vai trò...">
                   {selectedRole === 'admin' && 'Administrator'}
@@ -137,24 +138,24 @@ const FormsDoc: React.FC = () => {
             </div>
 
             <div className="w-60">
-              <h3 className="text-xs font-bold text-muted uppercase tracking-tighter mb-3">Disabled State</h3>
+              <DocHeading level={3} className="text-xs font-bold text-muted uppercase tracking-tighter mb-3">Disabled State</DocHeading>
               <Select disabled>
                 <Select.Trigger placeholder="Không thể chọn..." />
               </Select>
             </div>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
-        <h3 className="text-sm font-bold text-strong mb-4">RadioGroup Props</h3>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
+        <DocHeading level={3} className="text-sm font-bold text-strong mb-4">RadioGroup Props</DocHeading>
         <PropsTable props={radioProps} />
         <div className="mt-8">
-          <h3 className="text-sm font-bold text-strong mb-4">Select Props</h3>
+          <DocHeading level={3} className="text-sm font-bold text-strong mb-4">Select Props</DocHeading>
           <PropsTable props={selectProps} />
         </div>
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

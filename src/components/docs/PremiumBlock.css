@@ -2,7 +2,7 @@
 .premium-block {
   background-color: var(--surface-subtle);
   border-radius: var(--radius-6);
-  border: 0.5px solid var(--border-subtle);
+  border: var(--stroke-hairline) solid var(--border-subtle);
   overflow: hidden;
   margin-bottom: 48px;
   display: flex;
@@ -12,7 +12,7 @@
 .premium-block-tabs {
   display: flex;
   padding: 0 12px;
-  border-bottom: 0.5px solid var(--border-subtle);
+  border-bottom: var(--stroke-hairline) solid var(--border-subtle);
 }
 
 /* Tab overrides for integrated feel */
@@ -20,7 +20,7 @@
   background: transparent !important;
   border: none !important;
   height: auto !important;
-  gap: 8px !important;
+  gap: var(--space-2) !important;
 }
 
 .premium-block-tabs .mms-tabs-trigger {
@@ -49,22 +49,22 @@
   height: 2px;
   background-color: var(--brand-9) !important;
   /* Standardized to Brand color */
-  border-radius: 2px 2px 0 0;
+  border-radius: var(--radius-1) 2px 0 0;
 }
 
 .premium-block-content {
-  padding: 8px;
+  padding: var(--space-2);
 }
 
 .premium-block-preview {
   background-color: var(--surface-panel);
   border-radius: calc(var(--radius-6) - 8px);
-  border: 0.5px solid var(--border-subtle);
-  padding: 32px 24px;
+  border: var(--stroke-hairline) solid var(--border-subtle);
+  padding: var(--space-8) 24px;
   /* Using DS shadow if available, else subtle fallback */
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: var(--space-8);
   background-image: radial-gradient(var(--border-subtle) 1px, transparent 1px);
   background-size: 24px 24px;
 }
@@ -77,6 +77,6 @@
 /* Code Snippet Overrides to match DS */
 .mms-code-snippet-container {
   background-color: var(--surface-panel) !important;
-  border: 0.5px solid var(--border-subtle) !important;
+  border: var(--stroke-hairline) solid var(--border-subtle) !important;
   border-radius: calc(var(--radius-6) - 8px) !important;
 }

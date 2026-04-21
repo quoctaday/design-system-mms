@@ -24,20 +24,34 @@ For perfect visual centering, internal elements should follow the formula:
 - **Global Toggle:** The `--radius-full` variable is defined as `0px` by default and switches to `9999px` only in "Full" mode, enabling seamless transitions.
 
 ## 🏔 Shadow Depths
-Elevation steps for surface separation using a **Numeric Scale (1-6)**. MMS uses **Layered Shadows** (multiple translucent layers) to ensure smooth, natural depth that works across Light and Dark modes.
+Elevation steps for surface separation using a **Numeric Scale (1-6)**. MMS now uses **Radix-Grade Layered Shadows** (5-6 translucent layers per step) to ensure smooth, natural depth that works across Light and Dark modes.
 
-| Level        | Logic                                   | Semantic Usage                          |
-| ------------ | --------------------------------------- | --------------------------------------- |
-| `shadow-none`| `none`                                  | Flat components (Sidebar, Tables)      |
-| `shadow-1`   | Inset border + Micro lift               | Embedded widgets, Button classic       |
-| `shadow-2`   | Subtle Surface lift                     | Cards, Segmented Controls               |
-| `shadow-3`   | Floating elevation                      | Select dropdowns, DatePickers           |
-| `shadow-4`   | Tactical elevation                      | Popovers, Hover states                  |
-| `shadow-5`   | Strategic elevation                     | Modals, Toasts, Dialogs                |
-| `shadow-6`   | Maximum Depth                           | Global Overlays, Top-level light sources|
+| Level        | Ring State | Logic                                   | Semantic Usage                          |
+| ------------ | ---------- | --------------------------------------- | --------------------------------------- |
+| `shadow-none`| No Ring    | `none`                                  | Flat components (Sidebar, Tables)      |
+| `shadow-1`   | Inset Ring | 3-layer Inset depth                     | Embedded widgets, Button classic       |
+| `shadow-2`   | **Auto**   | 5-layer Standard lift + 1px Ring       | Cards, Segmented Controls               |
+| `shadow-3`   | **Auto**   | 5-layer Floating elevation + 1px Ring  | Select dropdowns, Popovers              |
+| `shadow-4`   | **Auto**   | 4-layer Tactical elevation + 1px Ring  | Specialized Popovers, Hover states      |
+| `shadow-5`   | **Auto**   | 3-layer Strategic elevation + 1px Ring | Modals, Toasts, DatePickers            |
+| `shadow-6`   | **Auto**   | 4-layer Maximum Depth + 1px Ring       | Global Overlays, Top-level light sources|
 
-### 🫧 The Layering Principle
-Our shadows are composed of multiple stacked values to avoid the "fuzzy gray box" effect. We use **Alpha Tokens** (`--black-a*`) to ensure shadows blend perfectly with colored backgrounds like the **Aurora Background**.
+### 🫧 The Shadow-Ring Protocol (v4.3 Automation)
+MMS minimizes CSS boilerplate by integrating **Boundary Rings** directly into the elevation scale.
+
+- **Automated Boundary**: In MMS v3.0+, all elevation tokens (`--shadow-2` through `--shadow-6`) natively include a `0 0 0 1px var(--gray-a3)` ring as their base layer. Applying these tokens fulfills the Shadow-Ring requirements for floating panels.
+- **Dark Mode Optimization:** Dark mode tokens include specialized `inset` layers to maintain edge sharpness and materiality on deep black surfaces.
+
+## 📍 Stroke System
+MMS defines a standardized stroke weight scale to ensure structural integrity and visual rhythm.
+
+| Token              | Value   | Semantic Usage                                     |
+| ------------------ | ------- | -------------------------------------------------- |
+| `--stroke-hairline`| `0.5px`  | Ultra-thin dividers, luxury glass borders         |
+| `--stroke-width-1` | `1px*`   | Default UI element borders, inputs, buttons        |
+| `--stroke-width-2` | `2px*`   | Strong borders, active states, focus rings         |
+
+*\*Note: `--stroke-width-n` tokens are scaling-aware and adjust automatically.*
 
 ## ✨ Visual Effects
 - **Glassmorphism:** Use `backdrop-filter: blur(12px)` paired with alpha transparency tokens (`--white-a11` or `--black-a8`).

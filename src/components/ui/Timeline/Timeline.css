@@ -53,15 +53,15 @@
   width: var(--space-2);
   height: var(--space-2);
   border-radius: var(--radius-full);
-  background-color: var(--brand-9);
-  outline: var(--outline-width) solid var(--brand-a3);
+  background-color: var(--accent-9);
+  outline: var(--outline-width) solid var(--accent-a3);
   outline-offset: var(--outline-offset, 0);
 }
 
 .mms-timeline-item-head.active {
   background-color: var(--surface-accent-solid);
-  border-color: var(--brand-9);
-  outline: var(--outline-width) solid var(--brand-a3);
+  border-color: var(--accent-9);
+  outline: var(--outline-width) solid var(--accent-a3);
   outline-offset: var(--outline-offset, 0);
 }
 
@@ -82,12 +82,14 @@
   font-size: var(--font-size-3);
   font-weight: var(--font-weight-semibold);
   color: var(--content-strong);
+  margin: 0 !important;
 }
 
 .mms-timeline-item-description {
   font-size: var(--font-size-2);
   color: var(--content-subtle);
   line-height: 1.5;
+  margin: 0 !important;
 }
 
 .mms-timeline-item-timestamp {

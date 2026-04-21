@@ -10,7 +10,7 @@ export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   animation?: 'pulse' | 'wave' | 'none';
 }
 
-const Skeleton: React.FC<SkeletonProps> = ({
+export const Skeleton: React.FC<SkeletonProps> = ({
   variant = 'rectangular',
   width,
   height,
@@ -40,5 +40,7 @@ const Skeleton: React.FC<SkeletonProps> = ({
     />
   );
 };
+
+Skeleton.displayName = 'Skeleton';
 
 export default Skeleton;

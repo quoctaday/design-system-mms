@@ -1,62 +1,66 @@
-# WOKER Premium Block Master Standard (V4.0 - Definitive)
+# WOKER Premium Block Master Standard (V4.1 - Flat-Premium)
 
-Bản quy chuẩn này là **Nguồn sự thật gốc (Source of Truth)**, định nghĩa ngôn ngữ thiết kế **Flat-Premium** ở cấp độ tinh xảo nhất cho hệ thống MMS.
+This specification serves as the primary **Source of Truth**, defining the **Flat-Premium** (Zero-Shadow) design language at its highest level of precision for the MMS Platform.
 
 ---
 
-## 1. Triết lý "The 12-4-8 Rule" (Cấu trúc Vàng)
-Để tạo ra một khối lồng ghép đồng tâm hoàn hảo, chúng ta sử dụng hệ thông số cố định:
-- **Outer Radius**: **12px**
-- **Outer Padding**: **4px**
-- **Inner Radius**: **8px** (Công thức: 12 - 4 = 8)
-- **Mục tiêu**: Đạt được sự đồng tâm tuyệt đối (Concentricity), tạo cảm giác sản phẩm được gia công cơ khí chính xác.
+## 1. The "12-4-8 Rule" (Concentricity)
+To create a perfectly nested, concentric layout, we utilize a fixed mathematical metric system:
+- **Outer Radius**: `var(--radius-5)` (12px)
+- **Outer Padding**: `var(--space-1)` (4px)
+- **Inner Radius**: `var(--radius-4)` (8px) (Calculated as: 12 - 4 = 8)
+- **Objective**: Achieve absolute mathematical concentricity, imparting a sense of precision engineering and mechanical accuracy.
 
-## 2. Quy tắc Mật độ Cao (Ultra-Density SOP)
+## 2. Ultra-Density SOP (Standard Operating Procedure)
 
 ### A. Zero-Gap Integration
-- **Quy tắc**: Loại bỏ hoàn toàn `gap` giữa Header và Inner Panel.
-- **Thực thi**: `gap: 0px`. 
+- **Rule**: Entirely eliminate the `gap` between the Header and the Inner Panel.
+- **Implementation**: `gap: 0px`. 
 
 ### B. Header Alignment
-- **Padding**: **12px** (Đồng nhất hoàn hảo với Inner Panel).
-- **Typography**: **12px+**, Uppercase, Opacity 1.0 (Linh hoạt theo font hệ thống).
-- **Letter Spacing**: **0.08em** (Tăng độ rộng chữ để tạo vẻ sang trọng và chuyên nghiệp).
-- **Icon**: Kích thước **tương ứng 1:1 với Text** (mặc định 12px), đặt cạnh Label với gap 8px.
+- **Padding**: **12px** (Aligned perfectly with the Inner Panel's content).
+- **Typography**: **12px+**, Uppercase, 1.0 Opacity (Flexible based on system font).
+- **Letter Spacing**: **0.08em** (Increased spacing for a professional, high-luxury aesthetic).
+- **Iconography**: Scaled **1:1 with Text** (default 12px), positioned adjacent to the Label with an 8px gap.
 
 ### C. Inner Panel Optimization
 - **Padding**: **12px** (Compact Standard).
-- **Border**: **0.5px solid var(--border-subtle)** (Hairline border cho độ sắc nét Retina).
-- **Shadow**: **var(--shadow-1)** (Soft Cloud Shadow - Cực mịn, tạo chiều sâu mà không gây nặng nề).
+- **Border**: **0.5px solid var(--border-subtle)** (Hairline border for ultra-sharp Retina rendering).
+- **Shadow**: **NONE** (Mandatory Flat-Premium Standard).
 
-## 3. Thông số Kỹ thuật Master (Checklist)
+## 3. Master Technical Specifications (Checklist)
 
-| Thành phần | Đặc tính | Giá trị Master |
+| Component | Property | Master Value |
 | :--- | :--- | :--- |
-| **Container** | Nền | `var(--surface-subtle)` |
-| | Bo góc | **12px** |
-| | Padding | **4px** |
-| | Gap nội bộ | **0px** |
-| **Header** | Padding | **12px** |
-| | Nhãn | 12px+, Uppercase, 0.08em spacing |
-| **Panel (Lõi)** | Nền | `var(--surface-panel)` |
-| | Bo góc | **8px** |
-| | Padding | **12px** |
+| **Container** | Background | `var(--surface-subtle)` / `var(--surface-accent-subtle)` |
+| | Border Radius | `var(--radius-5)` (12px) |
+| | Padding | `var(--space-1)` (4px) |
+| | Internal Gap | **0px** |
+| **Header** | Padding | `var(--space-4)` (16px) |
+| | Label | 12px+, Uppercase, 0.08em letter-spacing |
+| **Panel (Core)** | Background | `var(--surface-panel)` |
+| | Border Radius | `var(--radius-4)` (8px) |
+| | Padding | `var(--space-3)` (12px) |
 | | Border | **0.5px solid var(--border-subtle)** |
-| | Shadow | **var(--shadow-1)** |
+| | Shadow | **NONE** |
 
-## 4. Biến thể Flush (Full Bleed)
-Dành cho trường hợp cần tối đa hóa diện tích (Biểu đồ phức tạp):
+## 4. Flush Variant (Full Bleed)
+Reserved for scenarios requiring maximum information density (e.g., complex full-width charts):
 - **Outer Padding**: **0px**.
 - **Header Padding**: **12px**.
 - **Inner Radius**: **12px** (Inner = Outer).
 
-## 5. Anti-Patterns (Những điều tuyệt đối KHÔNG làm)
-Để bảo vệ tính nhất quán của hệ thống, Agent và Developer cần tránh:
-- ❌ **KHÔNG** sử dụng Shadow nặng hoặc Shadow có màu.
-- ❌ **KHÔNG** sử dụng Gradient cho nền các khối.
-- ❌ **KHÔNG** để `gap > 0` giữa Header và Inner Panel.
-- ❌ **KHÔNG** sử dụng bo góc tùy ý ngoài quy tắc 12-4-8.
-- ❌ **KHÔNG** sử dụng họa tiết background (dots/grids) trên dashboard vận hành.
+## 5. Anti-Patterns (Critical Violations)
+To preserve system integrity, Agents and Developers must strictly avoid:
+- ❌ **NO** heavy or colored shadows.
+- ❌ **NO** background gradients for blocks.
+- ❌ **NO** gap (`> 0`) between Header and Inner Panel.
+- ❌ **NO** arbitrary radii outside the 12-4-8 rule.
+- ❌ **NO** background patterns (dots/grids) on operational dashboards.
+- ❌ **NO** default browser/global margins for `h3` or `p`. **Mandatory**: `margin: 0 !important`.
+
+## 6. Typography Isolation (V4.1)
+Every text block (Title, Subtitle) within the Header or Body must be absolutely isolated using `margin: 0 !important`. Vertical rhythm is managed centrally via the `headerGap` prop of the Root component.
 
 ---
-*Bản quy chuẩn V4.0 - Được ký duyệt bởi User làm chuẩn gốc cho toàn hệ thống.*
+*V4.0 Specification - Approved as the baseline technical standard for the MMS Design System.*

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Checkbox } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -40,9 +41,9 @@ const CheckboxDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="states" className="doc-section">
-        <h2>States</h2>
-        <p>Checkbox supports checked, unchecked, and indeterminate states.</p>
+      <DocSection id="states">
+        <DocHeading>States</DocHeading>
+        <DocText>Checkbox supports checked, unchecked, and indeterminate states.</DocText>
         <CodePreview
           code={`<Checkbox checked={true} label="Checked" />
 <Checkbox checked={false} label="Unchecked" />
@@ -68,11 +69,11 @@ const CheckboxDoc: React.FC = () => {
             <Checkbox checked disabled label="Disabled Checked" />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="sizes" className="doc-section">
-        <h2>Sizes</h2>
-        <p>Available in two standard sizes.</p>
+      <DocSection id="sizes">
+        <DocHeading>Sizes</DocHeading>
+        <DocText>Available in two standard sizes.</DocText>
         <CodePreview
           code={`<Checkbox size="1" label="Size 1 (16px)" checked />
 <Checkbox size="2" label="Size 2 (20px)" checked />`}
@@ -82,11 +83,11 @@ const CheckboxDoc: React.FC = () => {
             <Checkbox size="2" label="Size 2 (20px)" checked />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="colors" className="doc-section">
-        <h2>Colors</h2>
-        <p>Use the <code>color</code> prop to change the checkbox color theme.</p>
+      <DocSection id="colors">
+        <DocHeading>Colors</DocHeading>
+        <DocText>Use the <code>color</code> prop to change the checkbox color theme.</DocText>
         <CodePreview
           code={`<Checkbox color="success" checked label="Success" />
 <Checkbox color="error" checked label="Error" />`}
@@ -97,11 +98,11 @@ const CheckboxDoc: React.FC = () => {
             ))}
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="radius" className="doc-section">
-        <h2>Radius</h2>
-        <p>Control the rounding of the checkbox to match your UI protocol.</p>
+      <DocSection id="radius">
+        <DocHeading>Radius</DocHeading>
+        <DocText>Control the rounding of the checkbox to match your UI protocol.</DocText>
         <CodePreview
           code={`<Checkbox radius="none" label="None" checked />
 <Checkbox radius="2" label="Small" checked />
@@ -117,12 +118,12 @@ const CheckboxDoc: React.FC = () => {
             <Checkbox radius="full" label="Full" checked />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={checkboxProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

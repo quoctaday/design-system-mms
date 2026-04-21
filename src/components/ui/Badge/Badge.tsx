@@ -7,11 +7,11 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'solid' | 'soft' | 'outline' | 'surface' | 'ghost';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'orange' | 'blue' | 'purple' | 'sky' | 'pink' | 'teal' | 'secondary' | 'black' | 'gray';
   size?: '1' | '2' | '3';
-  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
   children: React.ReactNode;
 }
 
-const Badge: React.FC<BadgeProps> = ({
+export const Badge: React.FC<BadgeProps> = ({
   variant = 'soft',
   color = 'gray',
   size = '1',
@@ -36,5 +36,7 @@ const Badge: React.FC<BadgeProps> = ({
     </div>
   );
 };
+
+Badge.displayName = 'Badge';
 
 export default Badge;

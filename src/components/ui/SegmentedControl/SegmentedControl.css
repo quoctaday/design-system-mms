@@ -1,139 +1,216 @@
+/* 
+  Segmented Control - Ironclad Design Protocol v2.0
+  PHASE 7: THE TRUE MIRROR (Pixel Guardian Edition)
+*/
+
 .mms-segmented-root {
-  display: inline-flex;
+  /* Dynamic Tokens for Reporter Density */
+  --segmented-control-height-1: var(--space-5); /* 24px */
+  --segmented-control-height-2: var(--space-6); /* 32px */
+  --segmented-control-height-3: var(--space-7); /* 40px */
+  --segmented-control-indicator-transition: 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+  display: inline-grid;
+  vertical-align: top;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  align-items: stretch;
   position: relative;
-  background-color: var(--surface-subtle);
-  border: var(--stroke-width-1) solid var(--border-subtle);
-  padding: var(--space-1); /* Increased for premium spacing - Tokenized */
+  background-color: var(--color-surface);
+  background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
   box-sizing: border-box;
-  transition: all 200ms ease;
+  
+  /* CREATE NEW STACKING CONTEXT (Radix Method) */
+  isolation: isolate;
+  
   user-select: none;
-  overflow: hidden;
+  min-width: max-content;
+  contain: paint;
+  
+  font-family: var(--font-family);
+  text-align: center;
 }
 
 .mms-segmented-full-width {
-  display: flex;
+  display: grid;
   width: 100%;
 }
 
-/* ── INDICATOR ── */
-
-.mms-segmented-indicator {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  background-color: var(--surface-panel);
-  /* Optical nesting rule: R_inner = R_outer - padding */
-  border-radius: calc(var(--segmented-radius-current, var(--radius-4)) - var(--space-1));
-  /* Sharper Shadow for Mechanical feel */
-  box-shadow: 
-    0 var(--stroke-width-1) calc(var(--space-1) / 2) var(--black-a2),
-    0 0 0 var(--stroke-width-hairline) var(--black-a1),
-    var(--shadow-1);
-  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), 
-              width 250ms cubic-bezier(0.4, 0, 0.2, 1),
-              height 250ms cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 150ms ease;
+.mms-segmented-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
   pointer-events: none;
 }
 
-/* ── ITEMS CONTAINER ── */
-
-.mms-segmented-items-container {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  width: 100%;
+/* ── 1. ACTIVE INDICATOR (The Mirror Stack) ── */
+.mms-segmented-indicator {
+  position: absolute;
+  /* PLACE BELOW BUTTONS but above root background */
+  z-index: -1;
+  top: 0;
+  left: 0;
   height: 100%;
-  align-items: stretch;
+  pointer-events: none;
+  transition: transform var(--segmented-control-indicator-transition), 
+              width var(--segmented-control-indicator-transition);
+  will-change: transform, width;
 }
 
+.mms-segmented-indicator::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  
+  /* Radix Architecture: Unified indicator shadow variable */
+  --segmented-indicator-box-shadow: none;
+  box-shadow: var(--segmented-indicator-box-shadow);
+}
+
+/* Variant Specifics */
+.mms-segmented-variant-surface .mms-segmented-indicator::before {
+  background-color: var(--white); 
+  border-radius: max(0.5px, calc(var(--segmented-radius-current) - 1px));
+  /* Radix Mirror: Surface uses a single 1px ring, no depth */
+  --segmented-indicator-box-shadow: 0 0 0 1px var(--gray-a4);
+}
+
+/* Variant Specifics */
+.mms-segmented-variant-classic .mms-segmented-indicator::before {
+  background-color: var(--white);
+  border-radius: max(0.5px, calc(var(--segmented-radius-current) - 1px));
+  /* Radix Mirror: Classic uses full composite shadow-2 */
+  --segmented-indicator-box-shadow: var(--shadow-2);
+}
+
+:is(.dark, .dark-theme) .mms-segmented-indicator::before {
+  background-color: var(--gray-a3);
+  --segmented-indicator-box-shadow: 0 0 0 1px var(--gray-a5);
+}
+
+/* ── 2. ITEMS & HAPTIC ── */
 .mms-segmented-item {
-  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 var(--space-4);
-  font-family: var(--font-family);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-2);
-  color: var(--content-subtle);
+  align-items: stretch;
+  position: relative;
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: color 160ms ease;
-  white-space: nowrap;
+  padding: 0;
+  outline: none;
+}
+
+.mms-segmented-item:active .mms-segmented-item-label {
+  transform: scale(0.975);
+}
+
+.mms-segmented-item:focus-visible {
   border-radius: inherit;
+  outline: 2px solid var(--accent-a8);
+  outline-offset: -1px;
+  /* Ensure focus ring is on top */
+  z-index: 3;
 }
 
-.mms-segmented-item[data-state="active"] {
-  color: var(--content-strong);
+/* ── 3. DOUBLE-LABEL (Typographic Breathing) ── */
+.mms-segmented-item-label {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  position: relative;
+  transition: transform 100ms ease;
+  margin: 1px;
+  box-sizing: border-box;
 }
 
-/* ─────────────────────────────────────────────────────────
- * VARIANTS
- * ───────────────────────────────────────────────────────── */
-
-/* 1. SURFACE */
-.mms-segmented-variant-surface {
-  background-color: var(--surface-subtle);
+@media (hover: hover) {
+  .mms-segmented-item[data-state='off']:not(:disabled):hover .mms-segmented-item-label {
+    background-color: var(--gray-a2);
+  }
 }
 
-/* 2. CLASSIC */
-.mms-segmented-variant-classic {
-  background-color: var(--surface-component);
-  border-color: var(--border-default);
-}
-.mms-segmented-variant-classic .mms-segmented-indicator {
-  border: var(--stroke-width-1) solid var(--border-default);
-  box-shadow: var(--shadow-2);
-}
-.mms-segmented-variant-classic .mms-segmented-item[data-state="active"] {
-  color: var(--brand-9);
+.mms-segmented-item-label-inactive {
+  position: absolute;
+  font-weight: var(--font-weight-regular);
+  color: var(--gray-11);
+  letter-spacing: var(--letter-spacing-2);
+  
+  /* Radix 0.8x Sync Rule */
+  transition: opacity calc(0.8 * var(--segmented-control-indicator-transition)) ease-out;
+  opacity: 1;
 }
 
-/* 3. SOFT */
-.mms-segmented-variant-soft {
-  background-color: var(--surface-sunken);
-  border: none;
-  padding: var(--space-1);
-}
-.mms-segmented-variant-soft .mms-segmented-indicator {
-  box-shadow: var(--shadow-2);
-}
-
-/* ─────────────────────────────────────────────────────────
- * SIZES
- * ───────────────────────────────────────────────────────── */
-
-.mms-segmented-size-1 { height: calc(var(--size-1) + var(--space-1)); }
-.mms-segmented-size-1 .mms-segmented-item { font-size: var(--font-size-1); padding: 0 var(--space-2); }
-
-.mms-segmented-size-2 { height: calc(var(--size-2) + var(--space-1)); }
-.mms-segmented-size-2 .mms-segmented-item { font-size: var(--font-size-2); padding: 0 var(--space-3); }
-
-.mms-segmented-size-3 { height: calc(var(--size-3) + var(--space-1)); }
-.mms-segmented-size-3 .mms-segmented-item { font-size: var(--font-size-3); padding: 0 var(--space-4); }
-
-/* ─────────────────────────────────────────────────────────
- * RADIUS
- * ───────────────────────────────────────────────────────── */
-
-.mms-segmented-radius-none { border-radius: var(--radius-none); --segmented-radius-current: var(--radius-none); }
-.mms-segmented-radius-1    { border-radius: var(--radius-1); --segmented-radius-current: var(--radius-1); }
-.mms-segmented-radius-2    { border-radius: var(--radius-2); --segmented-radius-current: var(--radius-2); }
-.mms-segmented-radius-3    { border-radius: var(--radius-3); --segmented-radius-current: var(--radius-3); }
-.mms-segmented-radius-4    { border-radius: var(--radius-4); --segmented-radius-current: var(--radius-4); }
-.mms-segmented-radius-5    { border-radius: var(--radius-5); --segmented-radius-current: var(--radius-5); }
-.mms-segmented-radius-6    { border-radius: var(--radius-6); --segmented-radius-current: var(--radius-6); }
-.mms-segmented-radius-full { border-radius: var(--radius-full); --segmented-radius-current: var(--radius-full); }
-
-/* States */
-.mms-segmented-item:hover:not(:disabled):not([data-state="active"]) {
-  color: var(--content-strong);
+.mms-segmented-item-label-active {
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-12);
+  letter-spacing: var(--letter-spacing-2);
+  
+  /* Radix 0.8x Sync Rule */
+  transition: opacity calc(0.8 * var(--segmented-control-indicator-transition)) ease-in;
+  opacity: 0;
 }
 
-.mms-segmented-item:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
+.mms-segmented-item[data-state='on'] .mms-segmented-item-label-inactive {
+  opacity: 0;
+  transition-timing-function: ease-in;
 }
+
+.mms-segmented-item[data-state='on'] .mms-segmented-item-label-active {
+  opacity: 1;
+  transition-timing-function: ease-out;
+}
+
+/* ── 4. SEPARATORS (Mechanical Precision) ── */
+.mms-segmented-item-separator {
+  /* PLACE BELOW INDICATOR */
+  z-index: -1;
+  position: relative;
+  margin-left: -0.5px;
+  margin-right: -0.5px;
+  /* Radix 3px Margin Rule */
+  margin-top: 3px;
+  margin-bottom: 3px;
+  width: 1px;
+  background-color: var(--gray-a4);
+  transition: opacity calc(0.8 * var(--segmented-control-indicator-transition)) ease-out;
+  pointer-events: none;
+}
+
+.mms-segmented-item:first-child .mms-segmented-item-separator,
+.mms-segmented-item[data-state='on'] .mms-segmented-item-separator,
+.mms-segmented-item[data-state='on'] + .mms-segmented-item .mms-segmented-item-separator,
+.mms-segmented-item:focus-visible .mms-segmented-item-separator,
+.mms-segmented-item:focus-visible + .mms-segmented-item .mms-segmented-item-separator {
+  opacity: 0;
+  transition-timing-function: ease-in;
+}
+
+/* ── 5. SIZES (Exact Metrics) ── */
+.mms-segmented-size-1 { height: var(--segmented-control-height-1); }
+.mms-segmented-size-1 .mms-segmented-item-label {
+  font-size: var(--font-size-1);
+  padding: 0 var(--space-3);
+  gap: var(--space-1);
+}
+
+.mms-segmented-size-2 { height: var(--segmented-control-height-2); }
+.mms-segmented-size-2 .mms-segmented-item-label {
+  font-size: var(--font-size-2);
+  padding: 0 var(--space-4);
+  gap: var(--space-2);
+}
+
+.mms-segmented-size-3 { height: var(--segmented-control-height-3); }
+.mms-segmented-size-3 .mms-segmented-item-label {
+  font-size: var(--font-size-3);
+  padding: 0 var(--space-4);
+  gap: var(--space-3);
+}
+
+/* ── 6. RADIUS (Standard Scale) ── */
+.mms-segmented-radius-none   { --segmented-radius-current: var(--radius-none); border-radius: var(--radius-none); }
+.mms-segmented-radius-small  { --segmented-radius-current: var(--radius-2); border-radius: var(--radius-2); }
+.mms-segmented-radius-medium { --segmented-radius-current: var(--radius-4); border-radius: var(--radius-4); }
+.mms-segmented-radius-large  { --segmented-radius-current: var(--radius-6); border-radius: var(--radius-6); }
+.mms-segmented-radius-full   { --segmented-radius-current: var(--radius-full); border-radius: var(--radius-full); }

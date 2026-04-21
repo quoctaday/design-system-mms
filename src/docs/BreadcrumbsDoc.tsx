@@ -1,8 +1,8 @@
 import React from 'react';
-import Breadcrumbs from '../components/ui/Breadcrumbs/Breadcrumbs';
-import type { BreadcrumbItem } from '../components/ui/Breadcrumbs/Breadcrumbs';
+import { Breadcrumbs, type BreadcrumbItem } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -40,9 +40,9 @@ const BreadcrumbsDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="basic" className="doc-section">
-        <h2>Basic Usage</h2>
-        <p>A simple three-level breadcrumb trail with an active (current) item.</p>
+      <DocSection id="basic">
+        <DocHeading>Basic Usage</DocHeading>
+        <DocText>A simple three-level breadcrumb trail with an active (current) item.</DocText>
         <CodePreview
           code={`const items = [
   { id: '1', label: 'Home', href: '/' },
@@ -56,11 +56,11 @@ const BreadcrumbsDoc: React.FC = () => {
             <Breadcrumbs items={basicItems} />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="nested" className="doc-section">
-        <h2>Nested Navigation</h2>
-        <p>Breadcrumbs handle multiple levels of depth gracefully.</p>
+      <DocSection id="nested">
+        <DocHeading>Nested Navigation</DocHeading>
+        <DocText>Breadcrumbs handle multiple levels of depth gracefully.</DocText>
         <CodePreview
           code={`<Breadcrumbs items={longItems} />`}
         >
@@ -68,15 +68,14 @@ const BreadcrumbsDoc: React.FC = () => {
             <Breadcrumbs items={longItems} />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={breadcrumbProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };
 
 export default BreadcrumbsDoc;
-

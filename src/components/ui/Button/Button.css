@@ -1,18 +1,43 @@
+/* ─────────────────────────────────────────────────────────
+ * MMS DESIGN SYSTEM - IRONCLAD: BUTTON
+ * High-performance interaction engine with precise haptics.
+ * ───────────────────────────────────────────────────────── */
+
 .mms-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
-  font-family: var(--font-family);
+  font-family: var(--font-body);
   font-weight: var(--font-weight-medium);
   text-align: center;
   white-space: nowrap;
   user-select: none;
-  border: var(--stroke-width-1) solid transparent;
   --btn-radius: max(var(--radius-full), var(--radius-4));
   border-radius: var(--btn-radius);
+  border: none;
   position: relative;
   cursor: pointer;
+  z-index: 0;
+  transition: all 160ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Radix Architecture: Unified shadow variable */
+  --button-box-shadow: none;
+  box-shadow: var(--button-box-shadow);
+  
+  /* Optical Smoothing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mms-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  transition: all 150ms ease;
 }
 
 .mms-button:disabled {
@@ -23,7 +48,24 @@
 .mms-button-content {
   display: inline-flex;
   align-items: center;
-  line-height: 1;
+  line-height: var(--line-height, 1);
+  position: relative;
+}
+
+/* 
+ * Leading Trim for Button Content
+ * Ensures text is perfectly balanced between icons and borders.
+ */
+.mms-button-content::before {
+  content: '';
+  display: table;
+  margin-bottom: calc(var(--default-leading-trim-start) - var(--line-height, 1em) / 2);
+}
+
+.mms-button-content::after {
+  content: '';
+  display: table;
+  margin-top: calc(var(--default-leading-trim-end) - var(--line-height, 1em) / 2);
 }
 
 .mms-button-icon {
@@ -33,47 +75,67 @@
 }
 
 /* ─────────────────────────────────────────────────────────
- * SIZES (Broadened Spacing)
+ * SIZES (Operational Density Standards)
  * ───────────────────────────────────────────────────────── */
 
 .mms-button-size-1 { 
   height: var(--size-2); 
   padding: 0 var(--space-3); 
   font-size: var(--font-size-1); 
+  letter-spacing: var(--letter-spacing-1);
+  --line-height: var(--line-height-1);
 }
 .mms-button-size-2 { 
   height: var(--size-3); 
   padding: 0 var(--space-4); 
   font-size: var(--font-size-2); 
+  letter-spacing: var(--letter-spacing-2);
+  --line-height: var(--line-height-2);
 }
 .mms-button-size-3 { 
   height: var(--size-4); 
   padding: 0 var(--space-6); 
   font-size: var(--font-size-2); 
+  letter-spacing: var(--letter-spacing-2);
+  --line-height: var(--line-height-2);
 }
 .mms-button-size-4 { 
   height: var(--size-5); 
   padding: 0 var(--space-7); 
   font-size: var(--font-size-3); 
+  letter-spacing: var(--letter-spacing-3);
+  --line-height: var(--line-height-3);
 }
 
 /* ─────────────────────────────────────────────────────────
- * VARIANTS
+ * VARIANTS (Visual Hierarchy)
  * ───────────────────────────────────────────────────────── */
 
 /* 1. SOLID */
 .mms-button-variant-solid {
   background-color: var(--color-solid);
   color: var(--text-on-solid, var(--content-on-solid));
-  box-shadow: none;
+  background-image: linear-gradient(to bottom, var(--white-a2), transparent);
+  --button-box-shadow: 
+    inset 0 0 0 var(--stroke-width-1) var(--white-a2),
+    0 1px 2px var(--black-a2);
 }
+
+.mms-button-variant-solid::after {
+  background-image: linear-gradient(to bottom, var(--white-a3), transparent 60%);
+  opacity: 1;
+}
+
 .mms-button-variant-solid:hover:not(:disabled) {
+  background-color: var(--color-solid);
   filter: brightness(1.05);
-  box-shadow: none;
 }
+
 .mms-button-variant-solid:active:not(:disabled) {
-  filter: brightness(0.95);
-  transform: translateY(calc(var(--stroke-width-1) * 1));
+  background-image: linear-gradient(to bottom, var(--black-a1), transparent);
+  --button-box-shadow: 
+    inset 0 2px 4px var(--black-a3),
+    inset 0 0 0 var(--stroke-width-1) var(--black-a2);
 }
 
 /* 2. SOFT */
@@ -88,12 +150,12 @@
 /* 3. OUTLINE */
 .mms-button-variant-outline {
   background-color: transparent;
-  border-color: var(--color-border);
+  --button-box-shadow: inset 0 0 0 var(--stroke-width-1) var(--color-border);
   color: var(--color-text);
 }
 .mms-button-variant-outline:hover:not(:disabled) {
   background-color: var(--color-subtle);
-  border-color: var(--color-border-hover);
+  --button-box-shadow: inset 0 0 0 var(--stroke-width-1) var(--color-border-hover);
 }
 
 /* 4. GHOST */
@@ -103,83 +165,91 @@
 }
 .mms-button-variant-ghost:hover:not(:disabled) {
   background-color: var(--color-subtle);
-  border-radius: var(--radius-1);
 }
 
-/* 5. SURFACE */
+/* 5. SURFACE (Premium Depth - Radix Aligned) */
 .mms-button-variant-surface {
-  background-color: var(--color-subtle);
-  border: var(--stroke-width-1) solid var(--color-border);
+  background-color: var(--surface-panel);
+  --button-box-shadow: 
+    inset 0 0 0 var(--stroke-width-1) var(--color-border),
+    0 1px 2px var(--black-a1);
   color: var(--color-text);
-  box-shadow: none;
 }
+
 .mms-button-variant-surface:hover:not(:disabled) {
   background-color: var(--color-subtle-hover);
-  border-color: var(--color-border-hover);
+  --button-box-shadow: 
+    inset 0 0 0 var(--stroke-width-1) var(--color-border-hover),
+    0 1px 2px var(--black-a1);
+}
+
+.mms-button-variant-surface:active:not(:disabled) {
+  background-color: var(--color-subtle-hover);
+  --button-box-shadow: inset 0 1px 3px var(--black-a1);
 }
 
 /* ─────────────────────────────────────────────────────────
- * COLOR ROUTING (Systematic)
+ * COLOR ROUTING
  * ───────────────────────────────────────────────────────── */
 
 .mms-button-color-brand {
-  --color-subtle: var(--surface-accent-component);
-  --color-subtle-hover: var(--surface-accent-hover);
-  --color-solid: var(--surface-accent-solid);
-  --color-border: var(--border-accent);
-  --color-border-hover: var(--border-accent-strong);
-  --color-text: var(--content-accent);
-  --text-on-solid: var(--content-on-solid);
+  --color-subtle: var(--accent-a3);
+  --color-subtle-hover: var(--accent-a4);
+  --color-solid: var(--accent-9);
+  --color-border: var(--accent-a7);
+  --color-border-hover: var(--accent-a8);
+  --color-text: var(--accent-11);
+  --text-on-solid: white;
 }
 
 .mms-button-color-gray {
-  --color-subtle: var(--surface-subtle);
-  --color-subtle-hover: var(--surface-component);
-  --color-solid: var(--content-strong);
-  --color-border: var(--border-default);
-  --color-border-hover: var(--border-strong);
-  --color-text: var(--content-subtle);
+  --color-subtle: var(--gray-a3);
+  --color-subtle-hover: var(--gray-a4);
+  --color-solid: var(--gray-9);
+  --color-border: var(--gray-a7);
+  --color-border-hover: var(--gray-a8);
+  --color-text: var(--gray-11);
   --text-on-solid: var(--white);
 }
 
 .mms-button-color-success {
-  --color-subtle: var(--surface-success-subtle);
-  --color-subtle-hover: var(--surface-success-hover);
-  --color-solid: var(--surface-success-solid);
-  --color-border: var(--border-success);
-  --color-border-hover: var(--border-success-strong);
-  --color-text: var(--content-success);
+  --color-subtle: var(--green-a3);
+  --color-subtle-hover: var(--green-a4);
+  --color-solid: var(--green-9);
+  --color-border: var(--green-a7);
+  --color-border-hover: var(--green-a8);
+  --color-text: var(--green-11);
   --text-on-solid: var(--white);
 }
 
 .mms-button-color-error {
-  --color-subtle: var(--surface-danger-subtle);
-  --color-subtle-hover: var(--surface-danger-hover);
-  --color-solid: var(--surface-danger-solid);
-  --color-border: var(--border-danger);
-  --color-border-hover: var(--border-danger-strong);
-  --color-text: var(--content-danger);
+  --color-subtle: var(--red-a3);
+  --color-subtle-hover: var(--red-a4);
+  --color-solid: var(--red-9);
+  --color-border: var(--red-a7);
+  --color-border-hover: var(--red-a8);
+  --color-text: var(--red-11);
   --text-on-solid: var(--white);
 }
 
 .mms-button-color-warning {
-  --color-subtle: var(--surface-warning-subtle);
-  --color-subtle-hover: var(--surface-warning-hover);
-  --color-solid: var(--surface-warning-solid);
-  --color-border: var(--border-warning);
-  --color-border-hover: var(--border-warning-strong);
-  --color-text: var(--content-warning);
-  --text-on-solid: var(--content-strong);
+  --color-subtle: var(--amber-a3);
+  --color-subtle-hover: var(--amber-a4);
+  --color-solid: var(--amber-9);
+  --color-border: var(--amber-a7);
+  --color-border-hover: var(--amber-a8);
+  --color-text: var(--amber-11);
+  --text-on-solid: var(--gray-12);
 }
 
-/* Accents (Semantic Mapping) */
-.mms-button-color-orange { --color-subtle: var(--accent-orange-subtle); --color-subtle-hover: var(--accent-orange-subtle-hover); --color-solid: var(--accent-orange-solid); --color-border: var(--accent-orange-border); --color-border-hover: var(--accent-orange-border-hover); --color-text: var(--accent-orange-text); --text-on-solid: var(--white); }
-.mms-button-color-blue   { --color-subtle: var(--accent-blue-subtle); --color-subtle-hover: var(--accent-blue-subtle-hover); --color-solid: var(--accent-blue-solid); --color-border: var(--accent-blue-border); --color-border-hover: var(--accent-blue-border-hover); --color-text: var(--accent-blue-text); --text-on-solid: var(--white); }
-.mms-button-color-purple { --color-subtle: var(--accent-purple-subtle); --color-subtle-hover: var(--accent-purple-subtle-hover); --color-solid: var(--accent-purple-solid); --color-border: var(--accent-purple-border); --color-border-hover: var(--accent-purple-border-hover); --color-text: var(--accent-purple-text); --text-on-solid: var(--white); }
-.mms-button-color-sky    { --color-subtle: var(--accent-sky-subtle); --color-subtle-hover: var(--accent-sky-subtle-hover); --color-solid: var(--accent-sky-solid); --color-border: var(--accent-sky-border); --color-border-hover: var(--accent-sky-border-hover); --color-text: var(--accent-sky-text); --text-on-solid: var(--white); }
-.mms-button-color-pink   { --color-subtle: var(--accent-pink-subtle); --color-subtle-hover: var(--accent-pink-subtle-hover); --color-solid: var(--accent-pink-solid); --color-border: var(--accent-pink-border); --color-border-hover: var(--accent-pink-border-hover); --color-text: var(--accent-pink-text); --text-on-solid: var(--white); }
-.mms-button-color-teal   { --color-subtle: var(--accent-teal-subtle); --color-subtle-hover: var(--accent-teal-subtle-hover); --color-solid: var(--accent-teal-solid); --color-border: var(--accent-teal-border); --color-border-hover: var(--accent-teal-border-hover); --color-text: var(--accent-teal-text); --text-on-solid: var(--white); }
-.mms-button-color-lime   { --color-subtle: var(--accent-lime-subtle); --color-subtle-hover: var(--accent-lime-subtle-hover); --color-solid: var(--accent-lime-solid); --color-border: var(--accent-lime-border); --color-border-hover: var(--accent-lime-border-hover); --color-text: var(--accent-lime-text); --text-on-solid: var(--white); }
+/* Accents (Semantic Mapping to Primitive Alpha) */
+.mms-button-color-orange { --color-subtle: var(--orange-a3); --color-subtle-hover: var(--orange-a4); --color-solid: var(--orange-9); --color-border: var(--orange-a7); --color-border-hover: var(--orange-a8); --color-text: var(--orange-11); --text-on-solid: var(--white); }
+.mms-button-color-blue   { --color-subtle: var(--blue-a3);   --color-subtle-hover: var(--blue-a4);   --color-solid: var(--blue-9);   --color-border: var(--blue-a7);   --color-border-hover: var(--blue-a8);   --color-text: var(--blue-11);   --text-on-solid: var(--white); }
+.mms-button-color-purple { --color-subtle: var(--purple-a3); --color-subtle-hover: var(--purple-a4); --color-solid: var(--purple-9); --color-border: var(--purple-a7); --color-border-hover: var(--purple-a8); --color-text: var(--purple-11); --text-on-solid: var(--white); }
+.mms-button-color-sky    { --color-subtle: var(--sky-a3);    --color-subtle-hover: var(--sky-a4);    --color-solid: var(--sky-9);    --color-border: var(--sky-a7);    --color-border-hover: var(--sky-a8);    --color-text: var(--sky-11);    --text-on-solid: var(--gray-12); }
+.mms-button-color-pink   { --color-subtle: var(--pink-a3);   --color-subtle-hover: var(--pink-a4);   --color-solid: var(--pink-9);   --color-border: var(--pink-a7);   --color-border-hover: var(--pink-a8);   --color-text: var(--pink-11);   --text-on-solid: var(--white); }
+.mms-button-color-teal   { --color-subtle: var(--teal-a3);   --color-subtle-hover: var(--teal-a4);   --color-solid: var(--teal-9);   --color-border: var(--teal-a7);   --color-border-hover: var(--teal-a8);   --color-text: var(--teal-11);   --text-on-solid: var(--white); }
+.mms-button-color-lime   { --color-subtle: var(--lime-a3);   --color-subtle-hover: var(--lime-a4);   --color-solid: var(--lime-9);   --color-border: var(--lime-a7);   --color-border-hover: var(--lime-a8);   --color-text: var(--lime-11);   --text-on-solid: var(--gray-12); }
 
 .mms-button-color-secondary {
   --color-subtle: var(--gray-3);
@@ -199,11 +269,9 @@
   --text-on-solid: var(--white);
 }
 
-/* Radius standards (Radix-like Numerical Scale) */
-.mms-button-radius-none { --btn-radius: var(--radius-none); }
-.mms-button-radius-1    { --btn-radius: max(var(--radius-full), var(--radius-1)); }
-.mms-button-radius-2    { --btn-radius: max(var(--radius-full), var(--radius-2)); }
-.mms-button-radius-3    { --btn-radius: max(var(--radius-full), var(--radius-3)); }
-.mms-button-radius-4    { --btn-radius: max(var(--radius-full), var(--radius-4)); }
-.mms-button-radius-full { --btn-radius: var(--radius-full); }
-
+/* Radius Standardized scale */
+.mms-button-radius-none   { --btn-radius: var(--radius-none); }
+.mms-button-radius-small  { --btn-radius: max(var(--radius-full), var(--radius-2)); }
+.mms-button-radius-medium { --btn-radius: max(var(--radius-full), var(--radius-4)); }
+.mms-button-radius-large  { --btn-radius: max(var(--radius-full), var(--radius-6)); }
+.mms-button-radius-full   { --btn-radius: var(--radius-full); }

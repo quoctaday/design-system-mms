@@ -27,18 +27,18 @@
 
 .docs-content {
   flex: 1;
-  padding: 64px 80px;
-  margin: 16px 16px 16px 276px;
+  padding: var(--space-9) calc(var(--space-1) * 20);
+  margin: var(--space-4) 16px 16px 276px;
   background-color: var(--surface-panel);
   border-radius: var(--radius-6);
-  border: 0.5px solid var(--border-subtle);
+  border: var(--stroke-hairline) solid var(--border-subtle);
   box-shadow: none;
   min-height: calc(100vh - 32px);
 }
 
 @media (max-width: 1024px) {
   .docs-content {
-    padding: 40px 60px;
+    padding: var(--space-9) 60px;
   }
 }
 
@@ -58,7 +58,7 @@
   
   .docs-content {
     margin-left: 0;
-    padding: 24px;
+    padding: var(--space-6);
     width: 100%;
   }
 }

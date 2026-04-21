@@ -1,10 +1,13 @@
 import React from 'react';
-import Result from '../components/ui/Result/Result';
-import { Button } from '../components/ui/Button';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
+import { 
+  Result, 
+  Button, 
+  AuroraBackground 
+} from '../components/ui';
 
 const ResultDoc: React.FC = () => {
   const toc = [
@@ -31,9 +34,9 @@ const ResultDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="success" className="doc-section">
-        <h2>Success</h2>
-        <p>A positive outcome after a successful action.</p>
+      <DocSection id="success">
+        <DocHeading>Success</DocHeading>
+        <DocText>A positive outcome after a successful action.</DocText>
         <CodePreview
           code={`<Result
   status="success"
@@ -51,11 +54,11 @@ const ResultDoc: React.FC = () => {
             />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="error" className="doc-section">
-        <h2>Error</h2>
-        <p>A critical failure that requires user attention.</p>
+      <DocSection id="error">
+        <DocHeading>Error</DocHeading>
+        <DocText>A critical failure that requires user attention.</DocText>
         <CodePreview
           code={`<Result
   status="error"
@@ -73,11 +76,11 @@ const ResultDoc: React.FC = () => {
             />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="warning" className="doc-section">
-        <h2>Warning</h2>
-        <p>Issues that aren't critical but need to be communicated.</p>
+      <DocSection id="warning">
+        <DocHeading>Warning</DocHeading>
+        <DocText>Issues that aren't critical but need to be communicated.</DocText>
         <CodePreview
           code={`<Result
   status="warning"
@@ -93,11 +96,11 @@ const ResultDoc: React.FC = () => {
             />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="info" className="doc-section">
-        <h2>Info</h2>
-        <p>Standard informational feedback.</p>
+      <DocSection id="info">
+        <DocHeading>Info</DocHeading>
+        <DocText>Standard informational feedback.</DocText>
         <CodePreview
           code={`<Result
   status="info"
@@ -113,12 +116,12 @@ const ResultDoc: React.FC = () => {
             />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={resultProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

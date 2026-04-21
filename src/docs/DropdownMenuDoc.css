@@ -1,33 +1,6 @@
 .dropdown-doc {
-  padding: 40px;
   max-width: 1000px;
   margin: 0 auto;
-}
-
-.api-table-wrapper {
-  margin-top: 16px;
-  width: 100%;
-  overflow-x: auto;
-}
-
-.api-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-  text-align: left;
-}
-
-.api-table th {
-  padding: 12px 16px;
-  border-bottom: 2px solid var(--border-subtle);
-  color: var(--content-strong);
-  font-weight: 600;
-}
-
-.api-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border-subtle);
-  color: var(--content-subtle);
 }
 
 .dropdown-item-danger {
@@ -42,37 +15,38 @@
 .table-action-preview {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px;
-  background-color: var(--bg-component);
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background-color: var(--gray-a2);
   border-radius: var(--radius-3);
   width: fit-content;
+  border: 0.5px solid var(--border-subtle);
 }
 
 .action-trigger-circle {
-  width: 32px;
-  height: 32px;
+  width: var(--size-6);
+  height: var(--size-6);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-full);
   background-color: var(--surface-panel);
-  border: 1px solid var(--border-subtle);
-  color: var(--content-subtle);
+  border: var(--stroke-width-1) solid var(--border-subtle);
+  color: var(--gray-a11);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 140ms var(--ease-snappy);
 }
 
 .action-trigger-circle:hover {
-  background-color: var(--bg-component-hover);
-  color: var(--brand-9);
-  border-color: var(--brand-5);
+  background-color: var(--gray-a3);
+  color: var(--accent-9);
+  border-color: var(--accent-5);
   box-shadow: var(--shadow-2);
 }
 
 .demo-list {
   display: flex;
-  gap: 16px;
+  gap: var(--space-4);
   flex-wrap: wrap;
   align-items: flex-start;
 }

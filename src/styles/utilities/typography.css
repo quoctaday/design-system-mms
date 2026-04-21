@@ -1,0 +1,60 @@
+/* 
+ * Leading Trim Utility (MMS High-Fidelity)
+ * Based on Radix UI Themes Architecture
+ */
+
+.mms-leading-trim-normal::before,
+.mms-leading-trim-end::before,
+.mms-leading-trim-none::before,
+.mms-leading-trim-normal::after,
+.mms-leading-trim-start::after,
+.mms-leading-trim-none::after {
+  content: none;
+}
+
+.mms-leading-trim-start::before,
+.mms-leading-trim-both::before,
+.mms-leading-trim-end::after,
+.mms-leading-trim-both::after {
+  content: '';
+  display: table;
+}
+
+/* 
+ * Formula: margin = (trim_factor) - (line_height / 2)
+ * This effectively collapses the leading white space of the font.
+ */
+.mms-leading-trim-start::before,
+.mms-leading-trim-both::before {
+  margin-bottom: calc(
+    var(--leading-trim-start, var(--default-leading-trim-start)) -
+    var(--line-height, 1.5em) / 2
+  );
+}
+
+.mms-leading-trim-end::after,
+.mms-leading-trim-both::after {
+  margin-top: calc(
+    var(--leading-trim-end, var(--default-leading-trim-end)) -
+    var(--line-height, 1.5em) / 2
+  );
+}
+
+/* Radix 'normal' for Heading often means both start and end are trimmed */
+.mms-leading-trim-normal::before {
+  content: '';
+  display: table;
+  margin-bottom: calc(
+    var(--heading-leading-trim-start, var(--default-leading-trim-start)) -
+    var(--line-height, 1.25em) / 2
+  );
+}
+
+.mms-leading-trim-normal::after {
+  content: '';
+  display: table;
+  margin-top: calc(
+    var(--heading-leading-trim-end, var(--default-leading-trim-end)) -
+    var(--line-height, 1.25em) / 2
+  );
+}

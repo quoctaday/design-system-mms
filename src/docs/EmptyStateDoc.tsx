@@ -1,11 +1,14 @@
 import React from 'react';
-import EmptyState from '../components/ui/EmptyState/EmptyState';
-import { Button } from '../components/ui/Button';
 import { RiInboxLine, RiSearchLine, RiFileWarningLine } from 'react-icons/ri';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
+import { 
+  EmptyState, 
+  Button, 
+  AuroraBackground 
+} from '../components/ui';
 
 const EmptyStateDoc: React.FC = () => {
   const toc = [
@@ -30,9 +33,9 @@ const EmptyStateDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="default" className="doc-section">
-        <h2>Default</h2>
-        <p>Always pair with a descriptive message and a clear call-to-action.</p>
+      <DocSection id="default">
+        <DocHeading>Default</DocHeading>
+        <DocText>Always pair with a descriptive message and a clear call-to-action.</DocText>
         <CodePreview
           code={`<EmptyState
   icon={<RiInboxLine size={40} />}
@@ -50,11 +53,11 @@ const EmptyStateDoc: React.FC = () => {
             />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="search" className="doc-section">
-        <h2>Search Results</h2>
-        <p>Specific states for when searches return no matches.</p>
+      <DocSection id="search">
+        <DocHeading>Search Results</DocHeading>
+        <DocText>Specific states for when searches return no matches.</DocText>
         <CodePreview
           code={`<EmptyState
   icon={<RiSearchLine size={40} />}
@@ -70,11 +73,11 @@ const EmptyStateDoc: React.FC = () => {
             />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="error" className="doc-section">
-        <h2>Error States</h2>
-        <p>Communicate data loading failures clearly.</p>
+      <DocSection id="error">
+        <DocHeading>Error States</DocHeading>
+        <DocText>Communicate data loading failures clearly.</DocText>
         <CodePreview
           code={`<EmptyState
   icon={<RiFileWarningLine size={40} />}
@@ -92,12 +95,12 @@ const EmptyStateDoc: React.FC = () => {
             />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={emptyStateProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

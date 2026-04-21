@@ -1,0 +1,49 @@
+@import '../breakpoints.css';
+@import './gap.css';
+@import './flex.css';
+@import './grid.css';
+@import './spacing.css';
+@import './dimensions.css';
+@import './positioning.css';
+
+/* Base Display Utilities */
+.wds-r-display-none { display: none; }
+.wds-r-display-block { display: block; }
+.wds-r-display-inline { display: inline; }
+.wds-r-display-inline-block { display: inline-block; }
+.wds-r-display-flex { display: flex; }
+.wds-r-display-inline-flex { display: inline-flex; }
+.wds-r-display-grid { display: grid; }
+.wds-r-display-inline-grid { display: inline-grid; }
+
+/* Responsive Display - MD */
+@media (min-width: 1024px) {
+  .wds-r-md-display-none { display: none; }
+  .wds-r-md-display-block { display: block; }
+  .wds-r-md-display-flex { display: flex; }
+}
+
+/* Container Utilities */
+.wds-r-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.wds-r-container-1 { max-width: 448px; }
+.wds-r-container-2 { max-width: 688px; }
+.wds-r-container-3 { max-width: 880px; }
+.wds-r-width-fit { width: fit-content; }
+
+/* Tiny Sizes (Added for dots/indicators) */
+.wds-r-width-px { width: 8px; }
+.wds-r-height-px { height: 8px; }
+
+/* Size Tokens Mapping (0-9) */
+.wds-r-section {
+  display: block;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+.wds-r-section-1 { padding-top: var(--space-5); padding-bottom: var(--space-5); } /* 24px */
+.wds-r-section-2 { padding-top: var(--space-7); padding-bottom: var(--space-7); } /* 40px */
+.wds-r-section-3 { padding-top: var(--space-9); padding-bottom: var(--space-9); } /* 64px */

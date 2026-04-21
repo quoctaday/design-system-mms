@@ -1,38 +1,39 @@
 # Layout Contract
 
-Mọi trang tài liệu và giao diện trong hệ thống phải tuân thủ layout contract này để bảo vệ tính nhất quán của khoảng cách (spacing).
+Every documentation page and UI layout within the system must adhere to this Layout Contract to ensure absolute consistency in spacing and visual rhythm.
 
-## 1. Spacing phải được quản lý tập trung
-Khoảng cách giữa các section lớn **bắt buộc** phải chuyển lên xử lý tại Parent Container.
+## 1. Centralized Spacing Management
+Spacing between primary sections **must** be delegated to the Parent Container.
 
-**Đúng ✅** — Parent container dùng `gap`:
+**Correct ✅** — Parent container utilizes `gap`:
 ```css
 .my-page {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-64); /* ← duy nhất 1 nơi kiểm soát */
+  gap: var(--space-9); /* ← Single source of control */
 }
 ```
 
-**Sai ❌** — Mỗi section tự quản lý margin:
+**Incorrect ❌** — Each section manages its own margins:
 ```css
-.section-1 { margin-bottom: 64px; } /* ← lỗi orphan margin */
-.section-2 { margin-top: 64px; }    /* ← lỗi double spacing */
+.section-1 { margin-bottom: 64px; } /* ← Orphan margin violation */
+.section-2 { margin-top: 64px; }    /* ← Potential double-spacing collision */
 ```
 
 ## 2. Spacing Hierarchy
+
 | Level | Spacing Method | Token Range |
 |---|---|---|
-| Giữa các section (top-level) | `gap` trên parent | `--spacing-64` |
-| Giữa các group trong section | `gap` trên grid | `--spacing-32~48` |
-| Giữa các item trong group | `gap` trên flex/grid | `--spacing-16~24` |
-| Padding nội bộ của card | `padding` | `--spacing-16~40` |
+| **Top-level Sections** | `gap` on Parent | `var(--space-9)` (64px) |
+| **Groups within Sections** | `gap` on Grid/Flex | `var(--space-6)` to `var(--space-7)` |
+| **Items within Groups** | `gap` on Flex/Grid | `var(--space-4)` to `var(--space-5)` |
+| **Internal Card Padding** | `padding` | `var(--space-4)` to `var(--space-7)` |
 
-## 3. Orphan Margin Dấu hiệu cần review
-Tuyệt đối tránh các pattern sau:
-- `margin-bottom` trên element cuối cùng trong container.
-- `margin-top` trên element đầu tiên trong container đã có `gap`.
-- Hai element liền nhau đều có margin gây chồng chéo khoảng cách.
+## 3. Orphan Margin (Red Flags)
+To maintain structural integrity, strictly avoid these patterns:
+- Using `margin-bottom` on the last element within a container.
+- Using `margin-top` on the first element within a container that already has `gap`.
+- Overlapping margins where two adjacent elements both define spacing, leading to unpredictable gaps.
 
 ---
 [[00 - Introduction|Back to Introduction]]

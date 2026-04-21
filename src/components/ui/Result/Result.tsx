@@ -25,7 +25,7 @@ const statusIcons = {
   info: <RiInformationFill />,
 };
 
-const Result: React.FC<ResultProps> = ({
+export const Result: React.FC<ResultProps> = ({
   status = 'info',
   title,
   subTitle,
@@ -48,4 +48,4 @@ const Result: React.FC<ResultProps> = ({
   );
 };
 
-export default Result;
+Result.displayName = 'Result';

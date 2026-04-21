@@ -1,0 +1,73 @@
+/* Grid Template Columns */
+.wds-r-gtc-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.wds-r-gtc-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.wds-r-gtc-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.wds-r-gtc-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.wds-r-gtc-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.wds-r-gtc-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.wds-r-gtc-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.wds-r-gtc-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.wds-r-gtc-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+.wds-r-gtc-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+.wds-r-gtc-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+.wds-r-gtc-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+/* Grid Auto Flow */
+.wds-r-gaf-row { grid-auto-flow: row; }
+.wds-r-gaf-column { grid-auto-flow: column; }
+.wds-r-gaf-dense { grid-auto-flow: dense; }
+
+/* Responsive - SM */
+@media (min-width: 768px) {
+  .wds-r-sm-gtc-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .wds-r-sm-gtc-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wds-r-sm-gtc-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .wds-r-sm-gtc-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Responsive - MD */
+@media (min-width: 1024px) {
+  .wds-r-md-gtc-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .wds-r-md-gtc-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wds-r-md-gtc-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .wds-r-md-gtc-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .wds-r-md-gtc-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .wds-r-md-gtc-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+/* Grid Column Spans */
+.wds-r-gc-span-1 { grid-column: span 1 / span 1; }
+.wds-r-gc-span-2 { grid-column: span 2 / span 2; }
+.wds-r-gc-span-3 { grid-column: span 3 / span 3; }
+.wds-r-gc-span-4 { grid-column: span 4 / span 4; }
+.wds-r-gc-span-5 { grid-column: span 5 / span 5; }
+.wds-r-gc-span-6 { grid-column: span 6 / span 6; }
+.wds-r-gc-span-7 { grid-column: span 7 / span 7; }
+.wds-r-gc-span-8 { grid-column: span 8 / span 8; }
+.wds-r-gc-span-9 { grid-column: span 9 / span 9; }
+.wds-r-gc-span-10 { grid-column: span 10 / span 10; }
+.wds-r-gc-span-11 { grid-column: span 11 / span 11; }
+.wds-r-gc-span-12 { grid-column: span 12 / span 12; }
+
+/* Grid Row Spans */
+.wds-r-gr-span-1 { grid-row: span 1 / span 1; }
+.wds-r-gr-span-2 { grid-row: span 2 / span 2; }
+.wds-r-gr-span-3 { grid-row: span 3 / span 3; }
+
+/* Responsive - MD */
+@media (min-width: 1024px) {
+  .wds-r-md-gtc-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .wds-r-md-gtc-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wds-r-md-gtc-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .wds-r-md-gtc-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .wds-r-md-gtc-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .wds-r-md-gtc-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+  .wds-r-md-gc-span-1 { grid-column: span 1 / span 1; }
+  .wds-r-md-gc-span-2 { grid-column: span 2 / span 2; }
+  .wds-r-md-gc-span-3 { grid-column: span 3 / span 3; }
+  .wds-r-md-gc-span-4 { grid-column: span 4 / span 4; }
+  .wds-r-md-gc-span-6 { grid-column: span 6 / span 6; }
+  .wds-r-md-gc-span-8 { grid-column: span 8 / span 8; }
+  .wds-r-md-gc-span-12 { grid-column: span 12 / span 12; }
+}

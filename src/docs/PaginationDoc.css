@@ -1,74 +1,57 @@
 .pagination-doc {
-  padding: 40px;
   max-width: 1000px;
   margin: 0 auto;
 }
 
-.doc-section {
-  margin-bottom: 64px;
-}
-
-.doc-section h2 {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--content-strong);
-}
-
-.doc-section p {
-  color: var(--content-subtle);
-  margin-bottom: 32px;
-  line-height: 1.6;
-}
-
+/* Unique layouts for Pagination */
 .example-center {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-  padding: 40px;
+  gap: var(--space-6);
+  padding: var(--space-9);
   background-color: var(--surface-panel);
-  border: 1px solid var(--border-subtle);
+  border: var(--stroke-width-1) solid var(--border-subtle);
   border-radius: var(--radius-3);
 }
 
 .page-indicator {
-  font-size: 14px;
-  color: var(--content-subtle);
-  font-weight: 500;
+  font-size: var(--font-size-2);
+  color: var(--gray-a11);
+  font-weight: var(--font-weight-medium);
 }
 
 .example-flex {
   display: flex;
-  gap: 48px;
+  gap: var(--space-8);
   flex-wrap: wrap;
 }
 
 .example-column {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 .example-column h4 {
-  font-size: 14px;
-  color: var(--content-subtle);
+  font-size: var(--font-size-1);
+  color: var(--gray-a11);
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--letter-spacing-1);
 }
 
 .table-footer-preview {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
+  padding: var(--space-4) var(--space-6);
   background-color: var(--surface-panel);
-  border: 1px solid var(--border-subtle);
+  border: var(--stroke-width-1) solid var(--border-subtle);
   border-radius: var(--radius-3);
 }
 
 .items-info {
-  font-size: 14px;
-  color: var(--content-subtle);
+  font-size: var(--font-size-2);
+  color: var(--gray-a11);
 }

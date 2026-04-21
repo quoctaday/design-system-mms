@@ -23,8 +23,8 @@
 .mms-code-snippet-container {
   background-color: var(--surface-panel) !important;
   border-radius: calc(var(--radius-6) - 8px);
-  border: 0.5px solid var(--border-subtle);
-  padding: 24px;
+  border: var(--stroke-hairline) solid var(--border-subtle);
+  padding: var(--space-6);
   box-shadow: var(--shadow-2);
   overflow-x: auto;
   margin: 0;
@@ -57,8 +57,8 @@
   border: none;
   color: var(--content-subtle);
   cursor: pointer;
-  padding: 4px;
-  border-radius: 6px;
+  padding: var(--space-1);
+  border-radius: var(--radius-3);
   display: flex;
   align-items: center;
   justify-content: center;

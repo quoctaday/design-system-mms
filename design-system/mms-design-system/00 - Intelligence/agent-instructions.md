@@ -2,39 +2,39 @@
 
 This document outlines the creative principles that the AI Design Agent must follow when generating UI/UX recommendations for the MMS Platform.
 
-## 核心原则 (Core Principles)
+## 🛡️ ULTRA-IRONCLAD PROTOCOL (Level 5 Security)
 
-### 1. Flat-Premium Aesthetic
-- **Shadows:** Strictly prohibited unless absolute depth is required for functional clarity.
-- **Elevation:** Use color contrast and borders (`--border-subtle`, `--border-default`) instead of shadows to define hierarchy.
-- **Glassmorphism:** Allowed for high-end overlays, using `backdrop-filter: blur()`.
+### 1. Geometric & Radius Parity (The 5-Level Law)
+- **Standard Scale:** All components MUST support the standard Radix 5-level radius scale: `none`, `small`, `medium`, `large`, `full`.
+- **Concentric Alignment:** For nested elements (like indicators), its radius MUST follow the logic: `Radius_inner = max(0px, Radius_outer - 1px)`. This is non-negotiable for pixel-perfect curves.
+- **Visual Evidence:** Before finalizing a component, verify this subtraction logic in the CSS.
 
-### 2. Typography Strictness
-- **Headings:** Always use **Inter Display**.
-- **Body:** Always use **Inter**.
+### 2. Interaction Depth (The Haptic Law)
+- **Mandatory States:** Every primary control MUST implement `:active` (Haptic Squeeze) and `:focus-visible` (Focus Ring).
+- **Squeeze Factor:** Use `transform: scale(0.975)` for active feedback to create a mechanical, responsive feel.
+- **Timing:** Use `100ms` for CSS-only transforms and `200ms` for Javascript-managed sliding indicators.
 
-### 3. Token Integrity
-- Never use Hex codes in design recommendations.
-- All spacing MUST use the Strict Radix 1-9 scale (`--space-1` to `--space-9`).
-- All radii MUST use the Radix-aligned scale (`--radius-1` to `--radius-6`).
-- Backgrounds must follow the `var(--surface-app)` -> `var(--surface-panel)` hierarchy.
+### 3. Materiality & Color Integrity (The Solid-Panel Law)
+- **Solid Contrast Mandate**: Any active/selected indicator (e.g., in SegmentedControl, Tabs, Switch) MUST use a **Solid Background** (#fff or `panel-solid`) in Light Mode to pop against translucent gray-aN containers.
+- **Alpha-Blending Rule**: Non-active states and large containers MUST use **Alpha Tokens** (`gray-aN`) to ensure visual harmony and background bleed-through.
+- **Dark-Theme Sourcing**: Always audit the precise `gray-aN` level for dark mode to maintain depth without over-exposure.
+- **Verification**: Never report completion without a verified check on the "Indicator Color Contrast Ratio" against its parent.
 
-### 4. Safety & Mass-Replacement Protocols
-- **Pre-Completion Audit:** The Agent MUST run `npm run guard` after any UI refactor or foundation change. 100% pass rate is required before reporting completion.
-- **Circular Reference Check:** When modifying `theme.css`, always verify that a variable does not point to itself.
-- **Regex Anchoring:** When performing mass-replacements on tokens, always use word boundaries or full variable matches to avoid partial overlaps (e.g., preventing `spacing-2` from corrupting `spacing-20`).
-- **Post-Replace Audit:** Run `grep -r "old-token" src` immediately after replacement to verify zero-leakage.
+### 4. Anatomy vs. Layout Enforcement
+- **Internal Anatomy:** Use **Local CSS Variables** (e.g., `--comp-width`) for fixed sizes.
+- **External Layout:** Use the Strict Radix 1-9 scale (`--space-N`).
+- **Source Audit:** NEVER modify a core component without first reading the official Radix source in `./Radix Reference/`.
 
-### 5. Documentation Stewardship
-- **Source Sync (Code → Doc):** Whenever a component's source code (`.tsx` or `.css`) is modified, the agent MUST immediately audit and update the corresponding `.md` file.
-- **Global Design System Guardian:** Any change to global foundations (Colors, Spacing, Typography) MUST be reflected in foundations documentation immediately.
-- **Master Synchronization:** Every time any `.md` file is modified, update `MASTER.md`.
+## 🚥 Verification & Guarding
 
-## ⚠️ Anti-Patterns to Avoid
-- **Legacy Gradients:** Avoid heavy or multi-color gradients.
-- **Hybrid Spacing:** Never mix `spacing-X` and `space-N`. Only use `space-N`.
-- **Hardcoded Spacing:** Avoid `px` values for layout; use `var(--space-N)` or `calc(var(--space-1) / 2)` for precision.
+### 5. Automation & Evidence
+- **Visual Evidence:** Every UI change MUST be verified via a `browser_subagent` screenshot.
+- **Verified Audit (Protocol 5.1):** RUN `node scripts/mms-ironclad-reporter.mjs [ComponentName]` and ensure **Parity Score: 100%** before reporting completion.
+- **Zero-Primitive Policy:** Run `sh scripts/verify-ironclad.sh` to ensure no raw hex/color leakage.
+
+### 6. Documentation Sync
+- **MASTER.md:** Update specifications immediately after a confirmed 100% parity build.
+- **Lessons Learned:** Log any new architectural discoveries or Radix deviations immediately.
 
 ---
-
-*This document is read by the AI during the design generation process.*
+*This document is the supreme directive for AI design generations.*

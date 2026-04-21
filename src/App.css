@@ -1,7 +1,7 @@
 .counter {
   font-size: 16px;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: var(--radius-3);
   color: var(--content-accent);
   background: var(--surface-accent-subtle);
   border: 2px solid transparent;
@@ -12,7 +12,7 @@
     border-color: var(--border-accent);
   }
   &:focus-visible {
-    outline: 2px solid var(--brand-9);
+    outline: 2px solid var(--accent-9);
     outline-offset: 2px;
   }
 }
@@ -65,7 +65,7 @@
   flex-grow: 1;
 
   @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
+    padding: var(--space-8) 20px 24px;
     gap: 18px;
   }
 }
@@ -77,9 +77,9 @@
 
   & > div {
     flex: 1 1 0;
-    padding: 32px;
+    padding: var(--space-8);
     @media (max-width: 1024px) {
-      padding: 24px 20px;
+      padding: var(--space-6) 20px;
     }
   }
 
@@ -108,8 +108,8 @@
   list-style: none;
   padding: 0;
   display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
+  gap: var(--space-2);
+  margin: var(--space-8) 0 0;
 
   .logo {
     height: 18px;
@@ -123,7 +123,7 @@
     display: flex;
     padding: 6px 12px;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-2);
     text-decoration: none;
     transition: box-shadow 0.3s;
 

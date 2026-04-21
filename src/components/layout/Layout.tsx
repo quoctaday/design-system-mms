@@ -1,7 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { cn } from '../../lib/utils';
-import { BrandPanel, Sidebar, Search } from '../ui';
-import { RiArrowDownSLine, RiArrowRightSLine, RiStackLine, RiCursorLine, RiCompass3Line, RiTableLine, RiChat3Line, RiMagicLine, RiGridLine, RiLayoutLine } from 'react-icons/ri';
+import { BrandPanel } from '../ui/BrandSwitcher/BrandSwitcher';
+import { Sidebar } from '../ui/Sidebar/Sidebar';
+import { Search } from '../ui/Search/Search';
+import { RiArrowDownSLine, RiArrowRightSLine, RiStackLine, RiCursorLine, RiCompass3Line, RiTableLine, RiChat3Line, RiMagicLine, RiGridLine, RiLayoutLine, RiAppsFill } from 'react-icons/ri';
 import './Layout.css';
 
 interface NavItem {
@@ -30,6 +32,20 @@ const NAVIGATION_DATA: NavGroup[] = [
     ],
   },
   {
+    id: 'layout',
+    title: 'Layout',
+    icon: <RiAppsFill />,
+    items: [
+      { id: 'box', label: 'Box' },
+      { id: 'flex', label: 'Flex' },
+      { id: 'grid', label: 'Grid' },
+      { id: 'container', label: 'Container' },
+      { id: 'section', label: 'Section' },
+      { id: 'scroll-area', label: 'ScrollArea' },
+      { id: 'aspect-ratio', label: 'AspectRatio' },
+    ],
+  },
+  {
     id: 'inputs',
     title: 'Action & Input',
     icon: <RiCursorLine />,
@@ -42,6 +58,7 @@ const NAVIGATION_DATA: NavGroup[] = [
       { id: 'select', label: 'Select' },
       { id: 'multiselect', label: 'MultiSelect' },
       { id: 'slider', label: 'Slider' },
+      { id: 'context-menu', label: 'ContextMenu' },
       { id: 'forms', label: 'Advanced Forms' },
     ],
   },
@@ -61,9 +78,15 @@ const NAVIGATION_DATA: NavGroup[] = [
     title: 'Data Display',
     icon: <RiTableLine />,
     items: [
+      { id: 'avatar', label: 'Avatar' },
       { id: 'badge', label: 'Badge' },
+      { id: 'card', label: 'Card' },
+      { id: 'premium-block', label: 'PremiumBlock' },
       { id: 'table', label: 'Table' },
+      { id: 'separator', label: 'Separator' },
       { id: 'timeline', label: 'Timeline' },
+      { id: 'accordion', label: 'Accordion' },
+      { id: 'operational', label: 'Operational Primitives' },
     ],
   },
   {
@@ -71,10 +94,16 @@ const NAVIGATION_DATA: NavGroup[] = [
     title: 'Feedback & Overlay',
     icon: <RiChat3Line />,
     items: [
+      { id: 'status', label: 'Status & Loading' },
+      { id: 'spinner', label: 'Spinner' },
+      { id: 'skeleton', label: 'Skeleton' },
       { id: 'tooltip', label: 'Tooltip' },
       { id: 'dropdown', label: 'DropdownMenu' },
       { id: 'modal', label: 'Dialog' },
       { id: 'toast', label: 'Toast' },
+      { id: 'popover', label: 'Popover' },
+      { id: 'hover-card', label: 'HoverCard' },
+      { id: 'alert-dialog', label: 'AlertDialog' },
       { id: 'result', label: 'Result' },
       { id: 'empty-state', label: 'Empty State' },
     ],
@@ -92,7 +121,8 @@ const NAVIGATION_DATA: NavGroup[] = [
     title: 'Widgets',
     icon: <RiGridLine />,
     items: [
-      { id: 'metrics-card', label: 'Metrics Card' },
+      { id: 'metric-card', label: 'Metric Card' },
+      { id: 'metrics-card', label: 'Example: Metrics Dashboard' },
     ],
   },
   {

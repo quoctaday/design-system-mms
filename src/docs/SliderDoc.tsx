@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Slider } from '../components/ui';
+import { Slider, Flex, Grid, Box, Text } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 import { RiVolumeUpLine, RiSunLine, RiMoonLine } from 'react-icons/ri';
@@ -31,7 +32,7 @@ const SliderDoc: React.FC = () => {
     { name: 'variant', type: "'surface' | 'classic' | 'soft'", default: "'surface'", description: 'Kiểu dáng hiển thị của Slider theo chuẩn Radix.' },
     { name: 'color', type: "SemanticColors", default: "'brand'", description: 'Màu sắc chủ đạo của thanh fill.' },
     { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước của slider.' },
-    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", default: "'full'", description: 'Độ bo góc của track và thumb.' },
+    { name: 'radius', type: "'none' | 'small' | 'medium' | 'large' | 'full'", default: "'full'", description: 'Hệ thống bo góc chuẩn 5 cấp độ Radix.' },
     { name: 'label', type: 'string', description: 'Nhãn hiển thị phía trên slider.' },
     { name: 'showValue', type: 'boolean', default: 'false', description: 'Hiển thị giá trị hiện tại ở góc phải.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa tương tác.' },
@@ -45,9 +46,9 @@ const SliderDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="interactive" className="doc-section">
-        <h2>Interactive Playground</h2>
-        <p>A controlled slider example with real-time state feedback and icons.</p>
+      <DocSection id="interactive">
+        <DocHeading>Interactive Playground</DocHeading>
+        <DocText>A controlled slider example with real-time state feedback and icons.</DocText>
         <CodePreview
           code={`const [volume, setVolume] = useState(65);
 
@@ -81,11 +82,11 @@ const SliderDoc: React.FC = () => {
             </div>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="variants" className="doc-section">
-        <h2>Variants</h2>
-        <p>Radix-inspired visual styles to match different UI densities and contexts.</p>
+      <DocSection id="variants">
+        <DocHeading>Variants</DocHeading>
+        <DocText>Radix-inspired visual styles to match different UI densities and contexts.</DocText>
         <CodePreview
           code={`<Slider variant="surface" label="Surface Style (Inner Shadow)" defaultValue={30} />
 <Slider variant="classic" label="Classic Style (High Contrast)" defaultValue={60} />
@@ -97,11 +98,11 @@ const SliderDoc: React.FC = () => {
             <Slider variant="soft" label="Soft Style" defaultValue={80} />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="colors" className="doc-section">
-        <h2>Colors</h2>
-        <p>Use semantic colors to communicate intent or brand personality.</p>
+      <DocSection id="colors">
+        <DocHeading>Colors</DocHeading>
+        <DocText>Use semantic colors to communicate intent or brand personality.</DocText>
         <CodePreview
           code={`<Slider color="blue" label="System Update" defaultValue={70} />
 <Slider color="success" label="Battery Level" defaultValue={95} />
@@ -118,11 +119,11 @@ const SliderDoc: React.FC = () => {
             ))}
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="sizes" className="doc-section">
-        <h2>Sizes</h2>
-        <p>Three distinct sizes to match the density of your interface.</p>
+      <DocSection id="sizes">
+        <DocHeading>Sizes</DocHeading>
+        <DocText>Three distinct sizes to match the density of your interface.</DocText>
         <CodePreview
           code={`<Slider size="1" label="Size 1" defaultValue={30} />
 <Slider size="2" label="Size 2" defaultValue={50} />
@@ -134,28 +135,56 @@ const SliderDoc: React.FC = () => {
             <Slider size="3" label="Size 3 (20px thumb)" defaultValue={80} />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="radius" className="doc-section">
-        <h2>Radius</h2>
-        <p>Control the corner geometry to match your design system's personality. Standard is <code>full</code>.</p>
-        <CodePreview
-          code={`<Slider radius="none" label="Sharp" />
-<Slider radius="4" label="Standard" />
-<Slider radius="full" label="Organic" />`}
-        >
-          <div className="flex flex-col gap-6 max-w-sm">
-            <Slider radius="none" label="Sharp Corners (none)" defaultValue={40} />
-            <Slider radius="4" label="Medium Rounds (4)" defaultValue={60} />
-            <Slider radius="full" label="Organic Pill (full)" defaultValue={80} />
+      <DocSection id="radius">
+        <Flex direction="column" gap="2">
+          <DocHeading>Sizes & Radius Matrix</DocHeading>
+          <DocText>Ma trận trực quan hóa sự nhất quán của Slider qua mọi biến thể hình học.</DocText>
+        </Flex>
+        
+        <div className="premium-block mt-6">
+          <div className="premium-block-content p-8 overflow-x-auto">
+            <Box style={{ minWidth: '700px' }}>
+              {/* Header Row */}
+              <Grid columns="6" gap="4" style={{ marginBottom: '16px' }}>
+                <Box />
+                {['No radius', 'Small', 'Medium', 'Large', 'Full'].map(label => (
+                  <Text key={label} align="center" size="1" weight="bold" style={{ textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gray-9)', opacity: 0.6 }}>
+                    {label}
+                  </Text>
+                ))}
+              </Grid>
+
+              {/* Data Rows */}
+              {[
+                { size: '1', label: 'Size 1', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+                { size: '2', label: 'Size 2', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+                { size: '3', label: 'Size 3', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+              ].map(row => (
+                <Grid key={row.size} columns="6" gap="4" align="center" style={{ marginBottom: '24px' }}>
+                  <Text size="2" weight="bold" style={{ color: 'var(--gray-12)' }}>{row.label}</Text>
+                  {row.radiusTokens.map((radius: any) => (
+                    <Flex key={radius} justify="center" style={{ padding: '0 8px' }}>
+                      <Slider 
+                        size={row.size as any} 
+                        radius={radius} 
+                        defaultValue={60}
+                        style={{ width: '100%', maxWidth: '100px' }}
+                      />
+                    </Flex>
+                  ))}
+                </Grid>
+              ))}
+            </Box>
           </div>
-        </CodePreview>
-      </section>
+        </div>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={sliderProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

@@ -1,0 +1,65 @@
+.rt-DataListRoot {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--space-6);
+  row-gap: var(--space-3);
+  align-items: baseline;
+  box-sizing: border-box;
+}
+
+.rt-DataListRoot[data-size="1"] {
+  row-gap: var(--space-2);
+  column-gap: var(--space-4);
+  font-size: var(--font-size-1);
+}
+
+.rt-DataListRoot[data-size="2"] {
+  row-gap: var(--space-3);
+  column-gap: var(--space-6);
+  font-size: var(--font-size-2);
+}
+
+.rt-DataListRoot[data-size="3"] {
+  row-gap: var(--space-4);
+  column-gap: var(--space-8);
+  font-size: var(--font-size-3);
+}
+
+.rt-DataListItem {
+  display: contents;
+}
+
+.rt-DataListLabel {
+  color: var(--content-subtle);
+  font-weight: var(--font-weight-regular);
+  white-space: nowrap;
+}
+
+.rt-DataListValue {
+  color: var(--content-strong);
+  font-weight: var(--font-weight-medium);
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* Responsive Logic (Follow Radix) */
+@media (max-width: 767px) {
+  .rt-DataListRoot {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .rt-DataListItem {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-bottom: var(--space-3);
+    border-bottom: var(--stroke-hairline) solid var(--border-subtle);
+  }
+  
+  .rt-DataListItem:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}

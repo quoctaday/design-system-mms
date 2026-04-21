@@ -1,10 +1,17 @@
+/* ─────────────────────────────────────────────────────────
+ * MMS DESIGN SYSTEM - IRONCLAD: SWITCH (RADIX 3.0 PARITY)
+ * Strictly following Radix UI Themes 3.0 source specifications.
+ * ───────────────────────────────────────────────────────── */
+
 .mms-switch-wrapper {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
   cursor: pointer;
   user-select: none;
-  transition: opacity 200ms ease;
+  vertical-align: top;
+  line-height: normal;
+  transition: opacity 160ms ease;
 }
 
 .mms-switch-disabled {
@@ -16,6 +23,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .mms-switch-input {
@@ -24,81 +32,191 @@
   width: 0;
   height: 0;
   margin: 0;
+  pointer-events: none;
 }
 
 .mms-switch-track {
   display: block;
-  background-color: var(--surface-sunken);
-  border: var(--stroke-width-1) solid var(--border-subtle);
-  border-radius: var(--radius-full);
+  background-color: var(--gray-a3);
+  background-repeat: no-repeat;
+  /* Radix Gradient Engine: Checked color moves from left to right */
+  background-size: calc(var(--switch-width) * 2 + var(--switch-height)) 100%;
+  background-position: 100%;
+  
+  /* Radix Architecture: Unified track shadow variable */
+  --switch-track-box-shadow: inset 0 0 0 1px var(--gray-a5);
+  box-shadow: var(--switch-track-box-shadow);
+  
+  border-radius: 9999px;
   position: relative;
-  transition: all 160ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-position 160ms ease-in-out, background-color 140ms ease-in-out, box-shadow 140ms ease-in-out;
+  width: var(--switch-width);
+  height: var(--switch-height);
 }
 
+/* ─────────────────────────────────────────────────────────
+ * INTERACTION: FOCUS & HOVER
+ * ───────────────────────────────────────────────────────── */
+
 .mms-switch-input:focus-visible + .mms-switch-track {
-  box-shadow: 
-    0 0 0 calc(var(--space-1) / 2) var(--surface-panel),
-    0 0 0 var(--space-1) var(--brand-a3),
-    0 0 0 var(--stroke-width-1) var(--brand-9);
+  outline: 2px solid var(--accent-8);
+  outline-offset: 2px;
 }
+
+.mms-switch-wrapper:hover .mms-switch-track {
+  background-color: var(--gray-a4);
+  --switch-track-box-shadow: inset 0 0 0 1px var(--gray-a6);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * THUMB (Radix 5-Layer Shadow)
+ * ───────────────────────────────────────────────────────── */
 
 .mms-switch-thumb {
   display: block;
-  background-color: var(--white);
-  border-radius: var(--radius-full);
-  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--shadow-1);
+  background-color: white;
+  border-radius: 9999px;
   position: absolute;
   top: 50%;
-  left: var(--space-1);
+  left: 1px; /* Thumb inset 1px */
+  width: var(--switch-thumb-size);
+  height: var(--switch-thumb-size);
   transform: translateY(-50%);
   will-change: transform;
+  transition: transform 140ms cubic-bezier(0.45, 0.05, 0.55, 0.95), box-shadow 140ms ease-in-out;
+  
+  /* Radix Architecture: Unified thumb shadow variable */
+  --switch-thumb-box-shadow:
+    0 0 1px 1px var(--black-a2),
+    0 1px 1px var(--black-a1),
+    0 2px 4px -1px var(--black-a1);
+  box-shadow: var(--switch-thumb-box-shadow);
 }
 
-/* Checked State */
+/* ─────────────────────────────────────────────────────────
+ * STATES (Radix Data Logic)
+ * ───────────────────────────────────────────────────────── */
+
 .mms-switch-input:checked + .mms-switch-track {
-  background-color: var(--surface-accent-solid);
-  border-color: transparent;
-}
-
-/* Size 2 (Default) */
-.mms-switch-size-2 .mms-switch-track {
-  width: var(--size-3); /* 40px */
-  height: var(--size-2); /* 32px */
-}
-
-.mms-switch-size-2 .mms-switch-thumb {
-  width: var(--space-4);
-  height: var(--space-4);
+  background-position: 0%;
+  background-color: var(--accent-9);
 }
 
 .mms-switch-input:checked + .mms-switch-track .mms-switch-thumb {
-  transform: translate(calc(var(--size-3) - var(--space-4) - var(--space-2)), -50%);
+  transform: translate(var(--switch-thumb-translate-x), -50%);
+  
+  /* Radix Checked Thumb Shadows */
+  --switch-thumb-box-shadow:
+    0 1px 3px var(--black-a2),
+    0 2px 4px -1px var(--black-a1),
+    0 0 0 1px var(--black-a1),
+    0 0 0 1px var(--accent-a4),
+    -1px 0 1px var(--black-a2);
 }
 
-/* Size 1 (Small) */
-.mms-switch-size-1 .mms-switch-track {
-  width: var(--size-2); /* 32px */
-  height: var(--size-1); /* 24px - NEW baseline */
+/* ─────────────────────────────────────────────────────────
+ * VARIANTS (Materiality Matrix)
+ * ───────────────────────────────────────────────────────── */
+
+/* 1. SURFACE (Flat/Transparent) */
+.mms-switch-variant-surface .mms-switch-track {
+  background-color: var(--gray-a3);
+  --switch-track-box-shadow: inset 0 0 0 1px var(--gray-a5);
+}
+.mms-switch-variant-surface .mms-switch-thumb {
+  background-color: white;
+  /* Unchecked Shadow */
+  --switch-thumb-box-shadow: 
+    0 0 1px 1px var(--black-a2),
+    0 1px 1px var(--black-a1),
+    0 2px 4px -1px var(--black-a1);
+}
+.mms-switch-variant-surface .mms-switch-input:checked + .mms-switch-track .mms-switch-thumb {
+  /* Checked Shadow (Same as standard Radix) */
+  --switch-thumb-box-shadow: 
+    0 1px 3px var(--black-a2),
+    0 2px 4px -1px var(--black-a1),
+    0 0 0 1px var(--black-a1),
+    0 0 0 1px var(--accent-a4),
+    -1px 0 1px var(--black-a2);
 }
 
-.mms-switch-size-1 .mms-switch-thumb {
-  width: var(--space-3);
-  height: var(--space-3);
+/* 2. CLASSIC (Elevated/Depth) */
+.mms-switch-variant-classic .mms-switch-track {
+  background-color: var(--gray-a3);
+  --switch-track-box-shadow: var(--shadow-1);
+}
+.mms-switch-variant-classic .mms-switch-input:checked + .mms-switch-track {
+  --switch-track-box-shadow: 
+    inset 0 0 0 1px var(--gray-a3), 
+    inset 0 0 0 1px var(--accent-a4), 
+    inset 0 0 0 1px var(--black-a1), 
+    inset 0 1.5px 2px 0 var(--black-a2);
 }
 
-.mms-switch-input:checked + .mms-switch-track .mms-switch-thumb {
-  transform: translate(calc(var(--size-2) - var(--space-3) - var(--space-2)), -50%);
+.mms-switch-variant-classic .mms-switch-thumb {
+  background-color: white;
+  /* Classic Unchecked pops more */
+  --switch-thumb-box-shadow: 
+    0 1px 3px var(--black-a3), 
+    0 2px 4px -1px var(--black-a1), 
+    0 0 0 1px var(--black-a2);
 }
+
+.mms-switch-variant-classic .mms-switch-input:checked + .mms-switch-track .mms-switch-thumb {
+  /* Standard premium checked shadow */
+  --switch-thumb-box-shadow: 
+    0 1px 3px var(--black-a2), 
+    0 2px 4px -1px var(--black-a1), 
+    0 0 0 1px var(--black-a1), 
+    0 0 0 1px var(--accent-a4), 
+    -1px 0 1px var(--black-a2);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * SIZING (Radix 3.0 Real Specs)
+ * ───────────────────────────────────────────────────────── */
+
+/* Size 1: 16px Height -> 28px Width */
+.mms-switch-size-1 {
+  --switch-height: 16px;
+  --switch-width: 28px;
+  --switch-thumb-size: 14px;
+  --switch-thumb-translate-x: 12px; /* 28 - 14 - 1 - 1 */
+}
+
+/* Size 2: 20px Height -> 35px Width */
+.mms-switch-size-2 {
+  --switch-height: 20px;
+  --switch-width: 35px;
+  --switch-thumb-size: 18px;
+  --switch-thumb-translate-x: 15px; /* 35 - 18 - 1 - 1 */
+}
+
+/* Size 3: 24px Height -> 42px Width */
+.mms-switch-size-3 {
+  --switch-height: 24px;
+  --switch-width: 42px;
+  --switch-thumb-size: 22px;
+  --switch-thumb-translate-x: 18px; /* 42 - 22 - 1 - 1 */
+}
+
+/* ─────────────────────────────────────────────────────────
+ * COLOR ROUTING
+ * ───────────────────────────────────────────────────────── */
+
+.mms-switch-color-success .mms-switch-input:checked + .mms-switch-track { background-color: var(--green-9); }
+.mms-switch-color-error   .mms-switch-input:checked + .mms-switch-track { background-color: var(--red-9); }
+.mms-switch-color-warning .mms-switch-input:checked + .mms-switch-track { background-color: var(--amber-9); }
+.mms-switch-color-gray    .mms-switch-input:checked + .mms-switch-track { background-color: var(--gray-9); }
+
+/* ─────────────────────────────────────────────────────────
+ * LABEL
+ * ───────────────────────────────────────────────────────── */
 
 .mms-switch-label {
   font-family: var(--font-body);
   font-size: var(--font-size-2);
   font-weight: var(--font-weight-medium);
   color: var(--content-strong);
-}
-
-.mms-switch-root:hover .mms-switch-track:not(.mms-switch-input:checked + *) {
-  background-color: var(--surface-component);
-  border-color: var(--border-strong);
 }

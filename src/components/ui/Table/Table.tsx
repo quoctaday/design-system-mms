@@ -77,5 +77,3 @@ export const Table = Object.assign(TableRoot, {
   Cell: TableCell,
   ColumnHeaderCell: TableColumnHeaderCell,
 });
-
-export default Table;

@@ -1,8 +1,8 @@
 import React from 'react';
-import Timeline from '../components/ui/Timeline/Timeline';
-import type { TimelineItem } from '../components/ui/Timeline/Timeline';
+import { Timeline, type TimelineItem } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -41,9 +41,9 @@ const TimelineDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="basic" className="doc-section">
-        <h2>Basic Usage</h2>
-        <p>Trace the lifecycle of a transaction step-by-step.</p>
+      <DocSection id="basic">
+        <DocHeading>Basic Usage</DocHeading>
+        <DocText>Trace the lifecycle of a transaction step-by-step.</DocText>
         <CodePreview
           code={`const items = [
   { id: '1', label: 'Created', timestamp: '09:41 AM', status: 'completed' },
@@ -57,11 +57,11 @@ const TimelineDoc: React.FC = () => {
             <Timeline items={basicItems} />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="error" className="doc-section">
-        <h2>Error States</h2>
-        <p>Communicate failures within a process flow.</p>
+      <DocSection id="error">
+        <DocHeading>Error States</DocHeading>
+        <DocText>Communicate failures within a process flow.</DocText>
         <CodePreview
           code={`<Timeline items={errorItems} />`}
         >
@@ -69,12 +69,12 @@ const TimelineDoc: React.FC = () => {
             <Timeline items={errorItems} />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={timelineProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

@@ -1,4 +1,6 @@
 import React from 'react';
+import { cn } from '../../../lib/utils';
+import { extractMMSProps } from '../../../helpers/extract-mms-props';
 import './Card.css';
 
 interface CardProps {
@@ -10,9 +12,10 @@ interface CardProps {
   footer?: React.ReactNode;
   variant?: 'default' | 'glass' | 'bordered';
   padding?: 'none' | 'sm' | 'md' | 'lg';
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
 }
 
-const Card: React.FC<CardProps> = ({
+export const Card: React.FC<CardProps> = ({
   children,
   className = '',
   title,
@@ -22,12 +25,15 @@ const Card: React.FC<CardProps> = ({
   variant = 'default',
   padding = 'md',
 }) => {
-  const cardClasses = [
+  const { mmsClasses, size, variant: mmsVariant, radius } = extractMMSProps({ variant, radius }, 'card', { radius: 'medium' });
+
+  const cardClasses = cn(
     'mms-card',
     `mms-card--${variant}`,
     `mms-card--padding-${padding}`,
+    `mms-card-radius-${radius}`,
     className
-  ].join(' ');
+  );
 
   return (
     <div className={cardClasses}>
@@ -47,5 +53,7 @@ const Card: React.FC<CardProps> = ({
     </div>
   );
 };
+
+Card.displayName = 'Card';
 
 export default Card;

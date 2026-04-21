@@ -1,7 +1,8 @@
 import React from 'react';
 import { Tabs } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 import { RiUser6Line, RiSettings4Line, RiFileList3Line } from 'react-icons/ri';
@@ -30,9 +31,9 @@ const TabsDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="classic" className="doc-section">
-        <h2>Classic Variant</h2>
-        <p>A minimalist design with a subtle bottom indicator line. Ideal for main navigation or high-level views.</p>
+      <DocSection id="classic">
+        <DocHeading>Classic Variant</DocHeading>
+        <DocText>A minimalist design with a subtle bottom indicator line. Ideal for main navigation or high-level views.</DocText>
         <CodePreview
           code={`<Tabs defaultValue="account" variant="classic">
   <Tabs.List>
@@ -65,11 +66,11 @@ const TabsDoc: React.FC = () => {
             </Tabs>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="surface" className="doc-section">
-        <h2>Surface Variant</h2>
-        <p>A spacious, segmented-style navigation. Optimized with <strong>6px Padding</strong> to create a clear visual distinction from tighter form controls.</p>
+      <DocSection id="surface">
+        <DocHeading>Surface Variant</DocHeading>
+        <DocText>A spacious, segmented-style navigation. Optimized with <strong>6px Padding</strong> to create a clear visual distinction from tighter form controls.</DocText>
         <CodePreview
           code={`<Tabs defaultValue="overview" variant="surface">
   <Tabs.List>
@@ -91,7 +92,7 @@ const TabsDoc: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="text-xs font-bold text-muted uppercase tracking-widest mb-4">With Icons</h3>
+              <DocHeading level={3} className="text-xs font-bold text-muted uppercase tracking-widest mb-4">With Icons</DocHeading>
               <Tabs defaultValue="user" variant="surface" size="1">
                 <Tabs.List>
                   <Tabs.Trigger value="user"><RiUser6Line size={14} /> User</Tabs.Trigger>
@@ -102,11 +103,11 @@ const TabsDoc: React.FC = () => {
             </div>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="sizes" className="doc-section">
-        <h2>Sizes & Radius</h2>
-        <p>Adjust the density and shape of your tabs to match the surrounding UI components.</p>
+      <DocSection id="sizes">
+        <DocHeading>Sizes & Radius</DocHeading>
+        <DocText>Adjust the density and shape of your tabs to match the surrounding UI components.</DocText>
         <CodePreview
           code={`<Tabs size="1" radius="2" variant="surface" defaultValue="1">
   <Tabs.List>
@@ -124,7 +125,7 @@ const TabsDoc: React.FC = () => {
         >
           <div className="flex flex-col gap-8 py-4">
             <div className="flex flex-col gap-3">
-              <span className="text-[10px] uppercase font-bold text-muted tracking-widest">Size 1 + Radius 2</span>
+              <DocHeading level={4} className="text-[10px] uppercase font-bold text-muted tracking-widest">Size 1 + Radius 2</DocHeading>
               <Tabs size="1" radius="2" variant="surface" defaultValue="a">
                 <Tabs.List>
                   <Tabs.Trigger value="a">Development</Tabs.Trigger>
@@ -134,7 +135,7 @@ const TabsDoc: React.FC = () => {
             </div>
             
             <div className="flex flex-col gap-3">
-              <span className="text-[10px] uppercase font-bold text-muted tracking-widest">Size 2 + Radius Full</span>
+              <DocHeading level={4} className="text-[10px] uppercase font-bold text-muted tracking-widest">Size 2 + Radius Full</DocHeading>
               <Tabs size="2" radius="full" variant="surface" defaultValue="1">
                 <Tabs.List>
                   <Tabs.Trigger value="1">Line Chart</Tabs.Trigger>
@@ -145,12 +146,12 @@ const TabsDoc: React.FC = () => {
             </div>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={tabsProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

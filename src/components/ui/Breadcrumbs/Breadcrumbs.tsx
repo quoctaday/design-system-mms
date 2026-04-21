@@ -21,7 +21,7 @@ const DefaultSeparator = () => (
   </div>
 );
 
-const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   items,
   separator = <DefaultSeparator />,
   onItemClick,
@@ -64,4 +64,4 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   );
 };
 
-export default Breadcrumbs;
+Breadcrumbs.displayName = 'Breadcrumbs';

@@ -1,102 +1,133 @@
-# MMS Standardization Protocol (Agentic v1.0)
+# MMS Standardization Protocol (Agentic v5.0)
 
-Tài liệu này quy dẫn các tiêu chuẩn và kỹ thuật để duy trì hệ thống **Pixel-Perfect** trong MMS Platform. Cả Con người và AI (Agent) phải tuân thủ nghiêm ngặt để tránh "nợ kỹ thuật" (technical debt) về UI.
+This document outlines the standards and techniques required to maintain a **Pixel-Perfect** system across the MMS Platform. Both humans and AI Agents must strictly adhere to these rules to avoid UI technical debt.
 
-## 🎯 Mục tiêu tối thượng
-- **100% Tokenized**: Không bao giờ sử dụng giá trị `px` hoặc `hex` trực tiếp trong component.
-- **Single Source of Truth**: Mọi kích thước phải tham chiếu từ `theme.css`.
-- **Atomic Consistency**: Các thành phần tương đồng phải dùng chung bộ Token (ví dụ: Button và Input cùng dùng `--size-2`).
+## 🎯 Strategic Objectives
+- **Semantic Tokenization (Color & Type)**: 100% mandatory usage of `var()` for Colors and Typography. Raw HEX codes and hardcoded font families are strictly prohibited.
+- **Structural Native Primitives**: Ultra-fine pixel values (`1px`, `0.5px`) are permitted when creating rings, hairlines, or indicators to ensure Radix-level visual sharpness.
+- **Single Source of Truth**: All primary spacing, border-radius, and elevation must reference `theme.css`.
+- **Atomic Consistency**: Similar components must share the same token sets (e.g., Button and Input should both use `--size-2`).
 
 ---
 
-## 🔍 Bộ công cụ quét (Regex Vault)
+## 🔍 The Regex Vault (Audit Toolset)
 
-Sử dụng các biểu thức chính quy sau để tìm kiếm lỗi trong quá trình Audit:
+Use the following regular expressions to identify violations during the audit process:
 
-| Đối tượng | Regex Pattern | Mục đích |
+| target | Regex Pattern | Purpose |
 | :--- | :--- | :--- |
-| **Pixel cứng** | `[:\s][1-9][0-9]*px[;\s]` | Tìm các giá trị `px` không phải là 0 hoặc 1px. |
-| **Hex/Color** | `(#[0-9a-fA-F]{3,8}\|rgba?\(.*?\)\|hsla?\(.*?\))` | Tìm mã màu chưa được token hóa. |
-| **Fallback PX** | `var\(--.*, \s*[0-9]+px\)` | Tìm các giá trị dự phòng mang đơn vị `px`. |
-| **Spacing sai** | `(padding\|margin\|gap): (?!var\(--spacing-)` | Kiểm tra vi phạm hệ lưới 4-point grid. |
+| **Hard Pixels** | `[:\s][2-9][0-9]*px[;\s]` | Find `px` values (2px and above). Exempts `1px` and `0.5px` for ring architecture. |
+| **Hex/Color** | `(#[0-9a-fA-F]{3,8}\|rgba?\(.*?\)\|hsla?\(.*?\))` | Find untokenized color codes. |
+| **Fallback PX** | `var\(--.*, \s*[0-9]+px\)` | Find fallback values using `px` units. |
+| **Invalid Spacing** | `(padding\|margin\|gap): (?!var\(--spacing-)` | Check for 4-point grid violations. |
 
 ---
 
-## 🛠 Quy trình Refactor 4 Bước
+## 🛠 4-Step Refactor Workflow
 
-### Bước 1: Audit Layered (Kiểm toán phân lớp)
-Chạy script audit và phân loại lỗi theo 3 cấp độ:
-- **Critical**: Lỗi `px` trực tiếp trong component cốt lõi (`src/components/ui`).
-- **Warning**: Lỗi trong các trang Example hoặc Page (`src/pages`).
-- **Aesthetic**: Các giá trị lẻ không thuộc lưới 4px (ví dụ: `3px`, `6px`).
+### Step 1: Layered Audit
+Run the audit script and categorize errors into 3 levels:
+- **Critical**: Raw `px` values directly in core components (`src/components/ui`).
+- **Warning**: Errors in Example pages or high-level views (`src/pages`).
+- **Aesthetic**: Odd values not adhering to the 4px grid (e.g., `3px`, `6px`).
 
-### Bước 2: Token Mapping (Bản đồ Token)
-Trước khi sửa, hãy đối chiếu giá trị thực với bảng Token chuẩn:
-- **Spacing**: 4, 8, 12, 16, 24, 32, 48, 64...
-- **Dimensions**: Size-0 (20px) đến Size-18 (800px).
-- **Borders**: `--stroke-width-1` (1px), `--stroke-width-2` (1.5px).
+### Step 2: Token Mapping
+Before applying fixes, cross-reference actual values with the standard token table:
+- **Spacing**: 4 (space-1), 8 (space-2), 12 (space-3), 16 (space-4), 24 (space-5), 32 (space-6)...
+- **Dimensions**: Size-0 (20px) to Size-18 (800px).
+- **Radius**: Radius-4 (8px), Radius-5 (12px), Radius-6 (16px).
+- **Borders**: `--stroke-width-1` (1px), `--stroke-hairline` (0.5px).
+- **Semantics**: Always use `var(--border-accent)` instead of `var(--accent-7)`, and `var(--surface-accent-subtle)` instead of `var(--accent-2)`. Strictly prohibit `-aX` (numeric alpha) tokens directly in component logic if a semantic equivalent exists.
 
-### Bước 3: Layered Implementation (Thực thi phân tách)
-- **Tuyệt đối không** dùng một lệnh `multi_replace` cho nhiều file khác nhau nếu không cùng mục đích.
-- Ưu tiên sửa `theme.css` trước nếu thiếu Token.
-- Sửa file CSS chính của component, sau đó chạy lại Audit ngay lập tức.
+### Step 3: Mathematical Concentricity
+To achieve the highest aesthetic quality in nested blocks, MMS transitions from manual rules to **CSS calc() Automation**:
 
-### Bước 4: Final Wrap (Hoàn tất)
-- Xóa các file `_Corrected.css` hoặc file tạm.
-- Chụp ảnh màn hình đối chiếu (Screenshot Audit).
-- Cập nhật `MASTER.md`.
+- **Mandatory Formula**: `Inner_Radius = calc(Outer_Radius - Padding)`.
+- **Rationale**: The MMS system supports **Dynamic Scaling**. When a user adjusts `--scaling`, absolute values will drift. Only `calc()` ensures that corner radii remain perfectly concentric.
+- **Implementation**:
+  ```css
+  .container { --outer-radius: var(--radius-5); padding: var(--space-1); }
+  .inner-box { border-radius: calc(var(--outer-radius) - var(--space-1)); }
+  ```
+
+### Step 4: Final Wrap
+- Delete any `_Corrected.css` or temporary files.
+- Capture comparison screenshots (Screenshot Audit).
+- Update `MASTER.md`.
 
 ---
 
-## 🚫 Các lỗi thường gặp (Antipatterns)
-- **Lỗi 1**: Dùng Token Spacing để định nghĩa phông chữ (`font-size: var(--spacing-4)`). -> **Sửa**: Phải dùng `var(--font-size-X)`.
-- **Lỗi 2**: Hardcode giá trị dự phòng (`var(--shadow, 0 2px 4px rgba(0,0,0,0.1))`). -> **Sửa**: Dùng token shadow lồng nhau.
-- **Lỗi 3**: Dùng pixel lẻ để "fix" giao diện (`margin-top: 3px`). -> **Sửa**: Điều chỉnh lại `calc()` dựa trên token chính.
+## 🚫 Common Antipatterns
+- **Error 1**: Using Spacing tokens for font size (`font-size: var(--spacing-4)`). -> **Fix**: Use `var(--font-size-X)`.
+- **Error 2**: Hardcoding fallback values (`var(--shadow, 0 2px 4px rgba(0,0,0,0.1))`). -> **Fix**: Use nested shadow tokens.
+- **Error 3**: Using "magic" odd pixels to fix layout (`margin-top: 3px`). -> **Fix**: Adjust `calc()` logic based on primary tokens.
 
 ---
 
-## 💎 Các ngoại lệ được chấp nhận (Standardization Exceptions)
+## 💎 Standardization Exceptions
 
-Một số component mang tính chất "Visual Art" hoặc "Complex Gradient" được phép giữ lại giá trị hex để bảo toàn hiệu ứng thị giác nguyên bản:
+Certain cases are permitted to use primitive values to maintain precision or special effects:
 
-1.  **AuroraBackground.css**: Hiệu ứng cực quang phức tạp. Được đánh dấu bằng `/* [AI-STND-EXCEPTION] */`.
+1.  **Radix-Native Structural Primitives**: `1px` and `0.5px` values used in `box-shadow` or `inset` to accurately mirror Radix Themes indicator architecture.
+2.  **AuroraBackground.css**: Complex aurora effects (Gradients). Marked with `/* [AI-STND-EXCEPTION] */`.
 
-## 🏗️ Kiến trúc Component Hiện đại (Agentic v4.0)
+---
 
-Để đảm bảo khả năng mở rộng và tính tùy biến cao, MMS chuẩn hóa các component phức tạp theo mô hình **Compound Architecture**.
+## 🏗️ Modern Component Architecture (Agentic v4.0)
 
-### 1. Mô hình Compound (Root-based)
-Các thành phần phải được chia nhỏ thành các tiểu phần (sub-components) thay vì sử dụng một khối prop duy nhất.
-- **Root**: Quản lý State, Context và cấu hình chung (size, variant).
-- **Trigger/Input**: Thành phần tương tác chính.
-- **Content/List**: Container chứa dữ liệu hoặc các lựa chọn.
-- **Item/Slot**: Các phần tử con hoặc vị trí chèn nội dung tùy chỉnh.
+To ensure high scalability and customization, MMS standardizes complex components using the **Compound Architecture** model.
 
-### 2. Tiêu chuẩn Focus Halo (Accessibility & Luxury)
-Hệ thống sử dụng vòng sáng tiêu điểm 3 tầng thay vì viền đơn để đảm bảo độ rực rỡ và chuyên nghiệp:
-- **Layer 1 (Spacer)**: Khoảng trắng 2px sát phần tử.
-- **Layer 2 (Halo)**: Vòng sáng mờ 3px - 5px sử dụng màu Brand hoặc Error.
-- **Layer 3 (Outer-ring)**: Vòng biên cực mảnh để định vị trong không gian.
-- **Class ứng dụng**: `mms-focus-halo-brand`, `mms-focus-halo-error`.
+### 1. Compound Model (Root-based)
+Components must be broken down into sub-components rather than using a single monolithic prop object.
+- **Root**: Manages State, Context, and global configuration (size, variant).
+- **Trigger/Input**: The primary interaction element.
+- **Content/List**: The container for data or options.
+- **Item/Slot**: Children elements or custom content insertion points.
 
-### 3. Chiến lược Tương phản Ngữ cảnh (Contextual Contrast Strategy)
-Thay vì ép buộc một biến thể duy nhất, hệ thống MMS áp dụng tư duy tương phản theo mục đích sử dụng (Intent-based contrast):
+### 2. Focus Halo Standards (Accessibility & Luxury)
+The system uses a 3-layer focus halo instead of a simple border to ensure radiance and professionalism:
+- **Layer 1 (Spacer)**: 2px gap adjacent to the element.
+- **Layer 2 (Halo)**: 3px - 5px blurred glow using Brand or Error colors.
+- **Layer 3 (Outer-ring)**: Ultra-fine border to define position in space.
+- **Applied Classes**: `mms-focus-halo-brand`, `mms-focus-halo-error`.
 
-- **Biến thể Surface (Operational-first)**: Sử dụng màu nền cực nhẹ (`var(--surface-subtle)`). Mặc định dành cho các trang Dashboard dày đặc dữ liệu (Data-heavy), Sidebar, hoặc các thanh Toolbar vận hành để giảm mỏi mắt và tạo cảm giác "vẳng" (subtle).
-- **Biến thể Classic (High-contrast)**: Sử dụng màu nền trắng panel (`var(--surface-panel)`). Ưu tiên cho các Form nhập liệu quan trọng (như Trang thanh toán, Đăng ký, Cấu hình bảo mật) hoặc các Modal hội thoại cần sự tập trung tuyệt đối.
+### 3. Flat-Premium Strategy (Zero-Shadow Architecture)
+To optimize information density and the sharpness of operational UIs:
+- **Rule**: Functional blocks (PremiumBlock, Cards, Widgets) **DO NOT** use box-shadow by default.
+- **Alternative**: Use `hairline` borders (0.5px) combined with subtle background layers (`surface-subtle`, `surface-accent-subtle`) to create depth.
+- **Exception**: Shadows are reserved for "Floating" elements only: Tooltips, Dropdowns, Dialogs, Modals.
 
-**Quy tắc vàng**: Nếu UI của bạn trông quá "đục" (muddy), hãy chuyển các Entry Point chính sang `classic` để lấy lại độ trong trẻo (clarity) cho giao diện.
+**Golden Rule**: If your UI looks "muddy," switch primary Entry Points to `classic` to restore clarity.
 
-### 5. Phân định Tabs và Segmented Control
-Mặc dù cùng sử dụng mô hình thanh trượt, hệ thống MMS phân biệt rõ mục đích sử dụng để tránh gây rối loạn thị giác:
+### 5. Tabs vs. Segmented Control
+Although both use slider models, MMS strictly distinguishes their purpose to avoid visual confusion:
 
-| Đặc tính | Segmented Control | Tabs |
+| Characteristic | Segmented Control | Tabs |
 | :--- | :--- | :--- |
-| **Bản chất** | Lựa chọn giá trị (Form Selection). | Điều hướng phân vùng (Navigation). |
-| **Thẩm mỹ** | **Mật độ cao (Density)**. Padding 4px, cảm giác cơ học, đặc và chắc chắn. | **Thoáng đãng (Spacious)**. Padding 6px, cảm giác nhẹ nhàng, ưu tiên điều hướng. |
-| **Mặc định** | Luôn ở dạng Khối lồng (Surface). | Luôn ưu tiên dạng Gạch chân (Classic). |
+| **Nature** | Value selection (Form Selection). | Section navigation (Navigation). |
+| **Aesthetics** | **High Density**. 4px padding, mechanical, solid feel. | **Spacious**. 6px padding, light feel, navigation priority. |
+| **Default** | Surface-nested (Surface). | Underlined (Classic). |
 
-**Quy tắc**: Không bao giờ sử dụng Tabs dạng Surface ngay cạnh Segmented Control.
+**Rule**: Never place Surface Tabs directly next to a Segmented Control.
+
+### 6. Typography Isolation & Margin Reset
+To prevent global styles (from documents or browser resets) from leaking into components, MMS applies the **Bulletproof Reset**:
+
+- **Rule**: All semantic tags (`h1`-`h6`, `p`, `ul`, `ol`) inside core components **MUST** have `margin: 0 !important` reset.
+- **Rationale**: Prevents titles or paragraphs from creating unintended white space when components are placed inside stylized containers (like `.doc-content`).
+- **Implementation**: All spacing between text blocks must be managed by the Parent Container's `gap` or purposeful `margin-top` (e.g., `.mms-card-description { margin-top: var(--space-1) !important; }`).
+
+### 7. Utility-First Layout Protocol
+To eliminate custom CSS for basic layouts, MMS uses the **Utility-First** model based on the 3 Primitives: `Box`, `Flex`, and `Grid`.
+
+- **Principle**: 90% of layout structure must be built using the Props of these Basic Components.
+- **Extended Spacing System**: 
+    - Use `pt`, `pr`, `pb`, `pl` (Padding) and `mt`, `mr`, `mb`, `ml` (Margin).
+    - Range values are focused from `0` to `9`, matching `theme.css`.
+- **Dimension & Position**:
+    - Use `width`, `height`, `position`, `top`, `bottom`... directly in React Props.
+    - Avoid creating new CSS classes just for `display: flex` or `margin-bottom: 16px`.
+- **Responsive-First**: Always define layouts via Responsive Objects: `p={{ initial: '2', md: '5' }}`.
 
 ---
 [[03 - Guidelines/Workflow|Back to Workflow]]

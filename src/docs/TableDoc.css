@@ -1,5 +1,4 @@
 .table-doc {
-  padding: 40px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -11,23 +10,23 @@
   gap: 0;
   border-radius: 0;
   background-color: var(--surface-panel);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-5);
   overflow: hidden;
-  border: 1px solid var(--border-subtle);
+  border: var(--stroke-width-1) solid var(--border-subtle);
 }
 
 .dashboard-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
+  padding: var(--space-5) var(--space-6);
   background-color: var(--surface-panel);
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: var(--stroke-width-1) solid var(--border-subtle);
 }
 
 .actions-left, .actions-right {
   display: flex;
-  gap: 12px;
+  gap: var(--space-3);
   align-items: center;
 }
 
@@ -35,47 +34,46 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: var(--space-4) var(--space-6);
   background-color: var(--surface-panel);
-  border-top: 1px solid var(--border-subtle);
+  border-top: var(--stroke-width-1) solid var(--border-subtle);
 }
 
 .footer-info {
-  font-size: 14px;
-  color: var(--content-subtle);
+  font-size: var(--font-size-2);
+  color: var(--gray-a11);
 }
 
 /* Specific Cell Styles */
 .cell-id {
-  color: var(--brand-9);
-  font-weight: 500;
-  font-family: var(--font-mono, monospace);
-  font-size: 13px;
+  color: var(--accent-9);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-1);
 }
 
 .star-active {
-  color: #fbbf24; /* Amber 400 */
+  color: var(--warning-9);
 }
 
 .star-inactive {
-  color: var(--content-subtle);
-  opacity: 0.3;
+  color: var(--gray-a6);
 }
 
 .header-info-icon {
-  font-size: 14px;
-  margin-left: 4px;
-  color: var(--content-subtle);
+  font-size: var(--font-size-2);
+  margin-left: var(--space-1);
+  color: var(--gray-a11);
   vertical-align: middle;
 }
 
-/* API Section */
-.doc-code {
-  padding: 24px;
-  background-color: #1a1a1a;
-  color: #fff;
+/* API Section Code Block */
+.doc-code-block {
+  padding: var(--space-6);
+  background-color: var(--gray-12);
+  color: var(--gray-1);
   border-radius: var(--radius-3);
   overflow-x: auto;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
 }

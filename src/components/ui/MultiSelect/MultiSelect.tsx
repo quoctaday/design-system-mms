@@ -20,7 +20,8 @@ interface MultiSelectContextValue {
   triggerRef: React.RefObject<HTMLButtonElement | null>;
   disabled?: boolean;
   size: '1' | '2' | '3';
-  radius: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  radius: 'none' | 'small' | 'medium' | 'large' | 'full';
+  variant: 'surface' | 'soft';
   searchTerm: string;
   setSearchTerm: (term: string) => void;
 }
@@ -45,7 +46,8 @@ export interface MultiSelectProps {
   onOpenChange?: (open: boolean) => void;
   disabled?: boolean;
   size?: '1' | '2' | '3';
-  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
+  variant?: 'surface' | 'soft';
 }
 
 const MultiSelectRoot: React.FC<MultiSelectProps> = ({ 
@@ -57,7 +59,8 @@ const MultiSelectRoot: React.FC<MultiSelectProps> = ({
   onOpenChange,
   disabled,
   size = '2',
-  radius = '4'
+  radius = 'medium',
+  variant = 'surface'
 }) => {
   const [uncontrolledValues, setUncontrolledValues] = useState<string[]>(defaultValue);
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
@@ -93,11 +96,42 @@ const MultiSelectRoot: React.FC<MultiSelectProps> = ({
       disabled, 
       size, 
       radius,
+      variant,
       searchTerm,
       setSearchTerm
     }}>
       {children}
     </MultiSelectContext.Provider>
+  );
+};
+
+// Tag (The Interactive Indicator)
+interface MultiSelectTagProps {
+  children: React.ReactNode;
+  onRemove?: () => void;
+}
+
+const MultiSelectTag: React.FC<MultiSelectTagProps> = ({ children, onRemove }) => {
+  const { size, radius } = useMultiSelect();
+  return (
+    <div className={cn(
+      "mms-multi-select-chip", 
+      `mms-multi-select-chip-size-${size}`,
+      `mms-multi-select-trigger-radius-${radius}` // Sync radius
+    )}>
+      <span className="mms-multi-select-chip-text">{children}</span>
+      {onRemove && (
+        <span 
+          className="mms-multi-select-chip-remove"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove();
+          }}
+        >
+          <RiCloseLine />
+        </span>
+      )}
+    </div>
   );
 };
 
@@ -117,11 +151,10 @@ export const MultiSelectTrigger: React.FC<MultiSelectTriggerProps> = ({
   disabled: propDisabled,
   maxChips = 3
 }) => {
-  const { open, setOpen, values, triggerRef, disabled: contextDisabled, size, radius, onValuesChange } = useMultiSelect();
+  const { open, setOpen, values, triggerRef, disabled: contextDisabled, size, radius, variant, onValuesChange } = useMultiSelect();
   const disabled = propDisabled || contextDisabled;
 
-  const handleRemoveValue = (e: React.MouseEvent, valueToRemove: string) => {
-    e.stopPropagation();
+  const handleRemoveValue = (valueToRemove: string) => {
     onValuesChange(values.filter(v => v !== valueToRemove));
   };
 
@@ -133,6 +166,7 @@ export const MultiSelectTrigger: React.FC<MultiSelectTriggerProps> = ({
         'mms-multi-select-trigger',
         `mms-multi-select-trigger-size-${size}`,
         `mms-multi-select-trigger-radius-${radius}`,
+        `mms-multi-select-trigger-variant-${variant}`,
         open && 'mms-multi-select-trigger-open',
         disabled && 'mms-multi-select-trigger-disabled',
         className
@@ -145,20 +179,14 @@ export const MultiSelectTrigger: React.FC<MultiSelectTriggerProps> = ({
         {values.length > 0 ? (
           <>
             {values.slice(0, maxChips).map(val => (
-              <div key={val} className="mms-multi-select-chip">
-                <span className="mms-multi-select-chip-text">{val}</span>
-                <span 
-                  className="mms-multi-select-chip-remove"
-                  onClick={(e) => handleRemoveValue(e, val)}
-                >
-                  <RiCloseLine />
-                </span>
-              </div>
+              <MultiSelectTag key={val} onRemove={() => handleRemoveValue(val)}>
+                {val}
+              </MultiSelectTag>
             ))}
             {values.length > maxChips && (
-              <div className="mms-multi-select-chip">
-                <span className="mms-multi-select-chip-text">+{values.length - maxChips}</span>
-              </div>
+              <MultiSelectTag>
+                +{values.length - maxChips}
+              </MultiSelectTag>
             )}
           </>
         ) : (
@@ -195,8 +223,9 @@ export const MultiSelectContent: React.FC<MultiSelectContentProps> = ({
   showSearch = true,
   showClearAll = true
 }) => {
-  const { open, setOpen, triggerRef, radius, searchTerm, setSearchTerm, values, onValuesChange } = useMultiSelect();
+  const { open, setOpen, triggerRef, radius, size, searchTerm, setSearchTerm, values, onValuesChange } = useMultiSelect();
   const contentRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
   useEffect(() => {
@@ -209,6 +238,13 @@ export const MultiSelectContent: React.FC<MultiSelectContentProps> = ({
       });
     }
   }, [open, triggerRef, align]);
+
+  // Ironclad: Focus search input after positioning to prevent page jump
+  useEffect(() => {
+    if (open && position.top !== 0 && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [open, position.top]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -226,6 +262,7 @@ export const MultiSelectContent: React.FC<MultiSelectContentProps> = ({
       className={cn(
         'mms-multi-select-content', 
         `mms-multi-select-radius-${radius}`,
+        `mms-multi-select-content-size-${size}`,
         className
       )}
       style={{
@@ -233,18 +270,20 @@ export const MultiSelectContent: React.FC<MultiSelectContentProps> = ({
         top: position.top,
         left: position.left,
         minWidth: `max(${position.width}px, var(--size-10))`,
-        zIndex: 2000
+        zIndex: 2000,
+        opacity: position.top === 0 ? 0 : 1, // Prevent flickering at (0,0)
+        pointerEvents: position.top === 0 ? 'none' : 'auto'
       }}
     >
       {showSearch && (
         <div className="mms-multi-select-search-container">
           <RiSearchLine className="mms-multi-select-search-icon" />
           <input 
+            ref={searchInputRef}
             className="mms-multi-select-search-input"
             placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            autoFocus
           />
         </div>
       )}
@@ -339,5 +378,3 @@ export const MultiSelect = Object.assign(MultiSelectRoot, {
   Label: MultiSelectLabel,
   Separator: MultiSelectSeparator,
 });
-
-export default MultiSelect;

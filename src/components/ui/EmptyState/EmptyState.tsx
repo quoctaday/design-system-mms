@@ -9,7 +9,7 @@ export interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
   action?: React.ReactNode;
 }
 
-const EmptyState: React.FC<EmptyStateProps> = ({
+export const EmptyState: React.FC<EmptyStateProps> = ({
   icon,
   title,
   description,
@@ -27,4 +27,4 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   );
 };
 
-export default EmptyState;
+EmptyState.displayName = 'EmptyState';

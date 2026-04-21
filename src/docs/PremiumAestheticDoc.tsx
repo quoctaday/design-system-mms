@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { DocLayout } from '../components/docs/DocLayout';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
 import { CodePreview } from '../components/docs/CodePreview';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { AuroraBackground } from '../components/ui';
 import { MetricCard, Button } from '../components/ui';
 import { RiFocus2Line, RiCompassDiscoverLine, RiShapesLine, RiRuler2Line, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import './PremiumAestheticDoc.css';
@@ -75,39 +76,39 @@ const PremiumAestheticDoc: React.FC = () => {
         </Button>
       </div>
 
-      <section id="introduction" className="doc-section">
-        <h2 className="section-title">The Flat-Premium Philosophy</h2>
-        <p className="section-intro">
+      <DocSection id="introduction">
+        <DocHeading>The Flat-Premium Philosophy</DocHeading>
+        <DocText className="section-intro">
           Our design language moves away from generic shadows and excessive rounding. 
           The <strong>Flat-Premium</strong> style relies on high-contrast hairline borders, 
           mathematical radius synchronization, and surgical background shifts to achieve hierarchy.
-        </p>
+        </DocText>
 
         <div className="aesthetic-pillars">
           <div className="pillar-card">
             <RiFocus2Line className="pillar-icon" />
-            <h3>Operational Density</h3>
-            <p>Maximizing data visibility by reducing internal margins and whitespace without sacrificing clarity.</p>
+            <DocHeading level={3}>Operational Density</DocHeading>
+            <DocText>Maximizing data visibility by reducing internal margins and whitespace without sacrificing clarity.</DocText>
           </div>
           <div className="pillar-card">
             <RiCompassDiscoverLine className="pillar-icon" />
-            <h3>Precision Curves</h3>
-            <p>Every corner is calculated. Inner and outer radii are synchronized to create perfectly concentric paths.</p>
+            <DocHeading level={3}>Precision Curves</DocHeading>
+            <DocText>Every corner is calculated. Inner and outer radii are synchronized to create perfectly concentric paths.</DocText>
           </div>
           <div className="pillar-card">
             <RiShapesLine className="pillar-icon" />
-            <h3>Structured Flatness</h3>
-            <p>Hierarchy is defined by subtle surfaces (S1, S2, S3) and micro-shadows (Alpha 0.06) for professional depth.</p>
+            <DocHeading level={3}>Structured Flatness</DocHeading>
+            <DocText>Hierarchy is defined by subtle surfaces (S1, S2, S3) and micro-shadows (Alpha 0.06) for professional depth.</DocText>
           </div>
         </div>
-      </section>
+      </DocSection>
 
-      <section id="nesting-rule" className="doc-section">
-        <h2 className="section-title">The 12-4-8 Nesting Rule</h2>
-        <p>
+      <DocSection id="nesting-rule">
+        <DocHeading>The 12-4-8 Nesting Rule</DocHeading>
+        <DocText>
           To achieve a premium, engineered look, nested radii must follow a strict mathematical relationship. 
           For most metrics and compact widgets, we follow the <strong>Radix Spacing Alignment</strong> (Radius 5 + Space 1 = Radius 4):
-        </p>
+        </DocText>
         
         <div className="nesting-formula-grid">
           <div className="formula-box">
@@ -128,30 +129,30 @@ const PremiumAestheticDoc: React.FC = () => {
 
         <div className="nesting-comparison mt-8">
            <div className="comparison-item correct">
-             <h4>Correct Nesting</h4>
+             <DocHeading level={4}>Correct Nesting</DocHeading>
              <SpecCard show={showSpecs}>
                <div className="nest-preview correct-nest">
                  <div className="nest-inner" />
                </div>
              </SpecCard>
-             <p className="text-xs text-success-9 mt-2">Smooth, concentric curves.</p>
+             <DocText className="text-xs text-success-9 mt-2">Smooth, concentric curves.</DocText>
            </div>
            <div className="comparison-item incorrect">
-             <h4>Incorrect Nesting</h4>
+             <DocHeading level={4}>Incorrect Nesting</DocHeading>
              <div className="nest-preview incorrect-nest">
                <div className="nest-inner" />
              </div>
-             <p className="text-xs text-error-9 mt-2">Mismatched, unbalanced gaps.</p>
+             <DocText className="text-xs text-error-9 mt-2">Mismatched, unbalanced gaps.</DocText>
            </div>
         </div>
-      </section>
+      </DocSection>
 
-      <section id="zero-gap" className="doc-section">
-        <h2 className="section-title">Zero-Gap Integration</h2>
-        <p>
+      <DocSection id="zero-gap">
+        <DocHeading>Zero-Gap Integration</DocHeading>
+        <DocText>
           To maintain structural integrity in data-dense components, internal gaps between header elements and 
           content panels are set to zero. Spacing is instead managed via internal padding of the header.
-        </p>
+        </DocText>
 
         <CodePreview
           code={`<div className="premium-container">
@@ -176,14 +177,14 @@ const PremiumAestheticDoc: React.FC = () => {
             </SpecCard>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="examples" className="doc-section">
-        <h2 className="section-title">Live Premium Blocks</h2>
-        <p className="mb-8">Explore how the V4.0 standards behave in various functional contexts.</p>
+      <DocSection id="examples">
+        <DocHeading>Live Premium Blocks</DocHeading>
+        <DocText className="mb-8">Explore how the V4.0 standards behave in various functional contexts.</DocText>
         
         <div className="premium-showcase-grid">
-          <SpecCard show={showSpecs}>
+           <SpecCard show={showSpecs}>
             <MetricCard 
               label="REVENUE" 
               value="$1,240,000" 
@@ -212,7 +213,7 @@ const PremiumAestheticDoc: React.FC = () => {
             />
           </SpecCard>
         </div>
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

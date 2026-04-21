@@ -1,0 +1,111 @@
+/* PremiumBlock - High Fidelity Structural Container */
+.mms-premium-block {
+  /* Default Nesting Tokens - Aligning with 12-4-8 Rule (Padding = 4px) */
+  --pblock-radius: var(--radius-6);
+  --pblock-padding: var(--space-1);
+  --pblock-bg: var(--gray-a2);
+  --pblock-border: var(--border-subtle);
+  
+  display: flex;
+  flex-direction: column;
+  background-color: var(--pblock-bg);
+  border: var(--stroke-hairline) solid var(--pblock-border);
+  border-radius: var(--pblock-radius);
+  padding: var(--pblock-padding);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Radius Variants */
+.mms-premium-block-r-4 { --pblock-radius: var(--radius-4); }
+.mms-premium-block-r-5 { --pblock-radius: var(--radius-5); }
+.mms-premium-block-r-6 { --pblock-radius: var(--radius-6); }
+
+/* Padding Variants - Optimized for Optical Nesting */
+.mms-premium-block-p-none { --pblock-padding: 0px; }
+.mms-premium-block-p-sm { --pblock-padding: var(--space-1); } /* 4px */
+.mms-premium-block-p-md { --pblock-padding: var(--space-2); } /* 8px */
+.mms-premium-block-p-lg { --pblock-padding: var(--space-3); } /* 12px */
+
+/* Theme Variants */
+.mms-premium-block-v-sunken { --pblock-bg: var(--surface-subtle); }
+.mms-premium-block-v-panel { --pblock-bg: var(--surface-panel); }
+.mms-premium-block-v-accent { 
+  --pblock-bg: var(--surface-accent-subtle); 
+  --pblock-border: var(--border-accent); 
+}
+.mms-premium-block-v-surface { 
+  --pblock-bg: var(--surface-app); 
+}
+
+.mms-premium-block-v-success { 
+  --pblock-bg: var(--surface-success-subtle); 
+  --pblock-border: var(--border-success); 
+}
+.mms-premium-block-v-warning { 
+  --pblock-bg: var(--surface-warning-subtle); 
+  --pblock-border: var(--border-warning); 
+}
+.mms-premium-block-v-error { 
+  --pblock-bg: var(--surface-danger-subtle); 
+  --pblock-border: var(--border-danger); 
+}
+
+.mms-premium-block-v-glass {
+  --pblock-bg: var(--white-a7);
+  --pblock-border: var(--white-a4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.mms-premium-block-tabs-area {
+  margin-bottom: var(--pblock-padding);
+}
+
+/* The Core Nesting Logic: Inner = Outer - Padding */
+.mms-premium-block-body {
+  background-color: var(--surface-panel);
+  border: var(--stroke-hairline) solid var(--border-subtle);
+  border-radius: calc(var(--pblock-radius) - var(--pblock-padding));
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.mms-pblock-body-content {
+  flex: 1;
+}
+
+/* Body Padding Variants */
+.mms-pblock-body-p-none .mms-pblock-body-content { padding: 0; }
+.mms-pblock-body-p-sm .mms-pblock-body-content { padding: var(--space-3); }
+.mms-pblock-body-p-md .mms-pblock-body-content { padding: var(--space-5); }
+.mms-pblock-body-p-lg .mms-pblock-body-content { padding: var(--space-7); }
+.mms-pblock-body-p-xl .mms-pblock-body-content { padding: var(--space-9); }
+
+/* Footer Variations */
+.mms-premium-block-footer {
+  font-size: var(--font-size-1);
+  color: var(--content-subtle);
+}
+
+.mms-pblock-footer-in {
+  padding: var(--space-3) var(--space-5);
+  border-top: var(--stroke-hairline) solid var(--border-subtle);
+  background-color: var(--gray-a2);
+}
+
+.mms-pblock-footer-out {
+  padding: var(--pblock-padding) var(--space-1) 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* High Contrast Override */
+.rt-high-contrast .mms-premium-block {
+  --pblock-border: var(--gray-12);
+}

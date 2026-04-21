@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Select } from '../components/ui';
+import { Select, Flex, Grid, Box, Text } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -20,8 +21,8 @@ const SelectDoc: React.FC = () => {
     { name: 'onValueChange', type: '(value: string) => void', description: 'Callback khi thay đổi giá trị.' },
     { name: 'placeholder', type: 'string', default: "'Select...'", description: 'Text hiển thị khi chưa có giá trị.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa toàn bộ select.' },
-    { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước của trigger và items.' },
-    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", default: "'md'", description: 'Độ bo góc của trigger và menu content.' }
+    { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước của trigger: 24px, 32px, 40px.' },
+    { name: 'radius', type: "'none' | 'small' | 'medium' | 'large' | 'full'", default: "'medium'", description: 'Độ bo góc chuẩn hệ thống 5 cấp độ Radix.' }
   ];
 
   const options = [
@@ -39,107 +40,93 @@ const SelectDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="basic" className="doc-section">
-        <h2>Basic Usage</h2>
-        <p>A standard select with interactive items and status tracking.</p>
-        <CodePreview
-          code={`const [value, setValue] = useState('apple');
+      <DocSection id="basic">
+        <Flex direction="column" gap="2">
+          <DocHeading>Basic Usage</DocHeading>
+          <DocText>A standard select with interactive items and status tracking.</DocText>
+        </Flex>
 
-<Select value={value} onValueChange={setValue}>
-  <Select.Trigger>
-    {options.find(opt => opt.value === value)?.label}
-  </Select.Trigger>
-  <Select.Portal>
-    <Select.Content>
-      {options.map(opt => (
-        <Select.Item key={opt.value} value={opt.value}>
-          {opt.label}
-        </Select.Item>
-      ))}
-    </Select.Content>
-  </Select.Portal>
-</Select>`}
-        >
-          <div className="max-w-[240px]">
-            <Select value={value1} onValueChange={setValue1}>
-              <Select.Trigger>
-                {options.find(opt => opt.value === value1)?.label}
-              </Select.Trigger>
-              <Select.Portal>
-                <Select.Content>
-                  <Select.Label>Fruits</Select.Label>
-                  {options.map(opt => (
-                    <Select.Item key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </Select.Item>
+        <div className="premium-block">
+          <div className="premium-block-content p-8">
+            <div className="premium-block-preview">
+              <div className="max-w-[240px]">
+                <Select value={value1} onValueChange={setValue1}>
+                  <Select.Trigger>
+                    {options.find(opt => opt.value === value1)?.label}
+                  </Select.Trigger>
+                  <Select.Portal>
+                    <Select.Content>
+                      <Select.Label>Fruits</Select.Label>
+                      {options.map(opt => (
+                        <Select.Item key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </Select.Item>
+                      ))}
+                      <Select.Separator />
+                      <Select.Item value="custom" disabled>Other (Coming Soon)</Select.Item>
+                    </Select.Content>
+                  </Select.Portal>
+                </Select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DocSection>
+
+      <DocSection id="sizes">
+        <Flex direction="column" gap="2">
+          <DocHeading>Sizes & Radius Matrix</DocHeading>
+          <DocText>Ma trận trực quan hóa sự kết hợp giữa 3 kích chuẩn Grid và 5 cấp độ bo góc của hệ thống.</DocText>
+        </Flex>
+        
+        <div className="premium-block mt-6">
+          <div className="premium-block-content p-8 overflow-x-auto">
+            <Box style={{ minWidth: '700px' }}>
+              {/* Header Row */}
+              <Grid columns="6" gap="4" style={{ marginBottom: '16px' }}>
+                <Box />
+                {['No radius', 'Small', 'Medium', 'Large', 'Full'].map(label => (
+                  <Text key={label} align="center" size="1" weight="bold" style={{ textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gray-9)', opacity: 0.6 }}>
+                    {label}
+                  </Text>
+                ))}
+              </Grid>
+
+              {/* Data Rows */}
+              {[
+                { size: '1', label: 'Size 1', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+                { size: '2', label: 'Size 2', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+                { size: '3', label: 'Size 3', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+              ].map(row => (
+                <Grid key={row.size} columns="6" gap="4" align="center" style={{ marginBottom: '24px' }}>
+                  <Text size="2" weight="bold" style={{ color: 'var(--gray-12)' }}>{row.label}</Text>
+                  {row.radiusTokens.map((radius: any) => (
+                    <Flex key={radius} justify="center">
+                      <Select size={row.size as any} radius={radius} defaultValue="apple">
+                        <Select.Trigger style={{ width: '100%', maxWidth: '120px' }} />
+                        <Select.Portal>
+                          <Select.Content>
+                            {options.map(opt => (
+                              <Select.Item key={opt.value} value={opt.value}>{opt.label}</Select.Item>
+                            ))}
+                          </Select.Content>
+                        </Select.Portal>
+                      </Select>
+                    </Flex>
                   ))}
-                  <Select.Separator />
-                  <Select.Item value="custom" disabled>Other (Coming Soon)</Select.Item>
-                </Select.Content>
-              </Select.Portal>
-            </Select>
+                </Grid>
+              ))}
+            </Box>
           </div>
-        </CodePreview>
-      </section>
+        </div>
+      </DocSection>
 
-      <section id="sizes" className="doc-section">
-        <h2>Sizes & Radius</h2>
-        <p>Standardizing the Select trigger and menu content to match the design system tokens.</p>
-        <CodePreview
-          code={`<Select size="1" radius="2">...</Select>
-<Select size="2" radius="4">...</Select>
-<Select size="3" radius="5">...</Select>`}
-        >
-          <div className="flex flex-col gap-6 max-w-[320px] py-2">
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 1 + SM Radius</span>
-              <Select size="1" radius="2" defaultValue="apple">
-                <Select.Trigger />
-                <Select.Portal>
-                  <Select.Content>
-                    {options.map(opt => (
-                      <Select.Item key={opt.value} value={opt.value}>{opt.label}</Select.Item>
-                    ))}
-                  </Select.Content>
-                </Select.Portal>
-              </Select>
-            </div>
-            
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 2 + MD Radius</span>
-              <Select size="2" radius="4">
-                <Select.Trigger placeholder="Pick a fruit" />
-                <Select.Portal>
-                  <Select.Content>
-                    {options.map(opt => (
-                      <Select.Item key={opt.value} value={opt.value}>{opt.label}</Select.Item>
-                    ))}
-                  </Select.Content>
-                </Select.Portal>
-              </Select>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 3 + LG Radius</span>
-              <Select size="3" radius="5">
-                <Select.Trigger placeholder="Large Select" />
-                <Select.Portal>
-                  <Select.Content>
-                    {options.map(opt => (
-                      <Select.Item key={opt.value} value={opt.value}>{opt.label}</Select.Item>
-                    ))}
-                  </Select.Content>
-                </Select.Portal>
-              </Select>
-            </div>
-          </div>
-        </CodePreview>
-      </section>
-
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
-        <PropsTable props={selectProps} />
-      </section>
+      <DocSection id="api">
+        <Flex direction="column" gap="2">
+          <DocHeading>API Reference</DocHeading>
+          <PropsTable props={selectProps} />
+        </Flex>
+      </DocSection>
     </DocLayout>
   );
 };

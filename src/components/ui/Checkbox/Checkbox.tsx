@@ -8,19 +8,19 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   checked?: boolean | 'indeterminate';
   onCheckedChange?: (checked: boolean | 'indeterminate') => void;
   label?: string;
-  size?: '1' | '2';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'gray';
-  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
+  size?: '1' | '2' | '3';
 }
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
   className,
   checked = false,
   onCheckedChange,
   label,
-  size = '2',
   color = 'brand',
   radius,
+  size = '2',
   disabled,
   ...props
 }, ref) => {
@@ -44,14 +44,17 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
   return (
     <label 
       className={cn(
-        'mms-checkbox-root',
+        'mms-checkbox-wrapper',
         `mms-checkbox-size-${size}`,
-        `mms-checkbox-color-${color}`,
         disabled && 'mms-checkbox-disabled',
         className
       )}
     >
-      <div className="mms-checkbox-container">
+      <div className={cn(
+        'mms-checkbox-box',
+        `mms-checkbox-color-${color}`,
+        radius && `mms-checkbox-radius-${radius}`
+      )}>
         <input
           type="checkbox"
           ref={combinedRef}
@@ -61,15 +64,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
           onChange={handleChange}
           {...props}
         />
-        <div 
-          className={cn(
-            'mms-checkbox-indicator',
-            'mms-focus-halo',
-            `mms-focus-halo-${color}`,
-            radius && `mms-checkbox-radius-${radius}`,
-            (isChecked || isIndeterminate) && 'mms-checkbox-indicator-checked'
-          )}
-        >
+        <div className="mms-checkbox-indicator">
           {isChecked && <RiCheckLine className="mms-checkbox-icon" />}
           {isIndeterminate && <RiSubtractLine className="mms-checkbox-icon" />}
         </div>
@@ -80,5 +75,3 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
 });
 
 Checkbox.displayName = 'Checkbox';
-
-export default Checkbox;

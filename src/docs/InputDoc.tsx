@@ -1,161 +1,195 @@
 import React, { useState } from 'react';
-import { Input, TextField, TextArea } from '../components/ui';
+import { Input, TextField, TextArea, Flex, Grid, Box, Text, AuroraBackground, Tabs } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
-import { Tabs } from '../components/ui/Tabs/Tabs';
-import { RiSearchLine, RiCommandLine, RiMailLine } from 'react-icons/ri';
+import { CodeSnippet } from '../components/docs/CodeSnippet';
+import { 
+  RiSearchLine, 
+  RiCommandLine, 
+  RiMailLine, 
+  RiCheckFill,
+  RiErrorWarningFill,
+  RiCloseCircleFill,
+  RiInformationFill,
+} from 'react-icons/ri';
+
+import '../components/docs/PremiumBlock.css';
 
 const InputDoc: React.FC = () => {
-  const [activeColorVariant, setActiveColorVariant] = useState<'classic' | 'surface' | 'soft'>('surface');
+  const [activeVariant, setActiveVariant] = useState<'surface' | 'soft'>('surface');
   
-  const colors: Array<"brand" | "gray" | "success" | "warning" | "error"> = [
-    'brand', 'gray', 'success', 'warning', 'error'
+  const colors: Array<"brand" | "success" | "warning" | "error" | "gray"> = [
+    'brand', 'success', 'warning', 'error', 'gray'
   ];
 
   const toc = [
-    { id: 'compound', title: 'Compound Architecture' },
     { id: 'variants', title: 'Variants' },
-    { id: 'textarea', title: 'TextArea' },
-    { id: 'colors', title: 'Colors' },
+    { id: 'compound', title: 'Compound Architecture' },
     { id: 'sizes', title: 'Sizes' },
-    { id: 'radius', title: 'Radius' },
+    { id: 'states', title: 'Semantic States' },
+    { id: 'textarea', title: 'TextArea' },
     { id: 'api', title: 'API Reference' }
   ];
 
   const inputProps = [
-    { name: 'placeholder', type: 'string', description: 'Văn bản gợi ý khi trống.' },
-    { name: 'variant', type: "'surface' | 'classic' | 'soft'", default: "'surface'", description: 'Phong cách hiển thị của Input.' },
-    { name: 'color', type: 'ColorVariant', default: "'brand'", description: 'Màu sắc vòng tiêu điểm (focus ring).' },
-    { name: 'size', type: "'1' | '2' | '3' | '4'", default: "'2'", description: 'Kích thước.' },
-    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", description: 'Độ bo góc.' },
-    { name: 'leftSlot', type: 'ReactNode', description: 'Nội dung hiển thị bên trái (chỉ dùng cho Input shorthand).' },
-    { name: 'rightSlot', type: 'ReactNode', description: 'Nội dung hiển thị bên phải (chỉ dùng cho Input shorthand).' },
-    { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa tương tác.' },
-    { name: 'className', type: 'string', description: 'CSS class tùy chỉnh.' }
+    { name: 'variant', type: "'surface' | 'soft'", default: "'surface'", description: 'Phong cách hiển thị tuân thủ Radix Themes.' },
+    { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích cỡ: 24px, 32px (Mặc định), 40px.' },
+    { name: 'color', type: "'brand' | 'success' | 'warning' | 'error' | 'gray'", default: "'brand'", description: 'Màu sắc semantic cho vòng Focus Halo.' },
+    { name: 'radius', type: "'none' | 'small' | 'medium' | 'large' | 'full'", default: "'medium'", description: 'Hệ thống bo góc 5 cấp độ Radix.' },
+    { name: 'leftSlot', type: 'ReactNode', description: 'Shorthand cho leading icon.' },
+    { name: 'rightSlot', type: 'ReactNode', description: 'Shorthand cho trailing icon/action.' }
   ];
 
   return (
     <DocLayout 
       title="Input / TextField" 
-      description="A high-precision text entry component with Radix-inspired compound architecture."
+      description="Thành phần nhập liệu độ phân giải cao với cấu trúc Compound và cơ chế Focus Halo 3 lớp."
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="compound" className="doc-section">
-        <h2>Compound Architecture</h2>
-        <p>Use the compound pattern for complex requirements like multiple slots or custom interactions.</p>
+      <DocSection id="variants">
+        <Flex direction="column" gap="2">
+          <DocHeading>Variants & Colors</DocHeading>
+          <DocText>Khám phá bộ 3 diện mạo đặc trưng của MMS Native Engine qua các trạng thái màu sắc.</DocText>
+        </Flex>
+
+        <div className="premium-block">
+          <Tabs
+            value={activeVariant}
+            onValueChange={(value) => setActiveVariant(value as 'surface' | 'classic' | 'soft')}
+            className="premium-block-tabs"
+          >
+            <Tabs.List className="border-none bg-transparent h-auto gap-2">
+              <Tabs.Trigger value="surface">Surface</Tabs.Trigger>
+              <Tabs.Trigger value="soft">Soft</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs>
+
+          <div className="premium-block-content p-8">
+            <div className="premium-block-preview">
+              <Flex direction="column" gap="8" className="w-full">
+                {colors.map((color) => (
+                  <Flex key={color} direction="column" gap="2">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-gray-9 px-1">
+                      {color} Context
+                    </span>
+                    <Input 
+                      variant={activeVariant}
+                      color={color}
+                      leftSlot={color === 'success' ? <RiCheckFill /> : color === 'warning' ? <RiMailLine /> : color === 'error' ? <RiInformationFill /> : <RiMailLine />}
+                      placeholder={`Typing in ${color}...`} 
+                    />
+                  </Flex>
+                ))}
+              </Flex>
+            </div>
+          </div>
+
+          <div className="premium-block-footer">
+            <CodeSnippet 
+              code={`<Input variant="${activeVariant}" color="brand" placeholder="..." />`}
+              title="source"
+            />
+          </div>
+        </div>
+      </DocSection>
+
+      <DocSection id="compound">
+        <Flex direction="column" gap="2">
+          <DocHeading>Compound Architecture</DocHeading>
+          <DocText>Sử dụng cấu trúc linh hoạt để xây dựng thanh công cụ phức tạp.</DocText>
+        </Flex>
         <CodePreview
           code={`<TextField.Root size="2" variant="surface">
   <TextField.Slot>
-    <RiSearchLine />
+    <RiSearchLine size={16} />
   </TextField.Slot>
   <TextField.Input placeholder="Search documentation..." />
-  <TextField.Slot>
-    <span className="flex items-center gap-1 text-xs px-1.5 py-0.5 rounded border bg-muted">
-      <RiCommandLine />K
-    </span>
+  <TextField.Slot pr="3">
+    <Kbd>⌘K</Kbd>
   </TextField.Slot>
 </TextField.Root>`}
         >
-          <div className="max-w-sm">
+          <div className="max-w-md w-full">
             <TextField.Root size="2" variant="surface">
               <TextField.Slot>
-                <RiSearchLine size={16} />
+                <RiSearchLine size={16} className="text-gray-9" />
               </TextField.Slot>
               <TextField.Input placeholder="Search documentation..." />
-              <TextField.Slot>
-                <span className="flex items-center gap-1 text-xs px-1.5 py-0.5 rounded border bg-muted">
+              <TextField.Slot pr="4">
+                <div className="flex items-center gap-1 text-[9px] font-mono px-1.5 py-0.5 rounded border border-gray-4 bg-gray-2 text-gray-11 opacity-70">
                   <RiCommandLine size={10} />K
-                </span>
+                </div>
               </TextField.Slot>
             </TextField.Root>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="variants" className="doc-section">
-        <h2>Variants</h2>
-        <p>Choose from three levels of intensity to match your interface's surface logic.</p>
-        <CodePreview
-          code={`<Input variant="surface" placeholder="Surface (Subtle)" />
-<Input variant="classic" placeholder="Classic (Bordered)" />
-<Input variant="soft" placeholder="Soft (Fill only)" />`}
-        >
-          <div className="flex flex-col gap-4 max-w-sm">
-            <Input variant="surface" placeholder="Surface (Subtle)" />
-            <Input variant="classic" placeholder="Classic (Bordered)" />
-            <Input variant="soft" placeholder="Soft (Fill only)" />
-          </div>
-        </CodePreview>
-      </section>
-
-      <section id="textarea" className="doc-section">
-        <h2>TextArea</h2>
-        <p>A multi-line text input that shares the same visual architecture and variants as TextField.</p>
-        <CodePreview
-          code={`<TextArea variant="surface" placeholder="Type your message..." />
-<TextArea size="1" radius="2" placeholder="Small textarea" />`}
-        >
-          <div className="flex flex-col gap-4 max-w-sm">
-            <TextArea variant="surface" placeholder="Type your message..." />
-            <TextArea size="1" radius="2" placeholder="Small textarea (size 1)" rows={3} />
-          </div>
-        </CodePreview>
-      </section>
-
-      <section id="colors" className="doc-section">
-        <h2>Focus Rings (Colors)</h2>
-        <p>Use the <code>color</code> prop to synchronize the focus ring with your semantic state.</p>
+      <DocSection id="sizes">
+        <Flex direction="column" gap="2">
+          <DocHeading>Sizes & Radius Matrix</DocHeading>
+          <DocText>Khám phá sự linh hoạt của Input qua ma trận kích thước và các cấp độ bo góc chuẩn Radix.</DocText>
+        </Flex>
         
-        <Tabs 
-          value={activeColorVariant}
-          onValueChange={(value) => setActiveColorVariant(value as 'classic' | 'surface' | 'soft')}
-        >
-          <Tabs.List>
-            <Tabs.Trigger value="surface">Surface</Tabs.Trigger>
-            <Tabs.Trigger value="classic">Classic</Tabs.Trigger>
-            <Tabs.Trigger value="soft">Soft</Tabs.Trigger>
-          </Tabs.List>
-        </Tabs>
+        <div className="premium-block mt-6">
+          <div className="premium-block-content p-8 overflow-x-auto">
+            <Box style={{ minWidth: '700px' }}>
+              {/* Header Row */}
+              <Grid columns="6" gap="4" style={{ marginBottom: '16px' }}>
+                <Box />
+                {['No radius', 'Small', 'Medium', 'Large', 'Full'].map(label => (
+                  <Text key={label} align="center" size="1" weight="bold" style={{ textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gray-9)', opacity: 0.6 }}>
+                    {label}
+                  </Text>
+                ))}
+              </Grid>
 
-        <div className="flex flex-col gap-4 mt-6 max-w-sm">
-          {colors.map((color) => (
-            <div key={color} className="flex items-center gap-4">
-              <span className="text-sm font-medium w-20 capitalize">{color}</span>
-              <Input 
-                color={color} 
-                variant={activeColorVariant} 
-                placeholder={`Focus halo (${color})`} 
-              />
-            </div>
-          ))}
+              {/* Data Rows */}
+              {[
+                { size: '1', label: 'Size 1', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+                { size: '2', label: 'Size 2', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+                { size: '3', label: 'Size 3', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+              ].map(row => (
+                <Grid key={row.size} columns="6" gap="4" align="center" style={{ marginBottom: '24px' }}>
+                  <Text size="2" weight="bold" style={{ color: 'var(--gray-12)' }}>{row.label}</Text>
+                  {row.radiusTokens.map((radius: any) => (
+                    <Flex key={radius} justify="center">
+                      <Input 
+                        size={row.size as any} 
+                        radius={radius} 
+                        placeholder="Type..." 
+                        style={{ width: '100%', maxWidth: '120px' }}
+                      />
+                    </Flex>
+                  ))}
+                </Grid>
+              ))}
+            </Box>
+          </div>
         </div>
-      </section>
+      </DocSection>
 
-      <section id="sizes" className="doc-section">
-        <h2>Sizes</h2>
-        <p>Supports 4 sizes to cover all density scenarios from dense forms to hero search inputs.</p>
+      <DocSection id="textarea">
+        <Flex direction="column" gap="2">
+          <DocHeading>TextArea</DocHeading>
+          <DocText>Phiên bản mở rộng dành cho nhập liệu đa dòng, hỗ trợ đầy đủ Variant và Slot.</DocText>
+        </Flex>
         <CodePreview
-          code={`<Input size="1" placeholder="Size 1" />
-<Input size="2" placeholder="Size 2" />
-<Input size="3" placeholder="Size 3" />
-<Input size="4" placeholder="Size 4" />`}
+          code={`<TextArea variant="surface" placeholder="Type message..." rows={4} />`}
         >
-          <div className="flex flex-col gap-4 max-w-sm">
-            <Input size="1" leftSlot={<RiMailLine />} placeholder="Size 1" />
-            <Input size="2" leftSlot={<RiMailLine />} placeholder="Size 2" />
-            <Input size="3" leftSlot={<RiMailLine />} placeholder="Size 3" />
-            <Input size="4" leftSlot={<RiMailLine />} placeholder="Size 4" />
+          <div className="max-w-md">
+            <TextArea variant="surface" placeholder="Type your message here..." rows={4} />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={inputProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

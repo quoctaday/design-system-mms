@@ -1,36 +1,42 @@
 # Tooltip
 
-Thành phần hiển thị thông tin bổ sung khi di chuột hoặc focus vào một thành phần khác. Được hiện đại hóa với Portal để đảm bảo khả năng hiển thị tuyệt đối.
+A component used to display supplementary informational content when a user hovers over or focuses on another UI element. Modernized with Portal logic to ensure absolute visibility across deep layout hierarchies.
 
-## 🧱 Cấu trúc
+## 🧱 Structure
 
 ```tsx
 import { Tooltip } from '@mms/ui';
 
-<Tooltip content="Mã số thuế doanh nghiệp">
-  <Button variant="outline">MST</Button>
+<Tooltip content="Business Tax Identification Number">
+  <Button variant="outline">Tax ID</Button>
 </Tooltip>
 ```
 
-## 🚀 Tính năng nổi bật
+## 🚀 Key Features
 
-- **Portal Rendering**: Tooltip được render tại cấp độ `document.body`, giúp nó luôn nổi trên mọi lớp UI khác (tránh lỗi bị cắt bởi `overflow: hidden`).
-- **Elevation v1**: Sử dụng `Shadow 2` để tạo độ nổi khối nhẹ nhàng, không gây xao nhãng.
-- **Auto-Positioning**: Tự động tính toán vị trí dựa trên 4 hướng chính (`top`, `bottom`, `left`, `right`).
+- **Portal Rendering**: Tooltips are rendered at the `document.body` level, ensuring they remain afloat above all other UI layers and bypassing `overflow: hidden` clipping constraints from parent containers.
+- **Elevation v1**: Utilizes `Shadow 2` to establish a gentle, non-obtrusive sense of material depth.
+- **Auto-Positioning**: Intelligently calculates the optimal placement across the four primary cardinal directions (`top`, `bottom`, `left`, `right`).
 
 ## 🎨 Token Specs
 
-- **Background:** `var(--surface-tooltip)` (Đen/Xám đậm).
-- **Text:** `var(--content-on-solid)` (Trắng).
-- **Radius:** `var(--radius-2)` (4px) cho cảm giác cứng cáp, chuyên dụng.
+- **Background:** `var(--surface-tooltip)` (Deep Gray/Black).
+- **Text:** `var(--content-on-solid)` (High-contrast White).
+- **Radius:** `var(--radius-2)` (4px) for a focused, technical appearance.
+
+## 💎 Design Standards
+
+- **Snappy Timing**: Tooltips utilize a **140ms** animation duration, optimized for the high-response feel characteristic of the Radix UI engine.
+- **High-Contrast Presence**: Leverages the `gray-12` token for its background to ensure content remains perfectly legible against any underlying interface surface.
+- **Shadow v4.0 (Layering)**: Employs `shadow-3` to maintain visual clarity even when the Tooltip overlays other floating surfaces like Dialogs or DropdownMenus.
 
 ## 📏 Props
 
 | Prop | Type | Default | Note |
 | :--- | :--- | :--- | :--- |
-| `content` | `ReactNode` | - | Nội dung hiển thị bên trong |
-| `side` | `top | bottom | left | right` | `top` | Hướng của tooltip |
-| `delayDuration` | `number` | `200` | Thời gian chờ trước khi hiện (ms) |
+| `content` | `ReactNode` | - | The information content to render inside the tooltip. |
+| `side` | `top | bottom | left | right` | `top` | The preferred directional orientation of the tooltip. |
+| `delayDuration` | `number` | `200` | The duration to wait (in ms) before prompting the tooltip display. |
 
 ---
-[[00 - Introduction|Quay lại trang chủ]]
+[[00 - Introduction|Back to Introduction]]

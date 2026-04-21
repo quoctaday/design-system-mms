@@ -1,0 +1,207 @@
+{
+  "component": "Slider",
+  "version": "3.0",
+  "sourceOrigin": "/Users/buiquoc/Woker's Document/Antigravity App/Design System For MMS/Radix Reference/packages/radix-ui-themes/src/components/slider.css",
+  "extractedAt": "2026-04-20T05:00:14.995Z",
+  "pillars": {
+    "variables": {
+      "--slider-thumb-size": {
+        "value": "calc(var(--slider-track-size) + var(--space-1))",
+        "line": 2
+      },
+      "--slider-track-size": {
+        "value": "calc(var(--space-2) * 1.25)",
+        "line": 115
+      },
+      "--slider-thumb-box-shadow": {
+        "value": "0 0 0 1px var(--black-a4)",
+        "line": 145
+      },
+      "--slider-range-high-contrast-background-image": {
+        "value": "none",
+        "line": 246
+      },
+      "--slider-disabled-blend-mode": {
+        "value": "screen",
+        "line": 254
+      }
+    },
+    "geometry": {
+      "rootRadius": {
+        "value": "max( calc(var(--radius-factor) * var(--slider-track-size) / 3), calc(var(--radius-factor) * var(--radius-thumb)) )",
+        "line": 8
+      }
+    },
+    "materiality": {
+      "surface": {
+        "_line": 128,
+        "Track": {
+          "_line": 128,
+          "background-color": {
+            "value": "var(--gray-a3)",
+            "line": 129
+          },
+          "box-shadow": {
+            "value": "inset 0 0 0 1px var(--gray-a5)",
+            "line": 130
+          },
+          "color": {
+            "value": "var(--gray-a3)",
+            "line": 130
+          }
+        },
+        "Range": {
+          "_line": 137,
+          "background-color": {
+            "value": "var(--accent-track)",
+            "line": 138
+          },
+          "background-image": {
+            "value": "var(--slider-range-high-contrast-background-image)",
+            "line": 139
+          },
+          "box-shadow": {
+            "value": "inset 0 0 0 1px var(--gray-a5)",
+            "line": 140
+          },
+          "color": {
+            "value": "var(--accent-track)",
+            "line": 139
+          }
+        },
+        "Thumb": {
+          "_line": 143,
+          "background-color": {
+            "value": "var(--gray-1)",
+            "line": 147
+          },
+          "box-shadow": {
+            "value": "0 0 0 1px var(--black-a4)",
+            "line": 145
+          },
+          "color": {
+            "value": "var(--gray-1)",
+            "line": 148
+          }
+        }
+      },
+      "classic": {
+        "_line": 156,
+        "Track": {
+          "_line": 156,
+          "background-color": {
+            "value": "var(--gray-a3)",
+            "line": 157
+          },
+          "box-shadow": {
+            "value": "var(--shadow-1)",
+            "line": 165
+          },
+          "opacity": {
+            "value": "0.5",
+            "line": 168
+          },
+          "color": {
+            "value": "var(--gray-a3)",
+            "line": 158
+          },
+          "::before": {
+            "_line": 159,
+            "box-shadow": {
+              "value": "var(--shadow-1)",
+              "line": 165
+            }
+          }
+        },
+        "Range": {
+          "_line": 172,
+          "background-color": {
+            "value": "var(--accent-track)",
+            "line": 173
+          },
+          "background-image": {
+            "value": "var(--slider-range-high-contrast-background-image)",
+            "line": 174
+          },
+          "box-shadow": {
+            "value": "inset 0 0 0 1px var(--gray-a3), inset 0 0 0 1px var(--accent-a4), inset 0 0 0 1px var(--black-a1), inset 0 1.5px 2px 0 var(--black-a2)",
+            "line": 175
+          },
+          "color": {
+            "value": "var(--accent-track)",
+            "line": 174
+          }
+        },
+        "Thumb": {
+          "_line": 189,
+          "background-color": {
+            "value": "var(--gray-1)",
+            "line": 197
+          },
+          "box-shadow": {
+            "value": "0 0 0 1px var(--black-a3), 0 1px 3px var(--black-a1), 0 2px 4px -1px var(--black-a1)",
+            "line": 192
+          },
+          "color": {
+            "value": "var(--gray-1)",
+            "line": 198
+          }
+        }
+      },
+      "soft": {
+        "_line": 206,
+        "Track": {
+          "_line": 206,
+          "background-color": {
+            "value": "var(--gray-a4)",
+            "line": 207
+          },
+          "background-image": {
+            "value": "linear-gradient(var(--white-a1), var(--white-a1))",
+            "line": 209
+          },
+          "color": {
+            "value": "var(--gray-a4)",
+            "line": 208
+          }
+        },
+        "Range": {
+          "_line": 217,
+          "background-color": {
+            "value": "var(--accent-6)",
+            "line": 220
+          },
+          "background-image": {
+            "value": "linear-gradient(var(--accent-a5), var(--accent-a5)), var(--slider-range-high-contrast-background-image)",
+            "line": 218
+          },
+          "color": {
+            "value": "var(--accent-6)",
+            "line": 221
+          }
+        },
+        "Thumb": {
+          "_line": 223,
+          "background-color": {
+            "value": "var(--gray-1)",
+            "line": 229
+          },
+          "box-shadow": {
+            "value": "0 0 0 1px var(--black-a3), 0 0 0 1px var(--gray-a2), 0 0 0 1px var(--accent-a2), 0 1px 2px var(--gray-a4), 0 1px 3px -0.5px var(--gray-a3)",
+            "line": 225
+          },
+          "color": {
+            "value": "var(--gray-1)",
+            "line": 230
+          }
+        }
+      }
+    },
+    "interaction": {
+      "focusRing": {
+        "value": "var(--slider-thumb-box-shadow), 0 0 0 3px var(--accent-3), 0 0 0 5px var(--focus-8)",
+        "line": 88
+      }
+    }
+  }
+}

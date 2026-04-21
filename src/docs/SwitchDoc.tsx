@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Switch } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -32,9 +33,9 @@ const SwitchDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="basic" className="doc-section">
-        <h2>Basic Usage</h2>
-        <p>Simple toggle with a label. The Switch uses standard checkbox logic under the hood.</p>
+      <DocSection id="basic">
+        <DocHeading>Basic Usage</DocHeading>
+        <DocText>Simple toggle with a label. The Switch uses standard checkbox logic under the hood.</DocText>
         <CodePreview
           code={`<Switch 
   label="Enable Notifications" 
@@ -50,31 +51,31 @@ const SwitchDoc: React.FC = () => {
             />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="sizes" className="doc-section">
-        <h2>Sizes</h2>
-        <p>Two sizes for different UI contexts: <code>2</code> (default) and <code>1</code> (compact).</p>
+      <DocSection id="sizes">
+        <DocHeading>Sizes</DocHeading>
+        <DocText>Two sizes for different UI contexts: <code>2</code> (default) and <code>1</code> (compact).</DocText>
         <CodePreview
           code={`<Switch label="Default (Size 2)" defaultChecked />
 <Switch size="1" label="Compact (Size 1)" defaultChecked />`}
         >
           <div className="flex items-center gap-12 py-2">
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Size 2</span>
+              <DocHeading level={4} className="text-[10px] font-bold text-muted uppercase tracking-tighter">Size 2</DocHeading>
               <Switch label="Notifications" defaultChecked />
             </div>
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold text-muted uppercase tracking-tighter">Size 1</span>
+              <DocHeading level={4} className="text-[10px] font-bold text-muted uppercase tracking-tighter">Size 1</DocHeading>
               <Switch size="1" label="Compact mode" defaultChecked />
             </div>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="states" className="doc-section">
-        <h2>Interactive States</h2>
-        <p>Visual representation of different interactive states: Off, On, and Disabled.</p>
+      <DocSection id="states">
+        <DocHeading>Interactive States</DocHeading>
+        <DocText>Visual representation of different interactive states: Off, On, and Disabled.</DocText>
         <CodePreview
           code={`<Switch label="Interactive" checked={checked} onChange={...} />
 <Switch label="Disabled Off" disabled />
@@ -90,11 +91,11 @@ const SwitchDoc: React.FC = () => {
             <Switch label="Disabled On" disabled defaultChecked />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="patterns" className="doc-section">
-        <h2>UI Patterns</h2>
-        <p>Common usage in settings lists and configuration panels.</p>
+      <DocSection id="patterns">
+        <DocHeading>UI Patterns</DocHeading>
+        <DocText>Common usage in settings lists and configuration panels.</DocText>
         <CodePreview
           code={`<div className="divide-y divide-subtle border border-subtle rounded-xl overflow-hidden">
   <div className="p-4 flex justify-between items-center transition-colors hover:bg-muted/5">
@@ -126,12 +127,12 @@ const SwitchDoc: React.FC = () => {
             </div>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={switchProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

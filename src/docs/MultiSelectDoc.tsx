@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { MultiSelect } from '../components/ui';
+import { MultiSelect, Flex, Grid, Box, Text } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -22,8 +23,9 @@ const MultiSelectDoc: React.FC = () => {
     { name: 'onValuesChange', type: '(values: string[]) => void', description: 'Callback khi thay đổi danh sách chọn.' },
     { name: 'placeholder', type: 'string', default: "'Select options...'", description: 'Text hiển thị khi chưa có giá trị.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Vô hiệu hóa toàn bộ select.' },
-    { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước của trigger và items.' },
-    { name: 'radius', type: "'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full'", default: "'md'", description: 'Độ bo góc của trigger và menu content.' },
+    { name: 'size', type: "'1' | '2' | '3'", default: "'2'", description: 'Kích thước của trigger: 24px, 32px, 40px.' },
+    { name: 'radius', type: "'none' | 'small' | 'medium' | 'large' | 'full'", default: "'medium'", description: 'Độ bo góc của trigger và menu content.' },
+    { name: 'variant', type: "'surface' | 'soft'", default: "'surface'", description: 'Biến thể hiển thị (Có viền hoặc Nền mờ).' },
     { name: 'maxChips', type: 'number', default: '3', description: 'Số lượng chip tối đa hiển thị trong trigger.' }
   ];
 
@@ -44,9 +46,9 @@ const MultiSelectDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="basic" className="doc-section">
-        <h2>Basic Usage</h2>
-        <p>Standard multi-selection with tags in the trigger and a "Clear All" action.</p>
+      <DocSection id="basic">
+        <DocHeading>Basic Usage</DocHeading>
+        <DocText>Standard multi-selection with tags in the trigger and a "Clear All" action.</DocText>
         <CodePreview
           code={`const [values, setValues] = useState(['apple', 'banana']);
           
@@ -79,11 +81,11 @@ const MultiSelectDoc: React.FC = () => {
             </MultiSelect>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="search" className="doc-section">
-        <h2>With Search</h2>
-        <p>Integrated search filtering for handling large sets of options in a dense UI.</p>
+      <DocSection id="search">
+        <DocHeading>With Search</DocHeading>
+        <DocText>Integrated search filtering for handling large sets of options in a dense UI.</DocText>
         <CodePreview
           code={`<MultiSelect values={values} onValuesChange={setValues}>
   <MultiSelect.Trigger placeholder="Search and select..." />
@@ -113,51 +115,65 @@ const MultiSelectDoc: React.FC = () => {
             </MultiSelect>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="sizes" className="doc-section">
-        <h2>Sizes & Radius</h2>
-        <p>Following the 14px high-density standard with atomic radius tokens.</p>
-        <CodePreview
-          code={`<MultiSelect size="1" radius="2">...</MultiSelect>
-<MultiSelect size="3" radius="full">...</MultiSelect>`}
-        >
-          <div className="flex flex-col gap-6 max-w-[400px] py-2">
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 1 (32px) + SM Radius</span>
-              <MultiSelect size="1" radius="2" defaultValue={['apple']}>
-                <MultiSelect.Trigger />
-                <MultiSelect.Portal>
-                  <MultiSelect.Content>
-                    {options.map(opt => (
-                      <MultiSelectItem key={opt.value} value={opt.value}>{opt.label}</MultiSelectItem>
-                    ))}
-                  </MultiSelect.Content>
-                </MultiSelect.Portal>
-              </MultiSelect>
-            </div>
+      <DocSection id="sizes">
+        <Flex direction="column" gap="2">
+          <DocHeading>Sizes & Radius Matrix</DocHeading>
+          <DocText>Khám phá sự nhất quán của MultiSelect qua ma trận kích thước và bán kính tinh xảo.</DocText>
+        </Flex>
+        
+        <div className="premium-block mt-6">
+          <div className="premium-block-content p-8 overflow-x-auto">
+            <Box style={{ minWidth: '700px' }}>
+              {/* Header Row */}
+              <Grid columns="6" gap="4" style={{ marginBottom: '16px' }}>
+                <Box />
+                {['No radius', 'Small', 'Medium', 'Large', 'Full'].map(label => (
+                  <Text key={label} align="center" size="1" weight="bold" style={{ textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--gray-9)', opacity: 0.6 }}>
+                    {label}
+                  </Text>
+                ))}
+              </Grid>
 
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Size 3 (48px) + Full Radius</span>
-              <MultiSelect size="3" radius="full" defaultValue={['watermelon', 'strawberry']}>
-                <MultiSelect.Trigger />
-                <MultiSelect.Portal>
-                  <MultiSelect.Content>
-                    {options.map(opt => (
-                      <MultiSelectItem key={opt.value} value={opt.value}>{opt.label}</MultiSelectItem>
-                    ))}
-                  </MultiSelect.Content>
-                </MultiSelect.Portal>
-              </MultiSelect>
-            </div>
+              {/* Data Rows */}
+              {[
+                { size: '1', label: 'Size 1', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+                { size: '2', label: 'Size 2', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+                { size: '3', label: 'Size 3', radiusTokens: ['none', 'small', 'medium', 'large', 'full'] },
+              ].map(row => (
+                <Grid key={row.size} columns="6" gap="4" align="center" style={{ marginBottom: '24px' }}>
+                  <Text size="2" weight="bold" style={{ color: 'var(--gray-12)' }}>{row.label}</Text>
+                  {row.radiusTokens.map((radius: any) => (
+                    <Flex key={radius} justify="center">
+                      <MultiSelect 
+                        size={row.size as any} 
+                        radius={radius} 
+                        defaultValue={['apple']}
+                        style={{ width: '100%', maxWidth: '120px' }}
+                      >
+                        <MultiSelect.Trigger />
+                        <MultiSelect.Portal>
+                          <MultiSelect.Content>
+                            {options.map(opt => (
+                              <MultiSelectItem key={opt.value} value={opt.value}>{opt.label}</MultiSelectItem>
+                            ))}
+                          </MultiSelect.Content>
+                        </MultiSelect.Portal>
+                      </MultiSelect>
+                    </Flex>
+                  ))}
+                </Grid>
+              ))}
+            </Box>
           </div>
-        </CodePreview>
-      </section>
+        </div>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={multiSelectProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

@@ -1,7 +1,8 @@
 import React from 'react';
 import { DropdownMenu, Button, Badge } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 import { 
@@ -42,9 +43,9 @@ const DropdownMenuDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="basic" className="doc-section">
-        <h2>Basic Usage</h2>
-        <p>A simple dropdown menu for common actions like profile settings or file operations.</p>
+      <DocSection id="basic">
+        <DocHeading>Basic Usage</DocHeading>
+        <DocText>A simple dropdown menu for common actions like profile settings or file operations.</DocText>
         <CodePreview
           code={`<DropdownMenu.Root>
   <DropdownMenu.Trigger>
@@ -85,11 +86,11 @@ const DropdownMenuDoc: React.FC = () => {
             </DropdownMenu.Root>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="sub-menu" className="doc-section">
-        <h2>Sub-menus</h2>
-        <p>Easily create multi-level navigation using the <code>DropdownMenu.Sub</code> component.</p>
+      <DocSection id="sub-menu">
+        <DocHeading>Sub-menus</DocHeading>
+        <DocText>Easily create multi-level navigation using the <code>DropdownMenu.Sub</code> component.</DocText>
         <CodePreview
           code={`<DropdownMenu.Sub>
   <DropdownMenu.SubTrigger>Share</DropdownMenu.SubTrigger>
@@ -131,17 +132,17 @@ const DropdownMenuDoc: React.FC = () => {
             </DropdownMenu.Root>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
-        <h3 className="text-sm font-bold mb-4">DropdownMenu.Content</h3>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
+        <DocHeading level={3} className="text-sm font-bold mb-4">DropdownMenu.Content</DocHeading>
         <PropsTable props={dropdownProps} />
         <div className="mt-8">
-          <h3 className="text-sm font-bold mb-4">DropdownMenu.Item</h3>
+          <DocHeading level={3} className="text-sm font-bold mb-4">DropdownMenu.Item</DocHeading>
           <PropsTable props={itemProps} />
         </div>
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

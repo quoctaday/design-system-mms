@@ -1,64 +1,48 @@
-.intro-feature-grid {
+.intro-doc {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.intro-hero {
+  padding: var(--space-9) 0;
+}
+
+.intro-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1px;
-  background-color: var(--border-subtle);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-5);
-  overflow: hidden;
-  margin: 48px 0;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-8);
 }
 
 .feature-card {
-  padding: 48px;
+  padding: var(--space-6);
   background-color: var(--surface-panel);
-  display: flex;
-  flex-direction: column;
-  transition: background-color 200ms ease;
+  border: var(--stroke-width-1) solid var(--border-subtle);
+  border-radius: var(--radius-4);
+  transition: all 140ms var(--ease-snappy);
 }
 
 .feature-card:hover {
-  background-color: var(--surface-app);
+  transform: translateY(-4px);
+  border-color: var(--accent-7);
+  box-shadow: var(--shadow-5);
 }
 
-.feature-icon-box {
-  width: 48px;
-  height: 48px;
-  background-color: var(--brand-a3);
-  color: var(--brand-9);
-  border-radius: var(--radius-3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  margin-bottom: 32px;
-  border: 1px solid var(--brand-a4);
+.feature-icon {
+  font-size: var(--font-size-7);
+  color: var(--accent-9);
+  margin-bottom: var(--space-4);
 }
 
-.feature-card h3 {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--content-strong);
-  margin: 0 0 16px 0;
-  letter-spacing: -0.02em;
+.feature-title {
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-2);
+  color: var(--gray-12);
 }
 
-.feature-card p {
-  font-size: 14px;
-  color: var(--content-subtle);
-  line-height: 1.6;
-  margin: 0;
-}
-
-.prose-premium p {
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--content-subtle);
-  margin-bottom: 24px;
-}
-
-.prose-premium strong {
-  color: var(--content-strong);
-  font-weight: 600;
+.feature-description {
+  font-size: var(--font-size-2);
+  color: var(--gray-a11);
+  line-height: var(--line-height-2);
 }

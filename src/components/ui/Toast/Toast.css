@@ -51,7 +51,7 @@
 }
 
 .toast-title {
-  margin: 0;
+  margin: 0 !important;
   font-family: var(--font-body);
   font-size: var(--font-size-3);
   font-weight: var(--font-weight-semibold);
@@ -61,7 +61,8 @@
 }
 
 .toast-description {
-  margin: var(--space-1) 0 0;
+  margin: 0 !important;
+  margin-top: var(--space-1) !important;
   font-size: var(--font-size-2);
   line-height: 1.5;
   color: var(--content-subtle);

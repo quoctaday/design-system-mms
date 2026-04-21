@@ -17,7 +17,7 @@ export interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
   items: TimelineItem[];
 }
 
-const Timeline: React.FC<TimelineProps> = ({
+export const Timeline: React.FC<TimelineProps> = ({
   items,
   className,
   ...props
@@ -51,4 +51,4 @@ const Timeline: React.FC<TimelineProps> = ({
   );
 };
 
-export default Timeline;
+Timeline.displayName = 'Timeline';

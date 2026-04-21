@@ -1,0 +1,132 @@
+/**
+ * MMS Documentation Portal Primitives
+ * Centralized tokenized styles for documentation pages.
+ */
+
+.doc-layout {
+  padding: var(--space-9);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.doc-header {
+  margin-bottom: var(--space-9);
+}
+
+.doc-h1 {
+  font-size: var(--font-size-8);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-3);
+  color: var(--gray-12);
+  letter-spacing: var(--letter-spacing-8);
+}
+
+.doc-description {
+  font-size: var(--font-size-4);
+  color: var(--gray-a11);
+  line-height: var(--line-height-4);
+  max-width: 80ch;
+}
+
+.doc-section {
+  margin-bottom: var(--space-9);
+}
+
+.doc-h2 {
+  font-size: var(--font-size-6);
+  font-weight: var(--font-weight-bold);
+  margin-top: var(--space-9);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 0.5px solid var(--border-subtle);
+  color: var(--gray-12);
+}
+
+.doc-h3 {
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-bold);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-3);
+  color: var(--gray-12);
+}
+
+.doc-p {
+  font-size: var(--font-size-2);
+  color: var(--gray-a11);
+  margin-bottom: var(--space-4);
+  line-height: var(--line-height-2);
+  max-width: 80ch;
+}
+
+.doc-inline-code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background-color: var(--gray-a3);
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius-2);
+  color: var(--accent-11);
+}
+
+.preview-card {
+  padding: var(--space-8);
+  background-color: var(--surface-panel);
+  border: var(--stroke-width-1) solid var(--border-subtle);
+  border-radius: var(--radius-5);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--gray-a2);
+  border: 0.5px solid var(--border-subtle);
+  border-radius: var(--radius-3);
+}
+
+/* Documentation Tables (API Reference) */
+.doc-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: var(--space-6);
+  border-radius: var(--radius-3);
+  border: var(--stroke-width-1) solid var(--border-subtle);
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-2);
+  text-align: left;
+  background-color: var(--surface-panel);
+}
+
+.doc-table th {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--stroke-width-2) solid var(--border-subtle);
+  color: var(--gray-12);
+  font-weight: var(--font-weight-bold);
+  background-color: var(--gray-a2);
+}
+
+.doc-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--stroke-width-1) solid var(--border-subtle);
+  color: var(--gray-a11);
+}
+
+.doc-table tr:last-child td {
+  border-bottom: none;
+}

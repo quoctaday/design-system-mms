@@ -2,16 +2,23 @@
 
 .mms-textfield-root {
   display: inline-flex;
-  align-items: center;
+  align-items: stretch;
   box-sizing: border-box;
-  font-family: var(--font-family);
-  --input-radius: max(var(--radius-full), var(--radius-4));
+  font-family: var(--font-body);
+  --input-radius: var(--radius-2);
   border-radius: var(--input-radius);
-  border: var(--stroke-width-1) solid transparent;
   position: relative;
   width: 100%;
   transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden; /* Ensure focus ring/background doesn't bleed */
+  overflow: hidden;
+  
+  /* RADIX MECHANICAL COLOR MAPPING */
+  background-color: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--gray-a7);
+}
+
+.mms-textfield-root:hover:not(.mms-textfield-disabled):not(.mms-textfield-focused) {
+  box-shadow: inset 0 0 0 1px var(--gray-a8);
 }
 
 /* Base Input Primitive */
@@ -29,10 +36,12 @@
   padding: 0;
   margin: 0;
   flex: 1;
+  /* Sub-pixel baseline correction */
+  padding-bottom: 0.5px;
 }
 
 .mms-textfield-input::placeholder {
-  color: var(--content-placeholder);
+  color: var(--gray-a10);
   opacity: 1;
 }
 
@@ -43,12 +52,19 @@
   justify-content: center;
   color: var(--content-subtle);
   flex-shrink: 0;
-  pointer-events: none; /* Allow events to pass to input if needed, though usually slots are non-interactive icons */
+  min-width: var(--textfield-height);
+  padding: 0 var(--space-2);
+  transition: color 150ms ease;
+  z-index: 1;
 }
 
-.mms-textfield-slot:has(button),
-.mms-textfield-slot:has(a) {
-  pointer-events: auto;
+/* Edge-to-Edge Slot Logic */
+.mms-textfield-slot:first-child {
+  margin-left: -1px;
+}
+
+.mms-textfield-slot:last-child {
+  margin-right: -1px;
 }
 
 /* Disabled State */
@@ -67,58 +83,54 @@
  * ───────────────────────────────────────────────────────── */
 
 .mms-textfield-size-1 { 
-  height: var(--size-2); /* 32px */
+  --textfield-height: var(--space-5); /* 24px */
   font-size: var(--font-size-1); 
-  padding: 0 var(--space-2); 
-  gap: var(--space-1); 
+  letter-spacing: var(--letter-spacing-1);
 }
 .mms-textfield-size-2 { 
-  height: var(--size-3); /* 40px */
+  --textfield-height: var(--space-6); /* 32px */
   font-size: var(--font-size-2); 
-  padding: 0 var(--space-3); 
-  gap: var(--space-2); 
+  letter-spacing: var(--letter-spacing-2);
 }
 .mms-textfield-size-3 { 
-  height: var(--size-4); /* 48px */
+  --textfield-height: var(--space-7); /* 40px */
   font-size: var(--font-size-3); 
-  padding: 0 var(--space-4); 
-  gap: var(--space-3); 
+  letter-spacing: var(--letter-spacing-3);
 }
-.mms-textfield-size-4 { 
-  height: var(--size-5); /* 56px */
-  font-size: var(--font-size-4); 
-  padding: 0 var(--space-4); 
-  gap: var(--space-4); 
+
+.mms-textfield-root {
+  height: var(--textfield-height);
+  /* Indent text by a proportional amount if no slot is present */
+  --textfield-padding: calc(var(--textfield-height) / 3);
+}
+
+.mms-textfield-input {
+  text-indent: var(--textfield-padding);
+}
+
+/* If a leading slot exists, the slot handles the left side, so zero indent */
+.mms-textfield-slot + .mms-textfield-input {
+  text-indent: 0;
 }
 
 /* ─────────────────────────────────────────────────────────
  * VARIANTS
  * ───────────────────────────────────────────────────────── */
 
-/* 1. CLASSIC (Tradition Bordered) */
-.mms-textfield-variant-classic {
-  background-color: var(--surface-panel);
-  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-default);
-}
-.mms-textfield-variant-classic:hover:not(.mms-textfield-disabled):not(.mms-textfield-focused) {
-  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-strong);
-}
-
-/* 2. SURFACE (Soft BG + Subtle Border) - DEFAULT */
+/* 1. SURFACE (Standard Radix Appearance) - DEFAULT */
 .mms-textfield-variant-surface {
-  background-color: var(--surface-subtle);
-  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-subtle);
-}
-.mms-textfield-variant-surface:hover:not(.mms-textfield-disabled):not(.mms-textfield-focused) {
-  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--border-default);
+  background-color: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--gray-a7);
 }
 
-/* 3. SOFT (Background Only) */
+/* 3. SOFT (Accent Background) */
 .mms-textfield-variant-soft {
-  background-color: var(--surface-subtle);
+  background-color: var(--accent-a3);
+  box-shadow: none;
+  color: var(--accent-12);
 }
-.mms-textfield-variant-soft:hover:not(.mms-textfield-disabled):not(.mms-textfield-focused) {
-  background-color: var(--surface-component);
+.mms-textfield-variant-soft .mms-textfield-input::placeholder {
+  color: var(--accent-a10);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -127,12 +139,12 @@
 
 .mms-textfield-focused:not(.mms-textfield-disabled) {
   outline: none;
-  background-color: var(--surface-panel);
-  z-index: 2; /* Bring to front for halo clipping */
+  background-color: var(--color-surface);
+  z-index: 2;
   box-shadow: 
-    0 0 0 calc(var(--space-1) / 2) var(--surface-panel), /* Inner spacer */
-    0 0 0 var(--space-1) var(--brand-a3),     /* Outer halo */
-    0 0 0 1px var(--brand-9);      /* Precise ring */
+    0 0 0 1px var(--accent-9),                     /* Precise Ring (Top) */
+    0 0 0 calc(var(--space-1) / 2) var(--white),   /* White Spacer (Middle) */
+    0 0 0 var(--space-1) var(--accent-a3);          /* Ambient Halo (Bottom) */
 }
 
 /* Variant Specific Focus Adjustments */
@@ -140,15 +152,23 @@
   background-color: var(--surface-panel);
   box-shadow: 
     0 0 0 calc(var(--space-1) / 2) var(--surface-panel),
-    0 0 0 var(--space-1) var(--brand-a3),
-    0 0 0 var(--stroke-width-1) var(--brand-9);
+    0 0 0 var(--space-1) var(--accent-a3),
+    0 0 0 var(--stroke-width-1) var(--accent-9);
 }
 
-/* Semantic Focus Colors */
-.mms-textfield-color-gray.mms-textfield-focused    { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--gray-a4), 0 0 0 var(--stroke-width-1) var(--gray-9); }
-.mms-textfield-color-success.mms-textfield-focused { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--green-a3), 0 0 0 var(--stroke-width-1) var(--green-9); }
-.mms-textfield-color-warning.mms-textfield-focused { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--amber-a3), 0 0 0 var(--stroke-width-1) var(--amber-9); }
-.mms-textfield-color-error.mms-textfield-focused   { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--red-a3), 0 0 0 var(--stroke-width-1) var(--red-9); }
+/* Semantic Normal States (Idle Indicators - Removed for Radix Parity) */
+/* Idle borders stay gray, colors manifest only on Focus */
+
+/* Semantic Focus Colors (The Halo) */
+.mms-textfield-color-gray.mms-textfield-focused    { box-shadow: 0 0 0 1px var(--gray-9), 0 0 0 calc(var(--space-1) / 2) var(--white), 0 0 0 var(--space-1) var(--gray-a4); }
+.mms-textfield-color-success.mms-textfield-focused { box-shadow: 0 0 0 1px var(--green-9), 0 0 0 calc(var(--space-1) / 2) var(--white), 0 0 0 var(--space-1) var(--green-a3); }
+.mms-textfield-color-warning.mms-textfield-focused { box-shadow: 0 0 0 1px var(--amber-9), 0 0 0 calc(var(--space-1) / 2) var(--white), 0 0 0 var(--space-1) var(--amber-a3); }
+.mms-textfield-color-error.mms-textfield-focused   { box-shadow: 0 0 0 1px var(--red-9), 0 0 0 calc(var(--space-1) / 2) var(--white), 0 0 0 var(--space-1) var(--red-a3); }
+
+/* Semantic Soft Variants (Background Sync) */
+.mms-textfield-variant-soft.mms-textfield-color-success { background-color: var(--green-a3); color: var(--green-12); }
+.mms-textfield-variant-soft.mms-textfield-color-warning { background-color: var(--amber-a3); color: var(--amber-12); }
+.mms-textfield-variant-soft.mms-textfield-color-error   { background-color: var(--red-a3); color: var(--red-12); }
 
 /* ─────────────────────────────────────────────────────────
  * TEXTAREA OVERRIDES
@@ -175,11 +195,13 @@
 /* ─────────────────────────────────────────────────────────
  * RADIUS SYSTEM
  * ───────────────────────────────────────────────────────── */
-.mms-textfield-radius-none { --input-radius: var(--radius-none); }
-.mms-textfield-radius-1    { --input-radius: var(--radius-1); }
-.mms-textfield-radius-2    { --input-radius: var(--radius-2); }
-.mms-textfield-radius-3    { --input-radius: var(--radius-3); }
-.mms-textfield-radius-4    { --input-radius: var(--radius-4); }
-.mms-textfield-radius-5    { --input-radius: var(--radius-5); }
-.mms-textfield-radius-6    { --input-radius: var(--radius-6); }
-.mms-textfield-radius-full { --input-radius: var(--radius-full); }
+.mms-textfield-radius-none   { --input-radius: var(--radius-none); }
+.mms-textfield-radius-small  { --input-radius: var(--radius-2); }
+.mms-textfield-radius-medium { --input-radius: var(--radius-4); }
+.mms-textfield-radius-large  { --input-radius: var(--radius-6); }
+.mms-textfield-radius-full   { --input-radius: var(--radius-full); }
+
+.mms-textarea-slot-top {
+  align-items: flex-start !important;
+  padding-top: var(--space-2);
+}

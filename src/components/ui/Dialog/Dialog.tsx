@@ -1,13 +1,14 @@
 import React, { 
-  useState, 
-  useEffect, 
   useContext, 
   createContext, 
-  useCallback 
+  useEffect,
+  useMemo
 } from 'react';
 import { createPortal } from 'react-dom';
 import { RiCloseLine } from 'react-icons/ri';
 import { cn } from '../../../lib/utils';
+import { useControllableState } from '../../../lib/mms-engine';
+import { extractMMSProps } from '../../../helpers/extract-mms-props';
 import './Dialog.css';
 
 interface DialogContextValue {
@@ -16,19 +17,13 @@ interface DialogContextValue {
 }
 
 const DialogContext = createContext<DialogContextValue | undefined>(undefined);
-
 const useDialog = () => {
   const context = useContext(DialogContext);
-  if (!context) {
-    throw new Error('Dialog components must be used within a Dialog.Root');
-  }
+  if (!context) throw new Error('Dialog components must be used within a Select.Root');
   return context;
 };
 
-/* ─────────────────────────────────────────────────────────
- * 1. Dialog.Root
- * ───────────────────────────────────────────────────────── */
-
+// --- Root ---
 export interface DialogProps {
   children: React.ReactNode;
   open?: boolean;
@@ -38,40 +33,28 @@ export interface DialogProps {
 
 const DialogRoot: React.FC<DialogProps> = ({ 
   children, 
-  open: controlledOpen, 
+  open: propOpen, 
   onOpenChange, 
   defaultOpen = false 
 }) => {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const open = controlledOpen !== undefined ? controlledOpen : uncontrolledOpen;
-
-  const setOpen = useCallback((newOpen: boolean) => {
-    if (controlledOpen === undefined) {
-      setUncontrolledOpen(newOpen);
-    }
-    onOpenChange?.(newOpen);
-  }, [controlledOpen, onOpenChange]);
+  const [open, setOpen] = useControllableState({ prop: propOpen, defaultProp: defaultOpen, onChange: onOpenChange });
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (open) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
+  const contextValue = useMemo(() => ({ open, setOpen }), [open, setOpen]);
+
   return (
-    <DialogContext.Provider value={{ open, setOpen }}>
+    <DialogContext.Provider value={contextValue}>
       {children}
     </DialogContext.Provider>
   );
 };
 
-/* ─────────────────────────────────────────────────────────
- * 2. Dialog.Trigger
- * ───────────────────────────────────────────────────────── */
-
+// --- Trigger ---
 export const DialogTrigger: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const { setOpen } = useDialog();
   return React.cloneElement(children, {
@@ -82,20 +65,14 @@ export const DialogTrigger: React.FC<{ children: React.ReactElement }> = ({ chil
   });
 };
 
-/* ─────────────────────────────────────────────────────────
- * 3. Dialog.Portal
- * ───────────────────────────────────────────────────────── */
-
+// --- Portal ---
 export const DialogPortal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { open } = useDialog();
   if (!open) return null;
   return createPortal(children, document.body);
 };
 
-/* ─────────────────────────────────────────────────────────
- * 4. Dialog.Overlay
- * ───────────────────────────────────────────────────────── */
-
+// --- Overlay ---
 export const DialogOverlay: React.FC<{ className?: string }> = ({ className }) => {
   const { setOpen } = useDialog();
   return (
@@ -106,24 +83,18 @@ export const DialogOverlay: React.FC<{ className?: string }> = ({ className }) =
   );
 };
 
-/* ─────────────────────────────────────────────────────────
- * 5. Dialog.Content
- * ───────────────────────────────────────────────────────── */
-
+// --- Content ---
 export interface DialogContentProps {
   children: React.ReactNode;
   className?: string;
   size?: '1' | '2' | '3' | '4';
-  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6';
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
 }
 
-export const DialogContent: React.FC<DialogContentProps> = ({ 
-  children, 
-  className, 
-  size = '2',
-  radius = '4'
-}) => {
+export const DialogContent: React.FC<DialogContentProps> = (props) => {
+  const { children, className, ...mmsBase } = props;
   const { setOpen } = useDialog();
+  const { mmsClasses } = extractMMSProps(mmsBase as any, 'dialog', { size: '2', radius: '4' });
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -134,26 +105,20 @@ export const DialogContent: React.FC<DialogContentProps> = ({
   }, [setOpen]);
 
   return (
-    <div className="mms-dialog-container">
-      <div 
-        className={cn(
-          'mms-dialog-content', 
-          `mms-dialog-size-${size}`,
-          `mms-dialog-radius-${radius}`,
-          className
-        )} 
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
+    <div className="mms-dialog-scroll">
+      <div className="mms-dialog-scroll-padding">
+        <div 
+          className={cn('mms-dialog-content', mmsClasses)} 
+          onClick={(e) => e.stopPropagation()}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
 };
 
-/* ─────────────────────────────────────────────────────────
- * 6. Internal Components (Title, Description, etc.)
- * ───────────────────────────────────────────────────────── */
-
+// --- Internal Components ---
 export const DialogTitle: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => (
   <h2 className={cn('mms-dialog-title', className)}>{children}</h2>
 );
@@ -193,10 +158,7 @@ export const DialogClose: React.FC<{ children?: React.ReactNode; className?: str
   );
 };
 
-/* ─────────────────────────────────────────────────────────
- * Export Object
- * ───────────────────────────────────────────────────────── */
-
+// --- Export Object ---
 export const Dialog = {
   Root: DialogRoot,
   Trigger: DialogTrigger,

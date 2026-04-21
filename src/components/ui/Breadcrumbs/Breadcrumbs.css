@@ -4,7 +4,8 @@
   flex-wrap: wrap;
   gap: var(--space-2);
   font-size: var(--font-size-2);
-  color: var(--content-subtle); /* Step 11 */
+  color: var(--content-subtle);
+  margin: 0 !important;
 }
 
 .mms-breadcrumbs-item {

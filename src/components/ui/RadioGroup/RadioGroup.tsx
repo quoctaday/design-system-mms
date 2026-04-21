@@ -153,5 +153,3 @@ export const RadioGroup = {
   Root: RadioGroupRoot,
   Item: RadioGroupItem,
 };
-
-export default RadioGroup;

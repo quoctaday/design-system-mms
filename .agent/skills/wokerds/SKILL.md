@@ -32,4 +32,11 @@ If the existing components CANNOT fulfill the visual/functional requirement:
 ### Step 3: Flat-Premium Implementation
 Implement using 100% tokens and the "Standardization First" rule. No hardcoded hex/px. No custom CSS for standard patterns.
 
+### Step 4: Existing Component Parity Work
+If the task is to fix or rebuild an existing component to match Radix behavior:
+1. Lock the Radix reference, anatomy, variants, states, and mechanical rules before editing.
+2. Preserve Radix mechanics, but map colors into MMS semantic tokens.
+3. Do not add undeclared anatomy parts or variants without explicit approval.
+4. Verify the full variant/state matrix instead of validating only the default case.
+
 ... (rest of the skill specific aesthetic guidelines remain the same)

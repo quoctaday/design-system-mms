@@ -1,6 +1,6 @@
-# RadioGroup
+# Radio Group
 
-Thành phần lựa chọn duy nhất từ một danh sách các phương án cho trước. RadioGroup mới hỗ trợ kiến trúc Compound Component và kế thừa các thuộc tính từ Root để đảm bảo tính nhất quán.
+A single-selection component utilized for choosing one option from a predefined list. The updated Radio Group features a robust Compound Component architecture, ensuring all items inherit stylistic properties from the Root for absolute UI consistency.
 
 ## Architecture (Compound Pattern)
 
@@ -15,16 +15,24 @@ Thành phần lựa chọn duy nhất từ một danh sách các phương án ch
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `variant` | `'classic' \| 'surface' \| 'soft'` | `'surface'` | Kiểu hiển thị của Radio Item. |
-| `size` | `'1' \| '2' \| '3'` | `'2'` | Kích thước của Radio và text. |
-| `color` | `BrandColor` | `'brand'` | Màu sắc chủ đạo khi Active. |
-| `defaultValue` | `string` | - | Giá trị mặc định. |
+| `variant` | `'classic' \| 'surface' \| 'soft'` | `'surface'` | Defines the visual presentation style of the Radio Items. |
+| `size` | `'1' \| '2' \| '3'` | `'2'` | Sets the dimensions for both the Radio indicator and the associated text label. |
+| `color` | `BrandColor` | `'brand'` | Specifies the primary semantic color used for the Active/Selected state. |
+| `defaultValue` | `string` | - | The value of the Radio Item that is selected by default. |
 
 ## Variants
 
-- **Classic**: Viền đậm (`border-strong`), Dot có độ tương phản cao. Thích hợp cho Form truyền thống.
-- **Surface**: Thiết kế tinh tế với nền nhẹ (`surface-subtle`), Dot đồng bộ với Brand color. (Default)
-- **Soft**: Nền cực nhẹ, không có viền rõ rệt, mang cảm giác Flat-Premium hiện đại.
+- **Classic**: Features a high-contrast border and a prominent selection Dot. Ideal for high-intent, traditional form structures.
+- **Surface**: A sophisticated design utilizing a subtle background fill and a Brand-synced selection Dot. (Default operational standard).
+- **Soft**: Employs a minimalist, borderless aesthetic with a very light background, delivering a purely modern Flat-Premium character.
 
-## Focus Standards
-Tất cả các Radio Item đều được tích hợp **Focus Halo Standard** (3 lớp shadow) thông qua class `mms-focus-halo-brand`, đảm bảo khả năng truy cập (Accessibility) và thẩm mỹ khi điều hướng bằng bàn phím.
+## 🎨 Token Specs
+- **Variants**: `classic`, `surface`, `soft`.
+- **Primary Fill (Checked)**: Utilizes the `var(--accent-9)` high-contrast brand token.
+- **Border Architecture**: Employs `box-shadow: inset` with `var(--stroke-width-1)` to achieve a perfectly circular, resolution-independent boundary.
+- **Focus Indicators**: Integrates the **Focus Halo Standard** via the `:focus-visible` pseudo-class on the underlying native input, precisely encircling the circular container.
+- **Precision Centering**: The internal Dot indicator is mathematically centered within the container using Flexbox alignment.
+- **Vertical Rhythm**: Applies the **WokerDS leading-trim** technique to the `mms-radio-item-label` to ensure exact alignment with the radio indicator.
+
+---
+**Related:** [[02 - Components/Checkbox|Checkbox]] • [[02 - Components/Select|Select]] • [[02 - Components/Tabs|Tabs]]

@@ -1,0 +1,44 @@
+.mms-pblock-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4) var(--space-2) var(--space-4);
+  min-height: var(--space-9); /* Consistent height for headers */
+  gap: var(--space-4);
+}
+
+.mms-pblock-header-stack {
+  --pblock-header-gap: var(--space-1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pblock-header-gap);
+  flex: 1;
+}
+
+.mms-pblock-title {
+  margin: 0 !important; /* Force reset to prevent global h3 margin leaks */
+  font-family: var(--font-body);
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-12);
+  line-height: var(--line-height-2);
+  letter-spacing: var(--letter-spacing-2);
+  text-transform: uppercase;
+}
+
+.mms-pblock-subtitle {
+  margin: 0 !important;
+  font-family: var(--font-body);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-regular);
+  color: var(--gray-11);
+  line-height: var(--line-height-1);
+  letter-spacing: var(--letter-spacing-1);
+}
+
+.mms-pblock-header-extra {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 100%;
+}

@@ -1,10 +1,10 @@
 import React, { createContext, useContext } from 'react';
 import { cn } from '../../../lib/utils';
 
-type TextFieldSize = '1' | '2' | '3' | '4';
-type TextFieldVariant = 'classic' | 'surface' | 'soft';
+type TextFieldSize = '1' | '2' | '3';
+type TextFieldVariant = 'surface' | 'soft';
 type TextFieldColor = 'brand' | 'gray' | 'success' | 'warning' | 'error';
-type TextFieldRadius = 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+type TextFieldRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
 interface TextFieldContextValue {
   size: TextFieldSize;
@@ -39,7 +39,7 @@ export interface TextFieldRootProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 const TextFieldRoot = React.forwardRef<HTMLDivElement, TextFieldRootProps>(
-  ({ className, size = '2', variant = 'surface', color = 'brand', radius = '4', disabled, children, ...props }, ref) => {
+  ({ className, size = '2', variant = 'surface', color = 'brand', radius = 'medium', disabled, children, ...props }, ref) => {
     const [focused, setFocused] = React.useState(false);
 
     return (
@@ -129,5 +129,3 @@ export const TextField = {
   Slot: TextFieldSlot,
   Input: TextFieldInput,
 };
-
-export default TextField;

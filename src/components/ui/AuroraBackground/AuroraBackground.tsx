@@ -32,5 +32,3 @@ export const AuroraBackground = ({
     </div>
   );
 };
-
-export default AuroraBackground;

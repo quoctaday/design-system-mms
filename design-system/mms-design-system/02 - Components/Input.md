@@ -1,19 +1,20 @@
 # Input / TextField
 
-Thành phần nhập liệu chính của nền tảng MMS, được chuyển đổi từ dạng đơn khối (monolithic) sang hệ thống Compound linh hoạt và mạnh mẽ theo tiêu chuẩn Radix UI v3.0.
+The platform's primary input architecture, evolved from a monolithic structure to a flexible and robust Compound system strictly aligned with the Radix UI v3.0 standard.
 
 ## 🧱 Compound Pattern
 
-Chúng tôi sử dụng mô hình Compound để tối đa hóa khả năng tùy biến các thành phần bổ trợ (Icons, Buttons, Kbd) bên trong Input.
+The Compound model is utilized to maximize the customization potential of auxiliary internal elements such as Icons, Buttons, and Kbd indicators within the Input field.
 
 ```tsx
 import { TextField } from '@mms/ui';
+import { RiSearchLine } from 'react-icons/ri';
 
 <TextField.Root size="2" variant="surface">
   <TextField.Slot side="left">
     <RiSearchLine />
   </TextField.Slot>
-  <TextField.Input placeholder="Tìm kiếm tài liệu..." />
+  <TextField.Input placeholder="Search documentation..." />
   <TextField.Slot side="right">
     <kbd>⌘K</kbd>
   </TextField.Slot>
@@ -22,26 +23,29 @@ import { TextField } from '@mms/ui';
 
 ## 🎨 Variants & Tokens
 
-Hệ thống mới chuẩn hóa 3 biến thể chính:
+The system has been meticulously tuned to prioritize operational efficiency and a "Flat-Premium" aesthetic:
 
-- **Surface**: Sử dụng `--surface-subtle` với viền cực mảnh (Hairline). Mang lại bản sắc hiện đại, mượt mà. Phù hợp cho Dashboard và các giao diện vận hành dày đặc thông tin.
-- **Classic**: Sử dụng nền trắng (`--surface-panel`) với tương phản cao. **Khuyến dùng** cho các Form quan trọng, trang thanh toán hoặc bộ lọc chính để tăng độ trong trẻo (Clarity) và tính tập trung.
-- **Soft**: Nền nhẹ, không có viền. Tối ưu cho các thanh công cụ (toolbars) hoặc sidebar.
+- **Surface (The Ironclad Standard)**: The default visual variant utilizing the **Shadow-Ring Protocol** (1px `black-a7` alpha-ring) instead of physical borders. This delivers absolute pixel-sharpness and maintains structural neutrality within the layout.
+- **Soft**: Features a subtle translucent background (`gray-a3`) with no boundary ring. Optimized for toolbars or sidebar environments where a minimalist, low-distraction presence is required.
 
-| Detail | Surface | Classic | Soft |
-| :--- | :--- | :--- | :--- |
-| **Background** | `var(--surface-subtle)` | `var(--surface-panel)` | `var(--surface-subtle)` |
-| **Border** | `var(--border-subtle)` | `var(--border-default)` | `none` |
-| **Focus** | `Focus Halo` | `Focus Halo` | `Focus Halo` |
-
-## 🛡️ Focus Halo Standard
-Tất cả các Input đều áp dụng tiêu chuẩn **mms-focus-halo-brand**. Đây là hệ thống đổ bóng 3 lớp (Spacer, Halo, Outer-ring) giúp trạng thái Focus trông sắc nét, rực rỡ và không bị nhòe ngay cả trên nền tối.
-
-## 📏 Sizing
-Kích thước được đồng bộ với Buttons để đảm bảo căn lề hoàn hảo trên cùng một hàng (Horizontal Alignment).
-
-| Size | Height | Usage |
+| Detail | Surface | Soft |
 | :--- | :--- | :--- |
-| `1` | `32px` | Table cells, Filters |
-| `2` | `40px` | Standard Forms |
-| `3` | `48px` | Modals, Search bars |
+| **Background** | `var(--surface-panel)` | `var(--gray-a3)` |
+| **Border-Ring** | `var(--black-a7)` | `none` |
+| **Focus State** | `Accent Shadow Ring` | `Accent Shadow Ring` |
+
+## 📐 Sizing & Radius (Radix 3.0 Parity)
+
+Input dimensions and corner rounding are perfectly synchronized with the Radix UI Themes layout grid:
+
+- **Heights**: Size 1 (**24px**), Size 2 (**32px**), Size 3 (**40px**).
+- **Radius Levels**: Utilizes a 5-tier semantic system: `none`, `small`, `medium` (Default), `large`, and `full`.
+
+| Size | Height | Radius Logic | Usage |
+| :--- | :--- | :--- | :--- |
+| `1` | `24px` | Inherited | Data-heavy table cells, High-density filters |
+| `2` | `32px` | Inherited | Standard functional forms (Universal) |
+| `3` | `40px` | Inherited | Hero search areas, Large-scale modals |
+
+---
+**Note:** All internal corner radii (such as Chips or Buttons nested within the Input) are calculated using the formula `max(0px, Current_Radius - 2px)` to maintain rigorous Geometric Parallelism across the UI.

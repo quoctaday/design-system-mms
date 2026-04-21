@@ -1,0 +1,44 @@
+{
+  "component": "Button",
+  "extractedAt": "2026-04-20T04:26:00.000Z",
+  "pillars": {
+    "variables": {
+      "--button-box-shadow": "none",
+      "--btn-radius": "max(var(--radius-full), var(--radius-4))"
+    },
+    "geometry": {
+      "borderRadius": "var(--btn-radius)"
+    },
+    "materiality": {
+      "solid": {
+        "Default": {
+          "background-color": "var(--color-solid)",
+          "--button-box-shadow": "inset 0 0 0 var(--stroke-width-1) var(--white-a2), 0 1px 2px var(--black-a2)"
+        },
+        "Active": {
+          "--button-box-shadow": "inset 0 2px 4px var(--black-a3), inset 0 0 0 var(--stroke-width-1) var(--black-a2)"
+        }
+      },
+      "outline": {
+        "Default": {
+          "--button-box-shadow": "inset 0 0 0 var(--stroke-width-1) var(--color-border)"
+        },
+        "Hover": {
+          "--button-box-shadow": "inset 0 0 0 var(--stroke-width-1) var(--color-border-hover)"
+        }
+      },
+      "surface": {
+        "Default": {
+          "background-color": "var(--surface-panel)",
+          "--button-box-shadow": "inset 0 0 0 var(--stroke-width-1) var(--color-border), 0 1px 2px var(--black-a1)"
+        },
+        "Hover": {
+          "--button-box-shadow": "inset 0 0 0 var(--stroke-width-1) var(--color-border-hover), 0 1px 2px var(--black-a1)"
+        },
+        "Active": {
+          "--button-box-shadow": "inset 0 1px 3px var(--black-a1)"
+        }
+      }
+    }
+  }
+}

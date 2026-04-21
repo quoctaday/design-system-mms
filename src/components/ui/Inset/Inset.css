@@ -1,0 +1,25 @@
+.rt-Inset {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* 
+ * The Inset component negates parent padding.
+ * By default it negates all sides.
+ */
+
+.rt-Inset[data-side="all"] {
+  margin: calc(var(--space-4) * -1); /* Default matching Card padding */
+}
+
+.rt-Inset[data-side="top"] { margin-top: calc(var(--space-4) * -1); }
+.rt-Inset[data-side="bottom"] { margin-bottom: calc(var(--space-4) * -1); }
+.rt-Inset[data-side="left"] { margin-left: calc(var(--space-4) * -1); margin-right: 0; }
+.rt-Inset[data-side="right"] { margin-right: calc(var(--space-4) * -1); margin-left: 0; }
+.rt-Inset[data-side="x"] { margin-left: calc(var(--space-4) * -1); margin-right: calc(var(--space-4) * -1); }
+.rt-Inset[data-side="y"] { margin-top: calc(var(--space-4) * -1); margin-bottom: calc(var(--space-4) * -1); }
+
+/* Clip logic (Decorative) */
+.rt-Inset[data-clip="border-box"] {
+  border-radius: inherit;
+}

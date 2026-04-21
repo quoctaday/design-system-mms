@@ -1,18 +1,20 @@
 import React, { 
-  useState, 
-  useContext, 
   createContext, 
+  useContext, 
   useCallback, 
-  useRef, 
-  useEffect 
+  useState,
+  useMemo,
+  useEffect
 } from 'react';
 import { createPortal } from 'react-dom';
-import { RiArrowDropDownLine, RiCheckLine } from 'react-icons/ri';
+import { RiArrowDownSLine, RiCheckFill } from 'react-icons/ri';
 import { cn } from '../../../lib/utils';
+import { Separator } from '../Separator/Separator';
+import { useControllableState, useFloating, useKeyboardListNav } from '../../../lib/mms-engine';
+import { extractMMSProps } from '../../../helpers/extract-mms-props';
 import './Select.css';
-import '../_internal/base.css';
 
-type SelectVariant = 'classic' | 'surface' | 'soft';
+type SelectVariant = 'surface' | 'soft';
 
 interface SelectContextValue {
   value?: string;
@@ -20,23 +22,25 @@ interface SelectContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
-  disabled?: boolean;
+  contentRef: React.RefObject<HTMLDivElement | null>;
+  coords: { top: number; left: number; width: number };
   size: '1' | '2' | '3';
   variant: SelectVariant;
-  radius: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  radius: string;
+  highlightedIndex: number;
+  setHighlightedIndex: (index: number) => void;
+  items: string[];
+  registerItem: (value: string) => () => void;
 }
 
 const SelectContext = createContext<SelectContextValue | undefined>(undefined);
-
 const useSelect = () => {
   const context = useContext(SelectContext);
-  if (!context) {
-    throw new Error('Select components must be used within a Select.Root');
-  }
+  if (!context) throw new Error('Select components must be used within a Select.Root');
   return context;
 };
 
-// Root
+// --- Root ---
 export interface SelectProps {
   children: React.ReactNode;
   value?: string;
@@ -45,202 +49,151 @@ export interface SelectProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   disabled?: boolean;
+  full?: boolean; // Thêm prop full
   size?: '1' | '2' | '3';
   variant?: SelectVariant;
-  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
 }
 
-const SelectRoot: React.FC<SelectProps> = ({ 
-  children, 
-  value: controlledValue, 
-  defaultValue, 
-  onValueChange,
-  open: controlledOpen,
-  onOpenChange,
-  disabled,
-  size = '2',
-  variant = 'surface',
-  radius = '4'
-}) => {
-  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+const SelectRoot: React.FC<SelectProps> = (props) => {
+  const { children, disabled, full, value: propValue, defaultValue, onValueChange, open: propOpen, onOpenChange, ...mmsBase } = props;
   
-  const value = controlledValue !== undefined ? controlledValue : uncontrolledValue;
-  const open = controlledOpen !== undefined ? controlledOpen : uncontrolledOpen;
+  const [value, setValue] = useControllableState({ prop: propValue, defaultProp: defaultValue, onChange: onValueChange });
+  const [open, setOpen] = useControllableState({ prop: propOpen, defaultProp: false, onChange: onOpenChange });
   
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const { mmsClasses, size, variant, radius } = extractMMSProps(mmsBase as any, 'select-trigger', { size: '2', variant: 'surface', radius: 'medium' });
+  const { triggerRef, contentRef, coords } = useFloating({ open });
+  
+  const [items, setItems] = useState<string[]>([]);
+  const registerItem = useCallback((val: string) => {
+    setItems(prev => [...prev, val]);
+    return () => setItems(prev => prev.filter(i => i !== val));
+  }, []);
 
-  const handleValueChange = useCallback((newValue: string) => {
-    if (controlledValue === undefined) {
-      setUncontrolledValue(newValue);
+  const { highlightedIndex, setHighlightedIndex, handleKeyDown } = useKeyboardListNav({
+    items,
+    active: open,
+    onSelect: (val) => {
+      setValue(val);
+      setOpen(false);
     }
-    onValueChange?.(newValue);
-    setOpen(false);
-  }, [controlledValue, onValueChange]);
+  });
 
-  const setOpen = useCallback((newOpen: boolean) => {
-    if (controlledOpen === undefined) {
-      setUncontrolledOpen(newOpen);
-    }
-    onOpenChange?.(newOpen);
-  }, [controlledOpen, onOpenChange]);
+  const contextValue = useMemo(() => ({
+    value, onValueChange: setValue, open, setOpen,
+    triggerRef: triggerRef as any, contentRef: contentRef as any,
+    coords,
+    size: size as any, variant: variant as any, radius: radius as any,
+    highlightedIndex, setHighlightedIndex,
+    items, registerItem
+  }), [value, setValue, open, setOpen, triggerRef, contentRef, coords, size, variant, radius, highlightedIndex, items, registerItem]);
 
   return (
-    <SelectContext.Provider value={{ value, onValueChange: handleValueChange, open, setOpen, triggerRef, disabled, size, variant, radius }}>
-      <div className={cn("mms-select-root", disabled && "mms-select-disabled")}>
+    <SelectContext.Provider value={contextValue}>
+      <div 
+        className={cn(
+          "mms-select-root", 
+          disabled && "mms-select-disabled",
+          full && "mms-select-root-full" // Áp dụng class full
+        )}
+        onKeyDown={handleKeyDown}
+      >
         {children}
       </div>
     </SelectContext.Provider>
   );
 };
 
-// Trigger
-export interface SelectTriggerProps {
-  children?: React.ReactNode;
-  className?: string;
-  placeholder?: string;
-  style?: React.CSSProperties;
-  disabled?: boolean;
-}
+// --- Trigger ---
+export const SelectTrigger = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
+  ({ children, className, ...props }, ref) => {
+    const { open, setOpen, triggerRef, size, variant, radius, disabled } = useSelect();
 
-export const SelectTrigger: React.FC<SelectTriggerProps> = ({ 
-  children, 
-  className, 
-  placeholder,
-  style,
-  disabled: propDisabled
-}) => {
-  const { open, setOpen, value, triggerRef, disabled: contextDisabled, size, variant, radius } = useSelect();
-  const disabled = propDisabled || contextDisabled;
+    return (
+      <button
+        ref={(node) => {
+          (triggerRef as any).current = node;
+          if (typeof ref === 'function') ref(node);
+          else if (ref) (ref as any).current = node;
+        }}
+        type="button"
+        className={cn(
+          'mms-select-trigger',
+          'mms-focus-halo-brand',
+          `mms-select-trigger-variant-${variant}`,
+          `mms-select-trigger-size-${size}`,
+          `mms-select-trigger-radius-${radius}`,
+          className
+        )}
+        disabled={disabled}
+        onClick={() => setOpen(!open)}
+        data-state={open ? 'open' : 'closed'}
+        {...props}
+      >
+        <span className="mms-select-trigger-content">{children}</span>
+        <span className="mms-select-trigger-icon">
+          <RiArrowDownSLine />
+        </span>
+      </button>
+    );
+  }
+);
 
-  return (
-    <button
-      ref={triggerRef}
-      type="button"
-      className={cn(
-        'mms-select-trigger',
-        'mms-focus-halo-brand',
-        `mms-select-trigger-variant-${variant}`,
-        `mms-select-trigger-size-${size}`,
-        `mms-select-trigger-radius-${radius}`,
-        open && 'mms-select-trigger-open',
-        disabled && 'mms-select-trigger-disabled',
-        className
-      )}
-      style={style}
-      disabled={disabled}
-      onClick={() => setOpen(!open)}
-      data-state={open ? 'open' : 'closed'}
-    >
-      <span className="mms-select-trigger-content">
-        {value ? children : (placeholder || 'Select...')}
-      </span>
-      <span className="mms-select-trigger-icon">
-        <RiArrowDropDownLine />
-      </span>
-    </button>
-  );
-};
-
-// Value
-export const SelectValue: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <>{children}</>;
-};
-
-// Portal
+// --- Portal ---
 export const SelectPortal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { open } = useSelect();
   if (!open) return null;
   return createPortal(children, document.body);
 };
 
-// Content
-export interface SelectContentProps {
-  children: React.ReactNode;
-  className?: string;
-  align?: 'left' | 'right';
-  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
-}
+// --- Content ---
+export const SelectContent = React.forwardRef<HTMLDivElement, { children: React.ReactNode, className?: string }>(
+  ({ children, className }, ref) => {
+    const { open, contentRef, radius, size, coords } = useSelect();
 
-export const SelectContent: React.FC<SelectContentProps> = ({ 
-  children, 
-  className,
-  align = 'left',
-  radius: propRadius
-}) => {
-  const { open, setOpen, triggerRef, radius: contextRadius, size } = useSelect();
-  const radius = propRadius || contextRadius;
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
+    if (!open) return null;
 
-  useEffect(() => {
-    if (open && triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect();
-      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
-      
-      setPosition({
-        top: rect.bottom + scrollY + 4,
-        left: align === 'left' ? rect.left + scrollX : rect.right + scrollX - rect.width,
-        width: rect.width
-      });
-    }
-  }, [open, triggerRef, align]);
-
-  // Handle click outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (triggerRef.current?.contains(e.target as Node)) return;
-      if (contentRef.current?.contains(e.target as Node)) return;
-      setOpen(false);
-    };
-    if (open) window.addEventListener('mousedown', handleClickOutside);
-    return () => window.removeEventListener('mousedown', handleClickOutside);
-  }, [open, setOpen, triggerRef]);
-
-  if (!open) return null;
-
-  return (
-    <div 
-      ref={contentRef}
-      className={cn(
-        'mms-select-content', 
-        `mms-select-radius-${radius}`,
-        `mms-select-size-${size}`,
-        className
-      )}
-      style={{
-        position: 'absolute',
-        top: position.top,
-        left: position.left,
-        minWidth: Math.max(160, position.width),
-        zIndex: 2000
-      }}
-      data-state={open ? 'open' : 'closed'}
-    >
-      <div className="mms-select-viewport">
-        {children}
+    return (
+      <div 
+        ref={(node) => {
+          (contentRef as any).current = node;
+          if (typeof ref === 'function') ref(node);
+          else if (ref) (ref as any).current = node;
+        }}
+        className={cn(
+          'mms-select-content', 
+          `mms-select-radius-${radius}`,
+          `mms-select-size-${size}`,
+          className
+        )}
+        style={{
+          position: 'absolute',
+          top: coords.top + 4,
+          left: coords.left,
+          minWidth: coords.width,
+          zIndex: 2000
+        }}
+        data-state={open ? 'open' : 'closed'}
+      >
+        <div className="mms-select-viewport">
+          {children}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
-// Item
-export interface SelectItemProps {
-  value: string;
-  children: React.ReactNode;
-  className?: string;
-  disabled?: boolean;
-}
-
-export const SelectItem: React.FC<SelectItemProps> = ({ 
-  value: itemValue, 
-  children, 
-  className,
-  disabled 
+// --- Item ---
+export const SelectItem: React.FC<{ value: string, children: React.ReactNode, className?: string, disabled?: boolean }> = ({ 
+  value: itemValue, children, className, disabled 
 }) => {
-  const { value, onValueChange, size } = useSelect();
+  const { value, onValueChange, size, highlightedIndex, setHighlightedIndex, items, registerItem } = useSelect();
+  
+  useEffect(() => registerItem(itemValue), [itemValue, registerItem]);
+  
+  const index = items.indexOf(itemValue);
   const isSelected = value === itemValue;
+  const isHighlighted = highlightedIndex === index;
 
   return (
     <div
@@ -249,45 +202,38 @@ export const SelectItem: React.FC<SelectItemProps> = ({
         'mms-interactive-surface',
         `mms-select-item-size-${size}`,
         isSelected && 'mms-select-item-selected',
+        isHighlighted && 'mms-select-item-highlighted',
         disabled && 'mms-select-item-disabled',
         className
       )}
       onClick={() => !disabled && onValueChange(itemValue)}
+      onMouseEnter={() => !disabled && setHighlightedIndex(index)}
       data-state={isSelected ? 'checked' : 'unchecked'}
+      data-highlighted={isHighlighted ? '' : undefined}
     >
       <span className="mms-select-item-text">{children}</span>
       {isSelected && (
         <span className="mms-select-item-indicator">
-          <RiCheckLine />
+          <RiCheckFill />
         </span>
       )}
     </div>
   );
 };
 
-// More structural parts
-export const SelectLabel: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="mms-select-label">{children}</div>
-);
-
-export const SelectSeparator: React.FC = () => (
-  <div className="mms-select-separator" />
-);
-
-export const SelectGroup: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="mms-select-group">{children}</div>
-);
-
 export const Select = Object.assign(SelectRoot, {
   Root: SelectRoot,
   Trigger: SelectTrigger,
-  Value: SelectValue,
   Portal: SelectPortal,
   Content: SelectContent,
   Item: SelectItem,
-  Label: SelectLabel,
-  Separator: SelectSeparator,
-  Group: SelectGroup,
+  Label: ({ children }: any) => (
+    <div className="mms-select-label px-2 py-1.5 text-[10px] uppercase font-bold text-gray-9 tracking-[0.05em]">
+      {children}
+    </div>
+  ),
+  Separator: () => <Separator className="mms-select-separator my-1" size="1" />,
+  Group: ({ children }: any) => <div className="mms-select-group">{children}</div>,
 });
 
 export default Select;

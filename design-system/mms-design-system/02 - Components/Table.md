@@ -1,34 +1,34 @@
 # Table
 
-Thành phần `Table` được tối ưu hóa cho hiển thị dữ liệu mật độ cao, đảm bảo tính dễ đọc và thẩm mỹ **Flat-Premium** v4.0.
+The `Table` component is engineered for high-density data visualization, meticulously optimized to ensure maximum readability while adhering to the **Flat-Premium v4.0** aesthetic.
 
 ## 💎 Design Standards
 
-- **Hairline Borders**: Sử dụng viền siêu mảnh (`0.5px` - `1px`) với màu `var(--border-subtle)` để tạo sự phân tách tinh tế mà không gây rối mắt.
-- **Modern Striping**: Các hàng kẻ sọc sử dụng màu nền cực nhẹ (`var(--surface-subtle)`), giúp mắt dễ dàng theo dõi dòng dữ liệu.
-- **Sticky Header**: Luôn được khuyến khích cho các bảng dài để giữ ngữ cảnh cột.
+- **Hairline Borders**: Employs ultra-refined borders (`0.5px` - `1px`) utilizing `var(--border-subtle)` to create clean structural separation without inducing visual fatigue.
+- **Modern Striping**: Leverages an extremely subtle background color (`var(--surface-subtle)`) for zebra striping, assisting users in tracking horizontal data rows across large datasets.
+- **Sticky Header**: Highly recommended for data-intensive tables to maintain column context at all times during vertical scrolling.
 
 ## 🎨 Variants
 
-- **Surface (Primary)**: Có nền trắng (`var(--surface-panel)`), viền bao quanh mờ và bóng đổ nhẹ (`shadow-1`). Phù hợp làm container chính trên trang.
-- **Ghost**: Nền trong suốt, không có đường viền bao quanh. Thích hợp khi đặt lồng trong các Card hoặc Panel lớn hơn.
+- **Surface (Primary)**: Features a solid, high-fidelity background (`var(--surface-panel)`), a translucent boundary ring, and a light `shadow-1` lift. This is the standard container for primary page-level data.
+- **Ghost**: Provides a transparent background without external boundary rings. Designed specifically for nesting within larger Cards, Panels, or complex layouts.
 
 ## 📏 Sizing & Scale
 
-| Size | Padding | Font | Usage |
+| Size | Padding | Font Scale | Usage |
 | :--- | :--- | :--- | :--- |
-| `1` | `8px 12px` | `12px` | High-density operational data |
-| `2` | `12px 16px` | `14px` | Standard dashboards (Default) |
-| `3` | `16px 24px` | `16px` | Hero tables, customer-facing lists |
+| `1` | `8px 12px` | `12px` | Ultra-high-density operational data grids |
+| `2` | `12px 16px` | `14px` | Standard operational dashboards (Default) |
+| `3` | `16px 24px` | `16px` | Hero tables and simplified customer-facing views |
 
 ## 🚥 Token Mapping
 
 | Element | Token | Usage |
 | :--- | :--- | :--- |
-| **Row Border** | `var(--border-subtle)` | Đường kẻ ngang phân cách hàng |
-| **Header Text** | `var(--content-subtle)` | Nhãn cột (Uppercase + Semibold) |
-| **Active/Hover Row**| `var(--surface-subtle)` | Trạng thái nhấn nháp khi di chuột qua |
-| **Striped Row** | `var(--surface-subtle)` | Hàng chẵn (Even rows) |
+| **Row Border** | `var(--border-subtle)` | Horizontal hairline separator between data rows. |
+| **Header Text** | `var(--content-subtle)` | Column labels (Uppercase + Semibold tracking). |
+| **Active/Hover Row**| `var(--surface-subtle)` | High-contrast highlight state for active user engagement. |
+| **Striped Row** | `var(--surface-subtle)` | Background fill for even-numbered (Zebra) rows. |
 
 ---
 **Related:** [[02 - Components/Pagination|Pagination]] • [[02 - Components/Checkbox|Checkbox]] • [[02 - Components/Badge|Badge]]

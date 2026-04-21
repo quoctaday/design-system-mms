@@ -1,6 +1,8 @@
 import React from 'react';
+import { Kbd, Flex, Box } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import './TypographyDoc.css';
 
@@ -29,7 +31,8 @@ const TypographyDoc: React.FC = () => {
     { id: 'specimen', title: 'Specimen' },
     { id: 'scale', title: 'Typography Scale' },
     { id: 'weights', title: 'Font Weights' },
-    { id: 'numbers', title: 'Numerical Data' }
+    { id: 'numbers', title: 'Numerical Data' },
+    { id: 'kbd', title: 'Keyboard Shortcuts' }
   ];
 
   return (
@@ -39,8 +42,8 @@ const TypographyDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="specimen" className="doc-section">
-        <h2 className="section-title">The Typeface Protocol</h2>
+      <DocSection id="specimen">
+        <DocHeading>The Typeface Protocol</DocHeading>
         <div className="type-specimen-grid">
           <div className="specimen-card">
              <div className="specimen-title">Primary Display Face</div>
@@ -59,10 +62,10 @@ const TypographyDoc: React.FC = () => {
              </div>
           </div>
         </div>
-      </section>
+      </DocSection>
 
-      <section id="scale" className="doc-section">
-        <h2 className="section-title">The Modular Type Scale</h2>
+      <DocSection id="scale">
+        <DocHeading>The Modular Type Scale</DocHeading>
         <div className="premium-table-container">
           <table className="premium-type-table">
             <thead>
@@ -83,10 +86,10 @@ const TypographyDoc: React.FC = () => {
             </tbody>
           </table>
         </div>
-      </section>
+      </DocSection>
 
-      <section id="weights" className="doc-section">
-        <h2 className="section-title">Established Weights</h2>
+      <DocSection id="weights">
+        <DocHeading>Established Weights</DocHeading>
         <div className="weights-premium-flex">
           {weights.map(w => (
             <div key={w.weight} className="weight-item">
@@ -98,21 +101,21 @@ const TypographyDoc: React.FC = () => {
             </div>
           ))}
         </div>
-      </section>
+      </DocSection>
 
-      <section id="numbers" className="doc-section">
-        <h2 className="section-title">Numerical Data Integrity</h2>
-        <p>In financial environments, numerical precision is paramount. We strictly enforce <code>tabular-nums</code> for all currency, balance, and metric values to ensure absolute vertical alignment across complex data arrays.</p>
+      <DocSection id="numbers">
+        <DocHeading>Numerical Data Integrity</DocHeading>
+        <DocText>In financial environments, numerical precision is paramount. We strictly enforce <code>tabular-nums</code> for all currency, balance, and metric values to ensure absolute vertical alignment across complex data arrays.</DocText>
         
         <div className="tabular-nums-showcase">
            <div className="comparison-grid">
               <div className="comparison-item">
-                <h4>Proportional (Unauthorized)</h4>
+                <DocHeading level={4}>Proportional (Unauthorized)</DocHeading>
                 <div className="num-sample">111,111.00</div>
                 <div className="num-sample">888,888.88</div>
               </div>
               <div className="comparison-item">
-                <h4>Tabular (Optimized)</h4>
+                <DocHeading level={4}>Tabular (Optimized)</DocHeading>
                 <div className="num-sample tabular">111,111.00</div>
                 <div className="num-sample tabular">888,888.88</div>
               </div>
@@ -128,7 +131,29 @@ const TypographyDoc: React.FC = () => {
 }`}
           />
         </div>
-      </section>
+      </DocSection>
+
+      <DocSection id="kbd">
+        <DocHeading>Keyboard Shortcuts</DocHeading>
+        <DocText>The <code>Kbd</code> component is used to display keyboard shortcuts and command sequences.</DocText>
+        <div className="mt-8">
+          <CodePreview 
+            code={`<Flex gap="3" align="center">
+  <Text size="2">Press</Text>
+  <Kbd>⌘</Kbd>
+  <Kbd>K</Kbd>
+  <Text size="2">to search.</Text>
+</Flex>`}
+          >
+            <Flex gap="3" align="center">
+              <Text size="2">Press</Text>
+              <Kbd>⌘</Kbd>
+              <Kbd>K</Kbd>
+              <Text size="2">to search.</Text>
+            </Flex>
+          </CodePreview>
+        </div>
+      </DocSection>
     </DocLayout>
   );
 };

@@ -110,3 +110,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     </div>
   );
 };
+
+MetricCard.displayName = 'MetricCard';
+
+export default MetricCard;

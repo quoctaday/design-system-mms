@@ -89,7 +89,7 @@
   font-size: var(--font-size-2);
   font-weight: var(--font-weight-bold);
   color: var(--content-strong);
-  margin: 0;
+  margin: 0 !important;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   opacity: 0.9;
@@ -137,7 +137,7 @@
   color: var(--content-subtle);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin: 0 0 var(--space-3) 0;
+  margin: 0 0 var(--space-3) 0 !important;
   opacity: 0.6;
 }
 
@@ -199,10 +199,10 @@
 .radius-glyph {
   width: var(--space-5);
   height: var(--space-5);
-  border: var(--stroke-width-2) solid var(--brand-9);
+  border: var(--stroke-width-2) solid var(--accent-9);
   border-bottom: none;
   border-right: none;
-  background: var(--brand-2);
+  background: var(--accent-2);
   opacity: 0.8;
   position: absolute;
   top: 55%;
@@ -272,7 +272,7 @@
   font-size: var(--font-size-1);
   font-weight: var(--font-weight-medium);
   color: var(--content-strong);
-  margin: 0;
+  margin: 0 !important;
   flex: 1;
 }
 

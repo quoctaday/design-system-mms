@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  RiSearchLine, 
-  RiNotification3Line, 
-  RiArrowUpSLine, 
+import {
+  RiArrowUpSLine,
   RiArrowDownSLine,
   RiDashboardLine,
   RiExchangeLine,
@@ -15,130 +13,154 @@ import {
   RiFlashlightLine,
   RiHistoryLine,
   RiPushpinLine,
-  RiErrorWarningLine
+  RiErrorWarningLine,
+  RiNotificationLine,
+  RiSearchLine,
 } from 'react-icons/ri';
-import { cn } from '../../lib/utils';
 import { 
+  Box, 
+  Flex, 
+  Grid, 
+  Section, 
+  Heading, 
+  Text, 
   Button, 
   Badge, 
   Card, 
+  Progress, 
   Table, 
-  DropdownMenu,
-  TextField,
-  Progress,
-  PieChart,
-  SegmentedControl,
-  MetricCard,
-  Breadcrumbs,
-  EmptyState,
-  DatePicker,
-  ThemeToggle,
+  MetricCard, 
+  Breadcrumbs, 
+  EmptyState, 
+  Timeline, 
+  PieChart, 
+  TextField, 
+  DropdownMenu, 
+  SegmentedControl, 
+  Tabs, 
+  DatePicker, 
+  ThemeToggle, 
   Sidebar,
   type DateRange
 } from '../../components/ui';
+
+import { useBrand } from '../../contexts/BrandContext';
+import { cn } from '../../lib/utils';
 import './DashboardExample.css';
 
-// Use a relative path from src/assets
 import promoBanner from '../../assets/hero.png';
+
+console.warn('DEBUG UI IMPORTS:', {
+  Box, Flex, Grid, Section, Heading, Text, Button, Badge, Card, Progress, Table, MetricCard,
+  Breadcrumbs, EmptyState, Timeline, PieChart, TextField, DropdownMenu, SegmentedControl,
+  Tabs, DatePicker, ThemeToggle, Sidebar,
+  RiArrowUpSLine,
+  RiArrowDownSLine,
+  RiDashboardLine,
+  RiExchangeLine,
+  RiUser3Line,
+  RiBankCardLine,
+  RiShoppingBag3Line,
+  RiDatabase2Line,
+  RiFileTextLine,
+  RiSettings4Line,
+  RiFlashlightLine,
+  RiHistoryLine,
+  RiPushpinLine,
+  RiErrorWarningLine,
+  RiNotificationLine,
+  RiSearchLine
+});
 
 interface DashboardExampleProps {
   onPageChange: (page: string) => void;
 }
 
 const DashboardExample: React.FC<DashboardExampleProps> = ({ onPageChange }) => {
+  const { activeBrand, brands, switchBrand } = useBrand();
+
   const [activeNav, setActiveNav] = useState('overview');
   const [cardStatsView, setCardStatsView] = useState<'revenue' | 'volume'>('revenue');
-  const [fraudView, setFraudView] = useState('fraud');
   const [searchTerm, setSearchTerm] = useState('');
   const [dateRange, setDateRange] = useState<DateRange>({
     start: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-    end: new Date()
+    end: new Date(),
   });
-
-  // Real-time data states
   const [dynamicLatencies, setDynamicLatencies] = useState<string[]>(['12ms', '45ms', '128ms', 'Timeout']);
   const [dynamicSLAs, setDynamicSLAs] = useState<number[]>([15, 24, 12]);
+  const [timelineItems, setTimelineItems] = useState([
+    { id: '1', label: 'Giao dịch QR vượt ngưỡng', description: 'Landmark 81 - 12.000.000 VND', timestamp: 'Vừa xong', status: 'error' as const },
+    { id: '2', label: 'Cập nhật hồ sơ mới', description: 'VinMart+ Quận 1 đã được phân bổ', timestamp: '2 phút trước', status: 'completed' as const },
+    { id: '3', label: 'SLA Warning', description: 'CN Hà Nội - 24 hồ sơ sắp quá hạn', timestamp: '5 phút trước', status: 'active' as const },
+  ]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      // Simulate API latency changes
-      setDynamicLatencies(prev => prev.map(l => {
-        if (l === 'Timeout') return Math.random() > 0.8 ? '450ms' : 'Timeout';
-        const val = parseInt(l);
-        const change = Math.floor(Math.random() * 10) - 5;
-        return `${Math.max(5, val + change)}ms`;
-      }));
-
-      // Simulate SLA fluctuations
-      setDynamicSLAs(prev => prev.map(s => {
-        const change = Math.floor(Math.random() * 3) - 1;
-        return Math.min(100, Math.max(0, s + change));
-      }));
-    }, 3000);
-
+      setDynamicLatencies(prev =>
+        prev.map(l => {
+          if (l === 'Timeout') return Math.random() > 0.8 ? '450ms' : 'Timeout';
+          const val = parseInt(l);
+          return isNaN(val) ? '12ms' : `${Math.max(5, val + Math.floor(Math.random() * 10) - 5)}ms`;
+        })
+      );
+      setDynamicSLAs(prev =>
+        prev.map(s => Math.min(100, Math.max(0, s + Math.floor(Math.random() * 3) - 1)))
+      );
+    }, 4000);
     return () => clearInterval(timer);
   }, []);
 
-  const cardRevenueData = [
-    { label: 'VISA', value: 15.2, color: 'var(--brand-9)' },
-    { label: 'NAPAS', value: 9.0, color: 'var(--blue-9)' },
-    { label: 'MASTERCARD', value: 8.0, color: 'var(--success-9)' },
-    { label: 'JCB', value: 7.0, color: 'var(--warning-9)' },
-    { label: 'China Union Bank', value: 6.0, color: 'var(--gray-9)' },
-  ];
-
-  const cardVolumeData = [
-    { label: 'VISA', value: 12450, color: 'var(--brand-9)' },
-    { label: 'NAPAS', value: 18900, color: 'var(--blue-9)' },
-    { label: 'MASTERCARD', value: 7600, color: 'var(--success-9)' },
-    { label: 'JCB', value: 4200, color: 'var(--warning-9)' },
-    { label: 'China Union Bank', value: 2100, color: 'var(--gray-9)' },
-  ];
-
-  const activeChartData = cardStatsView === 'revenue' ? cardRevenueData : cardVolumeData;
-
-  const stats = [
-    { label: 'Tổng doanh thu', value: '24.850.500.000', change: '+5.2%', trend: 'up', icon: <RiBankCardLine />, description: 'Đã thanh toán: 22.4B', linkText: 'Chi tiết' },
-    { label: 'Lợi nhuận MDR', value: '1.250.000.000', change: '+2.1%', trend: 'up', icon: <RiPushpinLine />, description: 'Mục tiêu tháng: 1.5B', linkText: 'Báo cáo' },
-    { label: 'Khách hàng', value: '12.450', change: '+4.2%', trend: 'up', icon: <RiUser3Line />, description: '842 khách hàng mới', linkText: 'Danh sách' },
-    { label: 'Chênh lệch', value: '0.15%', change: 'RỦI RO', trend: 'down', icon: <RiErrorWarningLine />, description: 'Vượt ngưỡng an toàn 0.05%', linkText: 'Sát hạch' },
-  ];
+  // Data
+  const chartData: Record<'revenue' | 'volume', { label: string; value: number; color: string }[]> = {
+    revenue: [
+      { label: 'VISA', value: 15.2, color: 'var(--chart-1, #0070f3)' },
+      { label: 'NAPAS', value: 9.0, color: 'var(--chart-2, #00b894)' },
+      { label: 'MASTERCARD', value: 8.0, color: 'var(--chart-3, #fd79a8)' },
+      { label: 'JCB', value: 7.0, color: 'var(--chart-4, #fdcb6e)' },
+      { label: 'CUB', value: 6.0, color: 'var(--chart-5, #a29bfe)' },
+    ],
+    volume: [
+      { label: 'VISA', value: 12450, color: 'var(--chart-1, #0070f3)' },
+      { label: 'NAPAS', value: 18900, color: 'var(--chart-2, #00b894)' },
+      { label: 'MASTERCARD', value: 7600, color: 'var(--chart-3, #fd79a8)' },
+      { label: 'JCB', value: 4200, color: 'var(--chart-4, #fdcb6e)' },
+      { label: 'CUB', value: 2100, color: 'var(--chart-5, #a29bfe)' },
+    ],
+  };
+  const activeChartData = chartData[cardStatsView];
 
   const profiles = [
-    { id: '1', time: '5 ngày trước', account: 'VinMart+ Quận 1', region: 'TP. Hồ Chí Minh', status: 'QUÁ HẠN SLA', statusType: 'error' },
-    { id: '2', time: '1 ngày trước', account: 'The Coffee House HP', region: 'Hải Phòng', status: 'SẮP QUÁ SLA', statusType: 'warning' },
-    { id: '3', time: 'Hôm nay', account: 'Annam Gourmet', region: 'Đà Nẵng', status: 'MỚI', statusType: 'success' },
-    { id: '4', time: 'Hôm nay', account: 'Highlands Flagship', region: 'TP. Hồ Chí Minh', status: 'MỚI', statusType: 'success' },
-    { id: '5', time: 'Hôm nay', account: 'KFC VIỆT NAM', region: 'TP. Hồ Chí Minh', status: 'MỚI', statusType: 'success' },
+    { id: '1', time: '5 ngày trước', account: 'VinMart+ Quận 1', region: 'TP. Hồ Chí Minh', status: 'QUÁ HẠN SLA', statusType: 'error' as const },
+    { id: '2', time: '1 ngày trước', account: 'The Coffee House HP', region: 'Hải Phòng', status: 'SẮP QUÁ SLA', statusType: 'warning' as const },
+    { id: '3', time: 'Hôm nay', account: 'Annam Gourmet', region: 'Đà Nẵng', status: 'MỚI', statusType: 'success' as const },
   ];
 
-  const filteredProfiles = profiles.filter(p => 
-    p.account.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    p.region.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredProfiles = profiles.filter(
+    p =>
+      p.account.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.region.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const fraudAlerts = [
-    { id: 'TXN: #OP8842', title: 'Giao dịch QR vượt ngưỡng...', amount: '12.000.000 VND', merchant: 'Landmark 81', time: '5m ago' },
-    { id: 'TXN: #OP8912', title: 'Giao dịch quá lớn', amount: '42.500.000 VND', merchant: 'KFC Lê Văn Lương', time: '12m ago' },
-    { id: 'TXN: #OP9021', title: 'Giao dịch bất thường', amount: '4.500.000 VND', merchant: 'Highlands Coffee', time: '1h ago' },
-  ];
-
-  const branchSLAs = [
-    { name: 'CN Hồ Chí Minh', total: 100, pending: 15, variant: 'error' as const },
-    { name: 'CN Hà Nội', total: 100, pending: 24, variant: 'error' as const },
-    { name: 'CN Đà Nẵng', total: 100, pending: 12, variant: 'warning' as const },
-  ];
-
   const apiStatus = [
-    { name: 'Core Banking GW', latency: dynamicLatencies[0], status: 'online' },
-    { name: 'NAPAS Switching', latency: dynamicLatencies[1], status: 'online' },
-    { name: 'Visa/Master Host', latency: dynamicLatencies[2], status: 'online' },
-    { name: 'QR Merchant Notify', latency: dynamicLatencies[3], status: dynamicLatencies[3] === 'Timeout' ? 'offline' : 'online' },
+    { name: 'Core Banking GW', latency: dynamicLatencies[0] ?? '12ms' },
+    { name: 'NAPAS Switching', latency: dynamicLatencies[1] ?? '45ms' },
+    { name: 'Visa/Master Host', latency: dynamicLatencies[2] ?? '128ms' },
+    { name: 'QR Merchant Notify', latency: dynamicLatencies[3] ?? 'Timeout' },
   ];
+
+  const branchSLAs: Array<{ name: string; variant: 'brand' | 'error' | 'warning' | 'success' | 'info' }> = [
+    { name: 'CN Hồ Chí Minh', variant: 'error' },
+    { name: 'CN Hà Nội', variant: 'error' },
+    { name: 'CN Đà Nẵng', variant: 'warning' },
+  ];
+
+  const handleMoreClick = () => {
+    console.log('More clicked');
+  };
 
   return (
     <div className="mms-dashboard">
-      <Sidebar 
+      <Sidebar
         onLogoClick={() => onPageChange('intro')}
         footer={
           <div className="user-profile">
@@ -151,342 +173,200 @@ const DashboardExample: React.FC<DashboardExampleProps> = ({ onPageChange }) => 
           </div>
         }
       >
-        <div className="sidebar-nav">
-          <div className={cn("nav-item", activeNav === 'overview' && "active")} onClick={() => setActiveNav('overview')}>
+        <nav className="sidebar-nav">
+          <div className={cn('nav-item', activeNav === 'overview' && 'active')} onClick={() => setActiveNav('overview')}>
             <RiDashboardLine /> <span>Dashboard</span>
           </div>
           <div className="nav-item" onClick={() => onPageChange('operation-center')}>
             <RiFlashlightLine /> <span>Operation Center</span>
           </div>
-          <div className="nav-item" onClick={() => onPageChange('pie-chart')}>
-            <RiExchangeLine /> <span>Analysis Stats</span>
-          </div>
           <div className="nav-divider" />
           {[
-            { id: 'transactions', label: 'Quản lý giao dịch', icon: <RiExchangeLine />, hasSub: true },
-            { id: 'sales', label: 'Quản lý bán hàng', icon: <RiShoppingBag3Line />, hasSub: true },
-            { id: 'customers', label: 'Quản lý khách hàng', icon: <RiUser3Line />, hasSub: true },
-            { id: 'products', label: 'Quản lý sản phẩm', icon: <RiBankCardLine /> },
-            { id: 'inventory', label: 'Quản lý kho', icon: <RiDatabase2Line /> },
-            { id: 'e-invoice', label: 'Hóa đơn điện tử', icon: <RiFileTextLine /> },
-          ].map((item) => (
-            <div 
-              key={item.id}
-              className={cn("nav-item", activeNav === item.id && "active")} 
-              onClick={() => setActiveNav(item.id)}
-            >
+            { id: 'transactions', label: 'Quản lý giao dịch', icon: <RiExchangeLine /> },
+            { id: 'sales', label: 'Quản lý bán hàng', icon: <RiShoppingBag3Line /> },
+            { id: 'customers', label: 'Quản lý khách hàng', icon: <RiUser3Line /> },
+          ].map(item => (
+            <div key={item.id} className={cn('nav-item', activeNav === item.id && 'active')} onClick={() => setActiveNav(item.id)}>
               {item.icon} {item.label}
-              {item.hasSub && <RiArrowDownSLine style={{ marginLeft: 'auto', fontSize: 14 }} />}
             </div>
           ))}
           <div className="nav-divider" />
-          <div className="nav-item">
-            <RiHistoryLine /> Quản lý giao dịch
-          </div>
-          <div className="nav-item">
-            <RiSettings4Line /> Cài đặt hệ thống
-          </div>
-        </div>
+          <div className="nav-item"><RiSettings4Line /> Cài đặt hệ thống</div>
+        </nav>
       </Sidebar>
 
       <main className="dashboard-main animate-fade-in-up">
-        {/* Banner */}
+        {/* Promo Banner */}
         <div className="dashboard-promo-banner">
-          <img src={promoBanner} alt="Marketing Banner" />
+          <img src={promoBanner} alt="" onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
         </div>
 
-        {/* Top Header */}
-        <header className="dashboard-header">
-          <div className="search-bar">
-            <TextField.Root variant="surface" size="2" radius="full" style={{ width: '100%', background: 'transparent', border: 'none' }}>
-              <TextField.Slot side="left">
-                <RiSearchLine />
-              </TextField.Slot>
-              <TextField.Input 
-                placeholder="Tìm kiếm hồ sơ, chi nhánh..." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+        {/* Header */}
+        <Flex justify="between" align="center" mt="5" mb="5" pb="4" border="b">
+          <Box width="12">
+            <TextField.Root variant="surface" size="2" radius="full">
+              <TextField.Slot><RiSearchLine /></TextField.Slot>
+              <TextField.Input placeholder="Tìm kiếm hồ sơ..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
             </TextField.Root>
-          </div>
-          <div className="header-right">
+          </Box>
+          <Flex gap="3" align="center">
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger>
+                <div className="header-icon-btn"><RiNotificationLine /><div className="notif-dot" /></div>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
+                <DropdownMenu.Item>Chargeback vượt ngưỡng tại HCM</DropdownMenu.Item>
+                <DropdownMenu.Separator />
+                <DropdownMenu.Item>Xem tất cả</DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+            <ThemeToggle className="header-icon-btn" />
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
                 <div className="header-icon-btn">
-                  <RiNotification3Line />
-                  <div className="notif-dot" />
+                  <div style={{ width: 12, height: 12, borderRadius: '50%', background: activeBrand.primaryColor }} />
                 </div>
               </DropdownMenu.Trigger>
-              <DropdownMenu.Content width={300}>
-                <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--border-subtle)' }}>
-                  <h4 style={{ margin: 0, fontSize: 13, color: 'var(--content-subtle)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Thông báo mới nhất
-                  </h4>
-                </div>
-                <DropdownMenu.Item>Chargeback vượt ngưỡng tại chi nhánh HCM</DropdownMenu.Item>
-                <DropdownMenu.Item>Báo cáo ngày 02/04 đã sẵn sàng</DropdownMenu.Item>
-                <DropdownMenu.Separator />
-                <DropdownMenu.Item>Xem tất cả thông báo</DropdownMenu.Item>
+              <DropdownMenu.Content>
+                {brands.map(brand => (
+                  <DropdownMenu.Item key={brand.id} onClick={() => switchBrand(brand.id)}>
+                    {brand.name}
+                  </DropdownMenu.Item>
+                ))}
               </DropdownMenu.Content>
             </DropdownMenu.Root>
-            
-            <ThemeToggle className="header-icon-btn" />
-
-            <div className="header-icon-btn">
-              <RiSettings4Line />
-            </div>
-          </div>
-        </header>
+          </Flex>
+        </Flex>
 
         {/* Page Title */}
-        <div className="content-header">
-          <div>
-            <h1 className="content-title">TỔNG QUAN HỆ THỐNG</h1>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <Breadcrumbs 
-                items={[
-                  { id: 'mms', label: 'MMS' },
-                  { id: 'dashboard', label: 'Dashboard' },
-                  { id: 'overview', label: 'Overview', active: true }
-                ]} 
-              />
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontSize: 12, color: 'var(--gray-11)' }}>Thứ Sáu, 27/03/2026</span>
-                <Badge variant="soft" color="success" size="1">Trực tuyến</Badge>
-              </div>
-            </div>
-          </div>
-          <div className="content-actions">
-            <DatePicker 
-              mode="range" 
-              rangeValue={dateRange} 
-              onRangeChange={setDateRange}
-              placeholder="Chọn khoảng thời gian"
-            />
-            <Button variant="outline" leftIcon={<RiFileTextLine />}>Xuất báo cáo</Button>
-          </div>
-        </div>
+        <Section size="1">
+          <Flex justify="between" align="end">
+            <Box>
+              <Heading size="8" weight="bold">TỔNG QUAN HỆ THỐNG</Heading>
+              <Flex gap="3" align="center" mt="2">
+                <Breadcrumbs items={[{ id: 'mms', label: 'MMS' }, { id: 'db', label: 'Dashboard', active: true }]} />
+                <Badge variant="soft" color="success" size="1">Live</Badge>
+              </Flex>
+            </Box>
+            <DatePicker mode="range" rangeValue={dateRange} onRangeChange={setDateRange} />
+          </Flex>
+        </Section>
 
-        {/* Welcome Banner */}
-        <div className="dashboard-banner">
-          <div className="banner-icon">
-             <RiFlashlightLine />
-          </div>
-          <div className="banner-content">
-            <h3 style={{ fontSize: 16, marginBottom: 4 }}>Chào buổi sáng, John Woker</h3>
-            <p style={{ color: '#64748B', lineHeight: 1.5 }}>
-              Hệ thống hiện đang hoạt động bình thường. Có <b>15 hồ sơ quá hạn</b> SLA cần xử lý. <br/>
-              Doanh thu toàn quốc <b>tăng 5.2%</b> tuy nhiên cần lưu ý Chargeback Ratio đang chạm ngưỡng <b>0.25%</b> và <b>4,450 thiết bị POS</b> đang trong trạng thái ngủ đông.
-            </p>
-          </div>
-        </div>
+        {/* KPI Metrics */}
+        <Grid columns="4" gap="6">
+          <MetricCard label="Tổng doanh thu" value="24.850.500.000" icon={<RiBankCardLine />} trend="up" change="+5.2%" onMoreClick={handleMoreClick} linkText="Chi tiết" />
+          <MetricCard label="Lợi nhuận MDR" value="1.250.000.000" icon={<RiPushpinLine />} trend="up" change="+2.1%" onMoreClick={handleMoreClick} linkText="Báo cáo" />
+          <MetricCard label="Khách hàng" value="12.450" icon={<RiUser3Line />} trend="up" change="+4.2%" onMoreClick={handleMoreClick} />
+          <MetricCard label="Chênh lệch" value="0.15%" icon={<RiErrorWarningLine />} trend="down" change="RỦI RO" variant="error" onMoreClick={handleMoreClick} />
+        </Grid>
 
-        {/* Stats Grid */}
-        <div className="metrics-grid">
-          {stats.map((stat, i) => (
-            <MetricCard 
-              key={i}
-              label={stat.label}
-              value={stat.value}
-              icon={stat.icon}
-              trend={stat.trend as 'up' | 'down'}
-              change={stat.change}
-              variant={i === 3 ? 'error' : 'primary'}
-              description={stat.description}
-              linkText={stat.linkText}
-              onMoreClick={() => console.log('Navigate to detail')}
-            />
-          ))}
-        </div>
-
-        {/* Main Content Grid */}
-        <div className="dashboard-content-grid">
-          {/* Left Column */}
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-            <Card 
-              title="Hồ sơ mới chờ phân bổ" 
-              headerExtra={<Badge color="error" variant="soft">24 hồ sơ</Badge>}
-              padding="lg"
-            >
-              <Table variant="surface" radius="large">
-                <Table.Header>
-                  <Table.Row>
-                    <Table.ColumnHeaderCell>Thời gian</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Chủ tài khoản</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Khu vực</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Trạng thái</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Thao tác</Table.ColumnHeaderCell>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {filteredProfiles.length > 0 ? (
-                    filteredProfiles.map((p) => (
+        {/* Main Content */}
+        <Grid columns="12" gap="6">
+          <Box gridColumn="8">
+            <Flex direction="column" gap="6">
+              <Card title="Hồ sơ mới chờ phân bổ">
+                <Table variant="surface">
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.ColumnHeaderCell>Thời gian</Table.ColumnHeaderCell>
+                      <Table.ColumnHeaderCell>Chủ tài khoản</Table.ColumnHeaderCell>
+                      <Table.ColumnHeaderCell>Trạng thái</Table.ColumnHeaderCell>
+                    </Table.Row>
+                  </Table.Header>
+                  <Table.Body>
+                    {filteredProfiles.map(p => (
                       <Table.Row key={p.id}>
                         <Table.Cell>{p.time}</Table.Cell>
-                        <Table.Cell><b>{p.account}</b></Table.Cell>
-                        <Table.Cell><Badge variant="surface" color="gray" size="1" radius="small">{p.region}</Badge></Table.Cell>
-                        <Table.Cell>
-                          <Badge 
-                            variant="surface" 
-                            color={p.statusType as any}
-                            size="1"
-                            radius="full"
-                          >
-                            {p.status}
-                          </Badge>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Button variant="ghost" size="1" color="brand">Xem chi tiết</Button>
-                        </Table.Cell>
+                        <Table.Cell><Text weight="bold">{p.account}</Text></Table.Cell>
+                        <Table.Cell><Badge color={p.statusType}>{p.status}</Badge></Table.Cell>
                       </Table.Row>
-                    ))
-                  ) : (
-                    <Table.Row>
-                      <Table.Cell colSpan={5}>
-                        <EmptyState 
-                          icon={<RiSearchLine style={{ fontSize: 32, opacity: 0.5 }} />}
-                          title="Không tìm thấy hồ sơ"
-                          description={`Không có kết quả nào khớp với "${searchTerm}"`}
-                        />
-                      </Table.Cell>
-                    </Table.Row>
-                  )}
-                </Table.Body>
-              </Table>
-            </Card>
-
-            <div className="status-grid">
-              <Card title="Hiệu suất theo loại thẻ">
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-                  <SegmentedControl 
-                    size="sm"
-                    options={[
-                      { label: 'DOANH THU', value: 'revenue' },
-                      { label: 'GIAO DỊCH', value: 'volume' }
-                    ]} 
-                    value={cardStatsView} 
-                    onChange={(v: any) => setCardStatsView(v)} 
-                  />
-                </div>
-                <div className="dashboard-chart-wrapper">
-                  <PieChart 
-                    data={activeChartData}
-                    donut
-                    size={280}
-                    title={cardStatsView === 'revenue' ? 'tỷ' : 'Giao dịch'}
-                    subtitle={cardStatsView === 'revenue' ? activeChartData[0].label : undefined}
-                  />
-                </div>
+                    ))}
+                  </Table.Body>
+                </Table>
               </Card>
 
-              <Card title="Phân phối phương thức">
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-                  <SegmentedControl 
-                    size="sm"
-                    options={[
-                      { label: 'DOANH THU', value: 'revenue' },
-                      { label: 'GIAO DỊCH', value: 'volume' }
-                    ]} 
-                    value={cardStatsView} 
-                    onChange={(v: any) => setCardStatsView(v)} 
-                  />
-                </div>
-                <div className="dashboard-chart-wrapper">
-                  <PieChart 
-                    data={cardStatsView === 'revenue' ? [
-                      { label: 'QR Thanh toán', value: 11200, color: 'var(--brand-9)' },
-                      { label: 'Thẻ vật lý', value: 4000, color: 'var(--brand-7)' }
-                    ] : [
-                      { label: 'QR Thanh toán', value: 8900, color: 'var(--brand-9)' },
-                      { label: 'Thẻ vật lý', value: 6300, color: 'var(--brand-7)' }
-                    ]}
-                    donut
-                    size={280}
-                    title={cardStatsView === 'revenue' ? 'tỷ' : 'Giao dịch'}
-                  />
-                </div>
+              <Card>
+                {/* FIX: Use Tabs directly, not Tabs.Root */}
+                <Tabs defaultValue="distribution">
+                  <Flex justify="between" align="center" mb="4">
+                    <Flex align="center" gap="3">
+                      <Heading size="3">Phân tích hiệu suất</Heading>
+                      <SegmentedControl
+                        options={[
+                          { label: 'Doanh thu', value: 'revenue' },
+                          { label: 'Sản lượng', value: 'volume' },
+                        ]}
+                        value={cardStatsView}
+                        onChange={val => setCardStatsView(val as 'revenue' | 'volume')}
+                        size="sm"
+                      />
+                    </Flex>
+                    <Tabs.List size="1">
+                      <Tabs.Trigger value="distribution">PHÂN PHỐI THẺ</Tabs.Trigger>
+                      <Tabs.Trigger value="methods">PHƯƠNG THỨC</Tabs.Trigger>
+                    </Tabs.List>
+                  </Flex>
+                  <Tabs.Content value="distribution">
+                    <Grid columns="2" gap="6">
+                      <Box>
+                        <PieChart data={activeChartData} donut size={220} />
+                      </Box>
+                      <Box>
+                        <Flex direction="column" gap="4">
+                          {activeChartData.map((d, i) => (
+                            <Flex key={i} justify="between" align="center">
+                              <Flex align="center" gap="2">
+                                <Box width="px" height="px" position="relative" style={{ borderRadius: '50%', background: d.color }} />
+                                <Text size="2">{d.label}</Text>
+                              </Flex>
+                              <Text size="2" weight="bold">{d.value}%</Text>
+                            </Flex>
+                          ))}
+                        </Flex>
+                      </Box>
+                    </Grid>
+                  </Tabs.Content>
+                  <Tabs.Content value="methods">
+                    <EmptyState title="Dữ liệu phương thức" />
+                  </Tabs.Content>
+                </Tabs>
               </Card>
-            </div>
-          </section>
+            </Flex>
+          </Box>
 
-          {/* Right Column */}
-          <aside style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-            <Card title="Cảnh báo hệ thống" headerExtra={<Badge variant="surface" color="gray" radius="small">CHARGEBACK: 0.25%</Badge>}>
-              <div style={{ marginBottom: 16 }}>
-                <SegmentedControl 
-                  fullWidth
-                  options={[
-                    { label: 'Gian lận', value: 'fraud' },
-                    { label: 'Đối soát', value: 'settle' }
-                  ]}
-                  value={fraudView}
-                  onChange={(v: any) => setFraudView(v)}
-                />
-              </div>
-              
-              {fraudView === 'fraud' && (
-                <div className="fraud-list">
-                  {fraudAlerts.map((alert, i) => (
-                    <div key={i} className="fraud-item">
-                      <div className="fraud-item-header">
-                        <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--gray-9)' }}>{alert.id}</span>
-                        <span style={{ fontSize: 11, color: 'var(--gray-9)' }}>{alert.time}</span>
-                      </div>
-                      <div className="fraud-item-title" style={{ color: 'var(--red-11)', marginBottom: 4 }}>{alert.title}</div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: 13, fontWeight: 600 }}>{alert.amount}</span>
-                        <Button variant="ghost" size="1" color="brand">Xem chi tiết</Button>
-                      </div>
-                      <div style={{ fontSize: 12, color: 'var(--gray-11)', marginTop: 4 }}>
-                        Merchant: <b>{alert.merchant}</b>
-                      </div>
-                    </div>
+          <Box gridColumn="4">
+            <Flex direction="column" gap="6">
+              <Card title="Trung tâm tác nghiệp">
+                <Timeline items={timelineItems} />
+              </Card>
+
+              <Card title="Hiệu suất API">
+                <Flex direction="column" gap="4">
+                  {apiStatus.map((api, i) => (
+                    <Flex key={i} justify="between" align="center">
+                      <Text size="2">{api.name}</Text>
+                      <Badge color={api.latency === 'Timeout' ? 'error' : 'success'}>{api.latency}</Badge>
+                    </Flex>
                   ))}
-                </div>
-              )}
-              {fraudView === 'settle' && (
-                <EmptyState 
-                  icon={<RiSearchLine style={{ fontSize: 32, opacity: 0.5 }} />}
-                  title="Không có dữ liệu"
-                  description="Hiện tại không có cảnh báo đối soát mới nào cần xử lý."
-                />
-              )}
-            </Card>
+                </Flex>
+              </Card>
 
-            <Card title="SLA Theo Chi nhánh">
-              <div className="sla-list" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                {branchSLAs.map((sla, i) => (
-                  <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: 14, fontWeight: 600 }}>{sla.name}</span>
-                      <Button variant="outline" size="1" color="brand" leftIcon={<RiNotification3Line />}>Nhắc nhở</Button>
-                    </div>
-                    <Progress value={dynamicSLAs[i]} max={100} variant={sla.variant} size="sm" />
-                    <span style={{ fontSize: 12, color: 'var(--gray-11)' }}>
-                      <b>{dynamicSLAs[i]}%</b> hồ sơ đang chờ xử lý
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            <Card title="Trạng thái API">
-              <div className="api-status-list">
-                {apiStatus.map((api, i) => (
-                  <div key={i} className="api-item">
-                    <div className="api-info">
-                      <div className={cn("status-dot", api.status)} />
-                      <span className="api-name">{api.name}</span>
-                    </div>
-                    <span className={cn("api-time", api.latency === 'Timeout' && "slow")}>
-                      {api.latency}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </aside>
-        </div>
+              <Card title="SLA Chi nhánh">
+                <Flex direction="column" gap="5">
+                  {branchSLAs.map((sla, i) => (
+                    <Box key={i}>
+                      <Flex justify="between" mb="2">
+                        <Text size="1">{sla.name}</Text>
+                        <Text size="1">{dynamicSLAs[i]}%</Text>
+                      </Flex>
+                      <Progress value={dynamicSLAs[i] ?? 0} variant={sla.variant} />
+                    </Box>
+                  ))}
+                </Flex>
+              </Card>
+            </Flex>
+          </Box>
+        </Grid>
       </main>
     </div>
   );

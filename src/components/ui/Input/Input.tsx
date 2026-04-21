@@ -3,19 +3,15 @@ import { TextField } from './TextField';
 import './Input.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  variant?: 'classic' | 'soft';
+  variant?: 'surface' | 'soft';
   color?: 'brand' | 'success' | 'error' | 'warning' | 'gray';
-  size?: '1' | '2' | '3' | '4';
+  size?: '1' | '2' | '3';
   radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
   leftSlot?: React.ReactNode;
   rightSlot?: React.ReactNode;
 }
 
-/**
- * Shorthand Input component built on top of the TextField system.
- * Use this for standard form inputs. For complex requirements, use TextField.Root directly.
- */
-const Input = forwardRef<HTMLInputElement, InputProps>(({
+export const Input = forwardRef<HTMLInputElement, InputProps>(({
   variant = 'surface',
   color = 'brand',
   size = '2',
@@ -48,4 +44,3 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
 Input.displayName = 'Input';
 
 export default Input;
-export { TextField };

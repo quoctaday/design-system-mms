@@ -19,7 +19,7 @@ interface PieChartProps {
   className?: string;
 }
 
-const PieChart: React.FC<PieChartProps> = ({
+export const PieChart: React.FC<PieChartProps> = ({
   data,
   title,
   subtitle,
@@ -94,11 +94,11 @@ const PieChart: React.FC<PieChartProps> = ({
                 hoveredIndex === i ? outerR + 4 : outerR, 
                 donut ? (hoveredIndex === i ? innerR - 2 : innerR) : 0
               )}
-              fill={arc.color}
               className={cn('pie-segment', hoveredIndex === i && 'is-active')}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
+                fill: arc.color,
                 opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.3 : 1,
                 filter: hoveredIndex === i ? 'drop-shadow(0 var(--space-1) var(--space-3) var(--black-a4))' : 'none'
               }}
@@ -134,4 +134,4 @@ const PieChart: React.FC<PieChartProps> = ({
   );
 };
 
-export default PieChart;
+PieChart.displayName = 'PieChart';

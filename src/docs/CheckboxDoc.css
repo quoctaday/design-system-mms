@@ -1,40 +1,23 @@
 .checkbox-doc {
-  padding: 40px;
   max-width: 1000px;
   margin: 0 auto;
 }
 
-.doc-section {
-  margin-bottom: 48px;
-}
-
-.doc-section h2 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--content-strong);
-}
-
-.doc-section p {
-  color: var(--content-subtle);
-  margin-bottom: 24px;
-  line-height: 1.6;
-}
-
+/* Unique layouts for Checkbox */
 .example-flex {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: var(--space-6);
 }
 
 .example-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .table-preview {
-  border: 1px solid var(--border-subtle);
+  border: var(--stroke-width-1) solid var(--border-subtle);
   border-radius: var(--radius-3);
   overflow: hidden;
   background-color: var(--surface-panel);
@@ -44,16 +27,16 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 14px;
+  font-size: var(--font-size-2);
 }
 
 .doc-table th, .doc-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--stroke-width-1) solid var(--border-subtle);
 }
 
 .doc-table th {
-  background-color: var(--bg-component);
-  font-weight: 600;
-  color: var(--content-strong);
+  background-color: var(--gray-a2);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-12);
 }

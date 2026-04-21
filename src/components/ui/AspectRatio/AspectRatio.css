@@ -1,0 +1,13 @@
+/* ─────────────────────────────────────────────────────────
+ * MMS DESIGN SYSTEM - IRONCLAD: ASPECT RATIO
+ * ───────────────────────────────────────────────────────── */
+
+.mms-aspect-ratio-root {
+  overflow: hidden;
+}
+
+.mms-aspect-ratio-root > div > * {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

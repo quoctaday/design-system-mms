@@ -23,7 +23,8 @@ import {
   RiDeleteBinLine
 } from 'react-icons/ri';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -82,9 +83,9 @@ const TableDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="preview" className="doc-section">
-        <h2>Dashboard Preview: Phiếu Nhập Kho</h2>
-        <p>A realistic inventory dashboard using specialized Table components and numeric sizing.</p>
+      <DocSection id="preview">
+        <DocHeading>Dashboard Preview: Phiếu Nhập Kho</DocHeading>
+        <DocText>A realistic inventory dashboard using specialized Table components and numeric sizing.</DocText>
         
         <div className="mt-6 border border-subtle rounded-xl overflow-hidden bg-canvas shadow-1">
           <div className="p-4 border-b border-subtle bg-canvas flex flex-wrap gap-4 justify-between items-center">
@@ -201,11 +202,11 @@ const TableDoc: React.FC = () => {
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>
-      </section>
+      </DocSection>
 
-      <section id="usage" className="doc-section">
-        <h2>Usage</h2>
-        <p>Structured composition based on Radix UI's Table primitive.</p>
+      <DocSection id="usage">
+        <DocHeading>Usage</DocHeading>
+        <DocText>Structured composition based on Radix UI's Table primitive.</DocText>
         <CodePreview
           code={`<Table.Root variant="surface" size="2">
   <Table.Header>
@@ -241,12 +242,12 @@ const TableDoc: React.FC = () => {
             </Table.Body>
           </Table.Root>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={tableProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

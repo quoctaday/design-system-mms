@@ -1,0 +1,34 @@
+{
+  "component": "SegmentedControl",
+  "extractedAt": "2026-04-20T06:25:00.000Z",
+  "certification": "RADIX-MIRROR-V2",
+  "pillars": {
+    "variables": {
+      "--segmented-control-height-1": "var(--space-5)",
+      "--segmented-control-height-2": "var(--space-6)",
+      "--segmented-control-height-3": "var(--space-7)",
+      "--segmented-control-indicator-transition": "200ms cubic-bezier(0.445, 0.05, 0.55, 0.95)",
+      "--segmented-indicator-box-shadow": "none"
+    },
+    "geometry": {
+      "rootRadius": "var(--radius-thumb)"
+    },
+    "materiality": {
+      "surface": {
+        "Indicator": {
+          "background-color": "var(--white)",
+          "--segmented-indicator-box-shadow": "0 0 0 1px var(--gray-a4)"
+        }
+      },
+      "classic": {
+        "Indicator": {
+          "background-color": "var(--white)",
+          "--segmented-indicator-box-shadow": "var(--shadow-2)"
+        }
+      }
+    },
+    "interaction": {
+      "focusRing": "outline: 2px solid var(--accent-a8)"
+    }
+  }
+}

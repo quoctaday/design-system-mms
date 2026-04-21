@@ -25,11 +25,11 @@
 }
 
 .mms-metric-card--premium.is-flush .mms-metric-inner {
-  border-radius: var(--radius-2);
+  border-radius: calc(var(--radius-3) - var(--space-0));
 }
 
 .mms-metric-card--premium:hover {
-  border-color: var(--brand-9);
+  border-color: var(--accent-9);
   background-color: var(--gray-a1);
 }
 
@@ -45,11 +45,12 @@
 }
 
 .mms-metric-card--premium .mms-metric-label {
+  font-family: var(--font-body);
   font-size: var(--font-size-2);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.08em; /* Maintaining specialized uppercase tracking */
   color: var(--content-subtle);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   opacity: 1;
 }
 
@@ -70,10 +71,10 @@
 
 .mms-metric-card--premium .mms-metric-inner {
   background-color: var(--surface-panel);
-  border-radius: var(--radius-2);
+  border-radius: calc(var(--radius-3) - var(--space-1));
   border: var(--stroke-width-1) solid var(--border-subtle);
   padding: var(--space-3);
-  box-shadow: var(--shadow-1);
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
@@ -82,18 +83,22 @@
 }
 
 .mms-metric-card--premium .mms-metric-value {
+  font-family: var(--font-heading);
   font-size: var(--font-size-8);
   font-weight: var(--font-weight-bold);
   color: var(--content-strong);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  line-height: var(--line-height-8);
+  letter-spacing: var(--letter-spacing-8); /* Premium negative tracking */
 }
 
 .mms-metric-card--premium .mms-metric-trend {
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  font-size: var(--font-size-3);
+  font-family: var(--font-body);
+  font-size: var(--font-size-2); /* Refined to size 2 for secondary info */
+  letter-spacing: var(--letter-spacing-2);
+  line-height: var(--line-height-2);
   font-weight: var(--font-weight-medium);
   margin-top: var(--space-1);
 }

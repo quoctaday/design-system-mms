@@ -1,259 +1,277 @@
+/* ─────────────────────────────────────────────────────────
+ * MMS DESIGN SYSTEM - IRONCLAD: BADGE
+ * Precise indicator system with dynamic variant scaling.
+ * ───────────────────────────────────────────────────────── */
+
 .mms-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: var(--font-weight-medium);
-  line-height: 1.2;
+  line-height: var(--line-height, 1);
   white-space: nowrap;
   user-select: none;
-  font-family: var(--font-family);
-  letter-spacing: 0;
+  font-family: var(--font-body);
+  letter-spacing: var(--letter-spacing, 0);
+  position: relative;
   text-transform: none;
-  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 160ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Component Tokens (Local Default Contract) */
   --badge-radius: max(var(--radius-full), var(--radius-1));
   border-radius: var(--badge-radius);
-  border: var(--stroke-width-1) solid transparent;
+
+  /* Optical Smoothing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Sizes (Natural Padding Logic) ──────── */
+/* ─────────────────────────────────────────────────────────
+ * TYPOGRAPHY: LEADING TRIM
+ * ───────────────────────────────────────────────────────── */
+
+.mms-badge::before {
+  content: '';
+  display: table;
+  margin-bottom: calc(var(--default-leading-trim-start) - var(--line-height, 1em) / 2);
+}
+
+.mms-badge::after {
+  content: '';
+  display: table;
+  margin-top: calc(var(--default-leading-trim-end) - var(--line-height, 1em) / 2);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * SIZES (Precise Layout Architecture)
+ * ───────────────────────────────────────────────────────── */
+
 .mms-badge-size-1 {
   font-size: var(--font-size-1);
-  height: var(--size-0);
+  --letter-spacing: var(--letter-spacing-1);
+  --line-height: var(--line-height-1);
+  height: var(--size-0); /* 20px */
   padding: 0 var(--space-2);
   gap: var(--space-1);
 }
 
 .mms-badge-size-2 {
   font-size: var(--font-size-2);
-  height: var(--size-1);
+  --letter-spacing: var(--letter-spacing-2);
+  --line-height: var(--line-height-2);
+  height: var(--size-1); /* 24px - Default */
   padding: 0 var(--space-2);
   gap: var(--space-1);
 }
 
 .mms-badge-size-3 {
   font-size: var(--font-size-2);
-  height: calc(var(--size-1) + var(--space-1));
+  --letter-spacing: var(--letter-spacing-2);
+  --line-height: var(--line-height-2);
+  height: calc(var(--size-1) + var(--space-1)); /* 28px - Operational Large */
   padding: 0 var(--space-3);
   gap: var(--space-1);
 }
 
-/* Radius standards (Numerical Scale) */
-.mms-badge-radius-none { --badge-radius: var(--radius-none); }
-.mms-badge-radius-1    { --badge-radius: max(var(--radius-full), var(--radius-1)); }
-.mms-badge-radius-2    { --badge-radius: max(var(--radius-full), var(--radius-2)); }
-.mms-badge-radius-3    { --badge-radius: max(var(--radius-full), var(--radius-3)); }
-.mms-badge-radius-4    { --badge-radius: max(var(--radius-full), var(--radius-4)); }
-.mms-badge-radius-full { --badge-radius: var(--radius-full); }
+/* Radius Standardized scale */
+.mms-badge-radius-none   { --badge-radius: var(--radius-none); }
+.mms-badge-radius-small  { --badge-radius: max(var(--radius-full), var(--radius-2)); }
+.mms-badge-radius-medium { --badge-radius: max(var(--radius-full), var(--radius-4)); }
+.mms-badge-radius-large  { --badge-radius: max(var(--radius-full), var(--radius-6)); }
+.mms-badge-radius-full   { --badge-radius: var(--radius-full); }
 
-/* ── Variant Logic (Functional Engine) ───── */
+/* ─────────────────────────────────────────────────────────
+ * VARIANTS (Functional Engine)
+ * ───────────────────────────────────────────────────────── */
 
-/* [SOLID] - High Emphasis */
 .mms-badge-variant-solid {
   background-color: var(--badge-bg-solid);
   color: var(--badge-text-solid, var(--content-on-solid));
 }
 
-/* [SOFT] - Low Emphasis */
 .mms-badge-variant-soft {
   background-color: var(--badge-bg-soft);
   color: var(--badge-text-soft);
 }
 
-/* [SURFACE] - Medium Emphasis */
 .mms-badge-variant-surface {
   background-color: var(--badge-bg-surface);
-  border: var(--stroke-width-hairline) solid var(--badge-border-surface);
+  /* Ironclad: Inset shadow for border scaling */
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--badge-border-surface);
   color: var(--badge-text-surface);
 }
 
-/* [OUTLINE] - No Background */
 .mms-badge-variant-outline {
   background-color: transparent;
-  border-color: var(--badge-border-outline);
+  box-shadow: inset 0 0 0 var(--stroke-width-1) var(--badge-border-outline);
   color: var(--badge-text-outline);
 }
 
-/* [GHOST] - No background or border */
 .mms-badge-variant-ghost {
   background-color: transparent;
-  border-color: transparent;
   color: var(--badge-text-ghost);
-  border-radius: var(--radius-1);
 }
 
-/* ── Color Mapping (Shared Tokens) ─────────── */
+/* ─────────────────────────────────────────────────────────
+ * COLOR ROUTING (Shared Registry)
+ * ───────────────────────────────────────────────────────── */
 
-/* Brand */
 .mms-badge-color-brand {
-  --badge-bg-solid: var(--surface-accent-solid);
-  --badge-bg-soft: var(--surface-accent-component);
-  --badge-text-soft: var(--content-accent);
-  --badge-bg-surface: var(--brand-2);
-  --badge-border-surface: var(--brand-6);
-  --badge-text-surface: var(--content-accent);
-  --badge-border-outline: var(--border-accent);
-  --badge-text-outline: var(--content-accent);
-  --badge-text-ghost: var(--content-accent);
+  --badge-bg-solid: var(--accent-9);
+  --badge-bg-soft: var(--accent-a3);
+  --badge-text-soft: var(--accent-11);
+  --badge-bg-surface: var(--accent-a2);
+  --badge-border-surface: var(--accent-a6);
+  --badge-text-surface: var(--accent-11);
+  --badge-border-outline: var(--accent-a8);
+  --badge-text-outline: var(--accent-11);
+  --badge-text-ghost: var(--accent-11);
 }
 
-/* Success */
 .mms-badge-color-success {
-  --badge-bg-solid: var(--surface-success-solid);
-  --badge-bg-soft: var(--surface-success-subtle);
-  --badge-text-soft: var(--content-success);
-  --badge-bg-surface: var(--surface-success-subtle);
-  --badge-border-surface: var(--border-success);
-  --badge-text-surface: var(--content-success);
-  --badge-border-outline: var(--border-success);
-  --badge-text-outline: var(--content-success);
-  --badge-text-ghost: var(--content-success);
+  --badge-bg-solid: var(--green-9);
+  --badge-bg-soft: var(--green-a3);
+  --badge-text-soft: var(--green-11);
+  --badge-bg-surface: var(--green-a2);
+  --badge-border-surface: var(--green-a6);
+  --badge-text-surface: var(--green-11);
+  --badge-border-outline: var(--green-a8);
+  --badge-text-outline: var(--green-11);
+  --badge-text-ghost: var(--green-11);
 }
 
-/* Error */
 .mms-badge-color-error {
-  --badge-bg-solid: var(--surface-danger-solid);
-  --badge-bg-soft: var(--surface-danger-subtle);
-  --badge-text-soft: var(--content-danger);
-  --badge-bg-surface: var(--surface-danger-subtle);
-  --badge-border-surface: var(--border-danger);
-  --badge-text-surface: var(--content-danger);
-  --badge-border-outline: var(--border-danger);
-  --badge-text-outline: var(--content-danger);
-  --badge-text-ghost: var(--content-danger);
+  --badge-bg-solid: var(--red-9);
+  --badge-bg-soft: var(--red-a3);
+  --badge-text-soft: var(--red-11);
+  --badge-bg-surface: var(--red-a2);
+  --badge-border-surface: var(--red-a6);
+  --badge-text-surface: var(--red-11);
+  --badge-border-outline: var(--red-a8);
+  --badge-text-outline: var(--red-11);
+  --badge-text-ghost: var(--red-11);
 }
 
-/* Warning */
 .mms-badge-color-warning {
-  --badge-bg-solid: var(--surface-warning-solid);
-  --badge-text-solid: var(--content-strong);
-  --badge-bg-soft: var(--surface-warning-subtle);
-  --badge-text-soft: var(--content-warning);
-  --badge-bg-surface: var(--surface-warning-subtle);
-  --badge-border-surface: var(--border-warning);
-  --badge-text-surface: var(--content-warning);
-  --badge-border-outline: var(--border-warning);
-  --badge-text-outline: var(--content-warning);
-  --badge-text-ghost: var(--content-warning);
+  --badge-bg-solid: var(--amber-9);
+  --badge-text-solid: var(--gray-12);
+  --badge-bg-soft: var(--amber-a3);
+  --badge-text-soft: var(--amber-11);
+  --badge-bg-surface: var(--amber-a2);
+  --badge-border-surface: var(--amber-a6);
+  --badge-text-surface: var(--amber-11);
+  --badge-border-outline: var(--amber-a8);
+  --badge-text-outline: var(--amber-11);
+  --badge-text-ghost: var(--amber-11);
 }
 
-/* Secondary (using Lime) */
 .mms-badge-color-secondary {
-  --badge-bg-solid: var(--accent-lime-solid);
-  --badge-text-solid: var(--content-on-solid);
-  --badge-bg-soft: var(--accent-lime-subtle);
-  --badge-text-soft: var(--accent-lime-text);
-  --badge-bg-surface: var(--accent-lime-low);
-  --badge-border-surface: var(--accent-lime-divider);
-  --badge-text-surface: var(--accent-lime-text);
-  --badge-border-outline: var(--accent-lime-border);
-  --badge-text-outline: var(--accent-lime-text);
-  --badge-text-ghost: var(--accent-lime-text);
+  --badge-bg-solid: var(--lime-9);
+  --badge-text-solid: var(--gray-12);
+  --badge-bg-soft: var(--lime-a3);
+  --badge-text-soft: var(--lime-11);
+  --badge-bg-surface: var(--lime-a2);
+  --badge-border-surface: var(--lime-a6);
+  --badge-text-surface: var(--lime-11);
+  --badge-border-outline: var(--lime-a8);
+  --badge-text-outline: var(--lime-11);
+  --badge-text-ghost: var(--lime-11);
 }
 
-/* Gray */
 .mms-badge-color-gray {
-  --badge-bg-solid: var(--gray-8);
-  --badge-text-solid: var(--content-on-solid);
-  --badge-bg-soft: var(--gray-3);
+  --badge-bg-solid: var(--gray-9);
+  --badge-bg-soft: var(--gray-a3);
   --badge-text-soft: var(--gray-11);
-  --badge-bg-surface: var(--gray-2);
-  --badge-border-surface: var(--gray-6);
+  --badge-bg-surface: var(--gray-a2);
+  --badge-border-surface: var(--gray-a6);
   --badge-text-surface: var(--gray-11);
-  --badge-border-outline: var(--gray-7);
+  --badge-border-outline: var(--gray-a8);
   --badge-text-outline: var(--gray-11);
   --badge-text-ghost: var(--gray-11);
 }
 
-/* Black */
 .mms-badge-color-black {
   --badge-bg-solid: var(--black);
   --badge-text-solid: var(--white);
-  --badge-bg-soft: var(--gray-4);
+  --badge-bg-soft: var(--gray-a4);
   --badge-text-soft: var(--gray-12);
-  --badge-bg-surface: var(--gray-3);
-  --badge-border-surface: var(--gray-7);
+  --badge-bg-surface: var(--gray-a3);
+  --badge-border-surface: var(--gray-a7);
   --badge-text-surface: var(--gray-12);
   --badge-border-outline: var(--gray-12);
   --badge-text-outline: var(--gray-12);
   --badge-text-ghost: var(--gray-12);
 }
 
-/* Purple */
 .mms-badge-color-purple {
-  --badge-bg-solid: var(--accent-purple-solid);
-  --badge-bg-soft: var(--accent-purple-subtle);
-  --badge-text-soft: var(--accent-purple-text);
-  --badge-bg-surface: var(--accent-purple-low);
-  --badge-border-surface: var(--accent-purple-divider);
-  --badge-text-surface: var(--accent-purple-text);
-  --badge-border-outline: var(--accent-purple-border);
-  --badge-text-outline: var(--accent-purple-text);
-  --badge-text-ghost: var(--accent-purple-text);
+  --badge-bg-solid: var(--purple-9);
+  --badge-bg-soft: var(--purple-a3);
+  --badge-text-soft: var(--purple-11);
+  --badge-bg-surface: var(--purple-a2);
+  --badge-border-surface: var(--purple-a6);
+  --badge-text-surface: var(--purple-11);
+  --badge-border-outline: var(--purple-a8);
+  --badge-text-outline: var(--purple-11);
+  --badge-text-ghost: var(--purple-11);
 }
 
-/* Orange */
 .mms-badge-color-orange {
-  --badge-bg-solid: var(--accent-orange-solid);
-  --badge-text-solid: var(--gray-12);
-  --badge-bg-soft: var(--accent-orange-subtle);
-  --badge-text-soft: var(--accent-orange-text);
-  --badge-bg-surface: var(--accent-orange-low);
-  --badge-border-surface: var(--accent-orange-divider);
-  --badge-text-surface: var(--accent-orange-text);
-  --badge-border-outline: var(--accent-orange-border);
-  --badge-text-outline: var(--accent-orange-text);
-  --badge-text-ghost: var(--accent-orange-text);
+  --badge-bg-solid: var(--orange-9);
+  --badge-bg-soft: var(--orange-a3);
+  --badge-text-soft: var(--orange-11);
+  --badge-bg-surface: var(--orange-a2);
+  --badge-border-surface: var(--orange-a6);
+  --badge-text-surface: var(--orange-11);
+  --badge-border-outline: var(--orange-a8);
+  --badge-text-outline: var(--orange-11);
+  --badge-text-ghost: var(--orange-11);
 }
 
-/* Blue */
 .mms-badge-color-blue {
-  --badge-bg-solid: var(--accent-blue-solid);
-  --badge-bg-soft: var(--accent-blue-subtle);
-  --badge-text-soft: var(--accent-blue-text);
-  --badge-bg-surface: var(--accent-blue-low);
-  --badge-border-surface: var(--accent-blue-divider);
-  --badge-text-surface: var(--accent-blue-text);
-  --badge-border-outline: var(--accent-blue-border);
-  --badge-text-outline: var(--accent-blue-text);
-  --badge-text-ghost: var(--accent-blue-text);
+  --badge-bg-solid: var(--blue-9);
+  --badge-bg-soft: var(--blue-a3);
+  --badge-text-soft: var(--blue-11);
+  --badge-bg-surface: var(--blue-a2);
+  --badge-border-surface: var(--blue-a6);
+  --badge-text-surface: var(--blue-11);
+  --badge-border-outline: var(--blue-a8);
+  --badge-text-outline: var(--blue-11);
+  --badge-text-ghost: var(--blue-11);
 }
 
-/* Sky */
 .mms-badge-color-sky {
-  --badge-bg-solid: var(--accent-sky-solid);
-  --badge-text-solid: var(--content-strong);
-  --badge-bg-soft: var(--accent-sky-subtle);
-  --badge-text-soft: var(--accent-sky-text);
-  --badge-bg-surface: var(--accent-sky-low);
-  --badge-border-surface: var(--accent-sky-divider);
-  --badge-text-surface: var(--accent-sky-text);
-  --badge-border-outline: var(--accent-sky-border);
-  --badge-text-outline: var(--accent-sky-text);
-  --badge-text-ghost: var(--accent-sky-text);
+  --badge-bg-solid: var(--sky-9);
+  --badge-text-solid: var(--gray-12);
+  --badge-bg-soft: var(--sky-a3);
+  --badge-text-soft: var(--sky-11);
+  --badge-bg-surface: var(--sky-a2);
+  --badge-border-surface: var(--sky-a6);
+  --badge-text-surface: var(--sky-11);
+  --badge-border-outline: var(--sky-a8);
+  --badge-text-outline: var(--sky-11);
+  --badge-text-ghost: var(--sky-11);
 }
 
-/* Pink */
 .mms-badge-color-pink {
-  --badge-bg-solid: var(--accent-pink-solid);
-  --badge-bg-soft: var(--accent-pink-subtle);
-  --badge-text-soft: var(--accent-pink-text);
-  --badge-bg-surface: var(--accent-pink-low);
-  --badge-border-surface: var(--accent-pink-divider);
-  --badge-text-surface: var(--accent-pink-text);
-  --badge-border-outline: var(--accent-pink-border);
-  --badge-text-outline: var(--accent-pink-text);
-  --badge-text-ghost: var(--accent-pink-text);
+  --badge-bg-solid: var(--pink-9);
+  --badge-bg-soft: var(--pink-a3);
+  --badge-text-soft: var(--pink-11);
+  --badge-bg-surface: var(--pink-a2);
+  --badge-border-surface: var(--pink-a6);
+  --badge-text-surface: var(--pink-11);
+  --badge-border-outline: var(--pink-a8);
+  --badge-text-outline: var(--pink-11);
+  --badge-text-ghost: var(--pink-11);
 }
 
-/* Teal */
 .mms-badge-color-teal {
-  --badge-bg-solid: var(--accent-teal-solid);
-  --badge-bg-soft: var(--accent-teal-subtle);
-  --badge-text-soft: var(--accent-teal-text);
-  --badge-bg-surface: var(--accent-teal-low);
-  --badge-border-surface: var(--accent-teal-divider);
-  --badge-text-surface: var(--accent-teal-text);
-  --badge-border-outline: var(--accent-teal-border);
-  --badge-text-outline: var(--accent-teal-text);
-  --badge-text-ghost: var(--accent-teal-text);
+  --badge-bg-solid: var(--teal-9);
+  --badge-bg-soft: var(--teal-a3);
+  --badge-text-soft: var(--teal-11);
+  --badge-bg-surface: var(--teal-a2);
+  --badge-border-surface: var(--teal-a6);
+  --badge-text-surface: var(--teal-11);
+  --badge-border-outline: var(--teal-a8);
+  --badge-text-outline: var(--teal-11);
+  --badge-text-ghost: var(--teal-11);
 }

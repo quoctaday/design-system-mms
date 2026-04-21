@@ -2,26 +2,6 @@
 
 The Woker Design System utilizes a **Canonical Radix-Based Architecture**, organized into functional semantic branches. Each branch maps strictly to the 12-step perceptual scale for consistent contrast and accessibility.
 
-## 🏛 Semantic Token Architecture
-
-### 1. Surface (Backgrounds & Elevation)
-Used for the physical layers of the interface.
-
-| Role | Step | CSS Variable | Usage |
-| :--- | :--- | :--- | :--- |
-| **App BG** | S1 | `--surface-app` | Root page background (OLED safe) |
-| **Panel** | White | `--surface-panel` | Card surfaces, persistent menus, modals |
-| **Subtle** | S2 | `--surface-subtle` | Sidebar tracks, secondary container fills |
-| **Component** | S3 | `--surface-component` | Default background for input fields and tags |
-| **Hover** | S4 | `--surface-hover` | Hover highlights for interactive surfaces |
-| **Active** | S5 | `--surface-active` | Pressed/Active state highlights |
-| **Solid** | S9 | `--surface-solid` | High-intent action backgrounds (Brand Blue) |
-
----
-
-### 2. Content (Text & Icons)
-Used for all readable and informative elements.
-
 | Role | Step | CSS Variable | Usage |
 | :--- | :--- | :--- | :--- |
 | **Strong** | S12 | `--content-strong` | Primary headings, labels, key information |
@@ -37,10 +17,12 @@ Used for structural separation and outlines.
 
 | Role | Step | CSS Variable | Usage |
 | :--- | :--- | :--- | :--- |
-| **Subtle** | S6 | `--border-subtle` | Internal dividers, low-contrast separators |
-| **Default** | S7 | `--border-default` | UI element outlines, standard grid-lines |
-| **Strong** | S8 | `--border-strong` | Focused/Active state outlines |
-| **Divider** | A6 | `--border-divider` | Alpha-transparent lines for complex surfaces |
+| **Subtle (Alpha)** | A4 | `--border-subtle` | Flat-Premium structural borders, cards, internal dividers |
+| **Default (Solid)** | S7 | `--border-default` | UI element outlines, interactive form controls |
+| **Strong (Solid)** | S8 | `--border-strong` | Focused/Active state outlines |
+| **Divider (Alpha)**| A6 | `--border-divider` | Alpha-transparent lines for complex surfaces & splitters |
+
+> **Hybrid Alpha Strategy (v4.0)**: To achieve a hyper-flat premium aesthetic comparable to Radix Themes native components, structural boundaries (`--border-subtle`, `--border-divider`) use the transparent **Alpha Scale**, while interactive boundaries (`--border-default`) strictly retain the **Solid Scale** to ensure WCAG 3:1 contrast compliance.
 
 ---
 
@@ -62,23 +44,34 @@ Used for Glassmorphism, overlays, and dynamic highlights. These tokens ensure pe
 
 - **`--black-a1..a12`**: Light mode transparency.
 - **`--white-a1..a12`**: Dark mode transparency (OLED-optimized).
+- **`--gray-a1..a12`**: Context-aware transparency for high-luxury overlays.
 
 ---
 
-## 🎨 Dynamic Brand Configuration
-Brands are injected at runtime via mathematical scale generation (`chroma.js`).
-To ensure absolute theme consistency:
-- **Light Scale:** Generated using `generateRadixScale`.
-- **Dark Scale:** Generated using `generateDarkRadixScale` (Ensures dark variants map to deep slates/navies, never bright pastels).
-- **Injection:** Scales are injected via a `<style id="mms-dynamic-brand">` attached to the document `<head>`, creating discrete `:root` and `.dark` CSS blocks rather than inline variables. This guarantees correct CSS specificity.
+<a name="charts"></a>
+## 📊 Categorical Chart Palette
+To ensure high-performance data visualization across many charts, we use a **Categorical Sequential Scale**. 
+
+- **Token Logic**: `--chart-1` up to `--chart-10`.
+- **Identity Link**: `--chart-1` is dynamically bound to the current Brand's Step 9 (Solid) to maintain visual hierarchy.
+- **High-Contrast Sequence**: Steps 2-10 use a pre-defined sequence of high-contrast hues (Indigo, Teal, Amber, Purple, Pink, Green, Orange, Red, Sky).
+- **SVG Protocol**: Because SVG attributes often fail to resolve layered CSS variables, chart tokens are injected as **direct hex values** at runtime via `BrandContext.tsx`.
 
 ---
 
-## 🛠 Developer Guidelines
-- **Never Hardcode Steps**: Avoid `var(--gray-3)`. Always use `var(--surface-component)`.
-- **Branch Specificity**: Do not use "Surface" tokens for text, or "Content" tokens for borders.
-- **Theme Parity**: Each token is pre-configured for both Light and Dark modes.
-- **Zero Hardcoded Whites**: Never use `background: white` or `color: #fff`. These completely break Dark Mode. Always map to `--surface-panel`, `--white` (token), or `--content-on-solid`.
+## 🎨 Dynamic Brand Configuration (Whitelabel Engine)
+The MMS Design System is headless by default. Specific brand identities (e.g., Unipay Blue, OCB Green) are injected at runtime via mathematical scale generation using `chroma.js`.
+
+- **Scales**: `generateRadixScale` and `generateDarkRadixScale` are used to build consistent 12-step ramps.
+- **Injection**: Tokens are injected into a `<style id="mms-dynamic-brand">` tag in the document `<head>`.
+- **Inheritance**: Dynamic tokens override static definitions in `theme.css`.
+
+---
+
+## 🛠 Developer Guidelines (The Golden Rules)
+- **Zero-Hardcoding**: Never use hex codes for borders, backgrounds, or text. Always use semantic tokens.
+- **SVG Safety**: For SVG components, use `style={{ fill: 'var(--chart-n)' }}` instead of the `fill` attribute to ensure robust CSS variable resolution.
+- **Exception Rule**: `AuroraBackground` is the only component exempt from strict tokenization to maintain its specialized atmospheric effect.
 
 ---
 [[00 - Introduction|Back to Introduction]]

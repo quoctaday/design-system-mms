@@ -1,5 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { RiCalendarLine, RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
+import { PremiumBlock } from '../PremiumBlock/PremiumBlock';
+import { useControllableState, useFloating } from '../../../lib/mms-engine';
+import { cn } from '../../../lib/layout-utils';
 import './DatePicker.css';
 
 export interface DateRange {
@@ -10,14 +14,18 @@ export interface DateRange {
 export interface DatePickerProps {
   mode?: 'single' | 'range';
   value?: Date | null;
+  defaultValue?: Date | null;
   onChange?: (date: Date) => void;
   rangeValue?: DateRange;
+  defaultRangeValue?: DateRange;
   onRangeChange?: (range: DateRange) => void;
   placeholder?: string;
   className?: string;
   disabled?: boolean;
+  variant?: 'surface' | 'classic' | 'soft';
   size?: '1' | '2' | '3';
   radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  highContrast?: boolean;
 }
 
 const MONTH_NAMES = [
@@ -27,7 +35,6 @@ const MONTH_NAMES = [
 
 const WEEK_DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
-// Helpers
 const isSameDay = (d1: Date | null | undefined, d2: Date | null | undefined) => {
   if (!d1 || !d2) return false;
   return d1.getDate() === d2.getDate() &&
@@ -44,49 +51,54 @@ const isBetween = (target: Date, start: Date | null, end: Date | null) => {
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   mode = 'single',
-  value,
+  value: valueProp,
+  defaultValue,
   onChange,
-  rangeValue,
+  rangeValue: rangeProp,
+  defaultRangeValue = { start: null, end: null },
   onRangeChange,
   placeholder = 'Select date',
   className = '',
   disabled = false,
+  variant = 'surface',
   size = '2',
   radius = '4',
+  highContrast = false,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  
-  // Base month view state
-  const baseDate = mode === 'range' ? (rangeValue?.start || new Date()) : (value || new Date());
-  const [currentMonth, setCurrentMonth] = useState(baseDate.getMonth());
-  const [currentYear, setCurrentYear] = useState(baseDate.getFullYear());
-  
-  // Range interacting state
-  const [hoverDate, setHoverDate] = useState<Date | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useControllableState<boolean>({
+    defaultProp: false,
+  });
 
+  const [value, setValue] = useControllableState({
+    prop: valueProp,
+    defaultProp: defaultValue,
+    onChange,
+  });
+
+  const [range, setRange] = useControllableState({
+    prop: rangeProp,
+    defaultProp: defaultRangeValue,
+    onChange: onRangeChange,
+  });
+
+  const { triggerRef, contentRef, coords } = useFloating({
+    open: isOpen,
+    sideOffset: 8, // Tăng lên 8px để tránh xung đột với vòng focus 3px, tạo khoảng thở Premium
+    align: 'start',
+  });
+
+  const [currentMonth, setCurrentMonth] = React.useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = React.useState(new Date().getFullYear());
+  const [hoverDate, setHoverDate] = React.useState<Date | null>(null);
+
+  // Sync internal view state when popover opens or value changes
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      const activeDate = mode === 'range' ? (range?.start || new Date()) : (value || new Date());
+      setCurrentMonth(activeDate.getMonth());
+      setCurrentYear(activeDate.getFullYear());
     }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen]);
-
-  // Sync internal view state if value changes externally
-  useEffect(() => {
-    if (mode === 'single' && value) {
-      setCurrentMonth(value.getMonth());
-      setCurrentYear(value.getFullYear());
-    } else if (mode === 'range' && rangeValue?.start) {
-      setCurrentMonth(rangeValue.start.getMonth());
-      setCurrentYear(rangeValue.start.getFullYear());
-    }
-  }, [value, rangeValue?.start, mode]);
+  }, [isOpen, value, range?.start, mode]);
 
   const handlePrevMonth = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -112,43 +124,25 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const selectedDate = new Date(currentYear, currentMonth, day);
     
     if (mode === 'single') {
-      onChange?.(selectedDate);
+      setValue(selectedDate);
       setIsOpen(false);
     } else {
-      // Range mode logic
-      if (!rangeValue) return;
-
-      if (!rangeValue.start || (rangeValue.start && rangeValue.end)) {
-        // Reset and start new range
-        onRangeChange?.({ start: selectedDate, end: null });
-      } else if (rangeValue.start && !rangeValue.end) {
-        // Selecting end
-        if (isAfter(selectedDate, rangeValue.start)) {
-          onRangeChange?.({ start: rangeValue.start, end: selectedDate });
-          // Optional: close after selecting end
-          // setIsOpen(false);
+      if (!range.start || (range.start && range.end)) {
+        setRange({ start: selectedDate, end: null });
+      } else if (range.start && !range.end) {
+        if (isAfter(selectedDate, range.start)) {
+          setRange({ start: range.start, end: selectedDate });
         } else {
-          // You clicked a date BEFORE the start date, restart range
-          onRangeChange?.({ start: selectedDate, end: null });
+          setRange({ start: selectedDate, end: null });
         }
       }
     }
   };
 
-  const handleDayEnter = (day: number) => {
-    if (mode === 'range' && rangeValue?.start && !rangeValue.end) {
-      setHoverDate(new Date(currentYear, currentMonth, day));
-    }
-  };
-
-  const handleDayLeave = () => {
-    if (mode === 'range') setHoverDate(null);
-  };
-
   const getDaysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
   const getFirstDayOfMonth = (year: number, month: number) => {
     const day = new Date(year, month, 1).getDay();
-    return day === 0 ? 6 : day - 1; // Convert Sunday=0 to Monday=0
+    return day === 0 ? 6 : day - 1;
   };
 
   const renderGrid = () => {
@@ -156,9 +150,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const firstDay = getFirstDayOfMonth(currentYear, currentMonth);
     const days = [];
 
-    // Empty previous month cells
     for (let i = 0; i < firstDay; i++) {
-      days.push(<div key={`empty-${i}`} className="mms-datepicker-day mms-datepicker-day-empty" />);
+      days.push(<div key={`empty-${i}`} className="mms-datepicker-day-empty" />);
     }
 
     const today = new Date();
@@ -167,49 +160,29 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       const iterDate = new Date(currentYear, currentMonth, day);
       const isToday = isSameDay(today, iterDate);
       
-      const wrapperClasses = ['mms-datepicker-day-wrapper'];
-      const classes = ['mms-datepicker-day'];
-      
-      if (mode === 'single') {
-        if (isSameDay(value, iterDate)) classes.push('mms-datepicker-day-selected');
-        if (isToday) classes.push('mms-datepicker-day-today');
-      } else if (mode === 'range') {
-        const isStart = isSameDay(rangeValue?.start, iterDate);
-        const isEnd = isSameDay(rangeValue?.end, iterDate);
-        
-        let inRange = false;
-        if (rangeValue?.start && rangeValue?.end) {
-          inRange = isBetween(iterDate, rangeValue.start, rangeValue.end);
-        } else if (rangeValue?.start && hoverDate) {
-          if (isAfter(hoverDate, rangeValue.start)) {
-             inRange = isBetween(iterDate, rangeValue.start, hoverDate);
-          }
-        }
-
-        if (isStart) {
-          classes.push('mms-datepicker-day-selected');
-          wrapperClasses.push('mms-datepicker-wrapper-start');
-        }
-        if (isEnd) {
-          classes.push('mms-datepicker-day-selected');
-          wrapperClasses.push('mms-datepicker-wrapper-end');
-        }
-        
-        if (isStart && !rangeValue?.end && !hoverDate) {
-           wrapperClasses.push('mms-datepicker-wrapper-alone');
-        }
-
-        if (inRange) wrapperClasses.push('mms-datepicker-wrapper-in-range');
-        if (isToday) classes.push('mms-datepicker-day-today');
-      }
+      const isSelected = mode === 'single' ? isSameDay(value, iterDate) : (isSameDay(range.start, iterDate) || isSameDay(range.end, iterDate));
+      const inRange = mode === 'range' && range.start && (range.end ? isBetween(iterDate, range.start, range.end) : (hoverDate && isBetween(iterDate, range.start, hoverDate)));
 
       days.push(
-        <div key={day} className={wrapperClasses.join(' ')}>
+        <div 
+          key={day} 
+          className={cn(
+            "mms-datepicker-day-wrapper",
+            inRange && "mms-datepicker-wrapper-in-range",
+            mode === 'range' && isSameDay(range.start, iterDate) && range.end && "mms-datepicker-wrapper-start",
+            mode === 'range' && isSameDay(range.end, iterDate) && "mms-datepicker-wrapper-end",
+            mode === 'range' && isSameDay(range.start, iterDate) && !range.end && !hoverDate && "mms-datepicker-wrapper-alone"
+          )}
+        >
           <button
-            className={classes.join(' ')}
+            className={cn(
+              "mms-datepicker-day",
+              isSelected && "mms-datepicker-day-selected",
+              isToday && "mms-datepicker-day-today"
+            )}
             onClick={(e) => { e.stopPropagation(); handleDateSelect(day); }}
-            onMouseEnter={() => handleDayEnter(day)}
-            onMouseLeave={handleDayLeave}
+            onMouseEnter={() => mode === 'range' && range.start && !range.end && setHoverDate(new Date(currentYear, currentMonth, day))}
+            onMouseLeave={() => mode === 'range' && setHoverDate(null)}
             type="button"
           >
             {day}
@@ -217,7 +190,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         </div>
       );
     }
-
     return days;
   };
 
@@ -225,54 +197,92 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     if (mode === 'single') {
       return value ? `${value.getDate()} ${MONTH_NAMES[value.getMonth()]} ${value.getFullYear()}` : '';
     } else {
-      if (!rangeValue?.start) return '';
-      const startStr = `${rangeValue.start.getDate()} ${MONTH_NAMES[rangeValue.start.getMonth()].substring(0, 3)} ${rangeValue.start.getFullYear()}`;
-      if (rangeValue.end) {
-        const endStr = `${rangeValue.end.getDate()} ${MONTH_NAMES[rangeValue.end.getMonth()].substring(0, 3)} ${rangeValue.end.getFullYear()}`;
-        return `${startStr} - ${endStr}`;
+      if (!range.start) return '';
+      const startStr = `${range.start.getDate()} ${MONTH_NAMES[range.start.getMonth()].substring(0, 3)}`;
+      if (range.end) {
+        return `${startStr} - ${range.end.getDate()} ${MONTH_NAMES[range.end.getMonth()].substring(0, 3)} ${range.end.getFullYear()}`;
       }
-      return `${startStr} - Select End`;
+      return `${startStr} - Select Date`;
     }
   };
 
   const formattedValue = getFormatString();
 
   return (
-    <div className={`mms-datepicker-container ${className}`} ref={containerRef}>
+    <div className={cn("mms-datepicker-root", className)}>
       <button
+        ref={triggerRef as any}
         type="button"
-        className={`mms-datepicker-trigger mms-datepicker-size-${size} mms-datepicker-radius-${radius}`}
+        className={cn(
+          "mms-datepicker-trigger",
+          `mms-datepicker-size-${size}`,
+          `mms-datepicker-radius-${radius}`,
+          `mms-variant-${variant}`,
+          highContrast && "mms-high-contrast"
+        )}
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
         data-state={isOpen ? 'open' : 'closed'}
       >
-        <span className={formattedValue ? '' : 'mms-datepicker-trigger-placeholder'}>
+        <span className={cn(
+          "mms-datepicker-trigger-content",
+          !formattedValue && "mms-datepicker-placeholder"
+        )}>
           {formattedValue || placeholder}
         </span>
         <RiCalendarLine className="mms-datepicker-icon" />
       </button>
 
-      {isOpen && (
-        <div className="mms-datepicker-popover">
-          <div className="mms-datepicker-header">
-            <button className="mms-datepicker-nav-btn" onClick={handlePrevMonth} type="button">
-              <RiArrowLeftSLine fontSize={20} />
-            </button>
-            <div className="mms-datepicker-title">
-              {MONTH_NAMES[currentMonth]} {currentYear}
-            </div>
-            <button className="mms-datepicker-nav-btn" onClick={handleNextMonth} type="button">
-              <RiArrowRightSLine fontSize={20} />
-            </button>
-          </div>
-          
-          <div className="mms-datepicker-grid">
-            {WEEK_DAYS.map(day => (
-              <div key={day} className="mms-datepicker-weekday">{day}</div>
-            ))}
-            {renderGrid()}
-          </div>
-        </div>
+      {isOpen && createPortal(
+        <div 
+          ref={contentRef as any}
+          className={cn(
+            "mms-datepicker-popover",
+            highContrast && "mms-high-contrast"
+          )}
+          style={{
+            position: 'absolute',
+            top: coords.top,
+            left: coords.left,
+            minWidth: coords.width,
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <PremiumBlock variant="surface" padding="none" radius="4">
+            <PremiumBlock.Header>
+              <div className="mms-datepicker-header-custom">
+                <button 
+                  type="button"
+                  className="mms-datepicker-nav-btn" 
+                  onClick={handlePrevMonth}
+                  aria-label="Previous month"
+                >
+                  <RiArrowLeftSLine />
+                </button>
+                <div className="mms-datepicker-title">
+                  {MONTH_NAMES[currentMonth]} {currentYear}
+                </div>
+                <button 
+                  type="button"
+                  className="mms-datepicker-nav-btn" 
+                  onClick={handleNextMonth}
+                  aria-label="Next month"
+                >
+                  <RiArrowRightSLine />
+                </button>
+              </div>
+            </PremiumBlock.Header>
+            <PremiumBlock.Body padding="none">
+              <div className="mms-datepicker-grid">
+                {WEEK_DAYS.map(day => (
+                  <div key={day} className="mms-datepicker-weekday">{day}</div>
+                ))}
+                {renderGrid()}
+              </div>
+            </PremiumBlock.Body>
+          </PremiumBlock>
+        </div>,
+        document.body
       )}
     </div>
   );

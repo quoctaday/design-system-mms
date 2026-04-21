@@ -1,11 +1,11 @@
 .pie-chart-example-page {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: var(--space-8);
   max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
-  padding: 40px;
+  padding: var(--space-9);
 }
 
 .pie-chart-example-page .page-header {
@@ -33,7 +33,7 @@
 .example-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 24px;
+  gap: var(--space-6);
 }
 
 .chart-card {
@@ -44,7 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 32px 0;
+  padding: var(--space-8) 0;
   min-height: 320px;
 }
 
@@ -54,9 +54,9 @@
 
 /* Documentation Styles */
 .docs-card {
-  padding: 32px;
+  padding: var(--space-8);
   background-color: var(--surface-subtle);
-  border: 1px solid var(--border-subtle);
+  border: var(--stroke-width-1) solid var(--border-subtle);
 }
 
 .docs-card h3 {
@@ -69,19 +69,19 @@
 .guidelines-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
+  gap: var(--space-9);
 }
 
 .guideline {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 .icon-wrapper {
   width: 48px;
   height: 48px;
-  border-radius: 12px;
+  border-radius: var(--radius-5);
   display: flex;
   align-items: center;
   justify-content: center;

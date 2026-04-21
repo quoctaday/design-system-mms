@@ -1,7 +1,5 @@
 import React from 'react';
-import Card from '../../components/ui/Card/Card';
-import Badge from '../../components/ui/Badge/Badge';
-import PieChart from '../../components/ui/PieChart/PieChart';
+import { Card, Badge, PieChart } from '../../components/ui';
 import { RiPieChartLine, RiDonutChartLine, RiInformationLine } from 'react-icons/ri';
 import './PieChartExample.css';
 
@@ -12,26 +10,26 @@ interface PieChartExampleProps {
 const PieChartExample: React.FC<PieChartExampleProps> = ({ onPageChange }) => {
   // Sample Data: Transaction Channels
   const channelData = [
-    { label: 'E-commerce', value: 12450, color: '#3B82F6' },
-    { label: 'QR Pay', value: 8900, color: '#10B981' },
-    { label: 'POS Terminal', value: 5600, color: '#F59E0B' },
-    { label: 'Link Payment', value: 2100, color: '#6366F1' },
+    { label: 'E-commerce', value: 12450, color: 'var(--chart-1)' },
+    { label: 'QR Pay', value: 8900, color: 'var(--chart-2)' },
+    { label: 'POS Terminal', value: 5600, color: 'var(--chart-4)' },
+    { label: 'Link Payment', value: 2100, color: 'var(--chart-5)' },
   ];
 
   // Sample Data: Regions
   const regionData = [
-    { label: 'TP. Hồ Chí Minh', value: 1560, color: '#1E293B' },
-    { label: 'Hà Nội', value: 1240, color: '#475569' },
-    { label: 'Đà Nẵng', value: 680, color: '#94A3B8' },
-    { label: 'Khác', value: 420, color: '#E2E8F0' },
+    { label: 'TP. Hồ Chí Minh', value: 1560, color: 'var(--chart-1)' },
+    { label: 'Hà Nội', value: 1240, color: 'var(--chart-2)' },
+    { label: 'Đà Nẵng', value: 680, color: 'var(--chart-10)' },
+    { label: 'Khác', value: 420, color: 'var(--chart-8)' },
   ];
 
   // Sample Data: Merchant Categories
   const categoryData = [
-    { label: 'F&B', value: 45, color: '#EC4899' },
-    { label: 'Retail', value: 30, color: '#8B5CF6' },
-    { label: 'Services', value: 15, color: '#F43F5E' },
-    { label: 'Gifts', value: 10, color: '#F97316' },
+    { label: 'F&B', value: 45, color: 'var(--chart-6)' },
+    { label: 'Retail', value: 30, color: 'var(--chart-5)' },
+    { label: 'Services', value: 15, color: 'var(--chart-9)' },
+    { label: 'Gifts', value: 10, color: 'var(--chart-8)' },
   ];
 
   return (
@@ -49,7 +47,7 @@ const PieChartExample: React.FC<PieChartExampleProps> = ({ onPageChange }) => {
         <Card 
           title="Kênh Giao dịch" 
           subtitle="Thống kê theo phương thức thanh toán"
-          headerExtra={<RiInformationLine style={{ color: '#94a3b8', cursor: 'pointer' }} />}
+          headerExtra={<RiInformationLine style={{ color: 'var(--gray-8)', cursor: 'pointer' }} />}
           className="chart-card"
         >
           <div className="chart-preview">

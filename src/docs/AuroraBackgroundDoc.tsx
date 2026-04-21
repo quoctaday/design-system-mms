@@ -1,6 +1,7 @@
 import React from 'react';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { AuroraBackground } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 import { motion } from 'framer-motion';
@@ -25,9 +26,9 @@ const AuroraBackgroundDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="usage" className="doc-section">
-        <h2>Usage</h2>
-        <p>Use the Aurora Background to create a premium, atmospheric feel for hero sections or landing pages.</p>
+      <DocSection id="usage">
+        <DocHeading>Usage</DocHeading>
+        <DocText>Use the Aurora Background to create a premium, atmospheric feel for hero sections or landing pages.</DocText>
         <CodePreview
           code={`<AuroraBackground>
   <div className="text-white text-center">
@@ -64,11 +65,11 @@ const AuroraBackgroundDoc: React.FC = () => {
             </AuroraBackground>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="radial-gradient" className="doc-section">
-        <h2>Radial Gradient</h2>
-        <p>You can disable the radial mask to let the aurora effect fill the entire container.</p>
+      <DocSection id="radial-gradient">
+        <DocHeading>Radial Gradient</DocHeading>
+        <DocText>You can disable the radial mask to let the aurora effect fill the entire container.</DocText>
         <CodePreview
           code={`<AuroraBackground showRadialGradient={false}>
   {/* Content */}
@@ -76,16 +77,16 @@ const AuroraBackgroundDoc: React.FC = () => {
         >
           <div style={{ height: '300px', width: '100%', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
             <AuroraBackground showRadialGradient={false}>
-               <p style={{ fontWeight: 600, color: 'var(--content-strong)' }}>Fully Filled Background</p>
+               <DocText className="font-bold text-gray-12">Fully Filled Background</DocText>
             </AuroraBackground>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={auroraProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

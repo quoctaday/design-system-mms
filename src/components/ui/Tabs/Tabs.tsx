@@ -1,5 +1,7 @@
-import React, { createContext, useContext, useState, useRef, useLayoutEffect, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, useRef, useLayoutEffect, useCallback, useMemo, useEffect } from 'react';
 import { cn } from '../../../lib/utils';
+import { useControllableState, useKeyboardListNav } from '../../../lib/mms-engine';
+import { extractMMSProps } from '../../../helpers/extract-mms-props';
 import './Tabs.css';
 
 export type TabsVariant = 'classic' | 'surface';
@@ -9,86 +11,92 @@ interface TabsContextProps {
   setActiveTab: (value: string) => void;
   variant: TabsVariant;
   size: '1' | '2';
-  radius: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
-  listRef: React.RefObject<HTMLDivElement>;
-  registerTrigger: (value: string, element: HTMLButtonElement) => void;
+  radius: string;
+  listRef: React.RefObject<HTMLDivElement | null>;
+  registerItem: (value: string) => () => void;
+  highlightedIndex: number;
 }
 
 const TabsContext = createContext<TabsContextProps | undefined>(undefined);
 
 function useTabs() {
   const context = useContext(TabsContext);
-  if (!context) {
-    throw new Error('Tabs components must be used within a Tabs.Root');
-  }
+  if (!context) throw new Error('Tabs components must be used within a Tabs.Root');
   return context;
 }
 
-/* ─────────────────────────────────────────────────────────
- * 1. Tabs.Root
- * ───────────────────────────────────────────────────────── */
-
+// --- Root ---
 export interface TabsRootProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
   defaultValue?: string;
   variant?: TabsVariant;
   size?: '1' | '2';
-  radius?: 'none' | '1' | '2' | '3' | '4' | '5' | '6' | 'full';
+  radius?: 'none' | 'small' | 'medium' | 'large' | 'full';
   onValueChange?: (value: string) => void;
 }
 
-const TabsRoot = ({ 
-  value,
-  defaultValue, 
-  variant = 'classic', 
-  size = '2',
-  radius = '4',
-  onValueChange, 
-  className, 
-  children, 
-  ...props 
-}: TabsRootProps) => {
-  const [internalTab, setInternalTab] = useState(defaultValue || value || '');
-  const activeTab = value !== undefined ? value : internalTab;
+const TabsRoot: React.FC<TabsRootProps> = (props) => {
+  const { 
+    value: propValue, 
+    defaultValue, 
+    onValueChange, 
+    className, 
+    children, 
+    ...mmsBase 
+  } = props;
+
+  const [activeTab, setActiveTab] = useControllableState({ 
+    prop: propValue, 
+    defaultProp: defaultValue, 
+    onChange: onValueChange 
+  });
+
+  const { mmsClasses, size, variant, radius } = extractMMSProps(mmsBase as any, 'tabs', { size: '2', variant: 'classic', radius: 'medium' });
+  
   const listRef = useRef<HTMLDivElement>(null);
-  const triggersMap = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const [items, setItems] = useState<string[]>([]);
+  
+  const registerItem = useCallback((val: string) => {
+    setItems(prev => [...prev, val]);
+    return () => setItems(prev => prev.filter(i => i !== val));
+  }, []);
 
-  const setActiveTab = (newValue: string) => {
-    if (value === undefined) {
-      setInternalTab(newValue);
-    }
-    onValueChange?.(newValue);
-  };
+  const { highlightedIndex, handleKeyDown } = useKeyboardListNav({
+    items,
+    active: true,
+    orientation: 'horizontal',
+    onSelect: (val) => setActiveTab(val)
+  });
 
-  const registerTrigger = (val: string, el: HTMLButtonElement) => {
-    if (el) triggersMap.current.set(val, el);
-    else triggersMap.current.delete(val);
-  };
+  const contextValue = useMemo(() => ({
+    activeTab: activeTab || '',
+    setActiveTab,
+    variant: variant as any,
+    size: size as any,
+    radius: radius as any,
+    listRef,
+    registerItem,
+    highlightedIndex,
+    items
+  }), [activeTab, setActiveTab, variant, size, radius, highlightedIndex, registerItem, items]);
 
   return (
-    <TabsContext.Provider value={{ 
-      activeTab, 
-      setActiveTab, 
-      variant, 
-      size, 
-      radius, 
-      listRef, 
-      registerTrigger 
-    }}>
-      <div className={cn('mms-tabs-root', className)} {...props}>
+    <TabsContext.Provider value={contextValue}>
+      <div 
+        className={cn('mms-tabs-root', className)} 
+        onKeyDown={handleKeyDown}
+        {...mmsBase}
+      >
         {children}
       </div>
     </TabsContext.Provider>
   );
 };
 
-/* ─────────────────────────────────────────────────────────
- * 2. Tabs.List
- * ───────────────────────────────────────────────────────── */
-
+// --- List ---
 export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const TabsList = ({ className, children, ...props }: TabsListProps) => {
+export const TabsList = ({ className, children, ...props }: TabsListProps) => {
   const { variant, size, radius, activeTab, listRef } = useTabs();
   const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({ opacity: 0 });
 
@@ -104,10 +112,11 @@ const TabsList = ({ className, children, ...props }: TabsListProps) => {
         opacity: 1
       });
     }
-  }, [activeTab]);
+  }, [activeTab, listRef]);
 
   return (
     <div 
+      ref={(node) => { (listRef as any).current = node; }}
       className={cn(
         'mms-tabs-list', 
         `mms-tabs-list-size-${size}`,
@@ -115,7 +124,6 @@ const TabsList = ({ className, children, ...props }: TabsListProps) => {
         className
       )} 
       data-variant={variant}
-      ref={listRef}
       {...props}
     >
       <div 
@@ -128,54 +136,52 @@ const TabsList = ({ className, children, ...props }: TabsListProps) => {
   );
 };
 
-/* ─────────────────────────────────────────────────────────
- * 3. Tabs.Trigger
- * ───────────────────────────────────────────────────────── */
-
+// --- Trigger ---
 export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
 }
 
-const TabsTrigger = ({ value, className, children, ...props }: TabsTriggerProps) => {
-  const { activeTab, setActiveTab, size, radius, registerTrigger } = useTabs();
+export const TabsTrigger = ({ value, className, children, ...props }: TabsTriggerProps) => {
+  const { activeTab, setActiveTab, size, radius, registerItem, highlightedIndex, items } = useTabs();
   const isActive = activeTab === value;
+  
+  useEffect(() => registerItem(value), [value, registerItem]);
 
-  const triggerRef = useRef<HTMLButtonElement>(null);
-
-  useLayoutEffect(() => {
-    if (triggerRef.current) {
-      registerTrigger(value, triggerRef.current);
-    }
-  }, [value]);
+  const index = items.indexOf(value);
+  const isHighlighted = highlightedIndex === index;
 
   return (
     <button
-      ref={triggerRef}
       type="button"
       className={cn(
         'mms-tabs-trigger',
         `mms-tabs-trigger-size-${size}`,
         `mms-tabs-trigger-radius-${radius}`,
+        isHighlighted && 'mms-tabs-trigger-highlighted',
         className
       )}
+      role="tab"
+      aria-selected={isActive}
       data-state={isActive ? 'active' : 'inactive'}
       onClick={() => setActiveTab(value)}
       {...props}
     >
-      <span className="mms-tabs-trigger-inner">{children}</span>
+      <span className="mms-tabs-trigger-inner" aria-hidden={isActive ? undefined : true}>
+        {children}
+      </span>
+      <span className="mms-tabs-trigger-inner-hidden" aria-hidden="true">
+        {children}
+      </span>
     </button>
   );
 };
 
-/* ─────────────────────────────────────────────────────────
- * 4. Tabs.Content
- * ───────────────────────────────────────────────────────── */
-
+// --- Content ---
 export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
 }
 
-const TabsContent = ({ value, className, children, ...props }: TabsContentProps) => {
+export const TabsContent = ({ value, className, children, ...props }: TabsContentProps) => {
   const { activeTab } = useTabs();
   const isActive = activeTab === value;
 
@@ -194,16 +200,11 @@ const TabsContent = ({ value, className, children, ...props }: TabsContentProps)
   );
 };
 
-// Compound Component Export
-export interface TabsComponentType extends React.FC<TabsRootProps> {
-  List: typeof TabsList;
-  Trigger: typeof TabsTrigger;
-  Content: typeof TabsContent;
-}
-
-export const Tabs = TabsRoot as TabsComponentType;
-Tabs.List = TabsList;
-Tabs.Trigger = TabsTrigger;
-Tabs.Content = TabsContent;
+export const Tabs = Object.assign(TabsRoot, {
+  Root: TabsRoot,
+  List: TabsList,
+  Trigger: TabsTrigger,
+  Content: TabsContent,
+});
 
 export default Tabs;

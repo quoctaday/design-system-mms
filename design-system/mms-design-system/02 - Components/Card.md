@@ -25,6 +25,7 @@ The `Card` is the fundamental layout container for grouping related content, act
 - Every dashboard widget should be wrapped in at least a `Card` or a specialized `MetricCard`.
 - Use `headerExtra` for secondary actions like "View All" or "Filter".
 - Maintain a consistent `padding="md"` unless space is extremely limited.
+- **Bulletproof Isolation**: Semantic tags (`h3`, `p`) use `margin: 0 !important` to ensure no layout leakage from global document styles.
 
 ---
 **Related:** [[01 - Foundations/Widgets|Widgets Hub]] • [[02 - Components/MetricCard|MetricCard]] • [[02 - Components/Table|Table]]

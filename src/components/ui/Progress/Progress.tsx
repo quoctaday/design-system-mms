@@ -10,7 +10,7 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   showLabel?: boolean;
 }
 
-const Progress: React.FC<ProgressProps> = ({
+export const Progress: React.FC<ProgressProps> = ({
   value = 0,
   max = 100,
   variant = 'brand',
@@ -43,5 +43,7 @@ const Progress: React.FC<ProgressProps> = ({
     </div>
   );
 };
+
+Progress.displayName = 'Progress';
 
 export default Progress;

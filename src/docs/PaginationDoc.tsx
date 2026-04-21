@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Pagination } from '../components/ui';
 import { DocLayout } from '../components/docs/DocLayout';
-import { AuroraBackground } from '../components/ui/AuroraBackground/AuroraBackground';
+import { DocSection, DocHeading, DocText } from '../components/docs/DocPrimitives';
+import { AuroraBackground } from '../components/ui';
 import { CodePreview } from '../components/docs/CodePreview';
 import { PropsTable } from '../components/docs/PropsTable';
 
@@ -32,9 +33,9 @@ const PaginationDoc: React.FC = () => {
       headerBackground={<AuroraBackground />}
       toc={toc}
     >
-      <section id="interactive" className="doc-section">
-        <h2>Interactive Demo</h2>
-        <p>Try switching pages to see how the ellipsis (...) logic works dynamicly.</p>
+      <DocSection id="interactive">
+        <DocHeading>Interactive Demo</DocHeading>
+        <DocText>Try switching pages to see how the ellipsis (...) logic works dynamicly.</DocText>
         <CodePreview
           code={`<Pagination 
   currentPage={currentPage}
@@ -55,11 +56,11 @@ const PaginationDoc: React.FC = () => {
             </div>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="small-range" className="doc-section">
-        <h2>Small Range</h2>
-        <p>Pagination without ellipsis when total pages are few.</p>
+      <DocSection id="small-range">
+        <DocHeading>Small Range</DocHeading>
+        <DocText>Pagination without ellipsis when total pages are few.</DocText>
         <CodePreview
           code={`<Pagination 
   currentPage={currentPage}
@@ -77,11 +78,11 @@ const PaginationDoc: React.FC = () => {
             />
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="sizes" className="doc-section">
-        <h2>Sizes</h2>
-        <p>Available in small (size 1) and medium (size 2) compact modes.</p>
+      <DocSection id="sizes">
+        <DocHeading>Sizes</DocHeading>
+        <DocText>Available in small (size 1) and medium (size 2) compact modes.</DocText>
         <CodePreview
           code={`<Pagination size="1" currentPage={1} totalCount={50} />
 <Pagination size="2" currentPage={1} totalCount={50} />`}
@@ -109,12 +110,12 @@ const PaginationDoc: React.FC = () => {
             </div>
           </div>
         </CodePreview>
-      </section>
+      </DocSection>
 
-      <section id="api" className="doc-section">
-        <h2>API Reference</h2>
+      <DocSection id="api">
+        <DocHeading>API Reference</DocHeading>
         <PropsTable props={paginationProps} />
-      </section>
+      </DocSection>
     </DocLayout>
   );
 };

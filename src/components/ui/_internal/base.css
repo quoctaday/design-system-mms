@@ -18,15 +18,25 @@
 .mms-focus-halo:focus-visible {
   box-shadow: 
     0 0 0 calc(var(--space-1) / 2) var(--surface-panel), /* Inner spacer */
-    0 0 0 var(--space-1) var(--brand-a3),     /* Outer halo */
-    0 0 0 var(--stroke-width-1) var(--brand-9);      /* Sharp ring */
+    0 0 0 var(--space-1) var(--accent-a3),     /* Outer halo */
+    0 0 0 var(--stroke-width-1) var(--accent-9);      /* Sharp ring */
 }
 
 /* Variant-aware halos */
+.mms-focus-halo-brand:focus-visible   { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--accent-a3), 0 0 0 var(--stroke-width-1) var(--accent-9); }
 .mms-focus-halo-success:focus-visible { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--success-a3), 0 0 0 var(--stroke-width-1) var(--success-9); }
 .mms-focus-halo-error:focus-visible   { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--error-a3), 0 0 0 var(--stroke-width-1) var(--error-9); }
 .mms-focus-halo-warning:focus-visible { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--warning-a3), 0 0 0 var(--stroke-width-1) var(--warning-9); }
 .mms-focus-halo-gray:focus-visible    { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--gray-a3), 0 0 0 var(--stroke-width-1) var(--gray-9); }
+.mms-focus-halo-secondary:focus-visible { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--gray-a3), 0 0 0 var(--stroke-width-1) var(--gray-9); }
+.mms-focus-halo-black:focus-visible   { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--black-a3), 0 0 0 var(--stroke-width-1) var(--black); }
+.mms-focus-halo-orange:focus-visible  { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--orange-a3), 0 0 0 var(--stroke-width-1) var(--orange-9); }
+.mms-focus-halo-blue:focus-visible    { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--blue-a3), 0 0 0 var(--stroke-width-1) var(--blue-9); }
+.mms-focus-halo-purple:focus-visible  { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--purple-a3), 0 0 0 var(--stroke-width-1) var(--purple-9); }
+.mms-focus-halo-sky:focus-visible     { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--sky-a3), 0 0 0 var(--stroke-width-1) var(--sky-9); }
+.mms-focus-halo-pink:focus-visible    { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--pink-a3), 0 0 0 var(--stroke-width-1) var(--pink-9); }
+.mms-focus-halo-teal:focus-visible    { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--teal-a3), 0 0 0 var(--stroke-width-1) var(--teal-9); }
+.mms-focus-halo-lime:focus-visible    { box-shadow: 0 0 0 calc(var(--space-1) / 2) var(--surface-panel), 0 0 0 var(--space-1) var(--lime-a3), 0 0 0 var(--stroke-width-1) var(--lime-9); }
 
 /**
  * 2. INTERACTIVE OVERLAYS
